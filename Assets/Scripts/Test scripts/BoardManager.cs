@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Tilemaps;
+using UnityEngine.U2D;
+using UnityEngine.UIElements;
 using UnityEngine.WSA;
+using System.Linq;
+
+
 
 public class BoardManager : MonoBehaviour
 {
@@ -15,14 +21,87 @@ public class BoardManager : MonoBehaviour
     public Dictionary<Vector3Int, TileClass> TilesDictionary = new Dictionary<Vector3Int, TileClass>();
     private List<TileClass.ResourceType> ResourcesList = new List<TileClass.ResourceType>();
     private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
+    private Dictionary<Vector3, HexCornersClass> CornersDic = new Dictionary<Vector3, HexCornersClass>();
+    public GameObject randomprefab;
+
+
+
+    // the holy resouce dic, (wood, brick, sheep, ore, wheat)
+    Dictionary<int, List<int>> ResourceDic = new Dictionary<int, List<int>>
+{
+    {1, new List<int> {0, 0, 0, 0, 0}},
+    {2, new List<int> {0, 0, 0, 0, 0}},
+    {3, new List<int> {0, 0, 0, 0, 0}},
+    {4, new List<int> {0, 0, 0, 0, 0}},
+    {5, new List<int> {0, 0, 0, 0, 0}},
+    {6, new List<int> {0, 0, 0, 0, 0}},
+    {7, new List<int> {0, 0, 0, 0, 0}},
+    {8, new List<int> {0, 0, 0, 0, 0}},
+    {9, new List<int> {0, 0, 0, 0, 0}},
+    {10, new List<int> {0, 0, 0, 0, 0}},
+    {11, new List<int> {0, 0, 0, 0, 0}},
+    {12, new List<int> {0, 0, 0, 0, 0}}
+};
 
 
     void Start()
     {
         GenerateResourceList();
         InitializeTiles();
+        UpdateCornerData();
         UpdateVisualRepresentation();
+
+        var elementAtIndex = CornersDic.ElementAt(1);
+        var value = elementAtIndex.Value;
+        var key = elementAtIndex.Key;
+
+
+
+        ChangeResoucesDic(ResourceDic, value);
+
+        Instantiate(randomprefab, key, Quaternion.identity);
+
     }
+
+
+    private void ChangeResoucesDic(Dictionary<int, List<int>> dic, HexCornersClass Corner )
+    {
+        foreach (var hex in Corner.AdjacentTiles)
+        {
+           int HexNumber = hex.numberToken;
+           var ResourceType = hex.resourceType;
+
+
+            switch (ResourceType)
+            {
+                case TileClass.ResourceType.Wood:
+                    ResourceDic[HexNumber][0] += 1;
+                    break;
+                case TileClass.ResourceType.Brick:
+                    ResourceDic[HexNumber][1] += 1;
+                    break;
+                case TileClass.ResourceType.Wheat:
+                    ResourceDic[HexNumber][2] += 1;
+                    break;
+                case TileClass.ResourceType.Ore:
+                    ResourceDic[HexNumber][3] += 1;
+                    break;
+                case TileClass.ResourceType.Sheep:
+                    ResourceDic[HexNumber][4] += 1;
+                    break;
+                default:
+                    break; 
+            }
+        }
+
+        foreach (KeyValuePair<int, List<int>> kvp in ResourceDic)
+        {
+            Debug.Log($"Key: {kvp.Key}, Values: {string.Join(", ", kvp.Value)}");
+        }
+
+    }
+
+
 
 
     void GenerateResourceList()
@@ -140,25 +219,45 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-
-
-    public void ChangeResourceType(TileClass.ResourceType fromType, TileClass.ResourceType toType)
+    public void UpdateCornerData()
     {
-        foreach (KeyValuePair<Vector3Int, TileClass> tileEntry in TilesDictionary)
+
+
+        foreach (var tilePair in TilesDictionary)
         {
-            if (tileEntry.Value.resourceType == fromType)
+            Vector3Int position = tilePair.Key;
+            TileClass tile = tilePair.Value;
+
+            var CornerPositions = GetCornerPositionsForTile(tile, position);
+
+            foreach (var cornerPos in CornerPositions)
             {
-                tileEntry.Value.resourceType = toType;
+                if (!CornersDic.ContainsKey(cornerPos))
+                {
+                    CornersDic[cornerPos] = new HexCornersClass(cornerPos);
+                }
+
+                CornersDic[cornerPos].AdjacentTiles.Add(tile);
             }
+
+        }
+    }
+
+    public List<Vector3> GetCornerPositionsForTile(TileClass tile, Vector3 HexCenterPostion)
+    {
+        List<Vector3> corners = new List<Vector3>();
+        float radius = 1.0f; // Radius of your hex tile, adjust based on your game's scale
+
+        for (int i = 0; i < 6; i++)
+        {
+            float angleDeg = 60 * i + 30; // Offset by 30 degrees for pointy-topped hexes
+            float angleRad = Mathf.Deg2Rad * angleDeg;
+            Vector3 cornerPos = new Vector3(HexCenterPostion.x + radius * Mathf.Cos(angleRad), HexCenterPostion.y + radius * Mathf.Sin(angleRad), HexCenterPostion.z);
+            corners.Add(cornerPos);
         }
 
-        // Optionally, update the visual representation if needed
-        UpdateVisualRepresentation();
+        return corners;
     }
 
 
-    public void test() 
-    {
-        ChangeResourceType(TileClass.ResourceType.Wood, TileClass.ResourceType.Brick);
-    }
 }
