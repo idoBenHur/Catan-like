@@ -12,7 +12,7 @@ public class BoardManager : MonoBehaviour
     public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
 
-    private Dictionary<Vector3Int, TileClass> TilesDictionary = new Dictionary<Vector3Int, TileClass>();
+    public Dictionary<Vector3Int, TileClass> TilesDictionary = new Dictionary<Vector3Int, TileClass>();
     private List<TileClass.ResourceType> ResourcesList = new List<TileClass.ResourceType>();
     private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
 

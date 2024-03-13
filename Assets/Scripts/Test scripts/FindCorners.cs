@@ -7,9 +7,8 @@ using UnityEngine.WSA;
 public class FindCorners : MonoBehaviour
 {
     public Tilemap tilemap;
-    Dictionary<Vector3, HexCornersClass> corners = new Dictionary<Vector3, HexCornersClass>();
-    public List<TileClass> AdjacentTiles { get; set; } = new List<TileClass>();
-
+    Dictionary<Vector3, HexCornersClass> CornersDic = new Dictionary<Vector3, HexCornersClass>();
+    private BoardManager boardManager;
 
 
 
@@ -24,79 +23,48 @@ public class FindCorners : MonoBehaviour
     public void FindCenterOfHexes()
     {
 
-        Vector3Int minTile = tilemap.cellBounds.min;
-        Vector3Int maxTile = tilemap.cellBounds.max;
+        boardManager = FindAnyObjectByType<BoardManager>();
+        var tiles = boardManager.TilesDictionary;
 
-
-
-        for (int x = minTile.x; x < maxTile.x; x++)
+        foreach (var tilePair in tiles)
         {
+            Vector3Int position = tilePair.Key;
+            TileClass tile = tilePair.Value;
 
-            for (int y = minTile.y; y < maxTile.y; y++)
+           var CornerPositions = GetCornerPositionsForTile(tile, position);
+
+            foreach (var cornerPos in CornerPositions)
             {
-
-                Vector3Int GridPosition = new Vector3Int(x, y, (int)tilemap.transform.position.z);
-                Vector3 WorldPostion = tilemap.CellToWorld(GridPosition);
-
-
-
-                if (tilemap.HasTile(GridPosition))
+                if (!CornersDic.ContainsKey(cornerPos))
                 {
-                    FindCornersOfHex(WorldPostion,GridPosition);
+                    CornersDic[cornerPos] = new HexCornersClass(cornerPos);
                 }
+
+                CornersDic[cornerPos].AdjacentTiles.Add(tile);
             }
+
         }
     }
 
 
 
-
-    void FindCornersOfHex(Vector3 HexCenter, Vector3Int TileGridPostion)
+    public List<Vector3> GetCornerPositionsForTile(TileClass tile, Vector3 HexCenterPostion)
     {
-
-        
-        float tilemapScale = tilemap.transform.localScale.x;
-        float size = (tilemap.cellSize.x * tilemapScale) / Mathf.Sqrt(3);
+        List<Vector3> corners = new List<Vector3>();
+        float radius = 1.0f; // Radius of your hex tile, adjust based on your game's scale
 
         for (int i = 0; i < 6; i++)
         {
-            float angle_deg = 60 * i + 30;
-            float angle_rad = Mathf.PI / 180 * angle_deg;
-            Vector3 cornerPos = new Vector3(HexCenter.x + size * Mathf.Cos(angle_rad), HexCenter.y + size * Mathf.Sin(angle_rad), HexCenter.z);
-
-            Vector3 roundedCornerPos = RoundVector3(cornerPos, 2); // rounding the postion. 
-
-
-            if (!corners.ContainsKey(roundedCornerPos))  //If this cornner postion is not already in the list, continue (and add it to the list)
-            {
-                corners[roundedCornerPos] = new HexCornersClass(roundedCornerPos);
-
-
-            }
-            corners[roundedCornerPos].AdjacentTiles.Add(TileGridPostion);
-
-
+            float angleDeg = 60 * i + 30; // Offset by 30 degrees for pointy-topped hexes
+            float angleRad = Mathf.Deg2Rad * angleDeg;
+            Vector3 cornerPos = new Vector3(HexCenterPostion.x + radius * Mathf.Cos(angleRad), HexCenterPostion.y + radius * Mathf.Sin(angleRad), HexCenterPostion.z);
+            corners.Add(cornerPos);
         }
 
-
+        return corners;
     }
 
 
 
-
-
-
-
-
-
-    Vector3 RoundVector3(Vector3 vector, int decimalPlaces)
-    {
-        float multiplier = Mathf.Pow(10.0f, decimalPlaces);
-        return new Vector3(
-            Mathf.Round(vector.x * multiplier) / multiplier,
-            Mathf.Round(vector.y * multiplier) / multiplier,
-            Mathf.Round(vector.z * multiplier) / multiplier
-        );
-    }
 
 }
