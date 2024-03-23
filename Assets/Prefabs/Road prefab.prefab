@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3694540549687393739
+--- !u!1 &6665533023127773880
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1750942668776121237}
-  - component: {fileID: 867515780698568622}
-  - component: {fileID: 4293338164602743894}
-  - component: {fileID: 3858465885918872904}
+  - component: {fileID: 8214218304446373422}
+  - component: {fileID: 2956522642934326615}
+  - component: {fileID: 4727790367457967219}
   m_Layer: 0
-  m_Name: road indicator 1
+  m_Name: Road prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1750942668776121237
+--- !u!4 &8214218304446373422
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3694540549687393739}
+  m_GameObject: {fileID: 6665533023127773880}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.66, y: 0.24022743, z: 1}
+  m_LocalScale: {x: 0.66, y: 0.11, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &867515780698568622
+--- !u!212 &2956522642934326615
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3694540549687393739}
+  m_GameObject: {fileID: 6665533023127773880}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.91845626, g: 0.9811321, b: 0.18974723, a: 1}
+  m_Color: {r: 0.98039216, g: 0.18823527, b: 0.70611686, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,25 +85,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4293338164602743894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3694540549687393739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab3247e7aea04cc43887c69f32474ec2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!61 &3858465885918872904
+--- !u!61 &4727790367457967219
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3694540549687393739}
+  m_GameObject: {fileID: 6665533023127773880}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -141,5 +128,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.7758956}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0

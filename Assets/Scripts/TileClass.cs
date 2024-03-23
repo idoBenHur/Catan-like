@@ -5,12 +5,16 @@ using UnityEngine;
 public class TileClass
 {
     // Enum for resource types available in the game
-    public enum ResourceType { Wood, Brick, Wheat, Ore, Sheep, Desert }
+    public enum ResourceType { Wood, Brick, Sheep, Ore, Wheat, Desert}
 
     // Public properties
     public ResourceType resourceType { get; set; } // The type of resource this tile produces
     public int numberToken { get; private set; } // The number token associated with this tile for resource distribution
     public bool hasRobber { get; private set; } // Indicates if the robber is on this tile
+
+    public List<CornersClass> AdjacentCorners { get; set; } = new List<CornersClass>();
+    public List<SidesClass> AdjacentSides { get; set; } = new List<SidesClass>(); 
+
 
     // Constructor to initialize the tile with specific properties
     public TileClass(ResourceType resourceType, int numberToken, bool hasRobber = false)

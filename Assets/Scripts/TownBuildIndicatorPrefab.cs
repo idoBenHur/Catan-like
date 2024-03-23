@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildIndicator : MonoBehaviour
+public class TownBuildIndicatorPrefab : MonoBehaviour
 {
     private Vector3 cornerPosition;
 
@@ -18,6 +18,6 @@ public class BuildIndicator : MonoBehaviour
 
         BoardManager.instance.BuildSettlementAt(cornerPosition);
         //FindObjectOfType<BoardManager>().BuildSettlementAt(cornerPosition);
-        Destroy(gameObject); // Remove the indicator after building
+        //Destroy(gameObject); // Remove the indicator after building
     }
 }

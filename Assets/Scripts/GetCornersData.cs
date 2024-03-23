@@ -7,7 +7,7 @@ using UnityEngine.WSA;
 public class GetCornersData : MonoBehaviour
 {
     public Tilemap tilemap;
-    Dictionary<Vector3, HexCornersClass> CornersDic = new Dictionary<Vector3, HexCornersClass>();
+    Dictionary<Vector3, CornersClass> CornersDic = new Dictionary<Vector3, CornersClass>();
     private BoardManager boardManager;
 
 
@@ -40,7 +40,7 @@ public class GetCornersData : MonoBehaviour
             {
                 if (!CornersDic.ContainsKey(cornerPos))
                 {
-                    CornersDic[cornerPos] = new HexCornersClass(cornerPos);
+                    CornersDic[cornerPos] = new CornersClass(cornerPos);
                 }
 
                 CornersDic[cornerPos].AdjacentTiles.Add(tile);
