@@ -28,29 +28,52 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private Button tradeButton;
 
-        // Buttons for offering resources
     [SerializeField] private Toggle offerWoodToggle;
     [SerializeField] private Toggle offerBrickToggle;
     [SerializeField] private Toggle offerSheepToggle;
     [SerializeField] private Toggle offerOreToggle;
     [SerializeField] private Toggle offerWheatToggle;
 
-        // Buttons for requesting resources
     [SerializeField] private Toggle requestWoodToggle;
     [SerializeField] private Toggle requestBrickToggle;
     [SerializeField] private Toggle requestSheepToggle;
     [SerializeField] private Toggle requestOreToggle;
     [SerializeField] private Toggle requestWheatToggle;
+    
+
+    // pay robber buttons
+    [SerializeField] private Button PayRobberWoodButton;
+    [SerializeField] private Button PayRobberBrickButton;
+    [SerializeField] private Button PayRobberSheepButton;
+    [SerializeField] private Button PayRobberOreButton;
+    [SerializeField] private Button PayRobberWheatButton;
+
+    private RobberPrefab selectedRobber;
+    [SerializeField] private GameObject PayRobberUiPannel;
 
 
 
+    public static UiManager UIinstance;
 
 
+    private void Awake()
+    {
+        if (UIinstance == null)
+        {
+            UIinstance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+
+    }
 
 
     private void Start()
     {
-        SetupToggleListeners();
+        SetupButtonListeners();
     }
 
     public void SetPlayerInUIManager(PlayerClass playerInstance)
@@ -143,8 +166,11 @@ public class UiManager : MonoBehaviour
 
 
 
-    private void SetupToggleListeners()
+    private void SetupButtonListeners()
     {
+
+        // trade with bank toggels:
+
         offerWoodToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Wood, offerWoodToggle));
         offerBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Brick, offerBrickToggle));
         offerSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Sheep, offerSheepToggle));
@@ -156,6 +182,15 @@ public class UiManager : MonoBehaviour
         requestSheepToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Sheep, requestSheepToggle));
         requestOreToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Ore, requestOreToggle));
         requestWheatToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Wheat, requestWheatToggle));
+
+
+        // pay robber buttons:
+
+        PayRobberWoodButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Wood));
+        PayRobberBrickButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Brick));
+        PayRobberSheepButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Sheep));
+        PayRobberOreButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Ore));
+        PayRobberWheatButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Wheat));
     }
 
 
@@ -226,7 +261,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void ExecuteTrade() // called by button pressed
+    public void ExecuteTradeButton() // called by button pressed
     {
 
         if (offerType.HasValue && requestType.HasValue && player.CanTradeWithBank(offerType.Value))
@@ -237,4 +272,56 @@ public class UiManager : MonoBehaviour
         }
 
     }
+
+
+
+
+
+
+
+
+    public void RobberInteraction(RobberPrefab robber)
+    {
+
+
+
+        if (PayRobberUiPannel.activeSelf == true)
+        {
+            PayRobberUiPannel.SetActive(false);
+            return;
+        }
+
+       
+        
+        selectedRobber = robber;
+        bool isInteracting = robber;
+
+
+        PayRobberUiPannel.SetActive(isInteracting);
+
+
+        if (isInteracting)
+        {
+            PayRobberWoodButton.interactable = player.PlayerResources[ResourceType.Wood] >= 4;
+            PayRobberBrickButton.interactable = player.PlayerResources[ResourceType.Brick] >= 4;
+            PayRobberSheepButton.interactable = player.PlayerResources[ResourceType.Sheep] >= 4;
+            PayRobberOreButton.interactable = player.PlayerResources[ResourceType.Ore] >= 4;
+            PayRobberWheatButton.interactable = player.PlayerResources[ResourceType.Wheat] >= 4;
+
+        }
+        
+    }
+
+
+
+
+
+    private void CallRemoveRobber(ResourceType resourceType)
+    {
+        PayRobberUiPannel.SetActive(false);
+        BoardManager.instance.RemoveRobber(selectedRobber, resourceType);
+//        RobberInteraction(null);
+
+    }
+
 }

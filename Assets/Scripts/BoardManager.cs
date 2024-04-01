@@ -28,6 +28,7 @@ public class BoardManager : MonoBehaviour
     public GameObject CornerIndicatorPrefab;
     public GameObject SideIndicatorPrefab;
     public GameObject testprefab;
+    public RobberPrefab robberPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
 
@@ -40,20 +41,7 @@ public class BoardManager : MonoBehaviour
     public Dictionary<Vector3, SidesClass> SidesDic = new Dictionary<Vector3, SidesClass>();
 
 
-    // the holy resouce dic, (wood, brick, sheep, ore, wheat)
-    Dictionary<int, List<int>> ResourcePerRollDic = new Dictionary<int, List<int>>
-{
-    {2, new List<int> {0, 0, 0, 0, 0}},
-    {3, new List<int> {0, 0, 0, 0, 0}},
-    {4, new List<int> {0, 0, 0, 0, 0}},
-    {5, new List<int> {0, 0, 0, 0, 0}},
-    {6, new List<int> {0, 0, 0, 0, 0}},
-    {8, new List<int> {0, 0, 0, 0, 0}},
-    {9, new List<int> {0, 0, 0, 0, 0}},
-    {10, new List<int> {0, 0, 0, 0, 0}},
-    {11, new List<int> {0, 0, 0, 0, 0}},
-    {12, new List<int> {0, 0, 0, 0, 0}}
-};
+
 
     private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
 
@@ -139,20 +127,7 @@ public class BoardManager : MonoBehaviour
         uiManager.UpdateDiceRollDisplay(total);
     }
 
-    private void GetResourcesForDiceRoll(int diceResult)
-    {
-        if (ResourcePerRollDic.TryGetValue(diceResult, out List<int> ResourcesListFromDic))
-        {
-            // Assuming ResourceType enum values are ordered as Wood, Brick, Sheep, Ore, Wheat
-            for (int i = 0; i < ResourcesListFromDic.Count; i++)
-            {
-                if (ResourcesListFromDic[i] > 0)
-                {
-                    player.AddResource((ResourceType)i, ResourcesListFromDic[i]);
-                }
-            }
-        }
-    }
+
 
 
     private void DistributeResources(int DiceResult)
@@ -160,38 +135,94 @@ public class BoardManager : MonoBehaviour
 
         if (DiceResult == 7)
         {
-            Debug.Log("7");
+            ChooseRobberTile();
         }
 
         else
         {
             foreach (var tile in TilesDictionary.Values)
             {
-                if (tile.numberToken == DiceResult && tile.hasRobber == false)
+                if (tile.numberToken == DiceResult)
                 {
                     foreach(var Corner in tile.AdjacentCorners)
                     {
-                        if(Corner.HasSettlement == true)
+                        if(Corner.HasSettlement == true && tile.hasRobber == false)
                         {
 
                             player.AddResource(tile.resourceType, 1);
 
                         }
+                        else if(Corner.HasSettlement == true && tile.hasRobber == true)
+                        {
+                            Debug.Log("tile has a robber");
+                        }
                     }
                     
 
                 }
+            
             }
         }
 
     }
+
+    private void ChooseRobberTile()
+    {
+        List<TileClass> OptionlTileForRobber = new List<TileClass>();
+
+        foreach(var corner in player.SettelmentsList)
+        {
+            foreach( var tile in corner.AdjacentTiles)
+            {
+                if (!OptionlTileForRobber.Contains(tile) && tile.hasRobber ==false)
+                {
+                    OptionlTileForRobber.Add(tile);
+                }
+            }
+        }
+
+
+        if(OptionlTileForRobber.Count > 0)
+        {
+            int randomindex = Random.Range(0, OptionlTileForRobber.Count);
+            OptionlTileForRobber[randomindex].PlaceRobber();
+
+
+            RobberPrefab robber = Instantiate(robberPrefab, OptionlTileForRobber[randomindex].TileWorldPostion + (Vector3.right * 0.5f), Quaternion.identity);
+            robber.currentTile = OptionlTileForRobber[randomindex];
+
+            Debug.Log("robber placed on " + OptionlTileForRobber[randomindex].resourceType + " " + OptionlTileForRobber[randomindex].numberToken);
+        }
+
+
+
+    }
+
+
+
+
+
+    public void RemoveRobber(RobberPrefab robber, ResourceType resourceType)
+    {
+        Dictionary<ResourceType, int> amountToReduce = new Dictionary<ResourceType, int> // create temp dic with relvent costs to use to exsiting subtruct resources function 
+        {
+            { resourceType, 4 }
+        };
+
+        player.SubtractResources(amountToReduce);
+        robber.currentTile.RemoveRobber(); // Update the tile status
+        Destroy(robber.gameObject); // Remove the robber prefab from the scene
+    }
+
+
+
 
 
     private void FirstTurnPlacement() 
     {
         
 
-        Debug.Log("amount of Placed Peices in the first turn " + FirstTurnPlacedPeices);
+       // Debug.Log("amount of Placed Peices in the first turn " + FirstTurnPlacedPeices);
         
 
 
@@ -345,8 +376,8 @@ public class BoardManager : MonoBehaviour
 
                 Instantiate(TownPrefab, corner.Position, Quaternion.identity);
 
-                ChangeResourcePerRollDic(ResourcePerRollDic, corner);
-
+               
+                player.SettelmentsList.Add(corner);
                 player.UpdayeVictoryPoints(1);
                 uiManager.UpdateVictoryPointsDisplay();
 
@@ -380,10 +411,10 @@ public class BoardManager : MonoBehaviour
 
                     Instantiate(TownPrefab, corner.Position, Quaternion.identity);
 
-                    ChangeResourcePerRollDic(ResourcePerRollDic, corner);
 
+                    player.SettelmentsList.Add(corner);
                     player.UpdayeVictoryPoints(1);
-                                    uiManager.UpdateVictoryPointsDisplay();
+                    uiManager.UpdateVictoryPointsDisplay();
 
 
 
@@ -411,17 +442,6 @@ public class BoardManager : MonoBehaviour
 
 
             }
-
-
-
-
-
-
-
-
-            
-           // ChangeResourcePerRollDic(ResourcePerRollDic, corner);
-
 
 
         }
@@ -520,64 +540,12 @@ public class BoardManager : MonoBehaviour
 
 
 
-    void UpdateNeighborsCanBeBuiltOn()
-    {
-        foreach (var CornerClass in CornersDic.Values)
-        {
-            if( CornerClass.HasSettlement == true)
-            {
-               foreach(var NeighborCornerKey in CornerClass.AdjacentCorners)
-                {
-                    CornersDic[NeighborCornerKey.Position].CanBeBuiltOn = false;
-                }
-                
-                
-
-            }
-
-        }
-            
-    }
 
 
 
 
-    private void ChangeResourcePerRollDic(Dictionary<int, List<int>> dic, CornersClass Corner )
-    {
-        foreach (var hex in Corner.AdjacentTiles)
-        {
-           int HexNumber = hex.numberToken;
-           var ResourceType = hex.resourceType;
 
-            //  (wood, brick, sheep, ore, wheat)
-            switch (ResourceType)
-            {
-                case TileClass.ResourceType.Wood:
-                    ResourcePerRollDic[HexNumber][0] += 1;
-                    break;
-                case TileClass.ResourceType.Brick:
-                    ResourcePerRollDic[HexNumber][1] += 1;
-                    break;
-                case TileClass.ResourceType.Sheep:
-                    ResourcePerRollDic[HexNumber][2] += 1;
-                    break;
-                case TileClass.ResourceType.Ore:
-                    ResourcePerRollDic[HexNumber][3] += 1;
-                    break;
-                case TileClass.ResourceType.Wheat:
-                    ResourcePerRollDic[HexNumber][4] += 1;
-                    break;
-                default:
-                    break; 
-            }
-        }
 
-        //foreach (KeyValuePair<int, List<int>> kvp in ResourcePerRollDic)
-        //{
-        //    Debug.Log($"Key: {kvp.Key}, Values: {string.Join(", ", kvp.Value)}");
-        //}
-
-    }
 
 
 
@@ -605,10 +573,11 @@ public class BoardManager : MonoBehaviour
         int ResourceIndex = 0;
 
         // Loop through all positions in the Tilemap
-        foreach (var position in tilemap.cellBounds.allPositionsWithin)
+        foreach (var TilePosition in tilemap.cellBounds.allPositionsWithin)
         {
-            if (tilemap.HasTile(position))
+            if (tilemap.HasTile(TilePosition))
             {
+                Vector3 worldPosition = tilemap.CellToWorld(TilePosition);
 
                 var resourceType = ResourcesOnTheMapList[ResourceIndex];
 
@@ -619,11 +588,11 @@ public class BoardManager : MonoBehaviour
                     int numberToken = availableNumbers[RandomNumberTokenIndex];
                     availableNumbers.RemoveAt(RandomNumberTokenIndex);
 
-                    var tile = new TileClass(resourceType, numberToken);
-                    TilesDictionary.Add(position, tile);
+                    var tile = new TileClass(resourceType, numberToken, TilePosition, worldPosition);
+                    TilesDictionary.Add(TilePosition, tile);
 
                     //spawn a prefab of the number token
-                    Vector3 worldPosition = tilemap.CellToWorld(position);
+                    
                     GameObject prefabInstance = Instantiate(NumberTokenPrefab, worldPosition, Quaternion.identity);
                     TextMeshPro textMesh = prefabInstance.transform.GetChild(0).GetComponent<TextMeshPro>();
                     textMesh.text = numberToken.ToString();
@@ -638,8 +607,8 @@ public class BoardManager : MonoBehaviour
 
                 else
                 {
-                    var tile = new TileClass(resourceType, 0);
-                    TilesDictionary.Add(position, tile);
+                    var tile = new TileClass(resourceType, 0, TilePosition,worldPosition);
+                    TilesDictionary.Add(TilePosition, tile);
                 }
 
 
@@ -687,150 +656,10 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void UpdateCornerData()
-    {
-
-        //finds AdjacentTiles of a corner and creatae cornner dic 
-
-        foreach (var tilePair in TilesDictionary)
-        {
-            Vector3Int position = tilePair.Key;
-            TileClass tile = tilePair.Value;
-            Vector3 worldPosition = tilemap.CellToWorld(position);
+   
 
 
-            var CornerPositions = GetCornerPositionsForTile(worldPosition);
-
-
-
-            foreach (var cornerPos in CornerPositions)
-            {
-                if (!CornersDic.ContainsKey(cornerPos))
-                {
-                    CornersDic[cornerPos] = new CornersClass(cornerPos);
-                }
-
-                CornersDic[cornerPos].AdjacentTiles.Add(tile);
-            }
-
-        }
-
-        //creating adjacent Corners list
-
-
-        float Side = tilemap.cellSize.x; //  side length of your hex
-        float tilemapScale = tilemap.transform.localScale.x;
-        float threshold = (Side * Mathf.Sqrt(3) / 2) * tilemapScale;
-
-        foreach (var currentCorner in CornersDic.Values)
-        {
-            foreach (var possibleAdjacentCorner in CornersDic.Values)
-            {
-                // Avoid comparing a corner with itself
-                if (currentCorner == possibleAdjacentCorner) continue;
-
-                // Find shared tiles between the two corners
-                var sharedTiles = currentCorner.AdjacentTiles.Intersect(possibleAdjacentCorner.AdjacentTiles).ToList();
-                bool TwoOrMoreAdjacent = sharedTiles.Count >= 2;
-
-                // Special case for corners on the board's edge
-                if (TwoOrMoreAdjacent == false && (currentCorner.AdjacentTiles.Count == 1 || possibleAdjacentCorner.AdjacentTiles.Count == 1))
-                {
-
-                    
-                    TwoOrMoreAdjacent = Vector3.Distance(currentCorner.Position, possibleAdjacentCorner.Position) < threshold;
-                }
-
-
-                // If they share two or more tiles, they are adjacent
-                if (TwoOrMoreAdjacent == true)
-                {
-                    // Since corners are adjacent, add their positions to each other's list
-                    if (!currentCorner.AdjacentCorners.Contains(possibleAdjacentCorner))
-                    {
-                        currentCorner.AdjacentCorners.Add(possibleAdjacentCorner);
-                    }
-
-                    if (!possibleAdjacentCorner.AdjacentCorners.Contains(currentCorner))
-                    {
-                        possibleAdjacentCorner.AdjacentCorners.Add(currentCorner);
-                    }
-                }
-            }
-        }
-
-    }
-
-
-    private void UpdateHexSidesData()
-    {
-
-
-        //Creates the sideDic finds AdjacentTiles of a sides
-
-        foreach (var tilePair in TilesDictionary)
-        {
-            Vector3Int position = tilePair.Key;
-            TileClass tile = tilePair.Value;
-            Vector3 worldPosition = tilemap.CellToWorld(position);
-
-            var sidePositions = GetSidesPositionsForTile(worldPosition);
-
-            foreach (var hexSide in sidePositions)
-            {
-                if (!SidesDic.ContainsKey(hexSide.Position))
-                {
-                    SidesDic[hexSide.Position] = new SidesClass(hexSide.Position, hexSide.RotationZ);
-
-                }
-
-                SidesDic[hexSide.Position].AdjacentTiles.Add(tile);
-            } 
-        }
-
-
-        //Compare all roads to each others, if the are close they are Adjacent 
-
-        foreach (var currentSide in SidesDic.Values)
-        {
-            foreach (var possibleAdjacentSide in SidesDic.Values)
-            {
-                // Avoid comparing a corner with itself
-                if (currentSide == possibleAdjacentSide) continue;
-         
-                float size = 1f;
-                bool AdjacentSide = Vector3.Distance(currentSide.Position, possibleAdjacentSide.Position) < size;
-                    
-
-                if(AdjacentSide == true)
-                {
-
-                    if (!currentSide.AdjacentSides.Contains(possibleAdjacentSide))
-                    {
-                        currentSide.AdjacentSides.Add(possibleAdjacentSide);
-                    }
-
-                    if (!possibleAdjacentSide.AdjacentSides.Contains(currentSide))
-                    {
-                        possibleAdjacentSide.AdjacentSides.Add(currentSide);
-                    }
-
-                }
-                
-                else
-                {
-                    continue;
-                }
-
-
-
-
-            }
-        }
-
-
-
-    }
+   
 
 
 

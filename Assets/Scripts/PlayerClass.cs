@@ -10,6 +10,7 @@ public class PlayerClass
     public Dictionary<ResourceType, int> PlayerResources { get; private set; }
     public event Action OnResourcesChanged;  // Event to notify when resources change
     public int VictoryPoints;
+    public List<CornersClass> SettelmentsList { get; set; } = new List<CornersClass>();
 
 
     public PlayerClass()
@@ -96,5 +97,11 @@ public class PlayerClass
     {
        VictoryPoints = VictoryPoints + VictoryPointsAmount;
     }
+
+
+
+
+
+
 }
 
