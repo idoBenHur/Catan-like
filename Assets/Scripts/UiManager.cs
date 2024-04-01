@@ -92,6 +92,9 @@ public class UiManager : MonoBehaviour
         }
     }
 
+
+    // build roads/towns buttons
+
     public void ShowTownBuildIndicatorsButton()
     {
 
@@ -138,6 +141,36 @@ public class UiManager : MonoBehaviour
 
     }
 
+
+    public void ShowCityBuildIndicatorButton()
+    {
+        if (ButtonPressedShowRoadBuildIndicators == false)
+        {
+            ButtonPressedShowRoadBuildIndicators = true;
+            BoardManager.instance.ShowCityUpgradeIndicators();
+            return;
+
+        }
+
+        if (ButtonPressedShowRoadBuildIndicators == true)
+        {
+            ButtonPressedShowRoadBuildIndicators = false;
+
+            foreach (var prefab in BoardManager.instance.CornersIndicatorsPrefabList)
+            {
+                Destroy(prefab.gameObject);
+            }
+            return;
+
+        }
+    }
+
+
+    //
+
+
+
+
     private void UpdateResourceDisplay()
     {
         woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
@@ -171,17 +204,17 @@ public class UiManager : MonoBehaviour
 
         // trade with bank toggels:
 
-        offerWoodToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Wood, offerWoodToggle));
-        offerBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Brick, offerBrickToggle));
-        offerSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Sheep, offerSheepToggle));
-        offerOreToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Ore, offerOreToggle));
-        offerWheatToggle.onValueChanged.AddListener((isSelected) => SetTradeOffer(isSelected, ResourceType.Wheat, offerWheatToggle));
+        offerWoodToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wood, offerWoodToggle, true));
+        offerBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Brick, offerBrickToggle, true));
+        offerSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Sheep, offerSheepToggle, true));
+        offerOreToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Ore, offerOreToggle, true));
+        offerWheatToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wheat, offerWheatToggle, true));
 
-        requestWoodToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Wood, requestWoodToggle));
-        requestBrickToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Brick, requestBrickToggle));
-        requestSheepToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Sheep, requestSheepToggle));
-        requestOreToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Ore, requestOreToggle));
-        requestWheatToggle.onValueChanged.AddListener((isSelected) => SetRequest(isSelected, ResourceType.Wheat, requestWheatToggle));
+        requestWoodToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wood, requestWoodToggle,false));
+        requestBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Brick, requestBrickToggle, false));
+        requestSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Sheep, requestSheepToggle, false));
+        requestOreToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Ore, requestOreToggle, false));
+        requestWheatToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wheat, requestWheatToggle, false));
 
 
         // pay robber buttons:
@@ -231,6 +264,49 @@ public class UiManager : MonoBehaviour
     }
 
 
+
+    private void SetTradeSelection(bool isSelected, ResourceType type, Toggle toggle, bool isOffer)
+    {
+        if (isSelected == true)
+        {
+            // Determine if this is setting an offer or request and update accordingly
+            if (isOffer == true)
+            {
+                offerType = type; 
+            }
+            else
+            {
+                requestType = type; 
+            }
+
+            // Ensure that other toggles in the same category (offer or request) are unchecked
+            UncheckOtherToggles(toggle, isOffer);
+        }
+        else
+        {
+            // If the toggle is deselected, clear the offer or request if it matches the current selection
+            if ((isOffer && offerType == type) || (!isOffer && requestType == type))
+            {
+                if (isOffer)
+                {
+                    offerType = null; 
+                }
+                else
+                {
+                    requestType = null; 
+                }
+            }
+        }
+
+        // Check if a valid trade can be made with the current selections
+        CheckTradeValidity();
+    }
+
+
+
+
+
+
     private void UncheckOtherToggles(Toggle changedToggle, bool isOfferToggle)
     {
         Toggle[] toggles = isOfferToggle ? new Toggle[] { offerWoodToggle, offerBrickToggle, offerSheepToggle, offerOreToggle, offerWheatToggle }
@@ -250,7 +326,9 @@ public class UiManager : MonoBehaviour
 
     private void CheckTradeValidity()
     {
-        bool isValidTrade = offerType.HasValue && requestType.HasValue && player.CanTradeWithBank(offerType.Value);
+        //bool isValidTrade = offerType.HasValue && requestType.HasValue && player.CanTradeWithBank(offerType.Value);
+        bool isValidTrade = offerType.HasValue && requestType.HasValue && player.PlayerResources[offerType.Value] >= 4;
+
 
         tradeButton.interactable = isValidTrade; // Enable the button only if the trade is valid
 
@@ -264,12 +342,17 @@ public class UiManager : MonoBehaviour
     public void ExecuteTradeButton() // called by button pressed
     {
 
-        if (offerType.HasValue && requestType.HasValue && player.CanTradeWithBank(offerType.Value))
+        
+        if (offerType.HasValue && requestType.HasValue && player.PlayerResources[offerType.Value] >= 4)
         {
             player.TradeWithBank(offerType.Value, requestType.Value);
             // After trade, you might want to reset or update the UI
             CheckTradeValidity(); // To refresh the UI state
         }
+        
+        
+     
+        
 
     }
 

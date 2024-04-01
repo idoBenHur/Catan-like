@@ -8,7 +8,6 @@ public class RobberPrefab : MonoBehaviour
 {
     public TileClass currentTile; // The tile this robber is on
     public static int SelctedRobbersCounter = 0;
-    private bool IsSelected = false;
     public GameObject SelectedIndicatorGameobject;
     
 

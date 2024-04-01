@@ -23,6 +23,7 @@ public class BoardManager : MonoBehaviour
 
     private bool FirstTurnIsActive = true;
     private int FirstTurnPlacedPeices = 0;
+    
     private PlayerClass player;
     public GameObject NumberTokenPrefab;
     public GameObject CornerIndicatorPrefab;
@@ -31,6 +32,8 @@ public class BoardManager : MonoBehaviour
     public RobberPrefab robberPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
+    public GameObject CityPrefab;
+
 
     public List<GameObject> CornersIndicatorsPrefabList = new List<GameObject>();
     public List<GameObject> SidesIndicatorsPrefabList = new List<GameObject>();
@@ -140,58 +143,78 @@ public class BoardManager : MonoBehaviour
 
         else
         {
-            foreach (var tile in TilesDictionary.Values)
+
+            foreach (var settelment in player.SettelmentsList)
             {
-                if (tile.numberToken == DiceResult)
+
+                foreach (var tile in settelment.AdjacentTiles)
                 {
-                    foreach(var Corner in tile.AdjacentCorners)
+
+                    if(tile.numberToken != DiceResult)
                     {
-                        if(Corner.HasSettlement == true && tile.hasRobber == false)
-                        {
+                        Debug.Log("miss");
+                        continue;
 
-                            player.AddResource(tile.resourceType, 1);
-
-                        }
-                        else if(Corner.HasSettlement == true && tile.hasRobber == true)
-                        {
-                            Debug.Log("tile has a robber");
-                        }
                     }
-                    
+                    else if(tile.numberToken == DiceResult && tile.hasRobber == true)
+                    {
+                        Debug.Log("tile has robber");
+                    }
+
+                    else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == false)
+                    {
+                        Debug.Log("gain resources");
+                        player.AddResource(tile.resourceType, 1);
+                    }
+                    else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == true)
+                    {
+                        player.AddResource(tile.resourceType, 2);
+                    }
 
                 }
-            
             }
+
+
         }
 
     }
 
     private void ChooseRobberTile()
     {
-        List<TileClass> OptionlTileForRobber = new List<TileClass>();
+        List<TileClass> NearPlayerTiles = new List<TileClass>();
+        List<TileClass> AwayFromPlayerTiles = new List<TileClass>();
 
-        foreach(var corner in player.SettelmentsList)
+        foreach (var corner in player.SettelmentsList)
         {
-            foreach( var tile in corner.AdjacentTiles)
+            foreach( var AdjacentTile in corner.AdjacentTiles)
             {
-                if (!OptionlTileForRobber.Contains(tile) && tile.hasRobber ==false)
+                if (!NearPlayerTiles.Contains(AdjacentTile) && AdjacentTile.hasRobber ==false)
                 {
-                    OptionlTileForRobber.Add(tile);
+                    NearPlayerTiles.Add(AdjacentTile);
                 }
             }
         }
 
 
-        if(OptionlTileForRobber.Count > 0)
+        foreach(var tile in TilesDictionary) 
         {
-            int randomindex = Random.Range(0, OptionlTileForRobber.Count);
-            OptionlTileForRobber[randomindex].PlaceRobber();
+            if(NearPlayerTiles.Contains(tile.Value) == false)
+            {
+                AwayFromPlayerTiles.Add(tile.Value);
+            }
+        }
 
 
-            RobberPrefab robber = Instantiate(robberPrefab, OptionlTileForRobber[randomindex].TileWorldPostion + (Vector3.right * 0.5f), Quaternion.identity);
-            robber.currentTile = OptionlTileForRobber[randomindex];
+        if(AwayFromPlayerTiles.Count > 0)
+        {
+            int randomindex = Random.Range(0, AwayFromPlayerTiles.Count);
+            AwayFromPlayerTiles[randomindex].PlaceRobber();
 
-            Debug.Log("robber placed on " + OptionlTileForRobber[randomindex].resourceType + " " + OptionlTileForRobber[randomindex].numberToken);
+
+            RobberPrefab robber = Instantiate(robberPrefab, AwayFromPlayerTiles[randomindex].TileWorldPostion + (Vector3.right * 0.5f), Quaternion.identity);
+            robber.currentTile = AwayFromPlayerTiles[randomindex];
+
+            Debug.Log("robber placed on " + AwayFromPlayerTiles[randomindex].resourceType + " " + AwayFromPlayerTiles[randomindex].numberToken);
         }
 
 
@@ -239,7 +262,7 @@ public class BoardManager : MonoBehaviour
 
                     GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
                     CornersIndicatorsPrefabList.Add(indicator);
-                    indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner.Position);
+                    indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
                 }
                 
             }
@@ -302,22 +325,88 @@ public class BoardManager : MonoBehaviour
 
     }
 
+
+
+    public void ShowCityUpgradeIndicators()
+    {
+        foreach (var settelment in player.SettelmentsList)
+        {
+            if (settelment.HasCityUpgade == false)
+            {
+                GameObject indicator = Instantiate(CornerIndicatorPrefab, settelment.Position, Quaternion.identity);
+                CornersIndicatorsPrefabList.Add(indicator);
+                indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(settelment);
+            }
+        }
+    }
+
+    public void UpgradeSettelmentToCity(CornersClass Settelment)
+    {
+        
+
+        if (player.CanAffordToBuild(PricesClass.CityCost) == true)  // if its not the first turn check for resources amount
+        {
+
+            player.SubtractResources(PricesClass.CityCost);
+
+            Settelment.HasCityUpgade = true;
+
+            Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
+
+            player.AddVictoryPoints(1);
+            uiManager.UpdateVictoryPointsDisplay();
+
+
+            foreach (var indicator in CornersIndicatorsPrefabList)
+            {
+                Destroy(indicator.gameObject);
+            }
+
+
+            ShowCityUpgradeIndicators();
+
+        }
+
+        else
+        {
+            Debug.Log("Not enough resources to build a town.");
+        }
+
+
+
+
+
+
+
+    }
+
+
+
     public void ShowBuildIndicatorsTowns()
     {
 
-    
         foreach (var corner in CornersDic.Values)
         {
-            bool ConnectedToRoad = false;
-            bool NearATown = false;
-
-            if(corner.HasSettlement == true)
+            if (corner.HasSettlement == true)
             {
                 continue;
             }
 
+            bool ConnectedToRoad = false;
+            bool NearATown = false;
 
-            // checkes if adjusted Corners have a settelment
+
+            // go through each adjusted sides of this corner, and chack if they have a road
+            foreach (var adjustedSide in corner.AdjacentSides)
+            {
+                if (adjustedSide.HasRoad == true)
+                {
+                    ConnectedToRoad = true;
+                }
+                 
+            }
+
+            // go through each adjusted Corner of this corner, and chack if they have a settelment
             foreach (var adjustedCorner in corner.AdjacentCorners)
             {
                 if(adjustedCorner.HasSettlement == true)
@@ -326,15 +415,7 @@ public class BoardManager : MonoBehaviour
                 }
             }
 
-            // checkes if adjusted sides have a settelment
-            foreach (var adjustedSide in corner.AdjacentSides)
-            {
-                if(adjustedSide.HasRoad == true)
-                {
-                    ConnectedToRoad = true;
-                }
 
-            }
 
           
             if (ConnectedToRoad == true && NearATown == false)
@@ -352,11 +433,10 @@ public class BoardManager : MonoBehaviour
                 
                 GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
                 CornersIndicatorsPrefabList.Add(indicator);
-                indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner.Position);
+                indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
             }
         }
         
-        //return;
         
         
 
@@ -378,7 +458,7 @@ public class BoardManager : MonoBehaviour
 
                
                 player.SettelmentsList.Add(corner);
-                player.UpdayeVictoryPoints(1);
+                player.AddVictoryPoints(1);
                 uiManager.UpdateVictoryPointsDisplay();
 
 
@@ -401,7 +481,7 @@ public class BoardManager : MonoBehaviour
 
             else 
             {
-                if(player.CanAfford(PricesClass.TownCost) == true)  // if its not the first turn check for resources amount
+                if(player.CanAffordToBuild(PricesClass.TownCost) == true)  // if its not the first turn check for resources amount
                 {
 
                     player.SubtractResources(PricesClass.TownCost);
@@ -413,7 +493,7 @@ public class BoardManager : MonoBehaviour
 
 
                     player.SettelmentsList.Add(corner);
-                    player.UpdayeVictoryPoints(1);
+                    player.AddVictoryPoints(1);
                     uiManager.UpdateVictoryPointsDisplay();
 
 
@@ -495,7 +575,7 @@ public class BoardManager : MonoBehaviour
 
             else
             {
-                if (player.CanAfford(PricesClass.RoadCost) == true)
+                if (player.CanAffordToBuild(PricesClass.RoadCost) == true)
                 {
 
                     player.SubtractResources(PricesClass.RoadCost);

@@ -5,10 +5,12 @@ using UnityEngine;
 public class TownBuildIndicatorPrefab : MonoBehaviour
 {
     private Vector3 cornerPosition;
+    private CornersClass ThisCorner;
 
-    public void Setup(Vector3 position)
+    public void Setup(CornersClass Corner)
     {
-        cornerPosition = position;
+        cornerPosition = Corner.Position;
+        ThisCorner = Corner;
         // Optional: Add visual/audio feedback
     }
 
@@ -16,8 +18,16 @@ public class TownBuildIndicatorPrefab : MonoBehaviour
     {
         // Communicate back to build the settlement at `cornerPosition`
 
-        BoardManager.instance.BuildSettlementAt(cornerPosition);
-        //FindObjectOfType<BoardManager>().BuildSettlementAt(cornerPosition);
-        //Destroy(gameObject); // Remove the indicator after building
+        if (ThisCorner.HasSettlement == false)
+        {
+            BoardManager.instance.BuildSettlementAt(cornerPosition);
+        }
+        else if(ThisCorner.HasSettlement == true && ThisCorner.HasCityUpgade == false)
+        {
+            BoardManager.instance.UpgradeSettelmentToCity(ThisCorner);
+        }
+        
+
+
     }
 }

@@ -43,7 +43,7 @@ public class PlayerClass
 
     public void SubtractResources(Dictionary<ResourceType, int> cost)
     {
-        if (CanAfford(cost))
+        if (CanAffordToBuild(cost))
         {
             foreach (var item in cost)
             {
@@ -56,8 +56,8 @@ public class PlayerClass
 
 
 
-
-    public bool CanAfford(Dictionary<ResourceType, int> cost)
+    // the function gets a building cost, and checks if player has the right resources 
+    public bool CanAffordToBuild(Dictionary<ResourceType, int> cost)
     {
         foreach (var item in cost)
         {
@@ -70,30 +70,23 @@ public class PlayerClass
     }
 
 
-    // Check if the player has at least 4 resources of the offer resources type
-    public bool CanTradeWithBank(ResourceType offerType)
-    {
-        return PlayerResources.ContainsKey(offerType) && PlayerResources[offerType] >= 4;
-
-    }
+ 
 
 
     public void TradeWithBank(ResourceType offerType, ResourceType requestType)
     {
-        if (CanTradeWithBank(offerType))
-        {
-            
-            Dictionary<ResourceType, int> tempDictionary = new Dictionary<ResourceType, int>();
-            tempDictionary.Add(offerType, 4);
+             
+        Dictionary<ResourceType, int> tempDictionary = new Dictionary<ResourceType, int>();
+        tempDictionary.Add(offerType, 4);
 
-            SubtractResources(tempDictionary);
-            AddResource(requestType, 1);
+        SubtractResources(tempDictionary);
+        AddResource(requestType, 1);
 
-        }
+        
     }
 
 
-    public void UpdayeVictoryPoints(int VictoryPointsAmount)
+    public void AddVictoryPoints(int VictoryPointsAmount)
     {
        VictoryPoints = VictoryPoints + VictoryPointsAmount;
     }
