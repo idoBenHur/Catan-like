@@ -1243,7 +1243,7 @@ MonoBehaviour:
   robberPrefab: {fileID: 3243967124030276701, guid: d901afef932d86c49824f0b9f8922dc8, type: 3}
   RoadPrefab: {fileID: 6665533023127773880, guid: 1d2df8e8eb128204d89eb527bb0cc645, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
-  CityPrefab: {fileID: 0}
+  CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   CornersIndicatorsPrefabList: []
   SidesIndicatorsPrefabList: []
 --- !u!4 &240130133
