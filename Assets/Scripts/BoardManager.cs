@@ -14,18 +14,20 @@ using Unity.VisualScripting;
 using static UnityEditor.Progress;
 using static UnityEngine.UI.GridLayoutGroup;
 using static TileClass;
+using System;
+using UnityEngine.SceneManagement;
 
 public class BoardManager : MonoBehaviour
 {
     public Tilemap tilemap; // Assign this in the inspector
     public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     public UiManager uiManager;
+    public MapGenerator mapGenerator;
 
     private bool FirstTurnIsActive = true;
     private int FirstTurnPlacedPeices = 0;
     
-    private PlayerClass player;
-    public GameObject NumberTokenPrefab;
+    public PlayerClass player;
     public GameObject CornerIndicatorPrefab;
     public GameObject SideIndicatorPrefab;
     public GameObject testprefab;
@@ -33,6 +35,9 @@ public class BoardManager : MonoBehaviour
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
     public GameObject CityPrefab;
+    private int CurrentTurn;
+    private int CurrentSeason;
+
 
 
     public List<GameObject> CornersIndicatorsPrefabList = new List<GameObject>();
@@ -43,28 +48,18 @@ public class BoardManager : MonoBehaviour
     public Dictionary<Vector3, CornersClass> CornersDic = new Dictionary<Vector3, CornersClass>();
     public Dictionary<Vector3, SidesClass> SidesDic = new Dictionary<Vector3, SidesClass>();
 
+    public static event Action<int> OnDiceRolled;
 
 
 
-    private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
 
-    private List<TileClass.ResourceType> ResourcesOnTheMapList = new List<TileClass.ResourceType>
-    {
-        // Initialize the list with 4 of each common resource and 3 of the rarer resources, plus 1 desert
-        TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep,
-        TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood,
-        TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat,
-        TileClass.ResourceType.Brick, TileClass.ResourceType.Brick, TileClass.ResourceType.Brick,
-        TileClass.ResourceType.Ore, TileClass.ResourceType.Ore, TileClass.ResourceType.Ore,
-        TileClass.ResourceType.Desert
-    };
 
     public static BoardManager instance;
 
 
     private void Awake()
     {
-        player = new PlayerClass();
+        
 
         if (instance == null)
         {
@@ -78,40 +73,42 @@ public class BoardManager : MonoBehaviour
 
     }
 
+ 
 
 
     void Start()
     {
+
+
+        if (GameManager.Instance.GameState.SeasonNumber == 0)
+        {
+            player = new PlayerClass();
+            mapGenerator.InitialBuildMap();
+
+            TilesDictionary = mapGenerator.InitialTilesDictionary;
+            CornersDic = mapGenerator.InitialCornersDic;
+            SidesDic = mapGenerator.InitialSidesDic;
+            FirstTurnPlacement();
+        }
+        else
+        {
+            player = GameManager.Instance.GameState.player;
+            TilesDictionary = GameManager.Instance.GameState.tilesDic;
+            CornersDic = GameManager.Instance.GameState.cornersDic;
+            SidesDic = GameManager.Instance.GameState.sidesDic;
+            mapGenerator.UpdateVisualRepresentation(TilesDictionary);
+            Debug.Log("victory points " + player.VictoryPoints);
+        }
+
+
         uiManager.SetPlayerInUIManager(player);
 
-        IntialMapResourcesShuffle();
-        InitializeTiles();
-        UpdateVisualRepresentation();
-
-        // UpdateCornerData();
-        //UpdateHexSidesData();
-
-        CreateDicsAndAdjacentTiles();
-        CreateNeighborsLists();
-
-        FirstTurnPlacement();
 
 
 
+        CurrentTurn = 0;
 
-
-        var elementAtIndex = SidesDic.ElementAt(39);
-        var value = elementAtIndex.Value;
-        var key = elementAtIndex.Key;
- 
-
-
-
-
-
-
-
-
+        
 
 
     }
@@ -123,13 +120,48 @@ public class BoardManager : MonoBehaviour
         int die2 = UnityEngine.Random.Range(1, 7); // Same here
         int total = die1 + die2;
 
-        // GetResourcesForDiceRoll(total);
         Debug.Log(total);
+        OnDiceRolled?.Invoke(total);
         DistributeResources(total);
+        
+
+        
+
 
         uiManager.UpdateDiceRollDisplay(total);
+        
     }
 
+
+    public void test()
+    {
+        GameManager.Instance.UpdatePlayer(player);
+        GameManager.Instance.UpdateTile(TilesDictionary);
+        GameManager.Instance.UpdateCorner(CornersDic);
+        GameManager.Instance.UpdateSide(SidesDic);
+        GameManager.Instance.NextSeason();
+
+        SceneManager.LoadScene(1);
+        
+
+    }
+
+    private void Seasons()
+    {
+        CurrentTurn++;
+
+        if (CurrentTurn == 12)
+        {
+            // active move to boon screen button
+        }
+        
+
+
+        // keep track on current turn
+        // move to next scene once reached limit
+        // keep track on current season
+        // apply diffrent seasons effects (?)
+    }
 
 
 
@@ -207,7 +239,7 @@ public class BoardManager : MonoBehaviour
 
         if(AwayFromPlayerTiles.Count > 0)
         {
-            int randomindex = Random.Range(0, AwayFromPlayerTiles.Count);
+            int randomindex = UnityEngine.Random.Range(0, AwayFromPlayerTiles.Count);
             AwayFromPlayerTiles[randomindex].PlaceRobber();
 
 
@@ -314,7 +346,6 @@ public class BoardManager : MonoBehaviour
 
 
 
-
         if (FirstTurnPlacedPeices == 4)
         {
             FirstTurnPlacedPeices++;
@@ -354,7 +385,6 @@ public class BoardManager : MonoBehaviour
             Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
 
             player.AddVictoryPoints(1);
-            uiManager.UpdateVictoryPointsDisplay();
 
 
             foreach (var indicator in CornersIndicatorsPrefabList)
@@ -459,7 +489,6 @@ public class BoardManager : MonoBehaviour
                
                 player.SettelmentsList.Add(corner);
                 player.AddVictoryPoints(1);
-                uiManager.UpdateVictoryPointsDisplay();
 
 
                 foreach (var NeighborCornerKey in corner.AdjacentCorners)
@@ -494,7 +523,6 @@ public class BoardManager : MonoBehaviour
 
                     player.SettelmentsList.Add(corner);
                     player.AddVictoryPoints(1);
-                    uiManager.UpdateVictoryPointsDisplay();
 
 
 
@@ -614,338 +642,6 @@ public class BoardManager : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    void IntialMapResourcesShuffle()
-    {
-        // Shuffle the list to randomize the board layout
-        int n = ResourcesOnTheMapList.Count;
-        while (n > 1)
-        {
-            n--;
-            int k = Random.Range(0, n + 1);
-            var value = ResourcesOnTheMapList[k];
-            ResourcesOnTheMapList[k] = ResourcesOnTheMapList[n];
-            ResourcesOnTheMapList[n] = value;
-        }
-    }
-
-
-
-
-    void InitializeTiles()
-    {
-
-        int ResourceIndex = 0;
-
-        // Loop through all positions in the Tilemap
-        foreach (var TilePosition in tilemap.cellBounds.allPositionsWithin)
-        {
-            if (tilemap.HasTile(TilePosition))
-            {
-                Vector3 worldPosition = tilemap.CellToWorld(TilePosition);
-
-                var resourceType = ResourcesOnTheMapList[ResourceIndex];
-
-                if (resourceType != TileClass.ResourceType.Desert)
-                {
-                    //assaigning number token 
-                    int RandomNumberTokenIndex = Random.Range(0, availableNumbers.Count);
-                    int numberToken = availableNumbers[RandomNumberTokenIndex];
-                    availableNumbers.RemoveAt(RandomNumberTokenIndex);
-
-                    var tile = new TileClass(resourceType, numberToken, TilePosition, worldPosition);
-                    TilesDictionary.Add(TilePosition, tile);
-
-                    //spawn a prefab of the number token
-                    
-                    GameObject prefabInstance = Instantiate(NumberTokenPrefab, worldPosition, Quaternion.identity);
-                    TextMeshPro textMesh = prefabInstance.transform.GetChild(0).GetComponent<TextMeshPro>();
-                    textMesh.text = numberToken.ToString();
-
-                    if (numberToken == 6 || numberToken == 8)
-                    {
-                        textMesh.color = Color.red;
-                        textMesh.fontStyle = FontStyles.Bold;
-                    }
-
-                }
-
-                else
-                {
-                    var tile = new TileClass(resourceType, 0, TilePosition,worldPosition);
-                    TilesDictionary.Add(TilePosition, tile);
-                }
-
-
-                ResourceIndex++;
-                
-            }
-
-            
-        }
-    }
-
-
-
-    void UpdateVisualRepresentation()
-    {
-        foreach (var tilePair in TilesDictionary)
-        {
-            Vector3Int position = tilePair.Key;
-            TileClass tile = tilePair.Value;
-            
-
-            switch (tile.resourceType)
-            {
-                case TileClass.ResourceType.Wood:
-                    tilemap.SetTile(position, woodTile);
-                    break;
-                case TileClass.ResourceType.Brick:
-                    tilemap.SetTile(position, brickTile);
-                    break;
-                case TileClass.ResourceType.Wheat:
-                    tilemap.SetTile(position, wheatTile);
-                    break;
-                case TileClass.ResourceType.Ore:
-                    tilemap.SetTile(position, oreTile);
-                    break;
-                case TileClass.ResourceType.Sheep:
-                    tilemap.SetTile(position, sheepTile);
-                    break;
-                case TileClass.ResourceType.Desert:
-                    tilemap.SetTile(position, desertTile);
-                    break;
-                default:
-                    break; // Or handle unknown resource type
-            }
-        }
-    }
-
-   
-
-
-   
-
-
-
-    private void CreateDicsAndAdjacentTiles()
-    {
-        foreach (var tilePair in TilesDictionary)
-        {
-            Vector3Int TilePosition = tilePair.Key;
-            TileClass TileValue = tilePair.Value;
-            Vector3 TileWorldPosition = tilemap.CellToWorld(TilePosition);
-
-
-            var CornerPositions = GetCornerPositionsForTile(TileWorldPosition);
-            var sidePositions = GetSidesPositionsForTile(TileWorldPosition);
-
-
-
-            foreach (var CornerPos in CornerPositions)
-            {
-                if (!CornersDic.ContainsKey(CornerPos))
-                {
-                    CornersDic[CornerPos] = new CornersClass(CornerPos);
-                }
-
-                CornersDic[CornerPos].AdjacentTiles.Add(TileValue);
-                TileValue.AdjacentCorners.Add(CornersDic[CornerPos]);
-            }
-
-
-            foreach (var SidePos in sidePositions)
-            {
-                if (!SidesDic.ContainsKey(SidePos.Position))
-                {
-                    SidesDic[SidePos.Position] = new SidesClass(SidePos.Position, SidePos.RotationZ);
-
-                }
-
-                SidesDic[SidePos.Position].AdjacentTiles.Add(TileValue);
-                TileValue.AdjacentSides.Add(SidePos);
-
-            }
-
-
-
-        }
-
-
-    }
-
-
-    private void CreateNeighborsLists()
-    {
-
-        float adjacencyThreshold = 1f; 
-        foreach (var cornerEntry in CornersDic)
-        {
-            CornersClass corner = cornerEntry.Value;
-
-            foreach (var sideEntry in SidesDic)
-            {
-                SidesClass side = sideEntry.Value;
-
-                // Check if the side is adjacent to the corner
-                if (Vector3.Distance(side.Position, corner.Position) <= adjacencyThreshold)
-                {
-                    corner.AdjacentSides.Add(side);
-                    side.AdjacentCorners.Add(corner);
-
-                }
-            }
-        }
-
-
-        //corner
-
-        foreach (var currentCorner in CornersDic.Values)
-        {
-            foreach (var possibleAdjacentCorner in CornersDic.Values)
-            {
-                // Avoid comparing a corner with itself
-                if (currentCorner == possibleAdjacentCorner) continue;
-
-                // Check if the two corners share an adjacent side
-                var sharedSide = currentCorner.AdjacentSides.Intersect(possibleAdjacentCorner.AdjacentSides).FirstOrDefault();
-                bool areAdjacent = sharedSide != null;
-
-                // If they share an adjacent side, they are adjacent corners
-                if (areAdjacent)
-                {
-                    // Since corners are adjacent, add their positions to each other's list
-                    if (!currentCorner.AdjacentCorners.Contains(possibleAdjacentCorner))
-                    {
-                        currentCorner.AdjacentCorners.Add(possibleAdjacentCorner);
-                    }
-
-                    if (!possibleAdjacentCorner.AdjacentCorners.Contains(currentCorner))
-                    {
-                        possibleAdjacentCorner.AdjacentCorners.Add(currentCorner);
-                    }
-                }
-            }
-        }
-
-
-        //corner
-
-        //side
-        foreach (var currentSide in SidesDic.Values)
-        {
-            foreach (var possibleAdjacentSide in SidesDic.Values)
-            {
-                // Avoid comparing a side with itself
-                if (currentSide == possibleAdjacentSide) continue;
-
-                // Check if the two sides share a corner
-                var sharedCorner = currentSide.AdjacentCorners.Intersect(possibleAdjacentSide.AdjacentCorners).FirstOrDefault();
-                bool areAdjacent = sharedCorner != null;
-
-                // If they share a corner, they are adjacent sides
-                if (areAdjacent)
-                {
-                    // Since sides are adjacent, add them to each other's list
-                    if (!currentSide.AdjacentSides.Contains(possibleAdjacentSide))
-                    {
-                        currentSide.AdjacentSides.Add(possibleAdjacentSide);
-                    }
-
-                    if (!possibleAdjacentSide.AdjacentSides.Contains(currentSide))
-                    {
-                        possibleAdjacentSide.AdjacentSides.Add(currentSide);
-                    }
-                }
-            }
-        }
-
-        //side
-
-    }
-
-
-
-
-    public List<SidesClass> GetSidesPositionsForTile(Vector3 HexCenterPosition)
-    {
-        List<SidesClass> sides = new List<SidesClass>();
-        float tilemapScale = tilemap.transform.localScale.x;
-        float outerRadius = (tilemap.cellSize.x * tilemapScale) / Mathf.Sqrt(3);
-        float apothem = outerRadius * Mathf.Cos(Mathf.PI / 6); // Cos(30°) in radians
-
-        for (int i = 0; i < 6; i++)
-        {
-            float angle_deg = 60 * i;
-            float angle_rad = Mathf.PI / 180 * angle_deg;
-            Vector3 sideMidPointPos = new Vector3(
-                HexCenterPosition.x + apothem * Mathf.Cos(angle_rad),
-                HexCenterPosition.y + apothem * Mathf.Sin(angle_rad),
-                HexCenterPosition.z
-            );
-            float rotationZ = angle_deg + 90f; // Adjust the rotation to match your needs
-
-            sides.Add(new SidesClass(RoundVector3(sideMidPointPos, 2), rotationZ));
-
-
-
-        }
-
-        return sides;
-    }
-
-
-
-    public List<Vector3> GetCornerPositionsForTile(Vector3 HexCenterPostion)
-    {
-        List<Vector3> corners = new List<Vector3>();
-        float tilemapScale = tilemap.transform.localScale.x;
-        float size = (tilemap.cellSize.x * tilemapScale) / Mathf.Sqrt(3);
-
-        for (int i = 0; i < 6; i++)
-        {
-            float angleDeg = 60 * i + 30; // Offset by 30 degrees for pointy-topped hexes
-            //float angleRad = Mathf.Deg2Rad * angleDeg;
-            float angleRad = Mathf.PI / 180 * angleDeg;
-            Vector3 cornerPos = new Vector3(HexCenterPostion.x + size * Mathf.Cos(angleRad), HexCenterPostion.y + size * Mathf.Sin(angleRad), HexCenterPostion.z);
-            Vector3 roundedCornerPos = RoundVector3(cornerPos, 1);
-            corners.Add(roundedCornerPos);
-
-
-            
-        }
-
-
-        return corners;
-    }
-
-
-
-
-    Vector3 RoundVector3(Vector3 vector, int decimalPlaces)
-    {
-        float multiplier = Mathf.Pow(10.0f, decimalPlaces);
-        return new Vector3(
-            Mathf.Round(vector.x * multiplier) / multiplier,
-            Mathf.Round(vector.y * multiplier) / multiplier,
-            Mathf.Round(vector.z * multiplier) / multiplier
-        );
-    }
 }
 
 

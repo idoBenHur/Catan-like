@@ -192,7 +192,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void RollDiceButton()
+    public void RollDiceButton() 
     {
         BoardManager.instance.DiceRoll();
     }

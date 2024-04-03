@@ -89,6 +89,7 @@ public class PlayerClass
     public void AddVictoryPoints(int VictoryPointsAmount)
     {
        VictoryPoints = VictoryPoints + VictoryPointsAmount;
+        UiManager.UIinstance.UpdateVictoryPointsDisplay();
     }
 
 
