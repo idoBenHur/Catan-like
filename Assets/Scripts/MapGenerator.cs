@@ -10,6 +10,9 @@ public class MapGenerator : MonoBehaviour
     public Tilemap tilemap;
     public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
+    public GameObject RoadPrefab;
+    public GameObject TownPrefab;
+    public GameObject CityPrefab;
 
 
     public Dictionary<Vector3Int, TileClass> InitialTilesDictionary = new Dictionary<Vector3Int, TileClass>();
@@ -36,10 +39,18 @@ public class MapGenerator : MonoBehaviour
     {
         InitialMapResourcesShuffle();
         InitializeTiles();
-        UpdateVisualRepresentation(InitialTilesDictionary);
+        UpdateTileTypeVisual(InitialTilesDictionary);
+        UpdateTileNumberVisual(InitialTilesDictionary);
 
         CreateDicsAndAdjacentTiles();
         CreateNeighborsLists();
+    }
+
+    public void LoadMapVisuals(Dictionary<Vector3Int, TileClass> TilesDic)
+    {
+        UpdateTileTypeVisual(TilesDic);
+        UpdateTileNumberVisual(TilesDic);
+        UpdateTownsAndRoadsVisual();
     }
 
 
@@ -80,19 +91,19 @@ public class MapGenerator : MonoBehaviour
 
 
 
-                    GameObject prefabInstance = Instantiate(NumberTokenPrefab, worldPosition, Quaternion.identity);
-                    TextMeshPro textMesh = prefabInstance.transform.GetChild(0).GetComponent<TextMeshPro>();
-                    textMesh.text = numberToken.ToString();
+                    //GameObject prefabInstance = Instantiate(NumberTokenPrefab, worldPosition, Quaternion.identity);
+                    //TextMeshPro textMesh = prefabInstance.transform.GetChild(0).GetComponent<TextMeshPro>();
+                    //textMesh.text = numberToken.ToString();
 
-                    if (numberToken == 6 || numberToken == 8)
-                    {
-                        textMesh.color = Color.red;
-                        textMesh.fontStyle = FontStyles.Bold;
-                    }
+                    //if (numberToken == 6 || numberToken == 8)
+                    //{
+                    //    textMesh.color = Color.red;
+                    //    textMesh.fontStyle = FontStyles.Bold;
+                    //}
 
 
                     
-                    var tile = new TileClass(resourceType, numberToken, TilePosition, worldPosition,false, prefabInstance); 
+                    var tile = new TileClass(resourceType, numberToken, TilePosition, worldPosition,false); 
                     InitialTilesDictionary.Add(TilePosition, tile);
 
 
@@ -113,11 +124,12 @@ public class MapGenerator : MonoBehaviour
 
 
         }
+      
     }
 
     // Update the visual representation of the map in the tilemap component
 
-    public void UpdateVisualRepresentation(Dictionary<Vector3Int, TileClass> TilesDic)
+    public void UpdateTileTypeVisual(Dictionary<Vector3Int, TileClass> TilesDic)
     {
         foreach (var tilePair in TilesDic)
         {
@@ -148,6 +160,63 @@ public class MapGenerator : MonoBehaviour
                 default:
                     break; 
             }
+        }
+    }
+
+
+
+    public void UpdateTileNumberVisual(Dictionary<Vector3Int, TileClass> TilesDic)
+    {
+        
+
+        foreach (var Tile in TilesDic)
+        {
+
+
+            if (Tile.Value.resourceType != TileClass.ResourceType.Desert)
+            {
+
+                GameObject prefabInstance = Instantiate(NumberTokenPrefab, Tile.Value.TileWorldPostion, Quaternion.identity);
+                TextMeshPro textMesh = prefabInstance.transform.GetChild(0).GetComponent<TextMeshPro>();
+                int TileNumber = Tile.Value.numberToken;
+                textMesh.text = TileNumber.ToString();
+
+                if (TileNumber == 6 || TileNumber == 8)
+                {
+                    textMesh.color = Color.red;
+                    textMesh.fontStyle = FontStyles.Bold;
+                }
+
+                Tile.Value.MyNumberPrefab = prefabInstance;
+
+
+            }
+            
+        }
+
+    }
+
+    public void UpdateTownsAndRoadsVisual()
+    {
+        var player = BoardManager.instance.player;
+        foreach (var town in player.SettelmentsList)
+        {
+            if(town.HasCityUpgade == true)
+            {
+                Instantiate(CityPrefab, town.Position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(TownPrefab, town.Position, Quaternion.identity);
+
+            }
+        }
+
+        foreach(var road in player.RoadsList)
+        {
+            Quaternion SideRotation = Quaternion.Euler(0, 0, road.RotationZ);
+            Instantiate(RoadPrefab, road.Position, SideRotation);
+
         }
     }
 

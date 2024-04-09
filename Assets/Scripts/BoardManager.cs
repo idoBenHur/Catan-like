@@ -24,8 +24,9 @@ public class BoardManager : MonoBehaviour
     public UiManager uiManager;
     public MapGenerator mapGenerator;
 
-    private bool FirstTurnIsActive = true;
+    private bool FirstTurnIsActive;
     private int FirstTurnPlacedPeices = 0;
+    public int TotalDice;
     
     public PlayerClass player;
     public GameObject CornerIndicatorPrefab;
@@ -36,7 +37,7 @@ public class BoardManager : MonoBehaviour
     public GameObject TownPrefab;
     public GameObject CityPrefab;
     private int CurrentTurn;
-    private int CurrentSeason;
+    private int MaxTurn = 30;
 
 
 
@@ -48,7 +49,7 @@ public class BoardManager : MonoBehaviour
     public Dictionary<Vector3, CornersClass> CornersDic = new Dictionary<Vector3, CornersClass>();
     public Dictionary<Vector3, SidesClass> SidesDic = new Dictionary<Vector3, SidesClass>();
 
-    public static event Action<int> OnDiceRolled;
+    public static event Action OnDiceRolled;
 
 
 
@@ -88,6 +89,7 @@ public class BoardManager : MonoBehaviour
             TilesDictionary = mapGenerator.InitialTilesDictionary;
             CornersDic = mapGenerator.InitialCornersDic;
             SidesDic = mapGenerator.InitialSidesDic;
+            FirstTurnIsActive = true;
             FirstTurnPlacement();
         }
         else
@@ -96,12 +98,15 @@ public class BoardManager : MonoBehaviour
             TilesDictionary = GameManager.Instance.GameState.tilesDic;
             CornersDic = GameManager.Instance.GameState.cornersDic;
             SidesDic = GameManager.Instance.GameState.sidesDic;
-            mapGenerator.UpdateVisualRepresentation(TilesDictionary);
+            mapGenerator.LoadMapVisuals(TilesDictionary);
             Debug.Log("victory points " + player.VictoryPoints);
+            FirstTurnIsActive = false;
+
         }
 
 
         uiManager.SetPlayerInUIManager(player);
+        uiManager.UpdateVictoryPointsDisplay();
 
 
 
@@ -118,22 +123,24 @@ public class BoardManager : MonoBehaviour
     {
         int die1 = UnityEngine.Random.Range(1, 7); // Generates a number between 1 and 6
         int die2 = UnityEngine.Random.Range(1, 7); // Same here
-        int total = die1 + die2;
+        TotalDice = die1 + die2;
 
-        Debug.Log(total);
-        OnDiceRolled?.Invoke(total);
-        DistributeResources(total);
-        
+        OnDiceRolled?.Invoke();
+        DistributeResources(TotalDice);
+      
+        uiManager.UpdateDiceRollDisplay(TotalDice);
 
-        
+        CurrentTurn++;
+        if (CurrentTurn >= MaxTurn)
+        {
+            Debug.Log("end game");
+        }
+        uiManager.UpdateTurnSliderDisplay(CurrentTurn);
 
-
-        uiManager.UpdateDiceRollDisplay(total);
-        
     }
 
 
-    public void test()
+    public void TemoraraytNextSceneButton()
     {
         GameManager.Instance.UpdatePlayer(player);
         GameManager.Instance.UpdateTile(TilesDictionary);
@@ -184,18 +191,15 @@ public class BoardManager : MonoBehaviour
 
                     if(tile.numberToken != DiceResult)
                     {
-                        Debug.Log("miss");
                         continue;
 
                     }
                     else if(tile.numberToken == DiceResult && tile.hasRobber == true)
                     {
-                        Debug.Log("tile has robber");
                     }
 
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == false)
                     {
-                        Debug.Log("gain resources");
                         player.AddResource(tile.resourceType, 1);
                     }
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == true)
@@ -246,7 +250,6 @@ public class BoardManager : MonoBehaviour
             RobberPrefab robber = Instantiate(robberPrefab, AwayFromPlayerTiles[randomindex].TileWorldPostion + (Vector3.right * 0.5f), Quaternion.identity);
             robber.currentTile = AwayFromPlayerTiles[randomindex];
 
-            Debug.Log("robber placed on " + AwayFromPlayerTiles[randomindex].resourceType + " " + AwayFromPlayerTiles[randomindex].numberToken);
         }
 
 
@@ -586,6 +589,8 @@ public class BoardManager : MonoBehaviour
 
                 Quaternion SideRotation = Quaternion.Euler(0, 0, Side.RotationZ);
                 Instantiate(RoadPrefab, Side.Position, SideRotation);
+                player.RoadsList.Add(Side);
+
 
 
                 foreach (var NeighborsRoads in Side.AdjacentSides)
@@ -612,6 +617,7 @@ public class BoardManager : MonoBehaviour
 
                     Quaternion SideRotation2 = Quaternion.Euler(0, 0, Side.RotationZ);
                     Instantiate(RoadPrefab, Side.Position, SideRotation2);
+                    player.RoadsList.Add(Side);
 
 
                     foreach (var NeighborsRoads in Side.AdjacentSides)

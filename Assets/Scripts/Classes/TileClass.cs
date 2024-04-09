@@ -15,6 +15,7 @@ public class TileClass
     public Vector3 TileWorldPostion { get; private set; }
     public List<CornersClass> AdjacentCorners { get; set; } = new List<CornersClass>();
     public List<SidesClass> AdjacentSides { get; set; } = new List<SidesClass>();
+
     public GameObject MyNumberPrefab;
 
 

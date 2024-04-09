@@ -11,6 +11,7 @@ public class PlayerClass
     public event Action OnResourcesChanged;  // Event to notify when resources change
     public int VictoryPoints;
     public List<CornersClass> SettelmentsList { get; set; } = new List<CornersClass>();
+    public List<SidesClass> RoadsList { get; set; } = new List<SidesClass>();
 
 
     public PlayerClass()

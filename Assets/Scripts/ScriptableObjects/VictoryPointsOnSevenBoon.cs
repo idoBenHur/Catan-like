@@ -7,12 +7,12 @@ public class VictoryPointsOnSevenBoon : Boon
 {
     public override void Activate(PlayerClass player)
     {
-        BoardManager.OnDiceRolled += CheckConditions;
+       // BoardManager.OnDiceRolled += CheckConditions;
     }
 
     public override void Deactivate(PlayerClass player)
     {
-       BoardManager.OnDiceRolled -= CheckConditions;
+       //BoardManager.OnDiceRolled -= CheckConditions;
     }
 
     private void CheckConditions(int rollResult)

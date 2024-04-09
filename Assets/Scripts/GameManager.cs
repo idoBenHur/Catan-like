@@ -8,7 +8,7 @@ public class GameState
 
     public int SeasonNumber;
     public PlayerClass player;
-    public List<GenericBoon> activeBoons;
+    public List<Boon> activeBoons;
     public Dictionary<Vector3Int, TileClass> tilesDic;
     public Dictionary<Vector3, CornersClass> cornersDic;
     public Dictionary<Vector3, SidesClass> sidesDic;

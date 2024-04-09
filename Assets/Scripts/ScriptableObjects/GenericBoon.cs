@@ -1,106 +1,166 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class BoonCondition
+{
+    public enum ConditionType
+    {
+        DiceRollEquals,
+        ResourceCountLessThan,
+    }
 
-[CreateAssetMenu(fileName = "New Boon", menuName = "Boons/GenericBoon")]
+    public ConditionType type;
+    public int value; 
+}
+
+
+[System.Serializable]
+public class BoonEffect
+{
+    public enum EffectType
+    {
+        AddWood,
+        GainVictoryPoints,
+    }
+
+    public EffectType type;
+    public int value; 
+}
+
+
+[System.Serializable]
+public class BoonTrigger
+{
+    public enum TriggerType
+    {
+        OnDiceRoll,
+        OnTurnStart,
+        OnTurnEnd,
+        // Add other trigger types as needed
+    }
+
+    public TriggerType type;
+}
+
+
+[CreateAssetMenu(fileName = "New Generic Boon", menuName = "Boons/GenericBoon")]
 public class GenericBoon : ScriptableObject
 {
     public string boonName;
     public string description;
-    public List<BoonRule> rules = new List<BoonRule>();
+    public List<BoonTrigger> triggers = new List<BoonTrigger>();
+    public List<BoonCondition> conditions = new List<BoonCondition>();
+    public List<BoonEffect> effects = new List<BoonEffect>();
 
-    public virtual void Activate()
+
+    public void Activate()
     {
-        foreach (var rule in rules)
+        Debug.Log("boon active");
+
+        foreach (var trigger in triggers)
         {
-            switch (rule.trigger)
+            switch (trigger.type)
             {
-                case BoonTrigger.DiceRoll:
-                    BoardManager.OnDiceRolled += (diceValue) => CheckAndApplyRule(diceValue, rule);
+                case BoonTrigger.TriggerType.OnDiceRoll:
+                    BoardManager.OnDiceRolled += GoThroughConditionsList; // Assuming OnDiceRolled is an event you can subscribe to
                     break;
-                case BoonTrigger.TurnStart:
-                    // Subscribe to a TurnStart event and apply rule
+                case BoonTrigger.TriggerType.OnTurnStart:
                     break;
-                case BoonTrigger.TurnEnd:
-                    // Subscribe to a TurnEnd event and apply rule
+                case BoonTrigger.TriggerType.OnTurnEnd:
                     break;
-                    // Add cases for other triggers
+                    // Add other cases as needed
             }
         }
     }
 
-    private void CheckAndApplyRule(int diceValue, BoonRule rule)
+    public void Deactivate()
     {
-        // Check the rule's condition
-        switch (rule.condition)
+        foreach (var trigger in triggers)
         {
-            case BoonCondition.DiceValueEquals:
-                if (diceValue == rule.conditionValue)
+            switch (trigger.type)
+            {
+                case BoonTrigger.TriggerType.OnDiceRoll:
+                    BoardManager.OnDiceRolled -= GoThroughConditionsList;
+                    break;
+                case BoonTrigger.TriggerType.OnTurnStart:
+                    break;
+                case BoonTrigger.TriggerType.OnTurnEnd:
+                    break;
+                    // Add other cases as needed
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public void GoThroughConditionsList()
+    {
+        foreach (var condition in conditions)
+        {
+            if (IsConditionMet(condition) == false)
+            {
+                Debug.Log("conditions not met");
+                return;
+            }
+            Debug.Log("conditions met");
+
+        }
+
+        foreach (var effect in effects)
+        {
+            ApplyEffect(effect);
+            Debug.Log("apply effect");
+
+        }
+
+    }
+
+    private bool IsConditionMet(BoonCondition condition)
+    {
+
+        switch (condition.type)
+        {
+            case BoonCondition.ConditionType.DiceRollEquals:
+                return BoardManager.instance.TotalDice == condition.value;
+            case BoonCondition.ConditionType.ResourceCountLessThan:
+                int resourceCount = 0;
+                foreach(var resource in BoardManager.instance.player.PlayerResources)
                 {
-                    ApplyEffect(rule.effect, rule.effectValue);
+                    resourceCount += resource.Value;
                 }
-                break;
-                // Add cases for other conditions
+                return resourceCount < condition.value;
+                // Add more cases as needed for other condition types
         }
+
+        return false;
     }
 
+ 
 
-
-    private void ApplyEffect(BoonEffect effect, int effectValue)
+    private void ApplyEffect(BoonEffect effect)
     {
-        switch (effect)
+
+        switch (effect.type)
         {
-            case BoonEffect.GrantVictoryPoint:
-                BoardManager.instance.player.AddVictoryPoints(effectValue);
-                // Logic to grant victory points
+            case BoonEffect.EffectType.AddWood:
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value);
                 break;
-            case BoonEffect.GrantResources:
-                // Logic to grant resources
+            case BoonEffect.EffectType.GainVictoryPoints:
+                BoardManager.instance.player.AddVictoryPoints(effect.value);
                 break;
-                // Add cases for other effects
+                // Add more cases as needed for other effect types
         }
     }
-
-
-
-
-    public virtual void Deactivate()
-    {
-        // Logic to deactivate the boon
-    }
 }
 
-public enum BoonTrigger
-{
-    DiceRoll,
-    TurnStart,
-    TurnEnd,
-    // Additional triggers as needed
-}
 
-public enum BoonCondition
-{
-    DiceValueEquals,
-    NoCities,
-    ResourceCountLessThan,
-    // Additional conditions as needed
-}
-
-public enum BoonEffect
-{
-    GrantVictoryPoint,
-    GrantResources,
-    ModifyDiceRoll,
-    // Additional effects as needed
-}
-
-[System.Serializable]
-public struct BoonRule
-{
-    public BoonTrigger trigger;
-    public BoonCondition condition;
-    public int conditionValue;
-    public BoonEffect effect;
-    public int effectValue;
-}

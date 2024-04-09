@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BoonManager : MonoBehaviour
 {
-    private List<Boon> activeBoons = new List<Boon>();
+    private List<GenericBoon> activeBoons = new List<GenericBoon>();
 
-    public Boon Boon;
+    public GenericBoon Boon;
 
     public PlayerClass player;
 
@@ -19,24 +19,39 @@ public class BoonManager : MonoBehaviour
         ActivateBoon(Boon);
     }
 
-    public void ActivateBoon(Boon boon)
+    private void OnDestroy()
+    {
+        DeactiveAllBoons();
+    }
+
+    public void ActivateBoon(GenericBoon boon)
     {
         if (!activeBoons.Contains(boon))
         {
             activeBoons.Add(boon);
-            boon.Activate(player);
+            boon.Activate();
             Debug.Log($"Activated boon: {boon.boonName}");
         }
     }
 
     // Method to deactivate a boon
-    public void DeactivateBoon(Boon boon)
+    public void DeactivateBoon(GenericBoon boon)
     {
         if (activeBoons.Contains(boon))
         {
-            boon.Deactivate(player);
+            boon.Deactivate();
             activeBoons.Remove(boon);
             Debug.Log($"Deactivated boon: {boon.boonName}");
+        }
+    }
+
+
+    public void DeactiveAllBoons()
+    {
+        var tempBoonList = new List<GenericBoon>(activeBoons);
+        foreach(var boon in tempBoonList)
+        {
+            DeactivateBoon(boon);
         }
     }
 

@@ -19,6 +19,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI wheatText;
     [SerializeField] private TextMeshProUGUI DiceDisplay;
     [SerializeField] private TextMeshProUGUI VictoryPoints;
+    [SerializeField] private Slider TurnSlider;
 
     private ResourceType? offerType = null;
     private ResourceType? requestType = null;
@@ -191,6 +192,16 @@ public class UiManager : MonoBehaviour
         DiceDisplay.text = DiceResult.ToString();
     }
 
+    public void UpdateTurnSliderDisplay(int CurrentTurn)
+    {
+
+
+        TurnSlider.value = (float)CurrentTurn;
+
+
+    }
+
+
 
     public void RollDiceButton() 
     {
@@ -233,35 +244,7 @@ public class UiManager : MonoBehaviour
     //trade with bank functions
 
 
-    private void SetTradeOffer(bool isSelected, ResourceType type, Toggle toggle)
-    {
-        if (isSelected)
-        {
-            offerType = type;
-            UncheckOtherToggles(toggle, true);
-        }
-        else if (offerType == type)
-        {
-            offerType = null;
-        }
 
-        CheckTradeValidity();
-    }
-
-    private void SetRequest(bool isSelected, ResourceType type, Toggle toggle)
-    {
-        if (isSelected)
-        {
-            requestType = type;
-            UncheckOtherToggles(toggle, false);
-        }
-        else if (requestType == type)
-        {
-            requestType = null;
-        }
-
-        CheckTradeValidity();
-    }
 
 
 
@@ -361,7 +344,7 @@ public class UiManager : MonoBehaviour
 
 
 
-
+    // robber
 
     public void RobberInteraction(RobberPrefab robber)
     {
@@ -406,5 +389,10 @@ public class UiManager : MonoBehaviour
 //        RobberInteraction(null);
 
     }
+
+
+    //
+
+
 
 }
