@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoonManager : MonoBehaviour
 {
+    public List<GenericBoon> allBoons;
     private List<GenericBoon> activeBoons = new List<GenericBoon>();
+    public Button[] boonButtons;
+    private GenericBoon[] OfferedBoons = new GenericBoon[3];
 
     public GenericBoon Boon;
 
@@ -16,13 +21,60 @@ public class BoonManager : MonoBehaviour
 
     public void buttonclick()
     {
-        ActivateBoon(Boon);
+        //ActivateBoon(Boon);
+        ShowRandomBoons();
     }
 
     private void OnDestroy()
     {
         DeactiveAllBoons();
     }
+
+
+
+    public void ShowRandomBoons()
+    {
+        List<GenericBoon> availableBoons = new List<GenericBoon>(allBoons);
+        for (int i = 0; i < boonButtons.Length; i++)
+        {
+            int randomIndex = Random.Range(0, availableBoons.Count);
+            OfferedBoons[i] = availableBoons[randomIndex];
+
+            TextMeshProUGUI tmp = boonButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            tmp.text = OfferedBoons[i].description;
+            
+            availableBoons.RemoveAt(randomIndex); // Remove the chosen boon to avoid duplicate selections
+        }
+
+    }
+
+
+
+    public void ChooseBoon1() { ChooseBoon(0); }
+    public void ChooseBoon2() { ChooseBoon(1); }
+    public void ChooseBoon3() { ChooseBoon(2); }
+
+    private void ChooseBoon(int index)
+    {
+        GenericBoon selectedBoon = OfferedBoons[index];
+
+        ActivateBoon(selectedBoon);
+
+        // Activate the chosen boon here and add it to the player's active boons
+        Debug.Log($"Chosen boon: {selectedBoon.boonName}");
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     public void ActivateBoon(GenericBoon boon)
     {

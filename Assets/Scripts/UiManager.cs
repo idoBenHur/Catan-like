@@ -7,8 +7,16 @@ using static TileClass;
 
 public class UiManager : MonoBehaviour
 {
-    bool ButtonPressedShowTownBuildIndicators = false;
-    bool ButtonPressedShowRoadBuildIndicators = false;
+
+    // build menu
+
+    [SerializeField] private Toggle RoadIndicatorsToggle;
+    [SerializeField] private Toggle TownIndicatorsToggle;
+    [SerializeField] private Toggle CityIndicatorsToggle;
+    private bool isUpdatingToggles = false;
+
+
+
 
     //inventory UI:
     [SerializeField] private PlayerClass player;
@@ -94,76 +102,132 @@ public class UiManager : MonoBehaviour
     }
 
 
+
+    public void CloseAllUi(Toggle CurrentToggle = null)
+    {
+        if (isUpdatingToggles)
+        {
+            return;
+        }
+
+        isUpdatingToggles = true;
+
+
+
+
+        // destroy indicators prefabs
+        if (BoardManager.instance.TownsIndicatorsPrefabList.Count > 0)
+        {
+            foreach (var prefab in BoardManager.instance.TownsIndicatorsPrefabList)
+            {
+                Destroy(prefab.gameObject);
+            }
+            BoardManager.instance.TownsIndicatorsPrefabList.Clear();
+        }
+
+        if (BoardManager.instance.RoadsIndicatorsPrefabList.Count > 0)
+        {
+            foreach (var prefab in BoardManager.instance.RoadsIndicatorsPrefabList)
+            {
+                Destroy(prefab.gameObject);
+            }
+            BoardManager.instance.RoadsIndicatorsPrefabList.Clear();
+        }
+
+        if (BoardManager.instance.CitiesIndicatorsPrefabList.Count > 0)
+        {
+            foreach (var prefab in BoardManager.instance.CitiesIndicatorsPrefabList)
+            {
+                Destroy(prefab.gameObject);
+            }
+            BoardManager.instance.CitiesIndicatorsPrefabList.Clear();
+        }
+
+
+        // close all toggles
+        bool wasOn = CurrentToggle != null && CurrentToggle.isOn;
+
+        TownIndicatorsToggle.isOn = false;
+        RoadIndicatorsToggle.isOn = false;
+        CityIndicatorsToggle.isOn = false;
+
+        if (wasOn == true)
+        {
+
+            CurrentToggle.isOn = true;
+        }
+
+        isUpdatingToggles = false;
+
+
+
+    }
+
+
     // build roads/towns buttons
 
-    public void ShowTownBuildIndicatorsButton()
+    public void ShowTownBuildIndicatorsToggle()
     {
 
-        if (ButtonPressedShowTownBuildIndicators == false)
+    
+        
+        if (TownIndicatorsToggle.isOn == true)
         {
-            ButtonPressedShowTownBuildIndicators = true;
+            CloseAllUi(TownIndicatorsToggle);
             BoardManager.instance.ShowBuildIndicatorsTowns();
-            return;
+
+            if(BoardManager.instance.TownsIndicatorsPrefabList.Count == 0)
+            {
+                TownIndicatorsToggle.isOn = false;
+            }
+
+        }
+        else
+        {
+            CloseAllUi();
         }
 
-        if (ButtonPressedShowTownBuildIndicators == true)
-        {
-            ButtonPressedShowTownBuildIndicators = false;
-            foreach (var prefab in BoardManager.instance.CornersIndicatorsPrefabList)
-            {
-                Destroy(prefab.gameObject);
-            }
-            return;
-        }
+
     }
 
 
-    public void ShowRoadBuildIndicatorsButton()
+    public void ShowRoadBuildIndicatorsToggle()
     {
-        if (ButtonPressedShowRoadBuildIndicators == false)
+
+        
+        if (RoadIndicatorsToggle.isOn == true)
         {
-            ButtonPressedShowRoadBuildIndicators= true;
             BoardManager.instance.ShowBuildIndicatorsRoads();
-            return;
-
+            CloseAllUi(RoadIndicatorsToggle);
         }
-
-        if (ButtonPressedShowRoadBuildIndicators == true)
+        else
         {
-            ButtonPressedShowRoadBuildIndicators = false;
-
-            foreach (var prefab in BoardManager.instance.SidesIndicatorsPrefabList)
-            {
-                Destroy(prefab.gameObject);
-            }
-            return;
-
+            CloseAllUi();
         }
+
+
 
     }
 
 
-    public void ShowCityBuildIndicatorButton()
+    public void ShowCityBuildIndicatorToggle()
     {
-        if (ButtonPressedShowRoadBuildIndicators == false)
+
+        
+        if (CityIndicatorsToggle.isOn == true)
         {
-            ButtonPressedShowRoadBuildIndicators = true;
+            CloseAllUi(CityIndicatorsToggle);
             BoardManager.instance.ShowCityUpgradeIndicators();
-            return;
+
+            
 
         }
-
-        if (ButtonPressedShowRoadBuildIndicators == true)
+        else
         {
-            ButtonPressedShowRoadBuildIndicators = false;
-
-            foreach (var prefab in BoardManager.instance.CornersIndicatorsPrefabList)
-            {
-                Destroy(prefab.gameObject);
-            }
-            return;
-
+            CloseAllUi();
         }
+
+
     }
 
 

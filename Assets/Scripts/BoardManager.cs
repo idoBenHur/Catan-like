@@ -20,7 +20,7 @@ using UnityEngine.SceneManagement;
 public class BoardManager : MonoBehaviour
 {
     public Tilemap tilemap; // Assign this in the inspector
-    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
+    //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     public UiManager uiManager;
     public MapGenerator mapGenerator;
 
@@ -40,9 +40,9 @@ public class BoardManager : MonoBehaviour
     private int MaxTurn = 30;
 
 
-
-    public List<GameObject> CornersIndicatorsPrefabList = new List<GameObject>();
-    public List<GameObject> SidesIndicatorsPrefabList = new List<GameObject>();
+    public List<GameObject> CitiesIndicatorsPrefabList = new List<GameObject>();
+    public List<GameObject> TownsIndicatorsPrefabList = new List<GameObject>();
+    public List<GameObject> RoadsIndicatorsPrefabList = new List<GameObject>();
 
 
     public Dictionary<Vector3Int, TileClass> TilesDictionary = new Dictionary<Vector3Int, TileClass>();
@@ -296,7 +296,7 @@ public class BoardManager : MonoBehaviour
                 {
 
                     GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
-                    CornersIndicatorsPrefabList.Add(indicator);
+                    TownsIndicatorsPrefabList.Add(indicator);
                     indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
                 }
                 
@@ -331,7 +331,7 @@ public class BoardManager : MonoBehaviour
                             SideNearTown.CanBeBuiltOn = true;
                             Quaternion rotation = Quaternion.Euler(0, 0, SideNearTown.RotationZ);
                             GameObject indicator = Instantiate(SideIndicatorPrefab, SideNearTown.Position, rotation);
-                            SidesIndicatorsPrefabList.Add(indicator);
+                            RoadsIndicatorsPrefabList.Add(indicator);
                             indicator.GetComponent<RoadBuildIndicatorPrefab>().Setup(SideNearTown.Position);
                         }
                     }
@@ -368,7 +368,7 @@ public class BoardManager : MonoBehaviour
             if (settelment.HasCityUpgade == false)
             {
                 GameObject indicator = Instantiate(CornerIndicatorPrefab, settelment.Position, Quaternion.identity);
-                CornersIndicatorsPrefabList.Add(indicator);
+                CitiesIndicatorsPrefabList.Add(indicator);
                 indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(settelment);
             }
         }
@@ -390,10 +390,11 @@ public class BoardManager : MonoBehaviour
             player.AddVictoryPoints(1);
 
 
-            foreach (var indicator in CornersIndicatorsPrefabList)
+            foreach (var indicator in CitiesIndicatorsPrefabList)
             {
                 Destroy(indicator.gameObject);
             }
+            CitiesIndicatorsPrefabList.Clear();
 
 
             ShowCityUpgradeIndicators();
@@ -465,7 +466,7 @@ public class BoardManager : MonoBehaviour
             {
                 
                 GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
-                CornersIndicatorsPrefabList.Add(indicator);
+                TownsIndicatorsPrefabList.Add(indicator);
                 indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
             }
         }
@@ -501,10 +502,11 @@ public class BoardManager : MonoBehaviour
 
 
 
-                foreach (var indicator in CornersIndicatorsPrefabList)
+                foreach (var indicator in TownsIndicatorsPrefabList)
                 {
                     Destroy(indicator.gameObject);
                 }
+                TownsIndicatorsPrefabList.Clear();
 
                 FirstTurnPlacement();
 
@@ -536,11 +538,11 @@ public class BoardManager : MonoBehaviour
 
 
 
-                    foreach (var indicator in CornersIndicatorsPrefabList)
+                    foreach (var indicator in TownsIndicatorsPrefabList)
                     {
                         Destroy(indicator.gameObject);
                     }
-
+                    TownsIndicatorsPrefabList.Clear();
 
                     ShowBuildIndicatorsTowns();
 
@@ -568,7 +570,7 @@ public class BoardManager : MonoBehaviour
             {
                 Quaternion rotation = Quaternion.Euler(0, 0, Side.RotationZ);
                 GameObject indicator = Instantiate(SideIndicatorPrefab, Side.Position, rotation);
-                SidesIndicatorsPrefabList.Add(indicator);
+                RoadsIndicatorsPrefabList.Add(indicator);
                 indicator.GetComponent<RoadBuildIndicatorPrefab>().Setup(Side.Position);
             }
         }
@@ -598,7 +600,7 @@ public class BoardManager : MonoBehaviour
                     NeighborsRoads.CanBeBuiltOn = true;
                 }
 
-                foreach (var indicator in SidesIndicatorsPrefabList)
+                foreach (var indicator in RoadsIndicatorsPrefabList)
                 {
                     Destroy(indicator.gameObject);
                 }
@@ -625,7 +627,7 @@ public class BoardManager : MonoBehaviour
                         NeighborsRoads.CanBeBuiltOn = true;
                     }
 
-                    foreach (var indicator in SidesIndicatorsPrefabList)
+                    foreach (var indicator in RoadsIndicatorsPrefabList)
                     {
                         Destroy(indicator.gameObject);
                     }

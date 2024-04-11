@@ -21,8 +21,6 @@ MonoBehaviour:
     value: 7
   - type: 1
     value: 100
-  - type: 1
-    value: 50
   effects:
   - type: 0
     value: 1
