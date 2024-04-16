@@ -23,6 +23,8 @@ public class BoardManager : MonoBehaviour
     //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     public UiManager uiManager;
     public MapGenerator mapGenerator;
+    public BoonManager boonManager;
+    public Challenges challenges;
 
     private bool FirstTurnIsActive;
     private int FirstTurnPlacedPeices = 0;
@@ -36,8 +38,9 @@ public class BoardManager : MonoBehaviour
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
     public GameObject CityPrefab;
-    private int CurrentTurn;
-    private int MaxTurn = 30;
+    public int CurrentTurn;
+    public int MaxTurn = 40;
+    public int VictoryPointsGoal = 10;
 
 
     public List<GameObject> CitiesIndicatorsPrefabList = new List<GameObject>();
@@ -104,14 +107,16 @@ public class BoardManager : MonoBehaviour
 
         }
 
-
-        uiManager.SetPlayerInUIManager(player);
-        uiManager.UpdateVictoryPointsDisplay();
-
-
-
-
         CurrentTurn = 0;
+
+        uiManager.SetUpUIManager(player);
+        boonManager.SetPlayerInBoonManager(player);
+        challenges.SetUpPlayerChallenges(player);
+
+
+
+
+        
 
         
 
@@ -125,17 +130,17 @@ public class BoardManager : MonoBehaviour
         int die2 = UnityEngine.Random.Range(1, 7); // Same here
         TotalDice = die1 + die2;
 
+        CurrentTurn++;
         OnDiceRolled?.Invoke();
         DistributeResources(TotalDice);
       
         uiManager.UpdateDiceRollDisplay(TotalDice);
 
-        CurrentTurn++;
+        
         if (CurrentTurn >= MaxTurn)
         {
             Debug.Log("end game");
         }
-        uiManager.UpdateTurnSliderDisplay(CurrentTurn);
 
     }
 
@@ -177,7 +182,7 @@ public class BoardManager : MonoBehaviour
 
         if (DiceResult == 7)
         {
-            ChooseRobberTile();
+           // ChooseRobberTile();
         }
 
         else

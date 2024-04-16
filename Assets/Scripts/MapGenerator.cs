@@ -415,5 +415,37 @@ public class MapGenerator : MonoBehaviour
 
         //side
 
+        //tiles
+        foreach (var currentTile in InitialTilesDictionary.Values)
+        {
+            foreach (var possibleAdjacentTile in InitialTilesDictionary.Values)
+            {
+                if (currentTile == possibleAdjacentTile) continue;
+              
+
+                // Check for shared corners to determine adjacency
+                if (currentTile.AdjacentCorners.Intersect(possibleAdjacentTile.AdjacentCorners).Any())
+                {
+                    if (!currentTile.AdjacentTiles.Contains(possibleAdjacentTile))
+                    {
+                        currentTile.AdjacentTiles.Add(possibleAdjacentTile);
+                    }
+
+                    if (!possibleAdjacentTile.AdjacentTiles.Contains(currentTile))
+                    {
+                        possibleAdjacentTile.AdjacentTiles.Add(currentTile);
+                    }
+                }
+            }
+        }
+        //tiles
+
+
+        
+
+
     }
+
+
+
 }

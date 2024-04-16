@@ -8,26 +8,35 @@ using static TileClass;
 public class UiManager : MonoBehaviour
 {
 
-    // build menu
+    //scripts 
+    public Challenges challenges;
+
+
+    //  menu toggles
 
     [SerializeField] private Toggle RoadIndicatorsToggle;
     [SerializeField] private Toggle TownIndicatorsToggle;
     [SerializeField] private Toggle CityIndicatorsToggle;
+    [SerializeField] private Toggle TradeToggle;
     private bool isUpdatingToggles = false;
 
 
 
 
-    //inventory UI:
-    [SerializeField] private PlayerClass player;
+    //screen UI:
+    private PlayerClass player;
     [SerializeField] private TextMeshProUGUI woodText;
     [SerializeField] private TextMeshProUGUI brickText;
     [SerializeField] private TextMeshProUGUI sheepText;
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI wheatText;
     [SerializeField] private TextMeshProUGUI DiceDisplay;
-    [SerializeField] private TextMeshProUGUI VictoryPoints;
-    [SerializeField] private Slider TurnSlider;
+    [SerializeField] private TextMeshProUGUI VictoryPointsText;
+    [SerializeField] public Slider TurnSlider;
+    public RectTransform ChallengeSliderIndicator;
+    [SerializeField] private GameObject BoonSelectionScreen;
+    [SerializeField] private GameObject TradePannel;
+
 
     private ResourceType? offerType = null;
     private ResourceType? requestType = null;
@@ -85,11 +94,16 @@ public class UiManager : MonoBehaviour
         SetupButtonListeners();
     }
 
-    public void SetPlayerInUIManager(PlayerClass playerInstance)
+    public void SetUpUIManager(PlayerClass playerInstance)
     {
         player = playerInstance;
         player.OnResourcesChanged += UpdateResourceDisplay;
+        player.OnVictoryPointsChanged += UpdateVictoryPointsDisplay;
+        BoardManager.OnDiceRolled += UpdateTurnSliderDisplay;
+
         UpdateResourceDisplay();  // Initial display update
+        UpdateTurnSliderDisplay();
+        player.AddVictoryPoints(0); // just to update the visuals 
     }
 
 
@@ -98,6 +112,8 @@ public class UiManager : MonoBehaviour
         if (player != null)
         {
             player.OnResourcesChanged -= UpdateResourceDisplay;
+            player.OnVictoryPointsChanged -= UpdateVictoryPointsDisplay;
+            BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
         }
     }
 
@@ -111,8 +127,6 @@ public class UiManager : MonoBehaviour
         }
 
         isUpdatingToggles = true;
-
-
 
 
         // destroy indicators prefabs
@@ -150,6 +164,7 @@ public class UiManager : MonoBehaviour
         TownIndicatorsToggle.isOn = false;
         RoadIndicatorsToggle.isOn = false;
         CityIndicatorsToggle.isOn = false;
+        TradeToggle.isOn = false;
 
         if (wasOn == true)
         {
@@ -230,6 +245,20 @@ public class UiManager : MonoBehaviour
 
     }
 
+    public void ShowTradePannelToggle()
+    {
+        if(TradeToggle.isOn == true)
+        {
+            CloseAllUi(TradeToggle);
+            TradePannel.SetActive(true);
+        }
+        else
+        {
+            TradePannel.SetActive(false);
+            CloseAllUi();
+        }
+    }
+
 
     //
 
@@ -246,9 +275,14 @@ public class UiManager : MonoBehaviour
 
     }
 
-    public void UpdateVictoryPointsDisplay()
+    public void UpdateVictoryPointsDisplay(int CurrentVictoryPoints)
     {
-        VictoryPoints.text = player.VictoryPoints.ToString();
+
+
+
+        string VPText = CurrentVictoryPoints.ToString();
+        string VPGoalText = BoardManager.instance.VictoryPointsGoal.ToString();
+        VictoryPointsText.text = VPText + "/" + VPGoalText;
 
     }
     public void UpdateDiceRollDisplay(int DiceResult)
@@ -256,11 +290,25 @@ public class UiManager : MonoBehaviour
         DiceDisplay.text = DiceResult.ToString();
     }
 
-    public void UpdateTurnSliderDisplay(int CurrentTurn)
+    public void UpdateTurnSliderDisplay()
     {
 
+        int CurrentTurn= BoardManager.instance.CurrentTurn;
+        int maxTurns = BoardManager.instance.MaxTurn;
 
-        TurnSlider.value = (float)CurrentTurn;
+
+        if(CurrentTurn == 0)
+        {
+            int challengeTurn = challenges.RobberChallengeTurn;
+            float reletivePostion = (float)challenges.RobberChallengeTurn / maxTurns;
+
+            ChallengeSliderIndicator.anchorMin = new Vector2(reletivePostion, ChallengeSliderIndicator.anchorMin.y);
+            ChallengeSliderIndicator.anchorMax = new Vector2(reletivePostion, ChallengeSliderIndicator.anchorMax.y);
+            ChallengeSliderIndicator.anchoredPosition = new Vector2(0, ChallengeSliderIndicator.anchoredPosition.y);
+        }
+
+        TurnSlider.value = CurrentTurn;
+
 
 
     }
@@ -270,6 +318,8 @@ public class UiManager : MonoBehaviour
     public void RollDiceButton() 
     {
         BoardManager.instance.DiceRoll();
+        CloseAllUi();
+
     }
 
 
@@ -458,5 +508,10 @@ public class UiManager : MonoBehaviour
     //
 
 
+
+    public void OpenAndCloseBoonSelectionScreen()
+    {
+        BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
+    }
 
 }

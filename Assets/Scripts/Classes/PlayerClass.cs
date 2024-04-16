@@ -9,6 +9,7 @@ public class PlayerClass
 {
     public Dictionary<ResourceType, int> PlayerResources { get; private set; }
     public event Action OnResourcesChanged;  // Event to notify when resources change
+    public event Action <int> OnVictoryPointsChanged;
     public int VictoryPoints;
     public List<CornersClass> SettelmentsList { get; set; } = new List<CornersClass>();
     public List<SidesClass> RoadsList { get; set; } = new List<SidesClass>();
@@ -90,7 +91,8 @@ public class PlayerClass
     public void AddVictoryPoints(int VictoryPointsAmount)
     {
        VictoryPoints = VictoryPoints + VictoryPointsAmount;
-        UiManager.UIinstance.UpdateVictoryPointsDisplay();
+        OnVictoryPointsChanged?.Invoke(VictoryPoints);
+       
     }
 
 

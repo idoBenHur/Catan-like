@@ -948,6 +948,113 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95423812}
   m_CullTransparentMesh: 1
+--- !u!1 &102377103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 102377104}
+  - component: {fileID: 102377106}
+  - component: {fileID: 102377105}
+  m_Layer: 5
+  m_Name: 'Trade toggle '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &102377104
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102377103}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 866916418}
+  - {fileID: 293952736}
+  m_Father: {fileID: 1928236262}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 722, y: -153}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &102377105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102377103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 866916419}
+  toggleTransition: 1
+  graphic: {fileID: 0}
+  m_Group: {fileID: 0}
+  onValueChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 240130137}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_MethodName: ShowTradePannelToggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_IsOn: 0
+--- !u!222 &102377106
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102377103}
+  m_CullTransparentMesh: 1
 --- !u!1 &111085044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,6 +1397,8 @@ GameObject:
   - component: {fileID: 240130132}
   - component: {fileID: 240130134}
   - component: {fileID: 240130135}
+  - component: {fileID: 240130136}
+  - component: {fileID: 240130137}
   m_Layer: 0
   m_Name: Gameplay Manager
   m_TagString: Untagged
@@ -1310,8 +1419,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 80364855}
-  uiManager: {fileID: 983037188}
+  uiManager: {fileID: 240130137}
   mapGenerator: {fileID: 240130134}
+  boonManager: {fileID: 240130135}
+  challenges: {fileID: 240130136}
   TotalDice: 0
   CornerIndicatorPrefab: {fileID: 3579992415153703632, guid: ca10fc29f9d7a3647b1e00b49eb125c4, type: 3}
   SideIndicatorPrefab: {fileID: 3694540549687393739, guid: 0e6fbceb24717e74d836fd1c284e150f, type: 3}
@@ -1320,6 +1431,8 @@ MonoBehaviour:
   RoadPrefab: {fileID: 6665533023127773880, guid: 1d2df8e8eb128204d89eb527bb0cc645, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
+  CurrentTurn: 0
+  MaxTurn: 30
   CitiesIndicatorsPrefabList: []
   TownsIndicatorsPrefabList: []
   RoadsIndicatorsPrefabList: []
@@ -1381,7 +1494,67 @@ MonoBehaviour:
   - {fileID: 865626171}
   - {fileID: 1085971350}
   - {fileID: 675627773}
+  uiManager: {fileID: 0}
   Boon: {fileID: 11400000, guid: db311eac622a6594f9f80862d563903f, type: 2}
+--- !u!114 &240130136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240130131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a52309fb91a25b4e8d49f6856c1bcc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testprefab: {fileID: 5181524001814131594, guid: d901afef932d86c49824f0b9f8922dc8, type: 3}
+  RobberChallengeTurn: 10
+--- !u!114 &240130137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240130131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6efb2d20616b07c439ce6ad26186de83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  challenges: {fileID: 240130136}
+  RoadIndicatorsToggle: {fileID: 799388721}
+  TownIndicatorsToggle: {fileID: 1087198538}
+  CityIndicatorsToggle: {fileID: 2070552636}
+  TradeToggle: {fileID: 102377105}
+  woodText: {fileID: 1707715890}
+  brickText: {fileID: 1383498341}
+  sheepText: {fileID: 793661216}
+  oreText: {fileID: 47583421}
+  wheatText: {fileID: 272456644}
+  DiceDisplay: {fileID: 40560749}
+  VictoryPoints: {fileID: 1627731957}
+  TurnSlider: {fileID: 1354938850}
+  ChallengeSliderIndicator: {fileID: 532952789}
+  BoonSelectionScreen: {fileID: 1397506741}
+  TradePannel: {fileID: 751060042}
+  tradeButton: {fileID: 1124521377}
+  offerWoodToggle: {fileID: 1139900331}
+  offerBrickToggle: {fileID: 1758327800}
+  offerSheepToggle: {fileID: 1394811875}
+  offerOreToggle: {fileID: 759142355}
+  offerWheatToggle: {fileID: 405714308}
+  requestWoodToggle: {fileID: 773108011}
+  requestBrickToggle: {fileID: 1345504894}
+  requestSheepToggle: {fileID: 699965405}
+  requestOreToggle: {fileID: 998191214}
+  requestWheatToggle: {fileID: 873325651}
+  PayRobberWoodButton: {fileID: 1743260667}
+  PayRobberBrickButton: {fileID: 1018431691}
+  PayRobberSheepButton: {fileID: 234966332}
+  PayRobberOreButton: {fileID: 1492902718}
+  PayRobberWheatButton: {fileID: 2087136874}
+  PayRobberUiPannel: {fileID: 1189103418}
 --- !u!1 &242206267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,6 +1838,140 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293276710}
+  m_CullTransparentMesh: 1
+--- !u!1 &293952735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293952736}
+  - component: {fileID: 293952738}
+  - component: {fileID: 293952737}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &293952736
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293952735}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 102377104}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &293952737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293952735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Trade
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281479730
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &293952738
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293952735}
   m_CullTransparentMesh: 1
 --- !u!1 &302792745
 GameObject:
@@ -2465,7 +2772,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 983037188}
+      - m_Target: {fileID: 240130137}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: RollDiceButton
         m_Mode: 1
@@ -2648,6 +2955,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 480945736}
+  m_CullTransparentMesh: 1
+--- !u!1 &532952788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532952789}
+  - component: {fileID: 532952791}
+  - component: {fileID: 532952790}
+  m_Layer: 5
+  m_Name: challenge indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &532952789
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532952788}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.11430744, y: 0.11430744, z: 0.11430744}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1354938849}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -2.8999999, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &532952790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532952788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.16313636, g: 0.6571095, b: 0.8867924, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &532952791
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532952788}
   m_CullTransparentMesh: 1
 --- !u!1 &558570510
 GameObject:
@@ -3270,7 +3652,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 240130135}
         m_TargetAssemblyTypeName: BoonManager, Assembly-CSharp
-        m_MethodName: ChooseBoon3
+        m_MethodName: ChooseBoonButton3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3670,7 +4052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &751060043
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4139,7 +4521,7 @@ GameObject:
   - component: {fileID: 799388720}
   - component: {fileID: 799388721}
   m_Layer: 5
-  m_Name: Build Road Button
+  m_Name: Build Road toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4197,7 +4579,7 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 0.051886797, b: 0.051886797, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -4221,7 +4603,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 983037188}
+      - m_Target: {fileID: 240130137}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: ShowRoadBuildIndicatorsToggle
         m_Mode: 1
@@ -4573,7 +4955,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 240130135}
         m_TargetAssemblyTypeName: BoonManager, Assembly-CSharp
-        m_MethodName: ChooseBoon1
+        m_MethodName: ChooseBoonButton1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4620,6 +5002,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865626169}
+  m_CullTransparentMesh: 1
+--- !u!1 &866916417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 866916418}
+  - component: {fileID: 866916420}
+  - component: {fileID: 866916419}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &866916418
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866916417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 102377104}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &866916419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866916417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &866916420
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866916417}
   m_CullTransparentMesh: 1
 --- !u!1 &873325646
 GameObject:
@@ -5150,78 +5607,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958235385}
   m_CullTransparentMesh: 1
---- !u!1 &983037187
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 983037189}
-  - component: {fileID: 983037188}
-  m_Layer: 0
-  m_Name: UI manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &983037188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983037187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6efb2d20616b07c439ce6ad26186de83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoadIndicatorsToggle: {fileID: 799388721}
-  TownIndicatorsToggle: {fileID: 1087198538}
-  CityIndicatorsToggle: {fileID: 2070552636}
-  woodText: {fileID: 1707715890}
-  brickText: {fileID: 1383498341}
-  sheepText: {fileID: 793661216}
-  oreText: {fileID: 47583421}
-  wheatText: {fileID: 272456644}
-  DiceDisplay: {fileID: 40560749}
-  VictoryPoints: {fileID: 1627731957}
-  TurnSlider: {fileID: 1354938850}
-  tradeButton: {fileID: 1124521377}
-  offerWoodToggle: {fileID: 1139900331}
-  offerBrickToggle: {fileID: 1758327800}
-  offerSheepToggle: {fileID: 1394811875}
-  offerOreToggle: {fileID: 759142355}
-  offerWheatToggle: {fileID: 405714308}
-  requestWoodToggle: {fileID: 773108011}
-  requestBrickToggle: {fileID: 1345504894}
-  requestSheepToggle: {fileID: 699965405}
-  requestOreToggle: {fileID: 998191214}
-  requestWheatToggle: {fileID: 873325651}
-  PayRobberWoodButton: {fileID: 1743260667}
-  PayRobberBrickButton: {fileID: 1018431691}
-  PayRobberSheepButton: {fileID: 234966332}
-  PayRobberOreButton: {fileID: 1492902718}
-  PayRobberWheatButton: {fileID: 2087136874}
-  PayRobberUiPannel: {fileID: 1189103418}
---- !u!4 &983037189
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983037187}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.092898436, y: -0.8019866, z: -0.04905736}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &998191209
 GameObject:
   m_ObjectHideFlags: 0
@@ -6090,7 +6475,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 240130135}
         m_TargetAssemblyTypeName: BoonManager, Assembly-CSharp
-        m_MethodName: ChooseBoon2
+        m_MethodName: ChooseBoonButton2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6232,7 +6617,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 983037188}
+      - m_Target: {fileID: 240130137}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: ShowTownBuildIndicatorsToggle
         m_Mode: 1
@@ -6366,7 +6751,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 983037188}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: ExecuteTradeButton
         m_Mode: 1
@@ -7234,6 +7619,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 111085045}
+  - {fileID: 532952789}
   - {fileID: 402083772}
   m_Father: {fileID: 1928236262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9911,7 +10297,7 @@ Transform:
   m_GameObject: {fileID: 1813965066}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.21, z: -10}
+  m_LocalPosition: {x: 0, y: -0.01, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10403,6 +10789,7 @@ RectTransform:
   - {fileID: 1087198534}
   - {fileID: 2070552632}
   - {fileID: 799388717}
+  - {fileID: 102377104}
   - {fileID: 408054815}
   - {fileID: 1538126659}
   - {fileID: 751060043}
@@ -10504,7 +10891,7 @@ GameObject:
   - component: {fileID: 2070552635}
   - component: {fileID: 2070552636}
   m_Layer: 5
-  m_Name: 'Build city button '
+  m_Name: 'Build city toggle '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10586,7 +10973,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 983037188}
+      - m_Target: {fileID: 240130137}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: ShowCityBuildIndicatorToggle
         m_Mode: 1
@@ -11088,5 +11475,4 @@ SceneRoots:
   - {fileID: 1928236262}
   - {fileID: 240130133}
   - {fileID: 45272348}
-  - {fileID: 983037189}
   - {fileID: 810349294}

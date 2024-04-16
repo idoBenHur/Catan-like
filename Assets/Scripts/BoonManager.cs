@@ -10,10 +10,11 @@ public class BoonManager : MonoBehaviour
     private List<GenericBoon> activeBoons = new List<GenericBoon>();
     public Button[] boonButtons;
     private GenericBoon[] OfferedBoons = new GenericBoon[3];
+    public UiManager uiManager;
 
     public GenericBoon Boon;
 
-    public PlayerClass player;
+    private PlayerClass player;
 
     // Method to activate a boon
 
@@ -22,8 +23,17 @@ public class BoonManager : MonoBehaviour
     public void buttonclick()
     {
         //ActivateBoon(Boon);
-        ShowRandomBoons();
+        PullRandomBoons();
     }
+
+
+    public void SetPlayerInBoonManager(PlayerClass playerInstance)
+    {
+        player = playerInstance;
+        player.OnVictoryPointsChanged += BoonMeter;
+    }
+
+
 
     private void OnDestroy()
     {
@@ -32,7 +42,19 @@ public class BoonManager : MonoBehaviour
 
 
 
-    public void ShowRandomBoons()
+    private void BoonMeter(int CurrnetVictoryPoints)
+    {
+        if(CurrnetVictoryPoints == 3)
+        {
+            PullRandomBoons();
+            uiManager.OpenAndCloseBoonSelectionScreen();
+        }
+    }
+
+
+
+
+    public void PullRandomBoons()
     {
         List<GenericBoon> availableBoons = new List<GenericBoon>(allBoons);
         for (int i = 0; i < boonButtons.Length; i++)
@@ -50,14 +72,15 @@ public class BoonManager : MonoBehaviour
 
 
 
-    public void ChooseBoon1() { ChooseBoon(0); }
-    public void ChooseBoon2() { ChooseBoon(1); }
-    public void ChooseBoon3() { ChooseBoon(2); }
+    public void ChooseBoonButton1() { ChooseBoon(0); }
+    public void ChooseBoonButton2() { ChooseBoon(1); }
+    public void ChooseBoonButton3() { ChooseBoon(2); }
 
     private void ChooseBoon(int index)
     {
+        Debug.Log("hi");
         GenericBoon selectedBoon = OfferedBoons[index];
-
+        uiManager.OpenAndCloseBoonSelectionScreen();
         ActivateBoon(selectedBoon);
 
         // Activate the chosen boon here and add it to the player's active boons
