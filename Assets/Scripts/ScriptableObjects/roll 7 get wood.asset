@@ -10,21 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: my test boon
+  m_Name: roll 7 get wood
   m_EditorClassIdentifier: 
-  boonName: test boon
-  description: when you roll 7 and have less then 10 resources get 1 wood and 1 VP
+  boonName: 7 = wood
+  description: when you roll 7 get wood
   triggers:
   - type: 0
   conditions:
   - type: 0
     value: 7
-  - type: 1
-    value: 100
   effects:
   - type: 0
     value: 1
-  - type: 1
-    value: 1
   boonImage: {fileID: 21300000, guid: 8d05f05332a28cc41a2a29b0d2594eb4, type: 3}
-  boonColor: {r: 0.63713807, g: 0.6415094, b: 0.13011748, a: 1}
+  boonColor: {r: 0.14197673, g: 0.38679248, b: 0.11129405, a: 1}

@@ -52,6 +52,9 @@ public class GenericBoon : ScriptableObject
     public List<BoonTrigger> triggers = new List<BoonTrigger>();
     public List<BoonCondition> conditions = new List<BoonCondition>();
     public List<BoonEffect> effects = new List<BoonEffect>();
+    public Sprite boonImage;
+    public Color boonColor = Color.white;  // Default color is white
+
 
 
     public void Activate()

@@ -10,6 +10,8 @@ public class UiManager : MonoBehaviour
 
     //scripts 
     public Challenges challenges;
+    [SerializeField] BoonManager boonManager;
+
 
 
     //  menu toggles
@@ -31,11 +33,16 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI wheatText;
     [SerializeField] private TextMeshProUGUI DiceDisplay;
-    [SerializeField] private TextMeshProUGUI VictoryPointsText;
+    [SerializeField] private TextMeshProUGUI TotalVictoryPointsText;
+    [SerializeField] private TextMeshProUGUI VictoryPointsLeftUntilNextBoon;
+
     [SerializeField] public Slider TurnSlider;
     public RectTransform ChallengeSliderIndicator;
     [SerializeField] private GameObject BoonSelectionScreen;
     [SerializeField] private GameObject TradePannel;
+    [SerializeField] private GameObject EmptyBoonImagePrefab;
+    [SerializeField] private Transform BoonsPanel;
+    public Dictionary<GenericBoon, GameObject> BoonIconsDisplay = new Dictionary<GenericBoon, GameObject>();
 
 
     private ResourceType? offerType = null;
@@ -102,7 +109,7 @@ public class UiManager : MonoBehaviour
         BoardManager.OnDiceRolled += UpdateTurnSliderDisplay;
 
         UpdateResourceDisplay();  // Initial display update
-        UpdateTurnSliderDisplay();
+        UpdateTurnSliderDisplay(); // inital slider postioning
         player.AddVictoryPoints(0); // just to update the visuals 
     }
 
@@ -278,11 +285,12 @@ public class UiManager : MonoBehaviour
     public void UpdateVictoryPointsDisplay(int CurrentVictoryPoints)
     {
 
-
-
         string VPText = CurrentVictoryPoints.ToString();
         string VPGoalText = BoardManager.instance.VictoryPointsGoal.ToString();
-        VictoryPointsText.text = VPText + "/" + VPGoalText;
+        TotalVictoryPointsText.text = VPText + "/" + VPGoalText;
+
+        string VPLeftUntilBoon = (boonManager.NextVPforboon - CurrentVictoryPoints).ToString();
+        VictoryPointsLeftUntilNextBoon.text = VPLeftUntilBoon + " Victory points until next boon";
 
     }
     public void UpdateDiceRollDisplay(int DiceResult)
@@ -297,7 +305,10 @@ public class UiManager : MonoBehaviour
         int maxTurns = BoardManager.instance.MaxTurn;
 
 
-        if(CurrentTurn == 0)
+        TurnSlider.maxValue = maxTurns;
+        TurnSlider.value = CurrentTurn;
+
+        if (CurrentTurn == 0)
         {
             int challengeTurn = challenges.RobberChallengeTurn;
             float reletivePostion = (float)challenges.RobberChallengeTurn / maxTurns;
@@ -307,7 +318,6 @@ public class UiManager : MonoBehaviour
             ChallengeSliderIndicator.anchoredPosition = new Vector2(0, ChallengeSliderIndicator.anchoredPosition.y);
         }
 
-        TurnSlider.value = CurrentTurn;
 
 
 
@@ -505,13 +515,33 @@ public class UiManager : MonoBehaviour
     }
 
 
-    //
 
+// boons
 
 
     public void OpenAndCloseBoonSelectionScreen()
     {
         BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
+    }
+
+    public void AddAndRemoveActiveBoonsDisplay(GenericBoon boon,bool isAdding)
+    {
+        if (isAdding == true)
+        {
+            GameObject newBoonImage = Instantiate(EmptyBoonImagePrefab, BoonsPanel);
+            Image imageComponent = newBoonImage.GetComponent<Image>();
+            imageComponent.sprite = boon.boonImage;
+            imageComponent.color = boon.boonColor;
+
+            BoonIconsDisplay.Add(boon, newBoonImage);
+        }
+        else
+        {
+            var boonToRemove = BoonIconsDisplay[boon];
+            Destroy(boonToRemove);
+            BoonIconsDisplay.Remove(boon);
+
+        }
     }
 
 }

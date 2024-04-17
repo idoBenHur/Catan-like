@@ -6,7 +6,7 @@ public class Challenges : MonoBehaviour
 {
     public GameObject testprefab;
     List<TileClass> OuterCircleTiles = new List<TileClass>();
-    [SerializeField]  public int RobberChallengeTurn = 20;
+    [SerializeField]  public int RobberChallengeTurn;
 
 
 

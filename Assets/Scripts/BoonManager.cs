@@ -6,24 +6,40 @@ using UnityEngine.UI;
 
 public class BoonManager : MonoBehaviour
 {
-    public List<GenericBoon> allBoons;
-    private List<GenericBoon> activeBoons = new List<GenericBoon>();
-    public Button[] boonButtons;
-    private GenericBoon[] OfferedBoons = new GenericBoon[3];
+
+
+    //scripts
+    private PlayerClass player;
     public UiManager uiManager;
 
-    public GenericBoon Boon;
 
-    private PlayerClass player;
+    // lists
 
-    // Method to activate a boon
+    public List<GenericBoon> allBoons;
+    private List<GenericBoon> activeBoons = new List<GenericBoon>();
+    public Button[] boonButtonsList;
+    private GenericBoon[] OfferedBoons = new GenericBoon[3];
+    
+
+    // other
+    
+    public int VPForFirstBoon = 3;
+    public int VPForSecondBoon = 5;
+    public int VPForThirdBoon = 7;
+    public int VPForForthBoon = 10;
+    public int VPForFifthBoon = 13;
+    public int NextVPforboon;
 
 
 
+
+    private void Start()
+    {
+    }
     public void buttonclick()
     {
         //ActivateBoon(Boon);
-        PullRandomBoons();
+        SetBoonsButtonWithRandomBoons();
     }
 
 
@@ -44,27 +60,66 @@ public class BoonManager : MonoBehaviour
 
     private void BoonMeter(int CurrnetVictoryPoints)
     {
-        if(CurrnetVictoryPoints == 3)
+     
+        if(CurrnetVictoryPoints == 0)
         {
-            PullRandomBoons();
+            NextVPforboon = VPForFirstBoon;
+        }
+        if(CurrnetVictoryPoints == VPForFirstBoon)
+        {
+            NextVPforboon = VPForSecondBoon;
+            SetBoonsButtonWithRandomBoons();
             uiManager.OpenAndCloseBoonSelectionScreen();
         }
+        else if (CurrnetVictoryPoints == VPForSecondBoon)
+        {
+            NextVPforboon = VPForThirdBoon;
+            SetBoonsButtonWithRandomBoons();
+            uiManager.OpenAndCloseBoonSelectionScreen();
+        }
+        else if (CurrnetVictoryPoints == VPForThirdBoon)
+        {
+            NextVPforboon = VPForForthBoon;
+            SetBoonsButtonWithRandomBoons();
+            uiManager.OpenAndCloseBoonSelectionScreen();
+        }
+        else if (CurrnetVictoryPoints == VPForForthBoon)
+        {
+            NextVPforboon = VPForFifthBoon;
+            SetBoonsButtonWithRandomBoons();
+            uiManager.OpenAndCloseBoonSelectionScreen();
+        }
+        else if (CurrnetVictoryPoints == VPForFifthBoon)
+        {
+           // NextVPforboon = VPForFifthBoon;
+            SetBoonsButtonWithRandomBoons();
+            uiManager.OpenAndCloseBoonSelectionScreen();
+        }
+
+
+
     }
 
 
 
 
-    public void PullRandomBoons()
+    public void SetBoonsButtonWithRandomBoons()
     {
         List<GenericBoon> availableBoons = new List<GenericBoon>(allBoons);
-        for (int i = 0; i < boonButtons.Length; i++)
+        for (int i = 0; i < boonButtonsList.Length; i++)
         {
             int randomIndex = Random.Range(0, availableBoons.Count);
             OfferedBoons[i] = availableBoons[randomIndex];
 
-            TextMeshProUGUI tmp = boonButtons[i].GetComponentInChildren<TextMeshProUGUI>();
-            tmp.text = OfferedBoons[i].description;
-            
+            TextMeshProUGUI boonText = boonButtonsList[i].GetComponentInChildren<TextMeshProUGUI>();
+            Image boonImage = boonButtonsList[i].transform.GetChild(1).GetComponent<Image>();
+
+            boonText.text = OfferedBoons[i].description;
+            boonImage.sprite = OfferedBoons[i].boonImage;
+            boonImage.color = OfferedBoons[i].boonColor;
+
+
+
             availableBoons.RemoveAt(randomIndex); // Remove the chosen boon to avoid duplicate selections
         }
 
@@ -78,7 +133,6 @@ public class BoonManager : MonoBehaviour
 
     private void ChooseBoon(int index)
     {
-        Debug.Log("hi");
         GenericBoon selectedBoon = OfferedBoons[index];
         uiManager.OpenAndCloseBoonSelectionScreen();
         ActivateBoon(selectedBoon);
@@ -93,18 +147,14 @@ public class BoonManager : MonoBehaviour
 
 
 
-
-
-
-
-
-
     public void ActivateBoon(GenericBoon boon)
     {
         if (!activeBoons.Contains(boon))
         {
             activeBoons.Add(boon);
             boon.Activate();
+            uiManager.AddAndRemoveActiveBoonsDisplay(boon, true);
+
             Debug.Log($"Activated boon: {boon.boonName}");
         }
     }

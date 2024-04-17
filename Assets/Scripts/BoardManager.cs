@@ -109,16 +109,17 @@ public class BoardManager : MonoBehaviour
 
         CurrentTurn = 0;
 
-        uiManager.SetUpUIManager(player);
+        
         boonManager.SetPlayerInBoonManager(player);
         challenges.SetUpPlayerChallenges(player);
+        uiManager.SetUpUIManager(player);
 
 
 
 
-        
 
-        
+
+
 
 
     }
