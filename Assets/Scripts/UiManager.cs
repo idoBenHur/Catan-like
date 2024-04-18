@@ -533,6 +533,11 @@ public class UiManager : MonoBehaviour
             imageComponent.sprite = boon.boonImage;
             imageComponent.color = boon.boonColor;
 
+            ToolTipTrigger toolTipTrigger = newBoonImage.GetComponent<ToolTipTrigger>();
+            toolTipTrigger.header = boon.boonName;
+            toolTipTrigger.text = boon.description;
+
+
             BoonIconsDisplay.Add(boon, newBoonImage);
         }
         else

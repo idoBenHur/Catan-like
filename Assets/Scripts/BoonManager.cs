@@ -118,6 +118,8 @@ public class BoonManager : MonoBehaviour
             boonImage.sprite = OfferedBoons[i].boonImage;
             boonImage.color = OfferedBoons[i].boonColor;
 
+            
+
 
 
             availableBoons.RemoveAt(randomIndex); // Remove the chosen boon to avoid duplicate selections

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
   m_Name: roll 7 get wood
   m_EditorClassIdentifier: 
-  boonName: 7 = wood
-  description: when you roll 7 get wood
+  boonName: 1
+  description: a
   triggers:
   - type: 0
   conditions:

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boonName: test boon
   description: when you roll 7 and have less then 10 resources get 1 wood and 1 VP
+    ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
   triggers:
   - type: 0
   conditions:
