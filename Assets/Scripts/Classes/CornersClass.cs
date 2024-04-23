@@ -7,6 +7,7 @@ public class CornersClass
     public Vector3 Position { get; set; }
     public bool HasSettlement = false;
     public bool HasCityUpgade = false;
+    public HarborClass Harbor { get; set; }
     public bool CanBeBuiltOn { get; set; } = true;
     public List<TileClass> AdjacentTiles { get; set; } = new List<TileClass>();
     public List<CornersClass> AdjacentCorners { get; set; } = new List<CornersClass>();

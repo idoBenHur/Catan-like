@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static TileClass;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -13,8 +15,9 @@ public class MapGenerator : MonoBehaviour
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
     public GameObject CityPrefab;
+    public GameObject HarbordPrefab;
 
-
+    private List<CornersClass> harborPositions;
     public Dictionary<Vector3Int, TileClass> InitialTilesDictionary = new Dictionary<Vector3Int, TileClass>();
     public Dictionary<Vector3, CornersClass> InitialCornersDic = new Dictionary<Vector3, CornersClass>();
     public Dictionary<Vector3, SidesClass> InitialSidesDic = new Dictionary<Vector3, SidesClass>();
@@ -44,6 +47,8 @@ public class MapGenerator : MonoBehaviour
 
         CreateDicsAndAdjacentTiles();
         CreateNeighborsLists();
+        SetupHarbors();
+        UpdateHarborsVisuals();
     }
 
     public void LoadMapVisuals(Dictionary<Vector3Int, TileClass> TilesDic)
@@ -245,8 +250,10 @@ public class MapGenerator : MonoBehaviour
 
                 InitialCornersDic[CornerPos].AdjacentTiles.Add(TileValue);
                 TileValue.AdjacentCorners.Add(InitialCornersDic[CornerPos]);
+                Debug.Log(CornerPos + " tile: " + TileValue.resourceType);
             }
 
+            
 
             foreach (var SidePos in sidePositions)
             {
@@ -446,6 +453,113 @@ public class MapGenerator : MonoBehaviour
 
     }
 
+    public void SetupHarbors()
+    {
+        // List predefined positions or load from a configuration
+        harborPositions = LoadHarborPositions();
+        HarborClass lastHarbor = null;
+
+        // Harbor types, including 4 generic and 1 of each specific resource
+        List<HarborClass> harborsTypes = new List<HarborClass>
+        {
+            new HarborClass(HarborResourceType.Any, 3),
+            new HarborClass(HarborResourceType.Any, 3),
+            new HarborClass(HarborResourceType.Any, 3),
+            new HarborClass(HarborResourceType.Any, 3),
+            new HarborClass(HarborResourceType.Wood, 2),
+            new HarborClass(HarborResourceType.Brick, 2),
+            new HarborClass(HarborResourceType.Sheep, 2),
+            new HarborClass(HarborResourceType.Ore, 2),
+            new HarborClass(HarborResourceType.Wheat, 2)
+        };
+
+
+        // Assign harbors to positions
+        for (int i = 0; i < harborPositions.Count; i++)
+        {
+            if (harborsTypes.Count > 0)
+            {
+                if(lastHarbor == null)
+                {
+                    int randomIndex = Random.Range(0, harborsTypes.Count);
+                    harborPositions[i].Harbor = harborsTypes[randomIndex];
+                    lastHarbor = harborsTypes[randomIndex];
+                    harborsTypes.RemoveAt(randomIndex);
+                }
+
+                
+
+
+
+            }
+            else
+            {
+                Debug.Log("shit");
+            }
+
+            
+        }
+    }
+
+    private List<CornersClass> LoadHarborPositions()
+    {
+        List<CornersClass> harborPositions = new List<CornersClass>();
+
+        // Define each pair of coordinates for harbor positions
+        List<Vector3> coordinates = new List<Vector3>
+    {
+        new Vector3(-2.6f, -3.5f, 0),
+        new Vector3(-1.7f, -4f, 0),
+        new Vector3(0f, -4f, 0),
+        new Vector3(0.9f, -3.5f, 0),
+        new Vector3(2.6f, -2.5f, 0),
+        new Vector3(3.4f, -2f, 0),
+        new Vector3(4.3f, -0.5f, 0),
+        new Vector3(4.3f, 0.5f, 0),
+        new Vector3(3.4f, 2f, 0),
+        new Vector3(2.6f, 2.5f, 0),
+        new Vector3(0.9f, 3.5f, 0),
+        new Vector3(0f, 4f, 0),
+        new Vector3(-1.7f, 4f, 0),
+        new Vector3(-2.6f, 3.5f, 0),
+        new Vector3(-3.4f, 2f, 0),
+        new Vector3(-3.4f, 1f, 0),
+        new Vector3(-3.4f, -1f, 0),
+        new Vector3(-3.4f, -2f, 0)
+    };
+
+        // Create CornerClass instances for each coordinate
+        foreach(var corner in InitialCornersDic)
+        {
+            foreach(var harborCoord in coordinates)
+            {
+                if(corner.Key == harborCoord)
+                {
+                    harborPositions.Add(corner.Value);
+                }
+            }
+
+
+
+   
+        }
+        
+        //foreach (var coord in coordinates)
+        //{
+        //    harborPositions.Add(new CornersClass(coord));
+        //}
+
+        return harborPositions;
+    }
+
+
+    private void UpdateHarborsVisuals()
+    {
+        foreach (var corner in harborPositions) 
+        {
+            Instantiate(HarbordPrefab, corner.Position, Quaternion.identity);
+        }
+    }
 
 
 }

@@ -10,8 +10,11 @@ public class PlayerClass
     public Dictionary<ResourceType, int> PlayerResources { get; private set; }
     public event Action OnResourcesChanged;  // Event to notify when resources change
     public event Action <int> OnVictoryPointsChanged;
+    public event Action OnTrade;
     public int VictoryPoints;
-    public List<CornersClass> SettelmentsList { get; set; } = new List<CornersClass>();
+    public int TradeCount;
+    private List<HarborClass> OwnedHarbors = new List<HarborClass>();
+    public List<CornersClass> SettelmentsList { get; private set; } = new List<CornersClass>();
     public List<SidesClass> RoadsList { get; set; } = new List<SidesClass>();
 
 
@@ -27,6 +30,7 @@ public class PlayerClass
         };
 
         VictoryPoints = 0;
+        TradeCount = 0;
     }
 
     public void AddResource(ResourceType type, int amount)
@@ -79,12 +83,34 @@ public class PlayerClass
     {
              
         Dictionary<ResourceType, int> tempDictionary = new Dictionary<ResourceType, int>();
-        tempDictionary.Add(offerType, 4);
+
+        int requiredAmount = 4;  // Default trading ratio without harbor
+
+
+        foreach (var harbor in OwnedHarbors) 
+        {
+            if(offerType.ToString() == harbor.TradeResource.ToString())
+            {
+                requiredAmount = harbor.TradeRatio;
+                break;
+            }
+            else if(harbor.TradeResource == HarborResourceType.Any)
+            {
+                requiredAmount = harbor.TradeRatio;
+            }
+            
+        }
+
+        tempDictionary.Add(offerType, requiredAmount);
 
         SubtractResources(tempDictionary);
         AddResource(requestType, 1);
+        TradeCount++;
+        OnTrade?.Invoke();
 
-        
+
+
+
     }
 
 
@@ -93,6 +119,16 @@ public class PlayerClass
        VictoryPoints = VictoryPoints + VictoryPointsAmount;
         OnVictoryPointsChanged?.Invoke(VictoryPoints);
        
+    }
+
+    public void AddSettelment(CornersClass corner)
+    {
+        SettelmentsList.Add(corner);
+
+        if(corner.Harbor != null)
+        {
+            OwnedHarbors.Add(corner.Harbor);
+        }
     }
 
 

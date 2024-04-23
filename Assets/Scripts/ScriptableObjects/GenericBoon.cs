@@ -8,6 +8,8 @@ public class BoonCondition
     {
         DiceRollEquals,
         ResourceCountLessThan,
+        AfterXAmountOfTrades,
+        CityNextToEmptyHexThatProvidedResourcesThisTurn
     }
 
     public ConditionType type;
@@ -22,6 +24,7 @@ public class BoonEffect
     {
         AddWood,
         GainVictoryPoints,
+        GainRandomResource,
     }
 
     public EffectType type;
@@ -35,8 +38,8 @@ public class BoonTrigger
     public enum TriggerType
     {
         OnDiceRoll,
-        OnTurnStart,
-        OnTurnEnd,
+        OnTrade,
+        
         // Add other trigger types as needed
     }
 
@@ -61,17 +64,20 @@ public class GenericBoon : ScriptableObject
     {
         Debug.Log("boon active");
 
+        //triggers:
+
         foreach (var trigger in triggers)
         {
             switch (trigger.type)
             {
-                case BoonTrigger.TriggerType.OnDiceRoll:
-                    BoardManager.OnDiceRolled += GoThroughConditionsList; // Assuming OnDiceRolled is an event you can subscribe to
+                case BoonTrigger.TriggerType.OnDiceRoll: // dice roll trigger
+                    BoardManager.OnDiceRolled += GoThroughConditionsList; 
                     break;
-                case BoonTrigger.TriggerType.OnTurnStart:
+                case BoonTrigger.TriggerType.OnTrade:
+                    PlayerClass player = BoardManager.instance.player;
+                    player.OnTrade += GoThroughConditionsList;
                     break;
-                case BoonTrigger.TriggerType.OnTurnEnd:
-                    break;
+
                     // Add other cases as needed
             }
         }
@@ -86,10 +92,11 @@ public class GenericBoon : ScriptableObject
                 case BoonTrigger.TriggerType.OnDiceRoll:
                     BoardManager.OnDiceRolled -= GoThroughConditionsList;
                     break;
-                case BoonTrigger.TriggerType.OnTurnStart:
+                case BoonTrigger.TriggerType.OnTrade:
+                    PlayerClass player = BoardManager.instance.player;
+                    player.OnTrade += GoThroughConditionsList;
                     break;
-                case BoonTrigger.TriggerType.OnTurnEnd:
-                    break;
+
                     // Add other cases as needed
             }
         }
@@ -133,15 +140,44 @@ public class GenericBoon : ScriptableObject
 
         switch (condition.type)
         {
-            case BoonCondition.ConditionType.DiceRollEquals:
+            case BoonCondition.ConditionType.DiceRollEquals: // dice = X
                 return BoardManager.instance.TotalDice == condition.value;
-            case BoonCondition.ConditionType.ResourceCountLessThan:
+
+            case BoonCondition.ConditionType.ResourceCountLessThan: // less the X resources
                 int resourceCount = 0;
                 foreach(var resource in BoardManager.instance.player.PlayerResources)
                 {
                     resourceCount += resource.Value;
                 }
                 return resourceCount < condition.value;
+
+            case BoonCondition.ConditionType.AfterXAmountOfTrades:
+                int currentTrades = BoardManager.instance.player.TradeCount;
+                return (currentTrades % condition.value == 0);
+
+            case BoonCondition.ConditionType.CityNextToEmptyHexThatProvidedResourcesThisTurn:
+                int diceTotal = BoardManager.instance.TotalDice;
+                bool hasEmptyAdjust = false;
+                bool ProvidedThisTurn = false;
+
+                foreach (var settelment in BoardManager.instance.player.SettelmentsList)
+                {
+                    if (settelment.HasCityUpgade == true)
+                    {
+                         foreach(var AdjustTile in settelment.AdjacentTiles)
+                        {
+                            if(AdjustTile.hasRobber == true ) { hasEmptyAdjust = true;}
+                            if (AdjustTile.numberToken == diceTotal) { ProvidedThisTurn = true;}
+                        }
+                    } 
+                }
+                return (hasEmptyAdjust == true && ProvidedThisTurn == true);
+
+
+
+
+
+
                 // Add more cases as needed for other condition types
         }
 
@@ -161,6 +197,15 @@ public class GenericBoon : ScriptableObject
             case BoonEffect.EffectType.GainVictoryPoints:
                 BoardManager.instance.player.AddVictoryPoints(effect.value);
                 break;
+            case BoonEffect.EffectType.GainRandomResource:
+                var resources = new TileClass.ResourceType[] {TileClass.ResourceType.Wood, TileClass.ResourceType.Brick, TileClass.ResourceType.Sheep, TileClass.ResourceType.Ore,TileClass.ResourceType.Wheat};
+                int randomIndex = UnityEngine.Random.Range(1, 5);
+                var randomResource = resources[randomIndex];
+                BoardManager.instance.player.AddResource(randomResource, effect.value);
+                break;
+
+
+
                 // Add more cases as needed for other effect types
         }
     }

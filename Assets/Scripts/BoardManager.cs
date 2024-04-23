@@ -485,11 +485,13 @@ public class BoardManager : MonoBehaviour
 
     public void BuildSettlementAt(Vector3 cornerPosition)
     {
+
+        //first turn
         if (CornersDic.TryGetValue(cornerPosition, out CornersClass corner) && corner.CanBeBuiltOn)
         {
+            
 
-            if ( FirstTurnIsActive == true)  // if its the first turn ignore resources count,and return to the first turn flow at the end
-
+            if ( FirstTurnIsActive == true)  
             {
                 corner.CanBeBuiltOn = false;
                 corner.HasSettlement = true;
@@ -497,8 +499,14 @@ public class BoardManager : MonoBehaviour
                 Instantiate(TownPrefab, corner.Position, Quaternion.identity);
 
                
-                player.SettelmentsList.Add(corner);
+                player.AddSettelment(corner);
                 player.AddVictoryPoints(1);
+
+
+                foreach(var adjustTile in corner.AdjacentTiles)
+                {
+                    player.AddResource(adjustTile.resourceType, 1);
+                }
 
 
                 foreach (var NeighborCornerKey in corner.AdjacentCorners)
@@ -518,10 +526,10 @@ public class BoardManager : MonoBehaviour
 
             }
 
-
+            // not first turn
             else 
             {
-                if(player.CanAffordToBuild(PricesClass.TownCost) == true)  // if its not the first turn check for resources amount
+                if(player.CanAffordToBuild(PricesClass.TownCost) == true)  
                 {
 
                     player.SubtractResources(PricesClass.TownCost);
@@ -532,7 +540,7 @@ public class BoardManager : MonoBehaviour
                     Instantiate(TownPrefab, corner.Position, Quaternion.identity);
 
 
-                    player.SettelmentsList.Add(corner);
+                    player.AddSettelment(corner);
                     player.AddVictoryPoints(1);
 
 

@@ -1508,7 +1508,7 @@ MonoBehaviour:
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   CurrentTurn: 0
-  MaxTurn: 48
+  MaxTurn: 50
   VictoryPointsGoal: 10
   CitiesIndicatorsPrefabList: []
   TownsIndicatorsPrefabList: []
@@ -1551,6 +1551,7 @@ MonoBehaviour:
   RoadPrefab: {fileID: 6665533023127773880, guid: 1d2df8e8eb128204d89eb527bb0cc645, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
+  HarbordPrefab: {fileID: 8029713281594004978, guid: 7e37ca0c5fc89ae4198037fcfdc11297, type: 3}
 --- !u!114 &240130135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1565,9 +1566,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: db311eac622a6594f9f80862d563903f, type: 2}
+  - {fileID: 11400000, guid: 8b9f6b6ef011ba743bc8f676360f7305, type: 2}
   - {fileID: 11400000, guid: c3aab8c3feeffa64898625f7008cca04, type: 2}
-  - {fileID: 11400000, guid: db311eac622a6594f9f80862d563903f, type: 2}
+  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
