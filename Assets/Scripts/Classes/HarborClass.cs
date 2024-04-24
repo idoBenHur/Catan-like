@@ -8,6 +8,9 @@ public class HarborClass
 {
     public HarborResourceType TradeResource { get; private set; }
     public int TradeRatio { get; private set; }
+    public GameObject HarborGameObject;
+
+
 
     public HarborClass(HarborResourceType resourceType, int tradeRatio)
     {

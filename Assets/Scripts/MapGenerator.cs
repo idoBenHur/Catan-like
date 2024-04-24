@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using TMPro;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
@@ -15,9 +16,9 @@ public class MapGenerator : MonoBehaviour
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
     public GameObject CityPrefab;
-    public GameObject HarbordPrefab;
+    public GameObject HarborPrefab;
 
-    private List<CornersClass> harborPositions;
+    private List<(CornersClass, CornersClass)> HarborCornersPairs;
     public Dictionary<Vector3Int, TileClass> InitialTilesDictionary = new Dictionary<Vector3Int, TileClass>();
     public Dictionary<Vector3, CornersClass> InitialCornersDic = new Dictionary<Vector3, CornersClass>();
     public Dictionary<Vector3, SidesClass> InitialSidesDic = new Dictionary<Vector3, SidesClass>();
@@ -250,7 +251,6 @@ public class MapGenerator : MonoBehaviour
 
                 InitialCornersDic[CornerPos].AdjacentTiles.Add(TileValue);
                 TileValue.AdjacentCorners.Add(InitialCornersDic[CornerPos]);
-                Debug.Log(CornerPos + " tile: " + TileValue.resourceType);
             }
 
             
@@ -452,14 +452,12 @@ public class MapGenerator : MonoBehaviour
 
 
     }
-
-    public void SetupHarbors()
+    //give corrner class its harbors and sets harbors type
+    public void SetupHarbors() 
     {
-        // List predefined positions or load from a configuration
-        harborPositions = LoadHarborPositions();
+        HarborCornersPairs = LoadHarborPositions();
         HarborClass lastHarbor = null;
 
-        // Harbor types, including 4 generic and 1 of each specific resource
         List<HarborClass> harborsTypes = new List<HarborClass>
         {
             new HarborClass(HarborResourceType.Any, 3),
@@ -474,90 +472,139 @@ public class MapGenerator : MonoBehaviour
         };
 
 
-        // Assign harbors to positions
-        for (int i = 0; i < harborPositions.Count; i++)
+        for (int i = 0; i < HarborCornersPairs.Count; i++)
         {
             if (harborsTypes.Count > 0)
             {
                 if(lastHarbor == null)
                 {
                     int randomIndex = Random.Range(0, harborsTypes.Count);
-                    harborPositions[i].Harbor = harborsTypes[randomIndex];
+                    HarborCornersPairs[i].Item1.Harbor = harborsTypes[randomIndex];
                     lastHarbor = harborsTypes[randomIndex];
-                    harborsTypes.RemoveAt(randomIndex);
+                    
                 }
 
-                
-
-
+                HarborCornersPairs[i].Item2.Harbor = lastHarbor;
+                harborsTypes.Remove(lastHarbor);
+                lastHarbor = null;
 
             }
-            else
-            {
-                Debug.Log("shit");
-            }
-
-            
-        }
-    }
-
-    private List<CornersClass> LoadHarborPositions()
-    {
-        List<CornersClass> harborPositions = new List<CornersClass>();
-
-        // Define each pair of coordinates for harbor positions
-        List<Vector3> coordinates = new List<Vector3>
-    {
-        new Vector3(-2.6f, -3.5f, 0),
-        new Vector3(-1.7f, -4f, 0),
-        new Vector3(0f, -4f, 0),
-        new Vector3(0.9f, -3.5f, 0),
-        new Vector3(2.6f, -2.5f, 0),
-        new Vector3(3.4f, -2f, 0),
-        new Vector3(4.3f, -0.5f, 0),
-        new Vector3(4.3f, 0.5f, 0),
-        new Vector3(3.4f, 2f, 0),
-        new Vector3(2.6f, 2.5f, 0),
-        new Vector3(0.9f, 3.5f, 0),
-        new Vector3(0f, 4f, 0),
-        new Vector3(-1.7f, 4f, 0),
-        new Vector3(-2.6f, 3.5f, 0),
-        new Vector3(-3.4f, 2f, 0),
-        new Vector3(-3.4f, 1f, 0),
-        new Vector3(-3.4f, -1f, 0),
-        new Vector3(-3.4f, -2f, 0)
-    };
-
-        // Create CornerClass instances for each coordinate
-        foreach(var corner in InitialCornersDic)
-        {
-            foreach(var harborCoord in coordinates)
-            {
-                if(corner.Key == harborCoord)
-                {
-                    harborPositions.Add(corner.Value);
-                }
-            }
-
-
 
    
         }
-        
-        //foreach (var coord in coordinates)
-        //{
-        //    harborPositions.Add(new CornersClass(coord));
-        //}
 
-        return harborPositions;
+    }
+
+    // makes corrner class pairs for each harbor
+    private List<(CornersClass, CornersClass)> LoadHarborPositions() 
+    {
+
+        List<(Vector3, Vector3)> VectorHarborPairs = new List<(Vector3, Vector3)>
+    {
+        (new Vector3(-2.6f, -3.5f, 0), new Vector3(-1.7f, -4f, 0)),
+        (new Vector3(0f, -4f, 0), new Vector3(0.9f, -3.5f, 0)),
+        (new Vector3(2.6f, -2.5f, 0), new Vector3(3.4f, -2f, 0)),
+        (new Vector3(4.3f, -0.5f, 0), new Vector3(4.3f, 0.5f, 0)),
+        (new Vector3(3.4f, 2f, 0), new Vector3(2.6f, 2.5f, 0)),
+        (new Vector3(0.9f, 3.5f, 0), new Vector3(0f, 4f, 0)),
+        (new Vector3(-1.7f, 4f, 0), new Vector3(-2.6f, 3.5f, 0)),
+        (new Vector3(-3.4f, 2f, 0), new Vector3(-3.4f, 1f, 0)),
+        (new Vector3(-3.4f, -1f, 0), new Vector3(-3.4f, -2f, 0))
+    };
+
+
+        List<(CornersClass, CornersClass)> cornerHarborPairs = new List<(CornersClass, CornersClass)>();
+
+        foreach (var pair in VectorHarborPairs)
+        {
+            if (InitialCornersDic.TryGetValue(pair.Item1, out CornersClass corner1) &&
+                InitialCornersDic.TryGetValue(pair.Item2, out CornersClass corner2))
+            {
+                cornerHarborPairs.Add((corner1, corner2));
+            }
+            else
+            {
+                // Handle cases where no corresponding CornerClass is found
+                Debug.LogError($"No corresponding CornerClass found for coordinates: {pair.Item1} or {pair.Item2}");
+            }
+        }
+
+        return cornerHarborPairs;
     }
 
 
     private void UpdateHarborsVisuals()
     {
-        foreach (var corner in harborPositions) 
+        foreach (var cornerPair in HarborCornersPairs) 
         {
-            Instantiate(HarbordPrefab, corner.Position, Quaternion.identity);
+
+            // cucalting harbor postion on screen
+            var commonTile = cornerPair.Item1.AdjacentTiles.Intersect(cornerPair.Item2.AdjacentTiles).ToList();
+            Vector3 commonTilePosition = commonTile[0].TileWorldPostion;
+            Vector3 symmetricalForthPoint = cornerPair.Item1.Position + cornerPair.Item2.Position - commonTilePosition;
+
+            Vector3 cornersMidpoint = (cornerPair.Item1.Position + cornerPair.Item2.Position) / 2;
+            float offSet = 0.5f;
+            Vector3 adjustedForthPoint = Vector3.Lerp(symmetricalForthPoint, cornersMidpoint, offSet);
+            Vector3 directionToMidpoint = cornersMidpoint - adjustedForthPoint;
+
+            float angle = Mathf.Atan2(directionToMidpoint.y, directionToMidpoint.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(0f, 0f, angle + 180);
+
+
+            // spawning object and effecting colors/numbers
+
+            GameObject harborInstance = Instantiate(HarborPrefab, adjustedForthPoint, Quaternion.identity);
+            cornerPair.Item1.Harbor.HarborGameObject = harborInstance;
+            cornerPair.Item2.Harbor.HarborGameObject = harborInstance;
+
+
+            Transform HarborLegs = harborInstance.transform.GetChild(0);
+            HarborLegs.rotation = rotation;
+
+            Transform HarborSpriteObject = harborInstance.transform.GetChild(1);
+            SpriteRenderer HarborSprite = HarborSpriteObject.GetComponent<SpriteRenderer>();
+            TextMeshPro RatioTextComp = harborInstance.GetComponentInChildren<TextMeshPro>();
+
+
+            HarborResourceType PortResourceType = cornerPair.Item1.Harbor.TradeResource;
+            Color harborColor = Color.white; // default
+            string RatioText = "3:1";
+
+
+
+            switch (PortResourceType)
+            {
+                case HarborResourceType.Wood:
+                    harborColor = new Color(35f / 255f, 72f / 255f, 18f / 255f);
+                    RatioText = "2:1";
+                    break;
+                case HarborResourceType.Brick:
+                    harborColor = new Color(192f / 255f, 90f / 255f, 15f / 255f);
+                    RatioText = "2:1";
+                    break;
+                case HarborResourceType.Sheep:
+                    harborColor = new Color(110f / 255f, 212f / 255f, 63f / 255f);
+                    RatioText = "2:1";
+                    break;
+                case HarborResourceType.Ore:
+                    harborColor = new Color(160f / 255f, 162f / 255f, 164f / 255f);
+                    RatioText = "2:1";
+                    break;
+                case HarborResourceType.Wheat:
+                    harborColor = new Color(226f / 255f, 218f / 255f, 25f / 255f);
+                    RatioText = "2:1";
+                    break;
+                case HarborResourceType.Any:
+                    harborColor = Color.white;
+                    RatioText = "3:1";
+                    break;
+
+            }
+
+            HarborSprite.color = harborColor;
+            RatioTextComp.text = RatioText; 
+
         }
     }
 

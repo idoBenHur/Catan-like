@@ -13,7 +13,7 @@ public class PlayerClass
     public event Action OnTrade;
     public int VictoryPoints;
     public int TradeCount;
-    private List<HarborClass> OwnedHarbors = new List<HarborClass>();
+    public List<HarborClass> OwnedHarbors = new List<HarborClass>();
     public List<CornersClass> SettelmentsList { get; private set; } = new List<CornersClass>();
     public List<SidesClass> RoadsList { get; set; } = new List<SidesClass>();
 
@@ -128,6 +128,7 @@ public class PlayerClass
         if(corner.Harbor != null)
         {
             OwnedHarbors.Add(corner.Harbor);
+            Debug.Log("get port");
         }
     }
 

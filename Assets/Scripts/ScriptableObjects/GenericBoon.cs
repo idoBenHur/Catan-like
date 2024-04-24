@@ -62,7 +62,6 @@ public class GenericBoon : ScriptableObject
 
     public void Activate()
     {
-        Debug.Log("boon active");
 
         //triggers:
 

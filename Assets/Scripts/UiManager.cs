@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -99,6 +100,8 @@ public class UiManager : MonoBehaviour
     private void Start()
     {
         SetupButtonListeners();
+
+ 
     }
 
     public void SetUpUIManager(PlayerClass playerInstance)
@@ -258,6 +261,11 @@ public class UiManager : MonoBehaviour
         {
             CloseAllUi(TradeToggle);
             TradePannel.SetActive(true);
+
+           //SetupButtonListeners();
+            TradeToggleActivation();
+
+
         }
         else
         {
@@ -334,6 +342,9 @@ public class UiManager : MonoBehaviour
 
 
 
+
+
+
     private void SetupButtonListeners()
     {
 
@@ -368,22 +379,98 @@ public class UiManager : MonoBehaviour
     //trade with bank functions
 
 
+    private void TradeToggleActivation()
+    {
+
+
+        TextMeshProUGUI woodText = offerWoodToggle.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI brickText = offerBrickToggle.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI sheepText = offerSheepToggle.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI oreText = offerOreToggle.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI wheatText = offerWheatToggle.GetComponentInChildren<TextMeshProUGUI>();
 
 
 
+        if (player.OwnedHarbors.Any(harbor => harbor.TradeResource == HarborResourceType.Any))
+        {
+            woodText.text = "X3";
+            brickText.text = "X3";
+            sheepText.text = "X3";
+            oreText.text = "X3";
+            wheatText.text = "X3";
+        }
 
-    private void SetTradeSelection(bool isSelected, ResourceType type, Toggle toggle, bool isOffer)
+        foreach (var port in player.OwnedHarbors)
+        {
+
+            switch (port.TradeResource)
+            { 
+                case HarborResourceType.Wood:
+                    woodText.text = "X" + (port.TradeRatio.ToString());
+                    break;
+                case HarborResourceType.Brick:
+                    brickText.text = "X" + (port.TradeRatio.ToString());
+                    break;
+                case HarborResourceType.Sheep:
+                    sheepText.text = "X" + (port.TradeRatio.ToString());
+                    break;
+                case HarborResourceType.Ore:
+                    oreText.text = "X" + (port.TradeRatio.ToString());
+                    break;
+                case HarborResourceType.Wheat:
+                    wheatText.text = "X" + (port.TradeRatio.ToString());
+                    Debug.Log("wheaeaeat");
+                    break;
+
+
+            }
+        }
+
+
+        offerWoodToggle.interactable = CanOfferResource(ResourceType.Wood);
+        offerBrickToggle.interactable = CanOfferResource(ResourceType.Brick);
+        offerSheepToggle.interactable = CanOfferResource(ResourceType.Sheep);
+        offerOreToggle.interactable = CanOfferResource(ResourceType.Ore);
+        offerWheatToggle.interactable = CanOfferResource(ResourceType.Wheat);
+
+
+
+    }
+    private bool CanOfferResource(ResourceType resourceType)
+    {
+        int playerResourceCount = player.PlayerResources[resourceType];
+        int requiredAmount = 4;
+
+        foreach (var port in player.OwnedHarbors)
+        {
+            if (port.TradeResource.ToString() == resourceType.ToString())
+            {
+                requiredAmount = port.TradeRatio;
+                break;
+            }
+            else if (port.TradeResource == HarborResourceType.Any)
+            {
+                requiredAmount = port.TradeRatio;
+            }
+        }
+
+        return playerResourceCount >= requiredAmount;
+    }
+
+
+
+    private void SetTradeSelection(bool isSelected, ResourceType resourceType, Toggle toggle, bool isOffer)
     {
         if (isSelected == true)
         {
             // Determine if this is setting an offer or request and update accordingly
             if (isOffer == true)
             {
-                offerType = type; 
+                offerType = resourceType; 
             }
             else
             {
-                requestType = type; 
+                requestType = resourceType; 
             }
 
             // Ensure that other toggles in the same category (offer or request) are unchecked
@@ -392,7 +479,7 @@ public class UiManager : MonoBehaviour
         else
         {
             // If the toggle is deselected, clear the offer or request if it matches the current selection
-            if ((isOffer && offerType == type) || (!isOffer && requestType == type))
+            if ((isOffer && offerType == resourceType) || (!isOffer && requestType == resourceType))
             {
                 if (isOffer)
                 {
@@ -433,12 +520,8 @@ public class UiManager : MonoBehaviour
 
     private void CheckTradeValidity()
     {
-        //bool isValidTrade = offerType.HasValue && requestType.HasValue && player.CanTradeWithBank(offerType.Value);
-        bool isValidTrade = offerType.HasValue && requestType.HasValue && player.PlayerResources[offerType.Value] >= 4;
-
-
+        bool isValidTrade = offerType.HasValue && requestType.HasValue;
         tradeButton.interactable = isValidTrade; // Enable the button only if the trade is valid
-
         if (isValidTrade)
         {
             Debug.Log($"Ready to trade {offerType.Value} for {requestType.Value}");
@@ -447,19 +530,13 @@ public class UiManager : MonoBehaviour
 
 
     public void ExecuteTradeButton() // called by button pressed
-    {
-
-        
-        if (offerType.HasValue && requestType.HasValue && player.PlayerResources[offerType.Value] >= 4)
+    {    
+        if (offerType.HasValue && requestType.HasValue)
         {
             player.TradeWithBank(offerType.Value, requestType.Value);
-            // After trade, you might want to reset or update the UI
-            CheckTradeValidity(); // To refresh the UI state
+
+            TradeToggleActivation();
         }
-        
-        
-     
-        
 
     }
 
