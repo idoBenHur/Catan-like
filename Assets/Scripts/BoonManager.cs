@@ -36,7 +36,7 @@ public class BoonManager : MonoBehaviour
     private void Start()
     {
     }
-    public void buttonclick()
+    private void buttonclick()
     {
         //ActivateBoon(Boon);
         SetBoonsButtonWithRandomBoons();
