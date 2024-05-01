@@ -19,33 +19,40 @@ using UnityEngine.SceneManagement;
 
 public class BoardManager : MonoBehaviour
 {
-    public Tilemap tilemap; // Assign this in the inspector
+    [SerializeField] private Tilemap tilemap;
     //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
-    public UiManager uiManager;
-    public MapGenerator mapGenerator;
-    public BoonManager boonManager;
-    public Challenges challenges;
+    [SerializeField] private UiManager uiManager;
+    [SerializeField] private MapGenerator mapGenerator;
+    [SerializeField] private BoonManager boonManager;
+    [SerializeField] private Challenges challenges;
 
     private bool FirstTurnIsActive;
+    [HideInInspector] public bool DiceStilRolling = false;
     private int FirstTurnPlacedPeices = 0;
-    public int TotalDice;
+    [HideInInspector] public int TotalDice;
     
     public PlayerClass player;
-    public GameObject CornerIndicatorPrefab;
-    public GameObject SideIndicatorPrefab;
-    public GameObject testprefab;
-    public RobberPrefab robberPrefab;
-    public GameObject RoadPrefab;
-    public GameObject TownPrefab;
-    public GameObject CityPrefab;
-    public int CurrentTurn;
-    public int MaxTurn = 40;
-    public int VictoryPointsGoal = 10;
+
+    [SerializeField] private GameObject CornerIndicatorPrefab;
+    [SerializeField] private GameObject SideIndicatorPrefab;
+    [SerializeField] private GameObject testprefab;
+    [SerializeField] private RobberPrefab robberPrefab;
+    [SerializeField] private GameObject RoadPrefab;
+    [SerializeField] private GameObject TownPrefab;
+    [SerializeField] private GameObject CityPrefab;
+    [SerializeField] private GameObject ResourceGainPS;
+    [SerializeField] private UnityEngine.UI.Image Dice1Image;
+    [SerializeField] private UnityEngine.UI.Image Dice2Image;
+    [SerializeField] private Sprite[] DiceSides;
+
+    [HideInInspector] public int CurrentTurn;
+    [SerializeField] public int MaxTurn = 40;
+    [SerializeField] public int VictoryPointsGoal = 10;
 
 
-    public List<GameObject> CitiesIndicatorsPrefabList = new List<GameObject>();
-    public List<GameObject> TownsIndicatorsPrefabList = new List<GameObject>();
-    public List<GameObject> RoadsIndicatorsPrefabList = new List<GameObject>();
+    [HideInInspector] public List<GameObject> CitiesIndicatorsPrefabList = new List<GameObject>();
+    [HideInInspector] public List<GameObject> TownsIndicatorsPrefabList = new List<GameObject>();
+    [HideInInspector] public List<GameObject> RoadsIndicatorsPrefabList = new List<GameObject>();
 
 
     public Dictionary<Vector3Int, TileClass> TilesDictionary = new Dictionary<Vector3Int, TileClass>();
@@ -124,26 +131,52 @@ public class BoardManager : MonoBehaviour
 
     }
 
+    public IEnumerator RollTheDice()
+    {               
+        DiceStilRolling = true;
+        int Dice1RandomSide = 0;
+        int Dice2RandomSide = 0;
 
-    public void DiceRoll()
-    {
-        int die1 = UnityEngine.Random.Range(1, 7); // Generates a number between 1 and 6
-        int die2 = UnityEngine.Random.Range(1, 7); // Same here
-        TotalDice = die1 + die2;
+        int Dice1FinalSide = 0;
+        int Dice2FinalSide = 0;
+        
+        for (int i = 0; i <= 10; i++)
+        {
+
+            Dice1RandomSide = UnityEngine.Random.Range(1, 7);
+            Dice2RandomSide = UnityEngine.Random.Range(1, 7);
+
+            // Set sprite to upper face of dice from array according to random value
+            Dice1Image.sprite = DiceSides[Dice1RandomSide - 1];
+            Dice2Image.sprite = DiceSides[Dice2RandomSide - 1];
+
+            // Pause before next itteration
+            yield return new WaitForSeconds(0.05f);
+        }
+
+
+        Dice1FinalSide = Dice1RandomSide;
+        Dice2FinalSide = Dice2RandomSide;
+        TotalDice = Dice1FinalSide + Dice2FinalSide;
 
         CurrentTurn++;
         OnDiceRolled?.Invoke();
         DistributeResources(TotalDice);
-      
+
         uiManager.UpdateDiceRollDisplay(TotalDice);
 
         
+        DiceStilRolling = false;
+        Debug.Log(TotalDice);
+
         if (CurrentTurn >= MaxTurn)
         {
             Debug.Log("end game");
         }
 
     }
+
+
 
 
     public void TemoraraytNextSceneButton()
@@ -202,11 +235,13 @@ public class BoardManager : MonoBehaviour
                     }
                     else if(tile.numberToken == DiceResult && tile.hasRobber == true)
                     {
+                        continue;
                     }
 
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == false)
                     {
                         player.AddResource(tile.resourceType, 1);
+                        Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
                     }
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == true)
                     {

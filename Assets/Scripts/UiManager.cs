@@ -335,7 +335,12 @@ public class UiManager : MonoBehaviour
 
     public void RollDiceButton() 
     {
-        BoardManager.instance.DiceRoll();
+        //BoardManager.instance.DiceRoll();
+        if(BoardManager.instance.DiceStilRolling == false)
+        {
+            StartCoroutine(BoardManager.instance.RollTheDice());
+        }
+      
         CloseAllUi();
 
     }
