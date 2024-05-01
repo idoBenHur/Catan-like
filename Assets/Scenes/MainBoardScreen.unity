@@ -1517,9 +1517,9 @@ MonoBehaviour:
   challenges: {fileID: 240130136}
   DiceStilRolling: 0
   TotalDice: 0
+  WoodIcon: {fileID: 2275722739733830845, guid: 23be56af81a526c48bbb40ac874841f3, type: 3}
   CornerIndicatorPrefab: {fileID: 3579992415153703632, guid: ca10fc29f9d7a3647b1e00b49eb125c4, type: 3}
   SideIndicatorPrefab: {fileID: 3694540549687393739, guid: 0e6fbceb24717e74d836fd1c284e150f, type: 3}
-  testprefab: {fileID: 5181524001814131594, guid: d901afef932d86c49824f0b9f8922dc8, type: 3}
   robberPrefab: {fileID: 3243967124030276701, guid: d901afef932d86c49824f0b9f8922dc8, type: 3}
   RoadPrefab: {fileID: 6665533023127773880, guid: 1d2df8e8eb128204d89eb527bb0cc645, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}

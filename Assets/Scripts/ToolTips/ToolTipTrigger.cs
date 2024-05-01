@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    //private static LTDescr delay;
+    
     public string header;
 
     [Multiline()]
@@ -15,11 +15,7 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //delay= LeanTween.delayedCall(0.5f, () =>
-        //{
-        //    ToolTipSystem.Show(text, header);
 
-        //});
 
         ToolTipSystem.Show(text, header);
 

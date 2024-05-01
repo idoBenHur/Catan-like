@@ -28,7 +28,7 @@ public class UiManager : MonoBehaviour
 
     //screen UI:
     private PlayerClass player;
-    [SerializeField] private TextMeshProUGUI woodText;
+    [SerializeField] public TextMeshProUGUI woodText;
     [SerializeField] private TextMeshProUGUI brickText;
     [SerializeField] private TextMeshProUGUI sheepText;
     [SerializeField] private TextMeshProUGUI oreText;

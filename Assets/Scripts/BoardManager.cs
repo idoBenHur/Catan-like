@@ -16,6 +16,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 using static TileClass;
 using System;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class BoardManager : MonoBehaviour
 {
@@ -33,9 +34,9 @@ public class BoardManager : MonoBehaviour
     
     public PlayerClass player;
 
+    [SerializeField] private GameObject WoodIcon;
     [SerializeField] private GameObject CornerIndicatorPrefab;
     [SerializeField] private GameObject SideIndicatorPrefab;
-    [SerializeField] private GameObject testprefab;
     [SerializeField] private RobberPrefab robberPrefab;
     [SerializeField] private GameObject RoadPrefab;
     [SerializeField] private GameObject TownPrefab;
@@ -242,10 +243,14 @@ public class BoardManager : MonoBehaviour
                     {
                         player.AddResource(tile.resourceType, 1);
                         Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
+                        var woodicon= Instantiate(WoodIcon, tile.TileWorldPostion, Quaternion.identity);
+                        woodicon.transform.DOMove(uiManager.woodText.transform.position, 2);
+
                     }
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == true)
                     {
                         player.AddResource(tile.resourceType, 2);
+                        Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
                     }
 
                 }
