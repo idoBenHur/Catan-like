@@ -187,11 +187,12 @@ public class GenericBoon : ScriptableObject
 
     private void ApplyEffect(BoonEffect effect)
     {
-
+        Vector3 sourcePosition = Vector3.zero;
         switch (effect.type)
         {
             case BoonEffect.EffectType.AddWood:
-                BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value);
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value, sourcePosition);
                 break;
             case BoonEffect.EffectType.GainVictoryPoints:
                 BoardManager.instance.player.AddVictoryPoints(effect.value);
@@ -200,7 +201,8 @@ public class GenericBoon : ScriptableObject
                 var resources = new TileClass.ResourceType[] {TileClass.ResourceType.Wood, TileClass.ResourceType.Brick, TileClass.ResourceType.Sheep, TileClass.ResourceType.Ore,TileClass.ResourceType.Wheat};
                 int randomIndex = UnityEngine.Random.Range(1, 5);
                 var randomResource = resources[randomIndex];
-                BoardManager.instance.player.AddResource(randomResource, effect.value);
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
+                BoardManager.instance.player.AddResource(randomResource, effect.value, sourcePosition);
                 break;
 
 

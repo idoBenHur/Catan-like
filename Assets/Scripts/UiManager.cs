@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,18 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Toggle TradeToggle;
     private bool isUpdatingToggles = false;
 
+    // resources flying icons
 
+    [SerializeField] private GameObject WoodFlyingIcon;
+    [SerializeField] private GameObject BrickFlyingIcon;
+    [SerializeField] private GameObject SheepFlyingIcon;
+    [SerializeField] private GameObject OreFlyingIcon;
+    [SerializeField] private GameObject WheatFlyingIcon;
 
 
     //screen UI:
     private PlayerClass player;
-    [SerializeField] public TextMeshProUGUI woodText;
+    [SerializeField] private TextMeshProUGUI woodText;
     [SerializeField] private TextMeshProUGUI brickText;
     [SerializeField] private TextMeshProUGUI sheepText;
     [SerializeField] private TextMeshProUGUI oreText;
@@ -40,7 +47,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] public Slider TurnSlider;
     public RectTransform ChallengeSliderIndicator;
     [SerializeField] private GameObject BoonSelectionScreen;
-    [SerializeField] private GameObject TradePannel;
+    [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
     [SerializeField] private GameObject EmptyBoonImagePrefab;
     [SerializeField] private Transform BoonsPanel;
     public Dictionary<GenericBoon, GameObject> BoonIconsDisplay = new Dictionary<GenericBoon, GameObject>();
@@ -107,7 +114,7 @@ public class UiManager : MonoBehaviour
     public void SetUpUIManager(PlayerClass playerInstance)
     {
         player = playerInstance;
-        player.OnResourcesChanged += UpdateResourceDisplay;
+        //player.OnResourcesChanged += UpdateResourceDisplay;
         player.OnVictoryPointsChanged += UpdateVictoryPointsDisplay;
         BoardManager.OnDiceRolled += UpdateTurnSliderDisplay;
 
@@ -121,7 +128,7 @@ public class UiManager : MonoBehaviour
     {
         if (player != null)
         {
-            player.OnResourcesChanged -= UpdateResourceDisplay;
+            //player.OnResourcesChanged -= UpdateResourceDisplay;
             player.OnVictoryPointsChanged -= UpdateVictoryPointsDisplay;
             BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
         }
@@ -279,8 +286,67 @@ public class UiManager : MonoBehaviour
 
 
 
+    public void ResourceAddedAnimation(ResourceType Resource, Vector3 FromPosition)
+    {
 
-    private void UpdateResourceDisplay()
+        float offsetPositionX = FromPosition.x + UnityEngine.Random.Range(-0.5f, 0.5f);
+        float offsetPositionY = FromPosition.y + UnityEngine.Random.Range(-0.5f, 0.5f);
+        Vector3 spawnPosition = new Vector3(offsetPositionX, offsetPositionY, 0);
+        switch (Resource)
+        {
+            case ResourceType.Wood:
+                var woodicon = Instantiate(WoodFlyingIcon, spawnPosition, Quaternion.identity);
+                var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                //var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 1).SetEase(Ease.InBack);
+                tweenWood.OnComplete(() => {
+                    woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
+                    Destroy(woodicon);
+                });
+                break;
+
+            case ResourceType.Brick:
+                var brickicon = Instantiate(BrickFlyingIcon, spawnPosition, Quaternion.identity);
+                var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                //var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 1).SetEase(Ease.InBack);
+                tweenBrick.OnComplete(() => {
+                    brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
+                    Destroy(brickicon);
+                });
+                break;
+
+            case ResourceType.Sheep:
+                var Sheepicon = Instantiate(SheepFlyingIcon, spawnPosition, Quaternion.identity);
+                var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                //var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 1).SetEase(Ease.InBack);
+                tweenSheep.OnComplete(() => {
+                    sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
+                    Destroy(Sheepicon);
+                });
+                break;
+
+            case ResourceType.Ore:
+                var Oreicon = Instantiate(OreFlyingIcon, spawnPosition, Quaternion.identity);
+                var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                //var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 1).SetEase(Ease.InBack);
+                tweenOre.OnComplete(() => {
+                    oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
+                    Destroy(Oreicon);
+                });
+                break;
+
+            case ResourceType.Wheat:
+                var Wheaticon = Instantiate(WheatFlyingIcon, spawnPosition, Quaternion.identity);
+                var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                //var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 1).SetEase(Ease.InBack);
+                tweenWheat.OnComplete(() => {
+                    wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
+                    Destroy(Wheaticon);
+                });
+                break;
+        }
+    }
+
+    public void UpdateResourceDisplay()
     {
         woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
         brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
@@ -621,12 +687,15 @@ public class UiManager : MonoBehaviour
 
 
             BoonIconsDisplay.Add(boon, newBoonImage);
+
+            
         }
         else
         {
             var boonToRemove = BoonIconsDisplay[boon];
-            Destroy(boonToRemove);
             BoonIconsDisplay.Remove(boon);
+            Destroy(boonToRemove);
+            
 
         }
     }

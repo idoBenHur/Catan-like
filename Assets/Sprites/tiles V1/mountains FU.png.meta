@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1b8acaa10127f248bb5cb00314c2d43
+guid: ebb05255911797344b32412a1625a541
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WhatsApp Image 2024-04-03 at 11.36.15_0
+      name: mountains FU_0
       rect:
         serializedVersion: 2
-        x: 141
-        y: 86
-        width: 718
-        height: 828
+        x: 16
+        y: 0
+        width: 224
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a11e178b5aa56f4897908f153d42da8
-      internalID: -1641623955
+      spriteID: a5f113d09a7f34e4792b32d628069988
+      internalID: -863739574
       vertices: []
       indices: 
       edges: []
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WhatsApp Image 2024-04-03 at 11.36.15_0: -1641623955
+      mountains FU_0: -863739574
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

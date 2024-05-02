@@ -22,7 +22,7 @@ public class BoardManager : MonoBehaviour
 {
     [SerializeField] private Tilemap tilemap;
     //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
-    [SerializeField] private UiManager uiManager;
+    [SerializeField] public UiManager uiManager;
     [SerializeField] private MapGenerator mapGenerator;
     [SerializeField] private BoonManager boonManager;
     [SerializeField] private Challenges challenges;
@@ -241,15 +241,15 @@ public class BoardManager : MonoBehaviour
 
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == false)
                     {
-                        player.AddResource(tile.resourceType, 1);
+                        player.AddResource(tile.resourceType, 1, tile.TileWorldPostion);
                         Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
-                        var woodicon= Instantiate(WoodIcon, tile.TileWorldPostion, Quaternion.identity);
-                        woodicon.transform.DOMove(uiManager.woodText.transform.position, 2);
+                        
+
 
                     }
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == true)
                     {
-                        player.AddResource(tile.resourceType, 2);
+                        player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
                         Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
                     }
 
@@ -545,7 +545,7 @@ public class BoardManager : MonoBehaviour
 
                 foreach(var adjustTile in corner.AdjacentTiles)
                 {
-                    player.AddResource(adjustTile.resourceType, 1);
+                    player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
                 }
 
 

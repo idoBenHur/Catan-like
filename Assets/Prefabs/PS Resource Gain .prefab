@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6832277447818590081}
   - component: {fileID: 1276032833532235238}
   m_Layer: 0
-  m_Name: Resource Gain PS
+  m_Name: 'PS Resource Gain '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

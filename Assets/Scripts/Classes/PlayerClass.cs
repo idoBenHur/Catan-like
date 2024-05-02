@@ -8,7 +8,7 @@ using static TileClass;
 public class PlayerClass
 {
     public Dictionary<ResourceType, int> PlayerResources { get; private set; }
-    public event Action OnResourcesChanged;  // Event to notify when resources change
+    //public event Action OnResourcesChanged;  // Event to notify when resources change
     public event Action <int> OnVictoryPointsChanged;
     public event Action OnTrade;
     public int VictoryPoints;
@@ -33,7 +33,7 @@ public class PlayerClass
         TradeCount = 0;
     }
 
-    public void AddResource(ResourceType type, int amount)
+    public void AddResource(ResourceType type, int amount, Vector3 Source)
     {
         if (PlayerResources.ContainsKey(type))
         {
@@ -43,8 +43,15 @@ public class PlayerClass
         {
             PlayerResources[type] = amount;
         }
+       
 
-        OnResourcesChanged?.Invoke();
+        for (int i = 0; i < amount; i++)
+        {
+            BoardManager.instance.uiManager.ResourceAddedAnimation(type, Source);
+        }
+
+
+        //OnResourcesChanged?.Invoke();
     }
 
     public void SubtractResources(Dictionary<ResourceType, int> cost)
@@ -57,7 +64,8 @@ public class PlayerClass
             }
         }
 
-        OnResourcesChanged?.Invoke();
+        BoardManager.instance.uiManager.UpdateResourceDisplay();
+       // OnResourcesChanged?.Invoke();
     }
 
 
@@ -104,7 +112,8 @@ public class PlayerClass
         tempDictionary.Add(offerType, requiredAmount);
 
         SubtractResources(tempDictionary);
-        AddResource(requestType, 1);
+        var sourcePosition = BoardManager.instance.uiManager.TradePannel.transform.position;
+        AddResource(requestType, 1, sourcePosition);
         TradeCount++;
         OnTrade?.Invoke();
 
