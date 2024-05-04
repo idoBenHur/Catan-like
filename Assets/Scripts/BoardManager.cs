@@ -23,7 +23,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     [SerializeField] public UiManager uiManager;
-    [SerializeField] private MapGenerator mapGenerator;
+    [SerializeField] public MapGenerator mapGenerator;
     [SerializeField] private BoonManager boonManager;
     [SerializeField] private Challenges challenges;
 
@@ -31,7 +31,10 @@ public class BoardManager : MonoBehaviour
     [HideInInspector] public bool DiceStilRolling = false;
     private int FirstTurnPlacedPeices = 0;
     [HideInInspector] public int TotalDice;
-    
+    [HideInInspector] public int Dice1FinalSide;
+    [HideInInspector] public int Dice2FinalSide;
+
+
     public PlayerClass player;
 
     [SerializeField] private GameObject WoodIcon;
@@ -138,8 +141,6 @@ public class BoardManager : MonoBehaviour
         int Dice1RandomSide = 0;
         int Dice2RandomSide = 0;
 
-        int Dice1FinalSide = 0;
-        int Dice2FinalSide = 0;
         
         for (int i = 0; i <= 10; i++)
         {

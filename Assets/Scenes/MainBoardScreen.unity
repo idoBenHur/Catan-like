@@ -1525,6 +1525,8 @@ MonoBehaviour:
   challenges: {fileID: 240130136}
   DiceStilRolling: 0
   TotalDice: 0
+  Dice1FinalSide: 0
+  Dice2FinalSide: 0
   WoodIcon: {fileID: 2275722739733830845, guid: 23be56af81a526c48bbb40ac874841f3, type: 3}
   CornerIndicatorPrefab: {fileID: 3579992415153703632, guid: ca10fc29f9d7a3647b1e00b49eb125c4, type: 3}
   SideIndicatorPrefab: {fileID: 3694540549687393739, guid: 0e6fbceb24717e74d836fd1c284e150f, type: 3}
@@ -1601,9 +1603,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: 9bfe8e42cd8e93f459ae1036a3804e11, type: 2}
-  - {fileID: 11400000, guid: 9bfe8e42cd8e93f459ae1036a3804e11, type: 2}
-  - {fileID: 11400000, guid: 9bfe8e42cd8e93f459ae1036a3804e11, type: 2}
+  - {fileID: 11400000, guid: 78e9fd25bc9a3e94189039776d97c683, type: 2}
+  - {fileID: 11400000, guid: 78e9fd25bc9a3e94189039776d97c683, type: 2}
+  - {fileID: 11400000, guid: 78e9fd25bc9a3e94189039776d97c683, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}

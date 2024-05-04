@@ -11,6 +11,7 @@ public class PlayerClass
     //public event Action OnResourcesChanged;  // Event to notify when resources change
     public event Action <int> OnVictoryPointsChanged;
     public event Action OnTrade;
+    public event Action OnHarborsGained;
     public int VictoryPoints;
     public int TradeCount;
     public List<HarborClass> OwnedHarbors = new List<HarborClass>();
@@ -137,6 +138,7 @@ public class PlayerClass
         if(corner.Harbor != null)
         {
             OwnedHarbors.Add(corner.Harbor);
+            OnHarborsGained?.Invoke();
             Debug.Log("get port");
         }
     }

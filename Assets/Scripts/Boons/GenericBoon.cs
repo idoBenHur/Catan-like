@@ -12,7 +12,8 @@ public class BoonCondition
         CityNextToEmptyHexThatProvidedResourcesThisTurn,
         AmountOfHarbors,
         MoreSettelmentsThenResources,
-        AmountOfTowns
+        AmountOfTowns,
+        RolledDouble
 
 
     }
@@ -30,6 +31,9 @@ public class BoonEffect
         AddWood,
         GainVictoryPoints,
         GainRandomResources,
+        TransformWoodTilesToStoneTiles,
+        GetRandomRoad
+
     }
 
     public EffectType type;
@@ -44,6 +48,8 @@ public class BoonTrigger
     {
         OnDiceRoll,
         OnTrade,
+        OnHarborGained,
+        OnBoonActivate
         
         // Add other trigger types as needed
     }
@@ -81,6 +87,13 @@ public class GenericBoon : ScriptableObject
                     PlayerClass player = BoardManager.instance.player;
                     player.OnTrade += GoThroughConditionsList;
                     break;
+                case BoonTrigger.TriggerType.OnHarborGained:
+                    player = BoardManager.instance.player; 
+                    player.OnHarborsGained += GoThroughConditionsList;
+                    break;
+                case BoonTrigger.TriggerType.OnBoonActivate:
+                    GoThroughConditionsList();
+                    break;
 
                     // Add other cases as needed
             }
@@ -98,7 +111,11 @@ public class GenericBoon : ScriptableObject
                     break;
                 case BoonTrigger.TriggerType.OnTrade:
                     PlayerClass player = BoardManager.instance.player;
-                    player.OnTrade += GoThroughConditionsList;
+                    player.OnTrade -= GoThroughConditionsList;
+                    break;
+                case BoonTrigger.TriggerType.OnHarborGained:
+                    player = BoardManager.instance.player;
+                    player.OnHarborsGained -= GoThroughConditionsList;
                     break;
 
                     // Add other cases as needed
@@ -195,7 +212,9 @@ public class GenericBoon : ScriptableObject
                 {
                     if( town.HasCityUpgade == false ) { townsAmount++; }
                 }
-                return condition.value >= townsAmount;  
+                return condition.value >= townsAmount;
+            case BoonCondition.ConditionType.RolledDouble:
+                return (BoardManager.instance.Dice1FinalSide == BoardManager.instance.Dice2FinalSide);
                 
 
 
@@ -234,6 +253,35 @@ public class GenericBoon : ScriptableObject
                     BoardManager.instance.player.AddResource(randomResource, 1 , sourcePosition);   
                 }
                 break;
+            case BoonEffect.EffectType.TransformWoodTilesToStoneTiles:
+                var TempTileDic= new Dictionary<Vector3Int, TileClass>();
+                foreach (var tile in BoardManager.instance.TilesDictionary)
+                {
+                    if(tile.Value.resourceType == TileClass.ResourceType.Wood)
+                    {
+                        tile.Value.resourceType = TileClass.ResourceType.Ore;
+                        TempTileDic.Add(tile.Key,tile.Value);
+                    }
+                }
+                BoardManager.instance.mapGenerator.UpdateTileTypeVisual(TempTileDic);
+                break;
+            case BoonEffect.EffectType.GetRandomRoad:
+                var TempSidePosList = new List<Vector3>();
+                foreach (var Side in BoardManager.instance.SidesDic)
+                {
+                    if (Side.Value.CanBeBuiltOn == true && Side.Value.HasRoad == false)
+                    {
+                        TempSidePosList.Add(Side.Key);
+                    }
+                }
+                int RandomIndex = UnityEngine.Random.Range(0, TempSidePosList.Count);
+                Vector3 RandomRoad = TempSidePosList[RandomIndex];
+                BoardManager.instance.BuildRoadAt(RandomRoad);
+                BoardManager.instance.mapGenerator.UpdateTownsAndRoadsVisual();
+                BoardManager.instance.uiManager.CloseAllUi();
+                break;
+
+
 
 
 
