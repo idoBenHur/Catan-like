@@ -1601,17 +1601,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: 8b9f6b6ef011ba743bc8f676360f7305, type: 2}
-  - {fileID: 11400000, guid: c3aab8c3feeffa64898625f7008cca04, type: 2}
-  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
+  - {fileID: 11400000, guid: 9bfe8e42cd8e93f459ae1036a3804e11, type: 2}
+  - {fileID: 11400000, guid: 9bfe8e42cd8e93f459ae1036a3804e11, type: 2}
+  - {fileID: 11400000, guid: 9bfe8e42cd8e93f459ae1036a3804e11, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
   - {fileID: 675627773}
-  VPForFirstBoon: 3
-  VPForSecondBoon: 5
-  VPForThirdBoon: 7
-  VPForForthBoon: 10
+  VPForFirstBoon: 1
+  VPForSecondBoon: 2
+  VPForThirdBoon: 3
+  VPForForthBoon: 4
   VPForFifthBoon: 13
   NextVPforboon: 0
 --- !u!114 &240130136
@@ -10268,10 +10268,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.4
+  m_fontSize: 72
   m_fontSizeBase: 41.4
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0

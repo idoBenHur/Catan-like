@@ -124,7 +124,7 @@ public class BoardManager : MonoBehaviour
 
 
 
-
+ 
 
 
 
@@ -168,7 +168,7 @@ public class BoardManager : MonoBehaviour
 
         
         DiceStilRolling = false;
-        Debug.Log(TotalDice);
+        
 
         if (CurrentTurn >= MaxTurn)
         {

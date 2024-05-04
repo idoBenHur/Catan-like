@@ -38,20 +38,20 @@ public class PlayerClass
         if (PlayerResources.ContainsKey(type))
         {
             PlayerResources[type] += amount;
-        }
-        else
-        {
-            PlayerResources[type] = amount;
-        }
-       
+            //OnResourcesChanged?.Invoke();
 
-        for (int i = 0; i < amount; i++)
-        {
-            BoardManager.instance.uiManager.ResourceAddedAnimation(type, Source);
-        }
+            for (int i = 0; i < amount; i++)
+            {
+                BoardManager.instance.uiManager.ResourceAddedAnimation(type, Source);
+            }
 
 
-        //OnResourcesChanged?.Invoke();
+        }
+  
+
+
+
+
     }
 
     public void SubtractResources(Dictionary<ResourceType, int> cost)

@@ -9,7 +9,12 @@ public class BoonCondition
         DiceRollEquals,
         ResourceCountLessThan,
         AfterXAmountOfTrades,
-        CityNextToEmptyHexThatProvidedResourcesThisTurn
+        CityNextToEmptyHexThatProvidedResourcesThisTurn,
+        AmountOfHarbors,
+        MoreSettelmentsThenResources,
+        AmountOfTowns
+
+
     }
 
     public ConditionType type;
@@ -24,7 +29,7 @@ public class BoonEffect
     {
         AddWood,
         GainVictoryPoints,
-        GainRandomResource,
+        GainRandomResources,
     }
 
     public EffectType type;
@@ -51,9 +56,9 @@ public class BoonTrigger
 public class GenericBoon : ScriptableObject
 {
     public string boonName;
-    public string description;
+    [TextArea(3, 10)] public string description;
     public List<BoonTrigger> triggers = new List<BoonTrigger>();
-    public List<BoonCondition> conditions = new List<BoonCondition>();
+    public List<BoonCondition> conditions;
     public List<BoonEffect> effects = new List<BoonEffect>();
     public Sprite boonImage;
     public Color boonColor = Color.white;  // Default color is white
@@ -142,7 +147,7 @@ public class GenericBoon : ScriptableObject
             case BoonCondition.ConditionType.DiceRollEquals: // dice = X
                 return BoardManager.instance.TotalDice == condition.value;
 
-            case BoonCondition.ConditionType.ResourceCountLessThan: // less the X resources
+            case BoonCondition.ConditionType.ResourceCountLessThan: // less the X resources in hand
                 int resourceCount = 0;
                 foreach(var resource in BoardManager.instance.player.PlayerResources)
                 {
@@ -150,11 +155,11 @@ public class GenericBoon : ScriptableObject
                 }
                 return resourceCount < condition.value;
 
-            case BoonCondition.ConditionType.AfterXAmountOfTrades:
+            case BoonCondition.ConditionType.AfterXAmountOfTrades: // every X trades
                 int currentTrades = BoardManager.instance.player.TradeCount;
                 return (currentTrades % condition.value == 0);
 
-            case BoonCondition.ConditionType.CityNextToEmptyHexThatProvidedResourcesThisTurn:
+            case BoonCondition.ConditionType.CityNextToEmptyHexThatProvidedResourcesThisTurn: // settelment next to empty tile
                 int diceTotal = BoardManager.instance.TotalDice;
                 bool hasEmptyAdjust = false;
                 bool ProvidedThisTurn = false;
@@ -171,6 +176,27 @@ public class GenericBoon : ScriptableObject
                     } 
                 }
                 return (hasEmptyAdjust == true && ProvidedThisTurn == true);
+
+            case BoonCondition.ConditionType.AmountOfHarbors:               
+                return (BoardManager.instance.player.OwnedHarbors.Count >= condition.value);
+
+            case BoonCondition.ConditionType.MoreSettelmentsThenResources:
+                resourceCount = 0;
+
+                foreach (var resource in BoardManager.instance.player.PlayerResources)
+                {
+                    resourceCount = resourceCount + resource.Value;
+                }    
+                return (BoardManager.instance.player.SettelmentsList.Count >= resourceCount);
+
+            case BoonCondition.ConditionType.AmountOfTowns:
+                int townsAmount = 0;
+                foreach (var town in BoardManager.instance.player.SettelmentsList)
+                {
+                    if( town.HasCityUpgade == false ) { townsAmount++; }
+                }
+                return condition.value >= townsAmount;  
+                
 
 
 
@@ -197,13 +223,19 @@ public class GenericBoon : ScriptableObject
             case BoonEffect.EffectType.GainVictoryPoints:
                 BoardManager.instance.player.AddVictoryPoints(effect.value);
                 break;
-            case BoonEffect.EffectType.GainRandomResource:
-                var resources = new TileClass.ResourceType[] {TileClass.ResourceType.Wood, TileClass.ResourceType.Brick, TileClass.ResourceType.Sheep, TileClass.ResourceType.Ore,TileClass.ResourceType.Wheat};
-                int randomIndex = UnityEngine.Random.Range(1, 5);
-                var randomResource = resources[randomIndex];
-                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
-                BoardManager.instance.player.AddResource(randomResource, effect.value, sourcePosition);
+            case BoonEffect.EffectType.GainRandomResources:
+
+                for (int i = 0; i < effect.value; i++)
+                {
+                    var resources = new TileClass.ResourceType[] { TileClass.ResourceType.Wood, TileClass.ResourceType.Brick, TileClass.ResourceType.Sheep, TileClass.ResourceType.Ore, TileClass.ResourceType.Wheat };
+                    int randomIndex = UnityEngine.Random.Range(1, 5);
+                    var randomResource = resources[randomIndex];
+                    sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
+                    BoardManager.instance.player.AddResource(randomResource, 1 , sourcePosition);   
+                }
                 break;
+
+
 
 
 

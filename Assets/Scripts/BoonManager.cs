@@ -16,6 +16,7 @@ public class BoonManager : MonoBehaviour
     // lists
 
     public List<GenericBoon> allBoons;
+    private List<GenericBoon> AvailableBoons;
     private List<GenericBoon> activeBoons = new List<GenericBoon>();
     public Button[] boonButtonsList;
     private GenericBoon[] OfferedBoons = new GenericBoon[3];
@@ -35,6 +36,7 @@ public class BoonManager : MonoBehaviour
 
     private void Start()
     {
+        AvailableBoons = new List<GenericBoon>(allBoons);
     }
     private void buttonclick()
     {
@@ -105,11 +107,16 @@ public class BoonManager : MonoBehaviour
 
     public void SetBoonsButtonWithRandomBoons()
     {
-        List<GenericBoon> availableBoons = new List<GenericBoon>(allBoons);
+        List<GenericBoon> availableBoons = new List<GenericBoon>(AvailableBoons);
         for (int i = 0; i < boonButtonsList.Length; i++)
         {
-            int randomIndex = Random.Range(0, availableBoons.Count);
-            OfferedBoons[i] = availableBoons[randomIndex];
+            if (availableBoons.Count != 0)
+            {
+                int randomIndex = Random.Range(0, availableBoons.Count);
+                OfferedBoons[i] = availableBoons[randomIndex];
+            }
+            
+            
 
             TextMeshProUGUI boonText = boonButtonsList[i].GetComponentInChildren<TextMeshProUGUI>();
             Image boonImage = boonButtonsList[i].transform.GetChild(1).GetComponent<Image>();
@@ -118,11 +125,11 @@ public class BoonManager : MonoBehaviour
             boonImage.sprite = OfferedBoons[i].boonImage;
             boonImage.color = OfferedBoons[i].boonColor;
 
-            
+            availableBoons.Remove(OfferedBoons[i]);
 
 
 
-            availableBoons.RemoveAt(randomIndex); // Remove the chosen boon to avoid duplicate selections
+            // Remove the chosen boon to avoid duplicate selections
         }
 
     }
@@ -138,6 +145,7 @@ public class BoonManager : MonoBehaviour
         GenericBoon selectedBoon = OfferedBoons[index];
         uiManager.OpenAndCloseBoonSelectionScreen();
         ActivateBoon(selectedBoon);
+        AvailableBoons.Remove(selectedBoon);
 
         // Activate the chosen boon here and add it to the player's active boons
         Debug.Log($"Chosen boon: {selectedBoon.boonName}");

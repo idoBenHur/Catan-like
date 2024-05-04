@@ -296,7 +296,7 @@ public class UiManager : MonoBehaviour
         {
             case ResourceType.Wood:
                 var woodicon = Instantiate(WoodFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                 //var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 1).SetEase(Ease.InBack);
                 tweenWood.OnComplete(() => {
                     woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
@@ -306,7 +306,7 @@ public class UiManager : MonoBehaviour
 
             case ResourceType.Brick:
                 var brickicon = Instantiate(BrickFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                 //var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 1).SetEase(Ease.InBack);
                 tweenBrick.OnComplete(() => {
                     brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
@@ -316,7 +316,7 @@ public class UiManager : MonoBehaviour
 
             case ResourceType.Sheep:
                 var Sheepicon = Instantiate(SheepFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                 //var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 1).SetEase(Ease.InBack);
                 tweenSheep.OnComplete(() => {
                     sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
@@ -326,7 +326,7 @@ public class UiManager : MonoBehaviour
 
             case ResourceType.Ore:
                 var Oreicon = Instantiate(OreFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                 //var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 1).SetEase(Ease.InBack);
                 tweenOre.OnComplete(() => {
                     oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
@@ -336,7 +336,7 @@ public class UiManager : MonoBehaviour
 
             case ResourceType.Wheat:
                 var Wheaticon = Instantiate(WheatFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 100).SetSpeedBased(true).SetEase(Ease.InBack);
+                var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                 //var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 1).SetEase(Ease.InBack);
                 tweenWheat.OnComplete(() => {
                     wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
