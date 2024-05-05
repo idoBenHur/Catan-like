@@ -64,6 +64,7 @@ public class BoardManager : MonoBehaviour
     public Dictionary<Vector3, SidesClass> SidesDic = new Dictionary<Vector3, SidesClass>();
 
     public static event Action OnDiceRolled;
+    public static event Action OnRoadBuilt;
 
 
 
@@ -105,6 +106,8 @@ public class BoardManager : MonoBehaviour
             SidesDic = mapGenerator.InitialSidesDic;
             FirstTurnIsActive = true;
             FirstTurnPlacement();
+
+
         }
         else
         {
@@ -124,10 +127,6 @@ public class BoardManager : MonoBehaviour
         boonManager.SetPlayerInBoonManager(player);
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
-
-
-
- 
 
 
 
@@ -171,11 +170,7 @@ public class BoardManager : MonoBehaviour
         DiceStilRolling = false;
         
 
-        if (CurrentTurn >= MaxTurn)
-        {
-            Debug.Log("end game");
-        }
-
+ 
     }
 
 
@@ -543,8 +538,7 @@ public class BoardManager : MonoBehaviour
                 player.AddSettelment(corner);
                 player.AddVictoryPoints(1);
 
-
-                foreach(var adjustTile in corner.AdjacentTiles)
+                foreach (var adjustTile in corner.AdjacentTiles)
                 {
                     player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
                 }
@@ -647,6 +641,8 @@ public class BoardManager : MonoBehaviour
                 Quaternion SideRotation = Quaternion.Euler(0, 0, Side.RotationZ);
                 Instantiate(RoadPrefab, Side.Position, SideRotation);
                 player.RoadsList.Add(Side);
+                OnRoadBuilt?.Invoke();
+
 
 
 
@@ -675,6 +671,8 @@ public class BoardManager : MonoBehaviour
                     Quaternion SideRotation2 = Quaternion.Euler(0, 0, Side.RotationZ);
                     Instantiate(RoadPrefab, Side.Position, SideRotation2);
                     player.RoadsList.Add(Side);
+                    OnRoadBuilt?.Invoke();
+
 
 
                     foreach (var NeighborsRoads in Side.AdjacentSides)

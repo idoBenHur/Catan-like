@@ -14,6 +14,7 @@ public class PlayerClass
     public event Action OnHarborsGained;
     public int VictoryPoints;
     public int TradeCount;
+    public List<TileClass> TilesSurrondedByRoadsList = new List<TileClass>();
     public List<HarborClass> OwnedHarbors = new List<HarborClass>();
     public List<CornersClass> SettelmentsList { get; private set; } = new List<CornersClass>();
     public List<SidesClass> RoadsList { get; set; } = new List<SidesClass>();
@@ -32,6 +33,7 @@ public class PlayerClass
 
         VictoryPoints = 0;
         TradeCount = 0;
+        
     }
 
     public void AddResource(ResourceType type, int amount, Vector3 Source)

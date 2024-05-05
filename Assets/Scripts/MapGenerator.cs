@@ -30,7 +30,7 @@ public class MapGenerator : MonoBehaviour
         TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood,
         TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat,
         TileClass.ResourceType.Brick, TileClass.ResourceType.Brick, TileClass.ResourceType.Brick,
-        TileClass.ResourceType.Ore, TileClass.ResourceType.Ore, TileClass.ResourceType.Ore,
+        TileClass.ResourceType.Ore, TileClass.ResourceType.Ore, TileClass.ResourceType.Desert,
         TileClass.ResourceType.Desert
     };
 
@@ -264,7 +264,7 @@ public class MapGenerator : MonoBehaviour
                 }
 
                 InitialSidesDic[SidePos.Position].AdjacentTiles.Add(TileValue);
-                TileValue.AdjacentSides.Add(SidePos);
+                TileValue.AdjacentSides.Add(InitialSidesDic[SidePos.Position]);
 
             }
 

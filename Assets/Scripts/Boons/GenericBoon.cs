@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty;
+using static UnityEngine.Rendering.DebugUI;
 
 [System.Serializable]
 public class BoonCondition
@@ -13,13 +16,39 @@ public class BoonCondition
         AmountOfHarbors,
         MoreSettelmentsThenResources,
         AmountOfTowns,
-        RolledDouble
-
-
+        RolledDouble,
+        DeseretSurrondedByRoad
     }
 
     public ConditionType type;
-    public int value; 
+
+    public int value1;
+    private int defaultValue1;
+
+    public int value2;
+    private int defaultValue2;
+
+    public BoonCondition()
+    {
+        
+
+    }
+
+    public void StoreDefaults()
+    {
+        defaultValue1 = value1;
+        defaultValue2 = value2;
+    }
+    
+
+    public void ResetConditionToDefaults()
+    {
+        // Reset values to defaults
+        value1 = defaultValue1;
+        value2 = defaultValue2;
+    }
+
+
 }
 
 
@@ -37,7 +66,21 @@ public class BoonEffect
     }
 
     public EffectType type;
-    public int value; 
+
+    public int value1; 
+    private int defaultValue1;
+
+    public void StoreDefaults()
+    {
+        defaultValue1 = value1;
+        
+    }
+    public void ResetEffectToDefaults()
+    {
+        // Reset values to defaults
+        value1 = defaultValue1;
+    }
+
 }
 
 
@@ -49,7 +92,8 @@ public class BoonTrigger
         OnDiceRoll,
         OnTrade,
         OnHarborGained,
-        OnBoonActivate
+        OnBoonActivate,
+        OnRoadBuilt
         
         // Add other trigger types as needed
     }
@@ -68,12 +112,13 @@ public class GenericBoon : ScriptableObject
     public List<BoonEffect> effects = new List<BoonEffect>();
     public Sprite boonImage;
     public Color boonColor = Color.white;  // Default color is white
+    
 
 
 
     public void Activate()
     {
-
+        PlayerClass player = BoardManager.instance.player;
         //triggers:
 
         foreach (var trigger in triggers)
@@ -84,15 +129,16 @@ public class GenericBoon : ScriptableObject
                     BoardManager.OnDiceRolled += GoThroughConditionsList; 
                     break;
                 case BoonTrigger.TriggerType.OnTrade:
-                    PlayerClass player = BoardManager.instance.player;
-                    player.OnTrade += GoThroughConditionsList;
+                    player.OnTrade += GoThroughConditionsList;                    
                     break;
-                case BoonTrigger.TriggerType.OnHarborGained:
-                    player = BoardManager.instance.player; 
+                case BoonTrigger.TriggerType.OnHarborGained:                   
                     player.OnHarborsGained += GoThroughConditionsList;
                     break;
                 case BoonTrigger.TriggerType.OnBoonActivate:
                     GoThroughConditionsList();
+                    break;
+                case BoonTrigger.TriggerType.OnRoadBuilt:
+                    BoardManager.OnRoadBuilt += GoThroughConditionsList;
                     break;
 
                     // Add other cases as needed
@@ -117,10 +163,15 @@ public class GenericBoon : ScriptableObject
                     player = BoardManager.instance.player;
                     player.OnHarborsGained -= GoThroughConditionsList;
                     break;
+                case BoonTrigger.TriggerType.OnRoadBuilt:
+                    BoardManager.OnRoadBuilt -= GoThroughConditionsList;
+                    break;
 
                     // Add other cases as needed
             }
         }
+
+
     }
 
 
@@ -162,7 +213,7 @@ public class GenericBoon : ScriptableObject
         switch (condition.type)
         {
             case BoonCondition.ConditionType.DiceRollEquals: // dice = X
-                return BoardManager.instance.TotalDice == condition.value;
+                return BoardManager.instance.TotalDice == condition.value1;
 
             case BoonCondition.ConditionType.ResourceCountLessThan: // less the X resources in hand
                 int resourceCount = 0;
@@ -170,11 +221,13 @@ public class GenericBoon : ScriptableObject
                 {
                     resourceCount += resource.Value;
                 }
-                return resourceCount < condition.value;
+                return resourceCount < condition.value1;
 
             case BoonCondition.ConditionType.AfterXAmountOfTrades: // every X trades
-                int currentTrades = BoardManager.instance.player.TradeCount;
-                return (currentTrades % condition.value == 0);
+                condition.value2++;
+                int currentTrades = condition.value2;
+                Debug.Log(currentTrades);
+                return (currentTrades % (condition.value1) == 0 && currentTrades != 0);
 
             case BoonCondition.ConditionType.CityNextToEmptyHexThatProvidedResourcesThisTurn: // settelment next to empty tile
                 int diceTotal = BoardManager.instance.TotalDice;
@@ -195,7 +248,7 @@ public class GenericBoon : ScriptableObject
                 return (hasEmptyAdjust == true && ProvidedThisTurn == true);
 
             case BoonCondition.ConditionType.AmountOfHarbors:               
-                return (BoardManager.instance.player.OwnedHarbors.Count >= condition.value);
+                return (BoardManager.instance.player.OwnedHarbors.Count >= condition.value1);
 
             case BoonCondition.ConditionType.MoreSettelmentsThenResources:
                 resourceCount = 0;
@@ -212,10 +265,35 @@ public class GenericBoon : ScriptableObject
                 {
                     if( town.HasCityUpgade == false ) { townsAmount++; }
                 }
-                return condition.value >= townsAmount;
+                return condition.value1 >= townsAmount;
             case BoonCondition.ConditionType.RolledDouble:
                 return (BoardManager.instance.Dice1FinalSide == BoardManager.instance.Dice2FinalSide);
+
+            case BoonCondition.ConditionType.DeseretSurrondedByRoad:
+                bool surrondedByRoads = false;
+                bool applyEffect = false;
+                //int desertCount = 0;
+                int amountOfRoads = 0;
                 
+                
+                foreach (var tile in BoardManager.instance.TilesDictionary)
+                {
+                    if (tile.Value.resourceType != TileClass.ResourceType.Desert) { continue; }                                
+                    //desertCount++;
+                    surrondedByRoads = false;
+                    amountOfRoads = 0;
+                    foreach (var side in tile.Value.AdjacentSides)
+                    {
+                        
+                        if (side.HasRoad == true) { amountOfRoads++; }
+                        if (amountOfRoads == 6) { surrondedByRoads = true; }
+      
+                    }                   
+                    if (surrondedByRoads && BoardManager.instance.player.TilesSurrondedByRoadsList.Contains(tile.Value) == false) { BoardManager.instance.player.TilesSurrondedByRoadsList.Add(tile.Value); applyEffect = true; }                
+                                  
+                } 
+                return (applyEffect);
+
 
 
 
@@ -237,14 +315,14 @@ public class GenericBoon : ScriptableObject
         {
             case BoonEffect.EffectType.AddWood:
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
-                BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value, sourcePosition);
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value1, sourcePosition);
                 break;
             case BoonEffect.EffectType.GainVictoryPoints:
-                BoardManager.instance.player.AddVictoryPoints(effect.value);
+                BoardManager.instance.player.AddVictoryPoints(effect.value1);
                 break;
             case BoonEffect.EffectType.GainRandomResources:
 
-                for (int i = 0; i < effect.value; i++)
+                for (int i = 0; i < effect.value1; i++)
                 {
                     var resources = new TileClass.ResourceType[] { TileClass.ResourceType.Wood, TileClass.ResourceType.Brick, TileClass.ResourceType.Sheep, TileClass.ResourceType.Ore, TileClass.ResourceType.Wheat };
                     int randomIndex = UnityEngine.Random.Range(1, 5);
@@ -288,6 +366,37 @@ public class GenericBoon : ScriptableObject
 
 
                 // Add more cases as needed for other effect types
+        }
+    }
+
+
+
+    public void StoreValues()
+    {
+        // Store default values
+        foreach (var condition in conditions)
+        {
+            condition.StoreDefaults();
+        }
+        foreach (var effect in effects)
+        {
+            effect.StoreDefaults();
+        }
+    }
+
+  
+
+    public void ResetToDefaults()
+    {
+        foreach (var condition in conditions)
+        {
+            condition.ResetConditionToDefaults(); // Reset conditions
+
+        }
+
+        foreach (var effect in effects)
+        {
+            effect.ResetEffectToDefaults(); // Reset effects
         }
     }
 }

@@ -163,6 +163,7 @@ public class BoonManager : MonoBehaviour
         {
             activeBoons.Add(boon);
             boon.Activate();
+            boon.StoreValues();
             uiManager.AddAndRemoveActiveBoonsDisplay(boon, true);
 
             Debug.Log($"Activated boon: {boon.boonName}");
@@ -187,6 +188,8 @@ public class BoonManager : MonoBehaviour
         foreach(var boon in tempBoonList)
         {
             DeactivateBoon(boon);
+            boon.ResetToDefaults();
+            
         }
     }
 

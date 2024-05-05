@@ -1603,9 +1603,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: 78e9fd25bc9a3e94189039776d97c683, type: 2}
-  - {fileID: 11400000, guid: 78e9fd25bc9a3e94189039776d97c683, type: 2}
-  - {fileID: 11400000, guid: 78e9fd25bc9a3e94189039776d97c683, type: 2}
+  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
+  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
+  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}

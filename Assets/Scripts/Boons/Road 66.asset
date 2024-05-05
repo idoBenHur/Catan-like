@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Trade Master
+  m_Name: Road 66
   m_EditorClassIdentifier: 
-  boonName: Trade Master
-  description: get a victory point after every seventh trade
+  boonName: Road 66
+  description: Gain 3 victory points for ever deseret that is surronded by roads
   triggers:
-  - type: 1
+  - type: 3
+  - type: 4
   conditions:
-  - type: 2
-    value1: 2
+  - type: 8
+    value1: 0
     value2: 0
   effects:
   - type: 1
-    value1: 1
+    value1: 0
   boonImage: {fileID: 0}
   boonColor: {r: 1, g: 1, b: 1, a: 1}
