@@ -201,8 +201,8 @@ public class UiManager : MonoBehaviour
     public void ShowTownBuildIndicatorsToggle()
     {
 
-    
-        
+
+
         if (TownIndicatorsToggle.isOn == true)
         {
             CloseAllUi(TownIndicatorsToggle);
@@ -672,21 +672,28 @@ public class UiManager : MonoBehaviour
         BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
     }
 
-    public void AddAndRemoveActiveBoonsDisplay(GenericBoon boon,bool isAdding)
+    public void AddAndRemoveActiveBoonsDisplay(GenericBoon boon,bool isAdding, int? counter = null)
     {
         if (isAdding == true)
         {
+            //image
             GameObject newBoonImage = Instantiate(EmptyBoonImagePrefab, BoonsPanel);
             Image imageComponent = newBoonImage.GetComponent<Image>();
             imageComponent.sprite = boon.boonImage;
             imageComponent.color = boon.boonColor;
 
+            //tooltip
             ToolTipTrigger toolTipTrigger = newBoonImage.GetComponent<ToolTipTrigger>();
             toolTipTrigger.header = boon.boonName;
             toolTipTrigger.text = boon.description;
 
 
             BoonIconsDisplay.Add(boon, newBoonImage);
+
+            if (counter != null)
+            {
+                UpdateBoonCounter(boon, counter.Value);
+            }
 
             
         }
@@ -698,6 +705,13 @@ public class UiManager : MonoBehaviour
             
 
         }
+    }
+
+    public void UpdateBoonCounter(GenericBoon boon,int Counter )
+    {
+        GameObject icon = BoonIconsDisplay[boon];       
+        icon.GetComponentInChildren<TextMeshProUGUI>().text = Counter.ToString();
+
     }
 
 }

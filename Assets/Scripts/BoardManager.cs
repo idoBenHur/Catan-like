@@ -65,6 +65,9 @@ public class BoardManager : MonoBehaviour
 
     public static event Action OnDiceRolled;
     public static event Action OnRoadBuilt;
+    public static event Action OnTownBuilt;
+
+
 
 
 
@@ -405,6 +408,12 @@ public class BoardManager : MonoBehaviour
 
     public void ShowCityUpgradeIndicators()
     {
+        if (player.CanAffordToBuild(PricesClass.CityCost) == false)
+        {
+            return;
+        }
+
+
         foreach (var settelment in player.SettelmentsList)
         {
             if (settelment.HasCityUpgade == false)
@@ -419,34 +428,27 @@ public class BoardManager : MonoBehaviour
     public void UpgradeSettelmentToCity(CornersClass Settelment)
     {
         
+        player.SubtractResources(PricesClass.CityCost);
 
-        if (player.CanAffordToBuild(PricesClass.CityCost) == true)  // if its not the first turn check for resources amount
+        Settelment.HasCityUpgade = true;
+
+        Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
+
+        player.AddVictoryPoints(1);
+
+
+        foreach (var indicator in CitiesIndicatorsPrefabList)
         {
-
-            player.SubtractResources(PricesClass.CityCost);
-
-            Settelment.HasCityUpgade = true;
-
-            Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
-
-            player.AddVictoryPoints(1);
-
-
-            foreach (var indicator in CitiesIndicatorsPrefabList)
-            {
-                Destroy(indicator.gameObject);
-            }
-            CitiesIndicatorsPrefabList.Clear();
-
-
-            ShowCityUpgradeIndicators();
-
+            Destroy(indicator.gameObject);
         }
+        CitiesIndicatorsPrefabList.Clear();
 
-        else
-        {
-            Debug.Log("Not enough resources to build a town.");
-        }
+
+        ShowCityUpgradeIndicators();
+
+        
+
+
 
 
 
@@ -460,6 +462,12 @@ public class BoardManager : MonoBehaviour
 
     public void ShowBuildIndicatorsTowns()
     {
+
+        if (player.CanAffordToBuild(PricesClass.TownCost) == false)
+        {
+            return;
+        }
+
 
         foreach (var corner in CornersDic.Values)
         {
@@ -537,6 +545,7 @@ public class BoardManager : MonoBehaviour
                
                 player.AddSettelment(corner);
                 player.AddVictoryPoints(1);
+                OnTownBuilt?.Invoke();
 
                 foreach (var adjustTile in corner.AdjacentTiles)
                 {
@@ -563,44 +572,38 @@ public class BoardManager : MonoBehaviour
 
             // not first turn
             else 
-            {
-                if(player.CanAffordToBuild(PricesClass.TownCost) == true)  
+            {               
+                player.SubtractResources(PricesClass.TownCost);
+
+                corner.CanBeBuiltOn = false;
+                corner.HasSettlement = true;
+
+                Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+
+
+                player.AddSettelment(corner);
+                player.AddVictoryPoints(1);
+                OnTownBuilt?.Invoke();
+
+
+
+                foreach (var NeighborCornerKey in corner.AdjacentCorners)
                 {
-
-                    player.SubtractResources(PricesClass.TownCost);
-
-                    corner.CanBeBuiltOn = false;
-                    corner.HasSettlement = true;
-
-                    Instantiate(TownPrefab, corner.Position, Quaternion.identity);
-
-
-                    player.AddSettelment(corner);
-                    player.AddVictoryPoints(1);
-
-
-
-                    foreach (var NeighborCornerKey in corner.AdjacentCorners)
-                    {
-                        CornersDic[NeighborCornerKey.Position].CanBeBuiltOn = false;
-                    }
-
-
-
-                    foreach (var indicator in TownsIndicatorsPrefabList)
-                    {
-                        Destroy(indicator.gameObject);
-                    }
-                    TownsIndicatorsPrefabList.Clear();
-
-                    ShowBuildIndicatorsTowns();
-
+                    CornersDic[NeighborCornerKey.Position].CanBeBuiltOn = false;
                 }
 
-                else
+
+
+                foreach (var indicator in TownsIndicatorsPrefabList)
                 {
-                    Debug.Log("Not enough resources to build a town.");
+                    Destroy(indicator.gameObject);
                 }
+                TownsIndicatorsPrefabList.Clear();
+
+                ShowBuildIndicatorsTowns();
+
+                
+
 
 
             }
@@ -613,6 +616,12 @@ public class BoardManager : MonoBehaviour
 
     public void ShowBuildIndicatorsRoads()
     {
+        if (player.CanAffordToBuild(PricesClass.RoadCost) == false)
+        {
+            return;
+        }
+
+
         foreach (var Side in SidesDic.Values)
         {
             if (Side.CanBeBuiltOn == true && Side.HasRoad == false)
@@ -661,39 +670,34 @@ public class BoardManager : MonoBehaviour
 
             else
             {
-                if (player.CanAffordToBuild(PricesClass.RoadCost) == true)
+                
+
+                player.SubtractResources(PricesClass.RoadCost);
+                Side.CanBeBuiltOn = false;
+                Side.HasRoad = true;
+
+                Quaternion SideRotation2 = Quaternion.Euler(0, 0, Side.RotationZ);
+                Instantiate(RoadPrefab, Side.Position, SideRotation2);
+                player.RoadsList.Add(Side);
+                OnRoadBuilt?.Invoke();
+
+
+
+                foreach (var NeighborsRoads in Side.AdjacentSides)
                 {
-
-                    player.SubtractResources(PricesClass.RoadCost);
-                    Side.CanBeBuiltOn = false;
-                    Side.HasRoad = true;
-
-                    Quaternion SideRotation2 = Quaternion.Euler(0, 0, Side.RotationZ);
-                    Instantiate(RoadPrefab, Side.Position, SideRotation2);
-                    player.RoadsList.Add(Side);
-                    OnRoadBuilt?.Invoke();
-
-
-
-                    foreach (var NeighborsRoads in Side.AdjacentSides)
-                    {
-                        NeighborsRoads.CanBeBuiltOn = true;
-                    }
-
-                    foreach (var indicator in RoadsIndicatorsPrefabList)
-                    {
-                        Destroy(indicator.gameObject);
-                    }
-
-
-                    ShowBuildIndicatorsRoads();
-
+                    NeighborsRoads.CanBeBuiltOn = true;
                 }
 
-                else
+                foreach (var indicator in RoadsIndicatorsPrefabList)
                 {
-                    Debug.Log("Not enough resources to build a road.");
+                    Destroy(indicator.gameObject);
                 }
+
+
+                ShowBuildIndicatorsRoads();
+
+                
+
             }
 
 

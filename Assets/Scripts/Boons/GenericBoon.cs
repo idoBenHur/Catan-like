@@ -12,12 +12,13 @@ public class BoonCondition
         DiceRollEquals,
         ResourceCountLessThan,
         AfterXAmountOfTrades,
-        CityNextToEmptyHexThatProvidedResourcesThisTurn,
+        TownNextToDesert,
         AmountOfHarbors,
         MoreSettelmentsThenResources,
         AmountOfTowns,
         RolledDouble,
-        DeseretSurrondedByRoad
+        DeseretSurrondedByRoad,
+        AmounOfRoadsBuilt
     }
 
     public ConditionType type;
@@ -28,11 +29,7 @@ public class BoonCondition
     public int value2;
     private int defaultValue2;
 
-    public BoonCondition()
-    {
-        
 
-    }
 
     public void StoreDefaults()
     {
@@ -61,7 +58,8 @@ public class BoonEffect
         GainVictoryPoints,
         GainRandomResources,
         TransformWoodTilesToStoneTiles,
-        GetRandomRoad
+        GetRandomRoad,
+        TransformTownsNearDesertsToCities
 
     }
 
@@ -93,8 +91,9 @@ public class BoonTrigger
         OnTrade,
         OnHarborGained,
         OnBoonActivate,
-        OnRoadBuilt
-        
+        OnRoadBuilt,
+        OnTownBuilt
+
         // Add other trigger types as needed
     }
 
@@ -112,6 +111,7 @@ public class GenericBoon : ScriptableObject
     public List<BoonEffect> effects = new List<BoonEffect>();
     public Sprite boonImage;
     public Color boonColor = Color.white;  // Default color is white
+    public bool isCounting = false;
     
 
 
@@ -140,6 +140,10 @@ public class GenericBoon : ScriptableObject
                 case BoonTrigger.TriggerType.OnRoadBuilt:
                     BoardManager.OnRoadBuilt += GoThroughConditionsList;
                     break;
+                case BoonTrigger.TriggerType.OnTownBuilt:
+                    BoardManager.OnTownBuilt += GoThroughConditionsList;
+                    break;
+
 
                     // Add other cases as needed
             }
@@ -165,6 +169,9 @@ public class GenericBoon : ScriptableObject
                     break;
                 case BoonTrigger.TriggerType.OnRoadBuilt:
                     BoardManager.OnRoadBuilt -= GoThroughConditionsList;
+                    break;
+                case BoonTrigger.TriggerType.OnTownBuilt:
+                    BoardManager.OnTownBuilt -= GoThroughConditionsList;
                     break;
 
                     // Add other cases as needed
@@ -206,7 +213,6 @@ public class GenericBoon : ScriptableObject
         }
 
     }
-
     private bool IsConditionMet(BoonCondition condition)
     {
 
@@ -225,32 +231,26 @@ public class GenericBoon : ScriptableObject
 
             case BoonCondition.ConditionType.AfterXAmountOfTrades: // every X trades
                 condition.value2++;
+                BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
                 int currentTrades = condition.value2;
-                Debug.Log(currentTrades);
                 return (currentTrades % (condition.value1) == 0 && currentTrades != 0);
 
-            case BoonCondition.ConditionType.CityNextToEmptyHexThatProvidedResourcesThisTurn: // settelment next to empty tile
-                int diceTotal = BoardManager.instance.TotalDice;
-                bool hasEmptyAdjust = false;
-                bool ProvidedThisTurn = false;
-
+            case BoonCondition.ConditionType.TownNextToDesert: // there is a town next to a desert
+                bool adjacentDesert = false;
                 foreach (var settelment in BoardManager.instance.player.SettelmentsList)
-                {
-                    if (settelment.HasCityUpgade == true)
+                {                   
+                    foreach(var AdjacentTile in settelment.AdjacentTiles)
                     {
-                         foreach(var AdjustTile in settelment.AdjacentTiles)
-                        {
-                            if(AdjustTile.hasRobber == true ) { hasEmptyAdjust = true;}
-                            if (AdjustTile.numberToken == diceTotal) { ProvidedThisTurn = true;}
-                        }
-                    } 
+                        if(AdjacentTile.resourceType == TileClass.ResourceType.Desert ) { adjacentDesert = true;}
+                        
+                    }                  
                 }
-                return (hasEmptyAdjust == true && ProvidedThisTurn == true);
+                return (adjacentDesert);
 
-            case BoonCondition.ConditionType.AmountOfHarbors:               
+            case BoonCondition.ConditionType.AmountOfHarbors: // X amount of harbors               
                 return (BoardManager.instance.player.OwnedHarbors.Count >= condition.value1);
 
-            case BoonCondition.ConditionType.MoreSettelmentsThenResources:
+            case BoonCondition.ConditionType.MoreSettelmentsThenResources: // More Settelments Then Resources
                 resourceCount = 0;
 
                 foreach (var resource in BoardManager.instance.player.PlayerResources)
@@ -259,23 +259,22 @@ public class GenericBoon : ScriptableObject
                 }    
                 return (BoardManager.instance.player.SettelmentsList.Count >= resourceCount);
 
-            case BoonCondition.ConditionType.AmountOfTowns:
+            case BoonCondition.ConditionType.AmountOfTowns: // X amount of towns 
                 int townsAmount = 0;
                 foreach (var town in BoardManager.instance.player.SettelmentsList)
                 {
                     if( town.HasCityUpgade == false ) { townsAmount++; }
                 }
                 return condition.value1 >= townsAmount;
-            case BoonCondition.ConditionType.RolledDouble:
+            case BoonCondition.ConditionType.RolledDouble: // Rolled Double
                 return (BoardManager.instance.Dice1FinalSide == BoardManager.instance.Dice2FinalSide);
 
-            case BoonCondition.ConditionType.DeseretSurrondedByRoad:
+            case BoonCondition.ConditionType.DeseretSurrondedByRoad: // Deseret Surronded By Road
                 bool surrondedByRoads = false;
                 bool applyEffect = false;
                 //int desertCount = 0;
                 int amountOfRoads = 0;
-                
-                
+                     
                 foreach (var tile in BoardManager.instance.TilesDictionary)
                 {
                     if (tile.Value.resourceType != TileClass.ResourceType.Desert) { continue; }                                
@@ -293,6 +292,17 @@ public class GenericBoon : ScriptableObject
                                   
                 } 
                 return (applyEffect);
+            case BoonCondition.ConditionType.AmounOfRoadsBuilt: // every X amount of Roads Built
+                bool conditionIsMet = false;
+                condition.value2++;
+                if (condition.value2 % condition.value1 == 0 && condition.value2 != 0)
+                {
+                    conditionIsMet = true;
+                    condition.value2 = 0;
+                }
+                BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
+                return (conditionIsMet);
+                 
 
 
 
@@ -305,22 +315,22 @@ public class GenericBoon : ScriptableObject
 
         return false;
     }
+    
 
- 
 
     private void ApplyEffect(BoonEffect effect)
     {
         Vector3 sourcePosition = Vector3.zero;
         switch (effect.type)
         {
-            case BoonEffect.EffectType.AddWood:
+            case BoonEffect.EffectType.AddWood: // gain wood
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
                 BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value1, sourcePosition);
                 break;
             case BoonEffect.EffectType.GainVictoryPoints:
                 BoardManager.instance.player.AddVictoryPoints(effect.value1);
                 break;
-            case BoonEffect.EffectType.GainRandomResources:
+            case BoonEffect.EffectType.GainRandomResources: // gain ranodm resources
 
                 for (int i = 0; i < effect.value1; i++)
                 {
@@ -331,7 +341,7 @@ public class GenericBoon : ScriptableObject
                     BoardManager.instance.player.AddResource(randomResource, 1 , sourcePosition);   
                 }
                 break;
-            case BoonEffect.EffectType.TransformWoodTilesToStoneTiles:
+            case BoonEffect.EffectType.TransformWoodTilesToStoneTiles: // transform wood tiles to stone tiles
                 var TempTileDic= new Dictionary<Vector3Int, TileClass>();
                 foreach (var tile in BoardManager.instance.TilesDictionary)
                 {
@@ -343,7 +353,7 @@ public class GenericBoon : ScriptableObject
                 }
                 BoardManager.instance.mapGenerator.UpdateTileTypeVisual(TempTileDic);
                 break;
-            case BoonEffect.EffectType.GetRandomRoad:
+            case BoonEffect.EffectType.GetRandomRoad: // gain random road
                 var TempSidePosList = new List<Vector3>();
                 foreach (var Side in BoardManager.instance.SidesDic)
                 {
@@ -357,6 +367,16 @@ public class GenericBoon : ScriptableObject
                 BoardManager.instance.BuildRoadAt(RandomRoad);
                 BoardManager.instance.mapGenerator.UpdateTownsAndRoadsVisual();
                 BoardManager.instance.uiManager.CloseAllUi();
+                break;
+            case BoonEffect.EffectType.TransformTownsNearDesertsToCities: // Transform Towns Near Deserts To Cities
+
+                foreach (var settelment in BoardManager.instance.player.SettelmentsList)
+                {
+                    foreach (var AdjacentTile in settelment.AdjacentTiles)
+                    {
+                        if (AdjacentTile.resourceType == TileClass.ResourceType.Desert) { BoardManager.instance.UpgradeSettelmentToCity(settelment); }
+                    }
+                }
                 break;
 
 

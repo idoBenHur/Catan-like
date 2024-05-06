@@ -165,6 +165,7 @@ public class BoonManager : MonoBehaviour
             boon.Activate();
             boon.StoreValues();
             uiManager.AddAndRemoveActiveBoonsDisplay(boon, true);
+            if(boon.isCounting == true) { uiManager.UpdateBoonCounter(boon, 0); }
 
             Debug.Log($"Activated boon: {boon.boonName}");
         }
@@ -177,6 +178,7 @@ public class BoonManager : MonoBehaviour
         {
             boon.Deactivate();
             activeBoons.Remove(boon);
+            boon.ResetToDefaults();
             Debug.Log($"Deactivated boon: {boon.boonName}");
         }
     }

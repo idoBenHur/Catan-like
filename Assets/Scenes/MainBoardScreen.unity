@@ -1603,9 +1603,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
-  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
-  - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
+  - {fileID: 11400000, guid: c3aab8c3feeffa64898625f7008cca04, type: 2}
+  - {fileID: 11400000, guid: 50a7019ce5d66f3448b43396b6bea25c, type: 2}
+  - {fileID: 11400000, guid: d9629d05ed044ae439e47c6b88cc150a, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
@@ -11849,8 +11849,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -546, y: 416.19}
-  m_SizeDelta: {x: 749.63, y: 63.65}
+  m_AnchoredPosition: {x: -583.49, y: 385.35}
+  m_SizeDelta: {x: 674.65, y: 125.33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2036740193
 MonoBehaviour:
@@ -11870,9 +11870,9 @@ MonoBehaviour:
     m_Top: -18
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: -630
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_Spacing: -74.2
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
