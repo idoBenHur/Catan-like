@@ -20,16 +20,24 @@ public class BoonManager : MonoBehaviour
     private List<GenericBoon> activeBoons = new List<GenericBoon>();
     public Button[] boonButtonsList;
     private GenericBoon[] OfferedBoons = new GenericBoon[3];
-    
+    private List<int> boonMilestones;
+
+
+
 
     // other
-    
-    public int VPForFirstBoon = 3;
-    public int VPForSecondBoon = 5;
-    public int VPForThirdBoon = 7;
-    public int VPForForthBoon = 10;
-    public int VPForFifthBoon = 13;
-    public int NextVPforboon;
+
+    [SerializeField] private int VPForFirstBoon = 3;
+    [SerializeField] private int VPForSecondBoon = 5;
+    [SerializeField] private int VPForThirdBoon = 7;
+    [SerializeField] private int VPForForthBoon = 10;
+    [SerializeField] private int VPForFifthBoon = 13;
+    [SerializeField] private int lastVPChecked = 0;
+    [SerializeField] public int NextVPforboon;
+    private bool BoonPannelOpen = false;
+
+
+
 
 
 
@@ -37,6 +45,7 @@ public class BoonManager : MonoBehaviour
     private void Start()
     {
         AvailableBoons = new List<GenericBoon>(allBoons);
+        
     }
     private void buttonclick()
     {
@@ -47,8 +56,9 @@ public class BoonManager : MonoBehaviour
 
     public void SetPlayerInBoonManager(PlayerClass playerInstance)
     {
+        boonMilestones = new List<int> { VPForFirstBoon, VPForSecondBoon, VPForThirdBoon, VPForForthBoon, VPForFifthBoon };
         player = playerInstance;
-        player.OnVictoryPointsChanged += BoonMeter;
+        player.OnVictoryPointsChanged += CheckBoonMilestones;
     }
 
 
@@ -60,43 +70,38 @@ public class BoonManager : MonoBehaviour
 
 
 
-    private void BoonMeter(int CurrnetVictoryPoints)
+    private void CheckBoonMilestones(int CurrnetVictoryPoints)
     {
-     
-        if(CurrnetVictoryPoints == 0)
+
+        Debug.Log("boon pannel open: " + BoonPannelOpen);
+        if (BoonPannelOpen == true) { return; }
+        
+
+        // check if the player should get a boon
+        boonMilestones.Sort();
+        foreach (var milestone in boonMilestones)
         {
-            NextVPforboon = VPForFirstBoon;
+            if (CurrnetVictoryPoints >= milestone && lastVPChecked < milestone)
+            {
+                lastVPChecked = milestone; 
+                SetBoonsButtonWithRandomBoons();
+                uiManager.OpenAndCloseBoonSelectionScreen();
+                BoonPannelOpen = true;
+                break;
+            }
         }
-        if(CurrnetVictoryPoints == VPForFirstBoon)
+
+
+        //find the next milestone
+        foreach (int milestone in boonMilestones)
         {
-            NextVPforboon = VPForSecondBoon;
-            SetBoonsButtonWithRandomBoons();
-            uiManager.OpenAndCloseBoonSelectionScreen();
+            if (CurrnetVictoryPoints < milestone)
+            {
+                NextVPforboon = milestone;
+                break;  
+            }
         }
-        else if (CurrnetVictoryPoints == VPForSecondBoon)
-        {
-            NextVPforboon = VPForThirdBoon;
-            SetBoonsButtonWithRandomBoons();
-            uiManager.OpenAndCloseBoonSelectionScreen();
-        }
-        else if (CurrnetVictoryPoints == VPForThirdBoon)
-        {
-            NextVPforboon = VPForForthBoon;
-            SetBoonsButtonWithRandomBoons();
-            uiManager.OpenAndCloseBoonSelectionScreen();
-        }
-        else if (CurrnetVictoryPoints == VPForForthBoon)
-        {
-            NextVPforboon = VPForFifthBoon;
-            SetBoonsButtonWithRandomBoons();
-            uiManager.OpenAndCloseBoonSelectionScreen();
-        }
-        else if (CurrnetVictoryPoints == VPForFifthBoon)
-        {
-           // NextVPforboon = VPForFifthBoon;
-            SetBoonsButtonWithRandomBoons();
-            uiManager.OpenAndCloseBoonSelectionScreen();
-        }
+
 
 
 
@@ -144,10 +149,14 @@ public class BoonManager : MonoBehaviour
     {
         GenericBoon selectedBoon = OfferedBoons[index];
         uiManager.OpenAndCloseBoonSelectionScreen();
+        BoonPannelOpen = false;
+
         ActivateBoon(selectedBoon);
         AvailableBoons.Remove(selectedBoon);
 
-        // Activate the chosen boon here and add it to the player's active boons
+        int currnentVP = player.VictoryPoints;
+        CheckBoonMilestones(currnentVP); // re-call the CheckBoonMilestones to cover "VP overflow" case
+
         Debug.Log($"Chosen boon: {selectedBoon.boonName}");
 
 

@@ -372,6 +372,7 @@ public class GenericBoon : ScriptableObject
 
                 foreach (var settelment in BoardManager.instance.player.SettelmentsList)
                 {
+                    if(settelment.HasCityUpgade == true) { continue; }
                     foreach (var AdjacentTile in settelment.AdjacentTiles)
                     {
                         if (AdjacentTile.resourceType == TileClass.ResourceType.Desert) { BoardManager.instance.UpgradeSettelmentToCity(settelment); }
