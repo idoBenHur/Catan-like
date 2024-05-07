@@ -8,13 +8,14 @@ using static TileClass;
 public class PlayerClass
 {
     public Dictionary<ResourceType, int> PlayerResources { get; private set; }
-    //public event Action OnResourcesChanged;  // Event to notify when resources change
+    public event Action OnResourcesChanged;
     public event Action <int> OnVictoryPointsChanged;
     public event Action OnTrade;
     public event Action OnHarborsGained;
     public int VictoryPoints;
     public int TradeCount;
-    public List<TileClass> TilesSurrondedByRoadsList = new List<TileClass>();
+    public int? TradeModifier = null; //brute force change for trade ratio (used by boon) 
+    public List<TileClass> TilesSurrondedByRoadsList = new List<TileClass>(); // used for an old boon, will modifiy the boon and will remove this value when i have the power to do it...
     public List<HarborClass> OwnedHarbors = new List<HarborClass>();
     public List<CornersClass> SettelmentsList { get; private set; } = new List<CornersClass>();
     public List<SidesClass> RoadsList { get; set; } = new List<SidesClass>();
@@ -41,7 +42,7 @@ public class PlayerClass
         if (PlayerResources.ContainsKey(type))
         {
             PlayerResources[type] += amount;
-            //OnResourcesChanged?.Invoke();
+            OnResourcesChanged?.Invoke();
 
             for (int i = 0; i < amount; i++)
             {
@@ -68,7 +69,7 @@ public class PlayerClass
         }
 
         BoardManager.instance.uiManager.UpdateResourceDisplay();
-       // OnResourcesChanged?.Invoke();
+        OnResourcesChanged?.Invoke();
     }
 
 
@@ -95,24 +96,25 @@ public class PlayerClass
              
         Dictionary<ResourceType, int> tempDictionary = new Dictionary<ResourceType, int>();
 
-        int requiredAmount = 4;  // Default trading ratio without harbor
-
-
+        int MinRequiredAmount = 4;  // Default trading ratio without harbor
+        
         foreach (var harbor in OwnedHarbors) 
         {
             if(offerType.ToString() == harbor.TradeResource.ToString())
             {
-                requiredAmount = harbor.TradeRatio;
+                MinRequiredAmount = harbor.TradeRatio;
                 break;
             }
             else if(harbor.TradeResource == HarborResourceType.Any)
             {
-                requiredAmount = harbor.TradeRatio;
+                MinRequiredAmount = harbor.TradeRatio;
             }
             
         }
 
-        tempDictionary.Add(offerType, requiredAmount);
+        if (TradeModifier != null) { MinRequiredAmount = TradeModifier.Value; }
+
+        tempDictionary.Add(offerType, MinRequiredAmount);
 
         SubtractResources(tempDictionary);
         var sourcePosition = BoardManager.instance.uiManager.TradePannel.transform.position;

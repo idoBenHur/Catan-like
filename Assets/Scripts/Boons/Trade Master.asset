@@ -18,7 +18,7 @@ MonoBehaviour:
   - type: 1
   conditions:
   - type: 2
-    value1: 3
+    value1: 7
     value2: 0
   effects:
   - type: 1

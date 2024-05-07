@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Road Maniac
   m_EditorClassIdentifier: 
   boonName: Road Maniac
-  description: Gain a victory point for every 7 road you build
+  description: Gain a victory point for every 5 road you build
   triggers:
   - type: 4
   conditions:

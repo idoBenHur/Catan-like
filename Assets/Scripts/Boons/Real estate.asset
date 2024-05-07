@@ -18,9 +18,11 @@ MonoBehaviour:
   - type: 0
   conditions:
   - type: 5
-    value: 0
+    value1: 0
+    value2: 0
   effects:
   - type: 2
-    value: 1
+    value1: 1
   boonImage: {fileID: 0}
   boonColor: {r: 1, g: 1, b: 1, a: 1}
+  isCounting: 0

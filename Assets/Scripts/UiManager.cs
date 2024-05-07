@@ -114,7 +114,6 @@ public class UiManager : MonoBehaviour
     public void SetUpUIManager(PlayerClass playerInstance)
     {
         player = playerInstance;
-        //player.OnResourcesChanged += UpdateResourceDisplay;
         player.OnVictoryPointsChanged += UpdateVictoryPointsDisplay;
         BoardManager.OnDiceRolled += UpdateTurnSliderDisplay;
 
@@ -128,7 +127,6 @@ public class UiManager : MonoBehaviour
     {
         if (player != null)
         {
-            //player.OnResourcesChanged -= UpdateResourceDisplay;
             player.OnVictoryPointsChanged -= UpdateVictoryPointsDisplay;
             BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
         }
@@ -450,9 +448,9 @@ public class UiManager : MonoBehaviour
     //trade with bank functions
 
 
-    private void TradeToggleActivation()
+    private void TradeToggleActivation() //change trade icons numbers/ratio and active the toggles (if player have resources)
     {
-
+        
 
         TextMeshProUGUI woodText = offerWoodToggle.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI brickText = offerBrickToggle.GetComponentInChildren<TextMeshProUGUI>();
@@ -460,8 +458,15 @@ public class UiManager : MonoBehaviour
         TextMeshProUGUI oreText = offerOreToggle.GetComponentInChildren<TextMeshProUGUI>();
         TextMeshProUGUI wheatText = offerWheatToggle.GetComponentInChildren<TextMeshProUGUI>();
 
+        //default rate
+        woodText.text = "X4";
+        brickText.text = "X4";
+        sheepText.text = "X4";
+        oreText.text = "X4";
+        wheatText.text = "X4";
 
 
+        //if you have 3:1 port 
         if (player.OwnedHarbors.Any(harbor => harbor.TradeResource == HarborResourceType.Any))
         {
             woodText.text = "X3";
@@ -471,6 +476,7 @@ public class UiManager : MonoBehaviour
             wheatText.text = "X3";
         }
 
+        //if you have 2:1 port 
         foreach (var port in player.OwnedHarbors)
         {
 
@@ -490,12 +496,22 @@ public class UiManager : MonoBehaviour
                     break;
                 case HarborResourceType.Wheat:
                     wheatText.text = "X" + (port.TradeRatio.ToString());
-                    Debug.Log("wheaeaeat");
                     break;
 
 
             }
         }
+
+        //if you have an active trade ratio modifer 
+        if (player.TradeModifier != null)
+        {
+            woodText.text = (player.TradeModifier.ToString() + "X");
+            brickText.text = (player.TradeModifier.ToString() + "X");
+            sheepText.text = (player.TradeModifier.ToString() + "X");
+            oreText.text = (player.TradeModifier.ToString() + "X");
+            wheatText.text = (player.TradeModifier.ToString() + "X");
+        }
+
 
 
         offerWoodToggle.interactable = CanOfferResource(ResourceType.Wood);
@@ -512,6 +528,12 @@ public class UiManager : MonoBehaviour
         int playerResourceCount = player.PlayerResources[resourceType];
         int requiredAmount = 4;
 
+        if (player.TradeModifier != null) 
+        { 
+            requiredAmount = player.TradeModifier.Value;
+            return playerResourceCount >= requiredAmount;
+        }
+           
         foreach (var port in player.OwnedHarbors)
         {
             if (port.TradeResource.ToString() == resourceType.ToString())

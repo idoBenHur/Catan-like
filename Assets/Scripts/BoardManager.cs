@@ -425,10 +425,11 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void UpgradeSettelmentToCity(CornersClass Settelment)
+    public void UpgradeSettelmentToCity(CornersClass Settelment, bool isFree = false)
     {
         
-        player.SubtractResources(PricesClass.CityCost);
+        if(isFree == false) { player.SubtractResources(PricesClass.CityCost); }
+        
 
         Settelment.HasCityUpgade = true;
 
@@ -527,7 +528,7 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    public void BuildSettlementAt(Vector3 cornerPosition)
+    public void BuildSettlementAt(Vector3 cornerPosition, bool isFree = false)
     {
 
         //first turn
@@ -572,8 +573,9 @@ public class BoardManager : MonoBehaviour
 
             // not first turn
             else 
-            {               
-                player.SubtractResources(PricesClass.TownCost);
+            {   
+                if (isFree == false) { player.SubtractResources(PricesClass.TownCost); }
+                
 
                 corner.CanBeBuiltOn = false;
                 corner.HasSettlement = true;
@@ -637,7 +639,7 @@ public class BoardManager : MonoBehaviour
 
 
 
-    public void BuildRoadAt(Vector3 SidePosition)
+    public void BuildRoadAt(Vector3 SidePosition, bool isFree = false)
     {
         if (SidesDic.TryGetValue(SidePosition, out SidesClass Side) && Side.CanBeBuiltOn)
         {
@@ -670,9 +672,9 @@ public class BoardManager : MonoBehaviour
 
             else
             {
-                
 
-                player.SubtractResources(PricesClass.RoadCost);
+                if (isFree == false) { player.SubtractResources(PricesClass.RoadCost); }
+                
                 Side.CanBeBuiltOn = false;
                 Side.HasRoad = true;
 

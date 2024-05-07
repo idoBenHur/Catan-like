@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: ghost city
+  m_Name: Unholy trade
   m_EditorClassIdentifier: 
-  boonName: Ghost City
-  description: if you have a city next to an empty hex, and its provided resources
-    this turn. gain a random resource
+  boonName: Unholy trade
+  description: if you have more then 15 resources, you can trade 1:1
   triggers:
-  - type: 0
-  conditions:
   - type: 3
-    value: 0
+  - type: 6
+  conditions: []
   effects:
-  - type: 2
-    value: 1
+  - type: 6
+    value1: 15
+    boolValue: 0
   boonImage: {fileID: 0}
   boonColor: {r: 1, g: 1, b: 1, a: 1}
+  isCounting: 0
