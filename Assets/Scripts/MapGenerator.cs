@@ -237,6 +237,7 @@ public class MapGenerator : MonoBehaviour
             Vector3 TileWorldPosition = tilemap.CellToWorld(TilePosition);
 
 
+
             var CornerPositions = GetCornerPositionsForTile(TileWorldPosition);
             var sidePositions = GetSidesPositionsForTile(TileWorldPosition);
 
@@ -308,21 +309,24 @@ public class MapGenerator : MonoBehaviour
     public List<Vector3> GetCornerPositionsForTile(Vector3 HexCenterPostion)
     {
         List<Vector3> corners = new List<Vector3>();
-        float tilemapScale = tilemap.transform.localScale.x;
-        float size = (tilemap.cellSize.x * tilemapScale) / Mathf.Sqrt(3);
+        float ScaleX = tilemap.transform.localScale.x;
+      //float ScaleY = tilemap.transform.localScale.y;
+        float sizeX = (tilemap.cellSize.x * ScaleX) / Mathf.Sqrt(3);
+        //float sizeY = (tilemap.cellSize.y * ScaleY) / Mathf.Sqrt(3);
 
         for (int i = 0; i < 6; i++)
         {
             float angleDeg = 60 * i + 30; 
             //float angleRad = Mathf.Deg2Rad * angleDeg;
-            float angleRad = Mathf.PI / 180 * angleDeg;
-            Vector3 cornerPos = new Vector3(HexCenterPostion.x + size * Mathf.Cos(angleRad), HexCenterPostion.y + size * Mathf.Sin(angleRad), HexCenterPostion.z);
+            float angleRad = (Mathf.PI / 180) * angleDeg;
+            Vector3 cornerPos = new Vector3(HexCenterPostion.x + sizeX * Mathf.Cos(angleRad), HexCenterPostion.y + sizeX * Mathf.Sin(angleRad), HexCenterPostion.z);
             Vector3 roundedCornerPos = RoundVector3(cornerPos, 1);
             corners.Add(roundedCornerPos);
 
 
-
+            
         }
+        
 
 
         return corners;

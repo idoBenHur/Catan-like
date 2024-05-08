@@ -36,7 +36,7 @@ public class VictoryPointsOnSevenBoon : Boon
             if (HasTowns == false) 
             {
                 Debug.Log("Add points");
-                BoardManager.instance.player.AddVictoryPoints(1);
+                //BoardManager.instance.player.AddVictoryPoints(1);
             }
         }
     }

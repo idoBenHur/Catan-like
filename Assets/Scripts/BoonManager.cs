@@ -33,7 +33,7 @@ public class BoonManager : MonoBehaviour
     [SerializeField] private int VPForForthBoon = 10;
     [SerializeField] private int VPForFifthBoon = 13;
     [SerializeField] private int lastVPChecked = 0;
-    [SerializeField] public int NextVPforboon;
+    [SerializeField] public int NextVPMilestoneForBoon;
     private bool BoonPannelOpen = false;
 
 
@@ -46,6 +46,8 @@ public class BoonManager : MonoBehaviour
     {
         AvailableBoons = new List<GenericBoon>(allBoons);
         
+
+
     }
     private void buttonclick()
     {
@@ -58,7 +60,6 @@ public class BoonManager : MonoBehaviour
     {
         boonMilestones = new List<int> { VPForFirstBoon, VPForSecondBoon, VPForThirdBoon, VPForForthBoon, VPForFifthBoon };
         player = playerInstance;
-        player.OnVictoryPointsChanged += CheckBoonMilestones;
     }
 
 
@@ -70,9 +71,9 @@ public class BoonManager : MonoBehaviour
 
 
 
-    private void CheckBoonMilestones(int CurrnetVictoryPoints)
+    public void CheckBoonMilestones()
     {
-
+        int CurrnetVictoryPoints = player.VictoryPoints;
         Debug.Log("boon pannel open: " + BoonPannelOpen);
         if (BoonPannelOpen == true) { return; }
         
@@ -97,7 +98,7 @@ public class BoonManager : MonoBehaviour
         {
             if (CurrnetVictoryPoints < milestone)
             {
-                NextVPforboon = milestone;
+                NextVPMilestoneForBoon = milestone;
                 break;  
             }
         }
@@ -154,8 +155,8 @@ public class BoonManager : MonoBehaviour
         ActivateBoon(selectedBoon);
         AvailableBoons.Remove(selectedBoon);
 
-        int currnentVP = player.VictoryPoints;
-        CheckBoonMilestones(currnentVP); // re-call the CheckBoonMilestones to cover "VP overflow" case
+        
+        CheckBoonMilestones(); // re-call the CheckBoonMilestones to cover "VP overflow" case
 
         Debug.Log($"Chosen boon: {selectedBoon.boonName}");
 

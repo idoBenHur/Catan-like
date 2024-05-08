@@ -24,13 +24,14 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Toggle TradeToggle;
     private bool isUpdatingToggles = false;
 
-    // resources flying icons
+    //  flying icons
 
     [SerializeField] private GameObject WoodFlyingIcon;
     [SerializeField] private GameObject BrickFlyingIcon;
     [SerializeField] private GameObject SheepFlyingIcon;
     [SerializeField] private GameObject OreFlyingIcon;
     [SerializeField] private GameObject WheatFlyingIcon;
+    [SerializeField] private GameObject VictoryPointsFlyingIcons;
 
 
     //screen UI:
@@ -114,12 +115,16 @@ public class UiManager : MonoBehaviour
     public void SetUpUIManager(PlayerClass playerInstance)
     {
         player = playerInstance;
-        player.OnVictoryPointsChanged += UpdateVictoryPointsDisplay;
         BoardManager.OnDiceRolled += UpdateTurnSliderDisplay;
 
         UpdateResourceDisplay();  // Initial display update
         UpdateTurnSliderDisplay(); // inital slider postioning
-        player.AddVictoryPoints(0); // just to update the visuals 
+
+        //inital update for total VP and next boon milestone
+        boonManager.CheckBoonMilestones(); 
+        UpdateVictoryPointsDisplay();
+
+        
     }
 
 
@@ -127,7 +132,6 @@ public class UiManager : MonoBehaviour
     {
         if (player != null)
         {
-            player.OnVictoryPointsChanged -= UpdateVictoryPointsDisplay;
             BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
         }
     }
@@ -344,6 +348,25 @@ public class UiManager : MonoBehaviour
         }
     }
 
+
+
+    public void VictoryPointsAddedAnimation(Vector3 FromPosition)
+    {
+        float offsetPositionX = FromPosition.x + UnityEngine.Random.Range(-0.5f, 0.5f);
+        float offsetPositionY = FromPosition.y + UnityEngine.Random.Range(-0.5f, 0.5f);
+        Vector3 spawnPosition = new Vector3(offsetPositionX, offsetPositionY, 0);
+
+        var VPicon = Instantiate(VictoryPointsFlyingIcons, spawnPosition, Quaternion.identity);
+        var tweenVP = VPicon.transform.DOMove(TotalVictoryPointsText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
+        tweenVP.OnComplete(() =>
+        {
+            
+            boonManager.CheckBoonMilestones();
+            UpdateVictoryPointsDisplay();
+        });
+    }
+
+
     public void UpdateResourceDisplay()
     {
         woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
@@ -354,14 +377,14 @@ public class UiManager : MonoBehaviour
 
     }
 
-    public void UpdateVictoryPointsDisplay(int CurrentVictoryPoints)
+    public void UpdateVictoryPointsDisplay()
     {
 
-        string VPText = CurrentVictoryPoints.ToString();
+        string VPText = player.VictoryPoints.ToString();
         string VPGoalText = BoardManager.instance.VictoryPointsGoal.ToString();
         TotalVictoryPointsText.text = VPText + "/" + VPGoalText;
 
-        string VPLeftUntilBoon = (boonManager.NextVPforboon - CurrentVictoryPoints).ToString();
+        string VPLeftUntilBoon = (boonManager.NextVPMilestoneForBoon - player.VictoryPoints).ToString();
         VictoryPointsLeftUntilNextBoon.text = VPLeftUntilBoon + " Victory points until next boon";
 
     }

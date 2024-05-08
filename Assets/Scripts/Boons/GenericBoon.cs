@@ -352,7 +352,8 @@ public class GenericBoon : ScriptableObject
                 break;
 
             case BoonEffect.EffectType.GainVictoryPoints:
-                BoardManager.instance.player.AddVictoryPoints(effect.value1);
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
+                BoardManager.instance.player.AddVictoryPoints(effect.value1, sourcePosition);
                 break;
 
             case BoonEffect.EffectType.GainRandomResources: // gain ranodm resources

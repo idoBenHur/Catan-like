@@ -435,7 +435,7 @@ public class BoardManager : MonoBehaviour
 
         Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
 
-        player.AddVictoryPoints(1);
+        player.AddVictoryPoints(1, Settelment.Position);
 
 
         foreach (var indicator in CitiesIndicatorsPrefabList)
@@ -545,7 +545,7 @@ public class BoardManager : MonoBehaviour
 
                
                 player.AddSettelment(corner);
-                player.AddVictoryPoints(1);
+                player.AddVictoryPoints(1,cornerPosition);
                 OnTownBuilt?.Invoke();
 
                 foreach (var adjustTile in corner.AdjacentTiles)
@@ -584,7 +584,7 @@ public class BoardManager : MonoBehaviour
 
 
                 player.AddSettelment(corner);
-                player.AddVictoryPoints(1);
+                player.AddVictoryPoints(1, cornerPosition);
                 OnTownBuilt?.Invoke();
 
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using static TileClass;
+using static Unity.VisualScripting.Member;
 
 public class PlayerClass
 {
@@ -128,11 +129,16 @@ public class PlayerClass
     }
 
 
-    public void AddVictoryPoints(int VictoryPointsAmount)
+    public void AddVictoryPoints(int VictoryPointsAmount, Vector3 SourcePosition)
     {
        VictoryPoints = VictoryPoints + VictoryPointsAmount;
         OnVictoryPointsChanged?.Invoke(VictoryPoints);
-       
+
+        for (int i = 0; i < VictoryPointsAmount; i++)
+        {
+            BoardManager.instance.uiManager.VictoryPointsAddedAnimation(SourcePosition);
+        }
+
     }
 
     public void AddSettelment(CornersClass corner)
