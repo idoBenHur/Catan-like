@@ -48,8 +48,8 @@ public class MapGenerator : MonoBehaviour
 
         CreateDicsAndAdjacentTiles();
         CreateNeighborsLists();
-        SetupHarbors();
-        UpdateHarborsVisuals();
+        //SetupHarbors();
+        //UpdateHarborsVisuals();
     }
 
     public void LoadMapVisuals(Dictionary<Vector3Int, TileClass> TilesDic)
@@ -310,9 +310,9 @@ public class MapGenerator : MonoBehaviour
     {
         List<Vector3> corners = new List<Vector3>();
         float ScaleX = tilemap.transform.localScale.x;
-      //float ScaleY = tilemap.transform.localScale.y;
+        float ScaleY = tilemap.transform.localScale.y;
         float sizeX = (tilemap.cellSize.x * ScaleX) / Mathf.Sqrt(3);
-        //float sizeY = (tilemap.cellSize.y * ScaleY) / Mathf.Sqrt(3);
+        float sizeY = (tilemap.cellSize.y * ScaleY) / Mathf.Sqrt(3);
 
         for (int i = 0; i < 6; i++)
         {

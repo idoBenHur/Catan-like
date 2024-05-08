@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: new wheat
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -644169235, guid: 81b59df159ca24a4fb476449364dc919, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2310224bbe7b2054cb67a29c66df66e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
