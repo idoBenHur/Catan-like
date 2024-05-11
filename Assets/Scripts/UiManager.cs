@@ -363,6 +363,7 @@ public class UiManager : MonoBehaviour
             
             boonManager.CheckBoonMilestones();
             UpdateVictoryPointsDisplay();
+            Destroy(VPicon);
         });
     }
 

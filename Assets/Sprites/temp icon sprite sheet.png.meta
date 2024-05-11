@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 52fee68b07bd60342afeb3a4ddcfe18e
+guid: 40905e8410d8cc44587e36c138c718fd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 10, y: 11, z: 11, w: 0}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -121,18 +121,128 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: temp icon sprite sheet_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 7
+        width: 212
+        height: 244
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d262c55ae7b694b4c9b587c37df6a945
+      internalID: -684998340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: temp icon sprite sheet_1
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 7
+        width: 212
+        height: 244
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76745a3b9e8121348a74fc5ecdf3bd27
+      internalID: 68325446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: temp icon sprite sheet_2
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 7
+        width: 212
+        height: 244
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e30406ec9228f7c43b6f8f7e0bd1fe5b
+      internalID: 91943552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: temp icon sprite sheet_3
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 7
+        width: 212
+        height: 244
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5077db6ae1ce5274e808609b78291ad6
+      internalID: 2014958014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: temp icon sprite sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1046
+        y: 7
+        width: 212
+        height: 244
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2327a4b8f4861646ac8a0737ad8094c
+      internalID: 400399491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      temp icon sprite sheet_0: -684998340
+      temp icon sprite sheet_1: 68325446
+      temp icon sprite sheet_2: 91943552
+      temp icon sprite sheet_3: 2014958014
+      temp icon sprite sheet_4: 400399491
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

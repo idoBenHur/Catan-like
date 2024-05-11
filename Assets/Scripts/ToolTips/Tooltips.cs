@@ -37,6 +37,9 @@ public class Tooltips : MonoBehaviour
         int headerLength = headerField.text.Length;
         int textLength = textField.text.Length;
 
+        Debug.Log("head: " + headerLength);
+        Debug.Log("text: " + textLength);
+
         layoutElement.enabled = (headerLength > charachterWarpLimit || textLength > charachterWarpLimit) ? true : false;
         //layoutElement.enabled = Mathf.Max(headerField.preferredWidth, textField.preferredWidth) >= layoutElement.preferredWidth;
         //layoutElement.enabled = (headerLength > charachterWarpLimit || textLength > charachterWarpLimit);

@@ -4999,6 +4999,7 @@ GameObject:
   - component: {fileID: 799388717}
   - component: {fileID: 799388720}
   - component: {fileID: 799388721}
+  - component: {fileID: 799388722}
   m_Layer: 5
   m_Name: Build Road toggle
   m_TagString: Untagged
@@ -5095,6 +5096,20 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &799388722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799388716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Road
+  text: 'Cost: <sprite name=wood>, <sprite name=brick>'
 --- !u!1 &810349292
 GameObject:
   m_ObjectHideFlags: 0
@@ -8077,7 +8092,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 52fee68b07bd60342afeb3a4ddcfe18e, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8085,7 +8100,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 116
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1075544734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8169,7 +8184,7 @@ MonoBehaviour:
   headerField: {fileID: 1606918866}
   textField: {fileID: 1396295237}
   layoutElement: {fileID: 1075544735}
-  charachterWarpLimit: 40
+  charachterWarpLimit: 80
   rectTransform: {fileID: 1075544732}
 --- !u!1 &1085971348
 GameObject:
@@ -8316,6 +8331,7 @@ GameObject:
   - component: {fileID: 1087198534}
   - component: {fileID: 1087198537}
   - component: {fileID: 1087198538}
+  - component: {fileID: 1087198539}
   m_Layer: 5
   m_Name: Build town toggle
   m_TagString: Untagged
@@ -8412,6 +8428,21 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &1087198539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087198533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Town
+  text: "Cannot be built next to another town or city\n\nworth 1 Victory Point \n\nCost:
+    <sprite name=wood>, <sprite name=brick>, <sprite name=sheep>, <sprite name=wheat>"
 --- !u!1 &1104170671
 GameObject:
   m_ObjectHideFlags: 0
@@ -10027,7 +10058,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 2b884ef2b20cb8b4d8113c56efdf17a5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -10585,7 +10616,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 2b884ef2b20cb8b4d8113c56efdf17a5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -13504,6 +13535,7 @@ GameObject:
   - component: {fileID: 2070552632}
   - component: {fileID: 2070552635}
   - component: {fileID: 2070552636}
+  - component: {fileID: 2070552637}
   m_Layer: 5
   m_Name: 'Build city toggle '
   m_TagString: Untagged
@@ -13600,6 +13632,21 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 0
+--- !u!114 &2070552637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070552631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: City
+  text: 'Cost: <sprite name=ore>, <sprite name=ore>, <sprite name=ore>, <sprite name=wheat>,
+    <sprite name=wheat>'
 --- !u!1 &2072436213
 GameObject:
   m_ObjectHideFlags: 0

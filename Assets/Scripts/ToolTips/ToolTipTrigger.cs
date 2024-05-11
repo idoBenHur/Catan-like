@@ -9,7 +9,8 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     
     public string header;
 
-    [Multiline()]
+    //[Multiline()]
+    [TextArea(3, 10)]
     public string text;
 
 
