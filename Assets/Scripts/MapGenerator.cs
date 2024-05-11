@@ -48,8 +48,8 @@ public class MapGenerator : MonoBehaviour
 
         CreateDicsAndAdjacentTiles();
         CreateNeighborsLists();
-        //SetupHarbors();
-        //UpdateHarborsVisuals();
+        SetupHarbors();
+        UpdateHarborsVisuals();
     }
 
     public void LoadMapVisuals(Dictionary<Vector3Int, TileClass> TilesDic)
@@ -273,63 +273,126 @@ public class MapGenerator : MonoBehaviour
 
         }
 
-
     }
 
     // Calculate and store the positions and rotations for each side of the hex tiles
     public List<SidesClass> GetSidesPositionsForTile(Vector3 HexCenterPosition)
     {
+        List<Vector3> corners = GetCornerPositionsForTile(HexCenterPosition);
         List<SidesClass> sides = new List<SidesClass>();
-        float tilemapScale = tilemap.transform.localScale.x;
-        float outerRadius = (tilemap.cellSize.x * tilemapScale) / Mathf.Sqrt(3);
-        float apothem = outerRadius * Mathf.Cos(Mathf.PI / 6); 
 
         for (int i = 0; i < 6; i++)
         {
-            float angle_deg = 60 * i;
-            float angle_rad = Mathf.PI / 180 * angle_deg;
-            Vector3 sideMidPointPos = new Vector3(
-                HexCenterPosition.x + apothem * Mathf.Cos(angle_rad),
-                HexCenterPosition.y + apothem * Mathf.Sin(angle_rad),
-                HexCenterPosition.z
-            );
-            float rotationZ = angle_deg + 90f; 
+            Vector3 currentCorner = corners[i];
+            Vector3 nextCorner = corners[(i + 1) % 6]; // Wrap around at the last corner
 
-            sides.Add(new SidesClass(RoundVector3(sideMidPointPos, 2), rotationZ));
+            // Calculate the midpoint between the current corner and the next
+            Vector3 sideMidpoint = (currentCorner + nextCorner) / 2;
+            Vector3 roundedSidePos = RoundVector3(sideMidpoint, 2);
 
+            // Calculate rotation: Angle in degrees from the horizontal axis
+            float rotationZ = Mathf.Atan2(nextCorner.y - currentCorner.y, nextCorner.x - currentCorner.x) * Mathf.Rad2Deg;
 
-
+            // Create new SideClass object and add it to the list
+            sides.Add(new SidesClass(roundedSidePos, rotationZ));
         }
 
         return sides;
+
+
+
+
+
+
+
+
+
+
+
+
+        //List<SidesClass> sides = new List<SidesClass>();
+        //float tilemapScale = tilemap.transform.localScale.x;
+        //float outerRadius = (tilemap.cellSize.x * tilemapScale) / Mathf.Sqrt(3);
+        //float apothem = outerRadius * Mathf.Cos(Mathf.PI / 6); 
+
+        //for (int i = 0; i < 6; i++)
+        //{
+        //    float angle_deg = 60 * i;
+        //    float angle_rad = Mathf.PI / 180 * angle_deg;
+        //    Vector3 sideMidPointPos = new Vector3(
+        //        HexCenterPosition.x + apothem * Mathf.Cos(angle_rad),
+        //        HexCenterPosition.y + apothem * Mathf.Sin(angle_rad),
+        //        HexCenterPosition.z
+        //    );
+        //    float rotationZ = angle_deg + 90f; 
+
+        //   sides.Add(new SidesClass(RoundVector3(sideMidPointPos, 2), rotationZ));
+
+
+
+        //}
+
+        //return sides;
     }
 
 
     // Calculate and store the positions for each corner of the hex tiles
     public List<Vector3> GetCornerPositionsForTile(Vector3 HexCenterPostion)
     {
+        Vector3 tilemapScale = tilemap.transform.localScale; // Get the scale of the tilemap     
+        float size = Mathf.Max(tilemap.cellSize.x, tilemap.cellSize.y) / 2; // Half the cell size
         List<Vector3> corners = new List<Vector3>();
-        float ScaleX = tilemap.transform.localScale.x;
-        float ScaleY = tilemap.transform.localScale.y;
-        float sizeX = (tilemap.cellSize.x * ScaleX) / Mathf.Sqrt(3);
-        float sizeY = (tilemap.cellSize.y * ScaleY) / Mathf.Sqrt(3);
+
 
         for (int i = 0; i < 6; i++)
         {
-            float angleDeg = 60 * i + 30; 
-            //float angleRad = Mathf.Deg2Rad * angleDeg;
-            float angleRad = (Mathf.PI / 180) * angleDeg;
-            Vector3 cornerPos = new Vector3(HexCenterPostion.x + sizeX * Mathf.Cos(angleRad), HexCenterPostion.y + sizeX * Mathf.Sin(angleRad), HexCenterPostion.z);
-            Vector3 roundedCornerPos = RoundVector3(cornerPos, 1);
+            float angle_deg = 60 * i - 30; // Offset by -30 degrees for pointy top
+            float angle_rad = Mathf.Deg2Rad * angle_deg;
+            Vector3 cornerOffset = new Vector3(size * Mathf.Cos(angle_rad), size * Mathf.Sin(angle_rad), 0);
+            cornerOffset.x *= tilemapScale.x; // Scale adjustment for x
+            cornerOffset.y *= tilemapScale.y; // Scale adjustment for y
+            Vector3 cornerWorld = HexCenterPostion + cornerOffset;
+            Vector3 roundedCornerPos = RoundVector3(cornerWorld, 1);
             corners.Add(roundedCornerPos);
-
-
             
         }
+
         
-
-
         return corners;
+
+
+
+
+
+
+
+
+
+
+
+
+        //List<Vector3> corners = new List<Vector3>();
+        //float ScaleX = tilemap.transform.localScale.x;
+        //float ScaleY = tilemap.transform.localScale.y;
+        //float sizeX = (tilemap.cellSize.x * ScaleX) / Mathf.Sqrt(3);
+        //float sizeY = (tilemap.cellSize.y * ScaleY) / Mathf.Sqrt(3);
+
+        //for (int i = 0; i < 6; i++)
+        //{
+        //    float angleDeg = 60 * i + 30; 
+        //    //float angleRad = Mathf.Deg2Rad * angleDeg;
+        //    float angleRad = (Mathf.PI / 180) * angleDeg;
+        //    Vector3 cornerPos = new Vector3(HexCenterPostion.x + sizeX * Mathf.Cos(angleRad), HexCenterPostion.y + sizeX * Mathf.Sin(angleRad), HexCenterPostion.z);
+        //    Vector3 roundedCornerPos = RoundVector3(cornerPos, 1);
+        //    corners.Add(roundedCornerPos);
+
+
+
+        //}
+
+
+
+        //return corners;
     }
 
 
@@ -499,42 +562,63 @@ public class MapGenerator : MonoBehaviour
 
     }
 
-    // makes corrner class pairs for each harbor
     private List<(CornersClass, CornersClass)> LoadHarborPositions() 
     {
 
-        List<(Vector3, Vector3)> VectorHarborPairs = new List<(Vector3, Vector3)>
-    {
-        (new Vector3(-2.6f, -3.5f, 0), new Vector3(-1.7f, -4f, 0)),
-        (new Vector3(0f, -4f, 0), new Vector3(0.9f, -3.5f, 0)),
-        (new Vector3(2.6f, -2.5f, 0), new Vector3(3.4f, -2f, 0)),
-        (new Vector3(4.3f, -0.5f, 0), new Vector3(4.3f, 0.5f, 0)),
-        (new Vector3(3.4f, 2f, 0), new Vector3(2.6f, 2.5f, 0)),
-        (new Vector3(0.9f, 3.5f, 0), new Vector3(0f, 4f, 0)),
-        (new Vector3(-1.7f, 4f, 0), new Vector3(-2.6f, 3.5f, 0)),
-        (new Vector3(-3.4f, 2f, 0), new Vector3(-3.4f, 1f, 0)),
-        (new Vector3(-3.4f, -1f, 0), new Vector3(-3.4f, -2f, 0))
-    };
+        List<CornersClass> SeaCornners = new List<CornersClass> ();
+        List<(CornersClass, CornersClass)> HarborPairs = new List<(CornersClass, CornersClass)>();
 
 
-        List<(CornersClass, CornersClass)> cornerHarborPairs = new List<(CornersClass, CornersClass)>();
 
-        foreach (var pair in VectorHarborPairs)
+        //find all coast a Adjacent corners
+        foreach (var corner in InitialCornersDic)
         {
-            if (InitialCornersDic.TryGetValue(pair.Item1, out CornersClass corner1) &&
-                InitialCornersDic.TryGetValue(pair.Item2, out CornersClass corner2))
+            if( corner.Value.AdjacentTiles.Count < 3 ) 
             {
-                cornerHarborPairs.Add((corner1, corner2));
-            }
-            else
-            {
-                // Handle cases where no corresponding CornerClass is found
-                Debug.LogError($"No corresponding CornerClass found for coordinates: {pair.Item1} or {pair.Item2}");
+                SeaCornners.Add(corner.Value);
+
             }
         }
 
-        return cornerHarborPairs;
+        
+        // create 9 harbor pairs
+
+        for (int i = 0; i < 9; i++)
+        {
+
+
+            // pick a random corrner that is not in any pair
+            int ranodmIndex = Random.Range(0, SeaCornners.Count);
+            var currentCorrner = SeaCornners[ranodmIndex];
+            while (HarborPairs.Any(pair => pair.Item1 == currentCorrner || pair.Item2 == currentCorrner))
+            {
+                ranodmIndex = Random.Range(0, SeaCornners.Count);
+                currentCorrner = SeaCornners[ranodmIndex];
+            }
+
+
+            //find its Adjacent corrner and make a pair
+            foreach (var PossiblHarborPair in SeaCornners)
+            {
+                if (HarborPairs.Any(pair => pair.Item1 == PossiblHarborPair || pair.Item2 == PossiblHarborPair)) { continue; }
+
+                if (currentCorrner.AdjacentCorners.Contains(PossiblHarborPair) == true) 
+                { 
+                    HarborPairs.Add((currentCorrner, PossiblHarborPair));
+                    break;
+                }
+                else continue;
+            }
+        }
+
+
+        return HarborPairs;
     }
+
+
+
+  
+
 
 
     private void UpdateHarborsVisuals()

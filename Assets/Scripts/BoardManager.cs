@@ -323,10 +323,9 @@ public class BoardManager : MonoBehaviour
 
     private void FirstTurnPlacement() 
     {
-        
 
-       // Debug.Log("amount of Placed Peices in the first turn " + FirstTurnPlacedPeices);
-        
+
+        // Debug.Log("amount of Placed Peices in the first turn " + FirstTurnPlacedPeices);
 
 
 
@@ -339,13 +338,13 @@ public class BoardManager : MonoBehaviour
 
                 if (corner.CanBeBuiltOn == true)
                 {
-
                     GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
                     TownsIndicatorsPrefabList.Add(indicator);
                     indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
                 }
                 
             }
+            
             return;
         }
        
