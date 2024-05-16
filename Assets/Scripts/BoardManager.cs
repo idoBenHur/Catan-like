@@ -17,9 +17,12 @@ using static TileClass;
 using System;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
+    //main big stuff/scripts
+
     [SerializeField] private Tilemap tilemap;
     //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     [SerializeField] public UiManager uiManager;
@@ -27,6 +30,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private BoonManager boonManager;
     [SerializeField] private Challenges challenges;
 
+
+   
     private bool FirstTurnIsActive;
     [HideInInspector] public bool DiceStilRolling = false;
     private int FirstTurnPlacedPeices = 0;
@@ -37,6 +42,7 @@ public class BoardManager : MonoBehaviour
 
     public PlayerClass player;
 
+    // game objects
     [SerializeField] private GameObject WoodIcon;
     [SerializeField] private GameObject CornerIndicatorPrefab;
     [SerializeField] private GameObject SideIndicatorPrefab;
@@ -49,6 +55,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Image Dice2Image;
     [SerializeField] private Sprite[] DiceSides;
 
+
+    // "to be balanced" game parameters
     [HideInInspector] public int CurrentTurn;
     [SerializeField] public int MaxTurn = 40;
     [SerializeField] public int VictoryPointsGoal = 10;
@@ -56,16 +64,18 @@ public class BoardManager : MonoBehaviour
     private int UnluckyMeterProgress = 0;
 
 
-
+    // prefabs losts
     [HideInInspector] public List<GameObject> CitiesIndicatorsPrefabList = new List<GameObject>();
     [HideInInspector] public List<GameObject> TownsIndicatorsPrefabList = new List<GameObject>();
     [HideInInspector] public List<GameObject> RoadsIndicatorsPrefabList = new List<GameObject>();
 
-
+    // main dictionaries
     public Dictionary<Vector3Int, TileClass> TilesDictionary = new Dictionary<Vector3Int, TileClass>();
     public Dictionary<Vector3, CornersClass> CornersDic = new Dictionary<Vector3, CornersClass>();
     public Dictionary<Vector3, SidesClass> SidesDic = new Dictionary<Vector3, SidesClass>();
 
+
+    // events
     public static event Action OnDiceRolled;
     public static event Action OnRoadBuilt;
     public static event Action OnTownBuilt;
@@ -196,22 +206,7 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    private void Seasons()
-    {
-        CurrentTurn++;
 
-        if (CurrentTurn == 12)
-        {
-            // active move to boon screen button
-        }
-        
-
-
-        // keep track on current turn
-        // move to next scene once reached limit
-        // keep track on current season
-        // apply diffrent seasons effects (?)
-    }
 
 
 
@@ -323,9 +318,6 @@ public class BoardManager : MonoBehaviour
     }
 
 
-
-
-
     public void RemoveRobber(RobberPrefab robber, ResourceType resourceType)
     {
         Dictionary<ResourceType, int> amountToReduce = new Dictionary<ResourceType, int> // create temp dic with relvent costs to use to exsiting subtruct resources function 
@@ -337,9 +329,6 @@ public class BoardManager : MonoBehaviour
         robber.currentTile.RemoveRobber(); // Update the tile status
         Destroy(robber.gameObject); // Remove the robber prefab from the scene
     }
-
-
-
 
 
     private void FirstTurnPlacement() 
@@ -430,6 +419,8 @@ public class BoardManager : MonoBehaviour
     {
         if (player.CanAffordToBuild(PricesClass.CityCost) == false)
         {
+            uiManager.NotEnoughResourcesText();
+
             return;
         }
 
@@ -486,6 +477,8 @@ public class BoardManager : MonoBehaviour
 
         if (player.CanAffordToBuild(PricesClass.TownCost) == false)
         {
+
+            uiManager.NotEnoughResourcesText();
             return;
         }
 
@@ -640,6 +633,7 @@ public class BoardManager : MonoBehaviour
     {
         if (player.CanAffordToBuild(PricesClass.RoadCost) == false)
         {
+            uiManager.NotEnoughResourcesText();
             return;
         }
 
@@ -728,7 +722,28 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void UpgradeUnluckyMeter()
+    {
 
+        if (player.CanAffordToBuild(PricesClass.MeterUpgrade) == true)
+        {
+            player.SubtractResources(PricesClass.MeterUpgrade);
+            UnluckyMeterMax--;
+            uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
+        }
+        else
+        {
+            uiManager.NotEnoughResourcesText();
+        }
+
+        if (UnluckyMeterProgress == UnluckyMeterMax)
+        {
+            UnluckyMeterProgress = 0;
+            uiManager.OpenUnluckyMeterRewardPannel();
+            uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
+        }
+
+    }
 }
 
 

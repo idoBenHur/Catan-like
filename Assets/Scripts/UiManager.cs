@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+//using UnityEngine.UIElements;
 using static TileClass;
 
 public class UiManager : MonoBehaviour
@@ -13,6 +15,8 @@ public class UiManager : MonoBehaviour
     //scripts 
     public Challenges challenges;
     [SerializeField] BoonManager boonManager;
+    [SerializeField] private Canvas MainCanvas;
+
 
 
 
@@ -44,6 +48,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DiceDisplay;
     [SerializeField] private TextMeshProUGUI TotalVictoryPointsText;
     [SerializeField] private TextMeshProUGUI VictoryPointsLeftUntilNextBoon;
+    [SerializeField] private GameObject FloatingErrorTextPrefab;
+
 
     [SerializeField] public Slider TurnSlider;
     public RectTransform ChallengeSliderIndicator;
@@ -64,6 +70,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject TickInProgresBarPrefab;
     [SerializeField] private Transform TicksParent;
     private int MaxTickInBar;
+    private bool CanBeUpgraded = true;
 
     [SerializeField] GameObject UnluckyRewardPannel;
     [SerializeField] private Button WoodRewardButton;
@@ -71,6 +78,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Button SheepRewardButton;
     [SerializeField] private Button OreRewardButton;
     [SerializeField] private Button WheatRewardButton;
+    [SerializeField] private Button UpgradeUnluckyRewardButton;
+
 
 
 
@@ -802,6 +811,11 @@ public class UiManager : MonoBehaviour
             MaxTickInBar = NewBarSize.Value;
             UnluckyMeterSilder.maxValue = NewBarSize.Value;
 
+            if (NewBarSize == 1) 
+            {
+                UpgradeUnluckyRewardButton.interactable = false;
+                CanBeUpgraded = false;
+            }
         }
 
         foreach (Transform child in TicksParent)
@@ -817,11 +831,14 @@ public class UiManager : MonoBehaviour
             tick.transform.localPosition = Vector3.zero;
             tick.transform.localRotation = Quaternion.Euler(0, 0, -angle);
         }
+
+        
     }
 
     public void OpenUnluckyMeterRewardPannel()
     {
         UnluckyRewardPannel.SetActive(true);
+        UpgradeUnluckyRewardButton.interactable = false;
     }
 
     private void GiveUnluckyMeterReward(ResourceType resourceType)
@@ -829,5 +846,29 @@ public class UiManager : MonoBehaviour
 
         player.AddResource(resourceType, 1, UnluckyRewardPannel.transform.position);
         UnluckyRewardPannel.SetActive(false);
+        
+        if(CanBeUpgraded == true)
+        {
+            UpgradeUnluckyRewardButton.interactable = true;
+        }
+    }
+
+    public void UpgradeUnluckyMeterButton()
+    {
+        BoardManager.instance.UpgradeUnluckyMeter();
+    }
+
+    public void NotEnoughResourcesText()
+    {
+
+        GameObject floatingText = Instantiate(FloatingErrorTextPrefab, MainCanvas.transform);
+
+
+
+        TextMeshProUGUI textComponent = floatingText.GetComponent<TextMeshProUGUI>();
+        DG.Tweening.Sequence sequence = DOTween.Sequence();
+        sequence.Append(floatingText.transform.DOMoveY(floatingText.transform.position.y + 5, 4f));
+        sequence.Join(textComponent.DOFade(0, 1f).SetEase(Ease.InCubic));
+        sequence.OnComplete(() => Destroy(floatingText));
     }
 }

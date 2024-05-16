@@ -24,4 +24,11 @@ public class PricesClass
         { ResourceType.Ore, 3 },
         { ResourceType.Wheat, 2 }
     };
+
+    public static readonly Dictionary<ResourceType, int> MeterUpgrade = new Dictionary<ResourceType, int>
+    {
+        { ResourceType.Ore, 1 },
+        { ResourceType.Wheat, 1 },
+        { ResourceType.Sheep, 1 }
+    };
 }
