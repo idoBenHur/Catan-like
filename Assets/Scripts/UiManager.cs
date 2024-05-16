@@ -58,6 +58,22 @@ public class UiManager : MonoBehaviour
     private ResourceType? requestType = null;
 
 
+    // circular progress bar
+
+    [SerializeField] private Slider UnluckyMeterSilder;
+    [SerializeField] private GameObject TickInProgresBarPrefab;
+    [SerializeField] private Transform TicksParent;
+    private int MaxTickInBar;
+
+    [SerializeField] GameObject UnluckyRewardPannel;
+    [SerializeField] private Button WoodRewardButton;
+    [SerializeField] private Button BrickRewardButton;
+    [SerializeField] private Button SheepRewardButton;
+    [SerializeField] private Button OreRewardButton;
+    [SerializeField] private Button WheatRewardButton;
+
+
+
     //trade buttons:
 
     [SerializeField] private Button tradeButton;
@@ -109,7 +125,8 @@ public class UiManager : MonoBehaviour
     {
         SetupButtonListeners();
 
- 
+
+
     }
 
     public void SetUpUIManager(PlayerClass playerInstance)
@@ -463,6 +480,18 @@ public class UiManager : MonoBehaviour
         PayRobberSheepButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Sheep));
         PayRobberOreButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Ore));
         PayRobberWheatButton.onClick.AddListener(() => CallRemoveRobber(ResourceType.Wheat));
+
+
+        // gain unlucky meter reward
+        WoodRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Wood));
+        BrickRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Brick));
+        SheepRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Sheep));
+        OreRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Ore));
+        WheatRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Wheat));
+
+
+
+
     }
 
 
@@ -614,10 +643,6 @@ public class UiManager : MonoBehaviour
     }
 
 
-
-
-
-
     private void UncheckOtherToggles(Toggle changedToggle, bool isOfferToggle)
     {
         Toggle[] toggles = isOfferToggle ? new Toggle[] { offerWoodToggle, offerBrickToggle, offerSheepToggle, offerOreToggle, offerWheatToggle }
@@ -656,8 +681,6 @@ public class UiManager : MonoBehaviour
         }
 
     }
-
-
 
 
 
@@ -760,4 +783,51 @@ public class UiManager : MonoBehaviour
 
     }
 
+
+
+
+    // ciruclar bar, unluckybar
+
+    public void UpdateUnluckyMeterProgress(int currentProgress)
+    {
+        UnluckyMeterSilder.value = currentProgress;
+    }
+
+
+    public void SetUnluckyMeterSize(int? NewBarSize = null)
+    {
+
+        if (NewBarSize != null) 
+        { 
+            MaxTickInBar = NewBarSize.Value;
+            UnluckyMeterSilder.maxValue = NewBarSize.Value;
+
+        }
+
+        foreach (Transform child in TicksParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Create new ticks
+        for (int i = 0; i < MaxTickInBar; i++)
+        {
+            float angle = 360f / MaxTickInBar * i;
+            GameObject tick = Instantiate(TickInProgresBarPrefab, TicksParent);
+            tick.transform.localPosition = Vector3.zero;
+            tick.transform.localRotation = Quaternion.Euler(0, 0, -angle);
+        }
+    }
+
+    public void OpenUnluckyMeterRewardPannel()
+    {
+        UnluckyRewardPannel.SetActive(true);
+    }
+
+    private void GiveUnluckyMeterReward(ResourceType resourceType)
+    {
+
+        player.AddResource(resourceType, 1, UnluckyRewardPannel.transform.position);
+        UnluckyRewardPannel.SetActive(false);
+    }
 }

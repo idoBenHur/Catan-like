@@ -52,6 +52,9 @@ public class BoardManager : MonoBehaviour
     [HideInInspector] public int CurrentTurn;
     [SerializeField] public int MaxTurn = 40;
     [SerializeField] public int VictoryPointsGoal = 10;
+    [SerializeField] private int UnluckyMeterMax = 5;
+    private int UnluckyMeterProgress = 0;
+
 
 
     [HideInInspector] public List<GameObject> CitiesIndicatorsPrefabList = new List<GameObject>();
@@ -130,6 +133,7 @@ public class BoardManager : MonoBehaviour
         boonManager.SetPlayerInBoonManager(player);
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
+        uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
 
 
 
@@ -213,6 +217,7 @@ public class BoardManager : MonoBehaviour
 
     private void DistributeResources(int DiceResult)
     {
+        bool EarnedResources = false;
 
         if (DiceResult == 7)
         {
@@ -241,6 +246,7 @@ public class BoardManager : MonoBehaviour
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == false)
                     {
                         player.AddResource(tile.resourceType, 1, tile.TileWorldPostion);
+                        EarnedResources = true;
                         Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
                         
 
@@ -249,12 +255,27 @@ public class BoardManager : MonoBehaviour
                     else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == true)
                     {
                         player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
+                        EarnedResources = true;
                         Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
                     }
 
                 }
             }
 
+
+        }
+
+        if (EarnedResources == false)
+        {
+            UnluckyMeterProgress++;
+            uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
+
+            if(UnluckyMeterProgress == UnluckyMeterMax)
+            {
+                UnluckyMeterProgress = 0;
+                uiManager.OpenUnluckyMeterRewardPannel();
+                uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
+            }
 
         }
 

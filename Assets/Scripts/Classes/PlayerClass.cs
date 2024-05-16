@@ -14,7 +14,7 @@ public class PlayerClass
     public event Action OnTrade;
     public event Action OnHarborsGained;
     public int VictoryPoints;
-    public int TradeCount;
+    public int TradeCount; // used for an old boon, will modifiy the boon and will remove this value when i have the power to do it...
     public int? TradeModifier = null; //brute force change for trade ratio (used by boon) 
     public List<TileClass> TilesSurrondedByRoadsList = new List<TileClass>(); // used for an old boon, will modifiy the boon and will remove this value when i have the power to do it...
     public List<HarborClass> OwnedHarbors = new List<HarborClass>();
