@@ -347,12 +347,12 @@ public class GenericBoon : ScriptableObject
         switch (effect.type)
         {
             case BoonEffect.EffectType.AddWood: // gain wood
-                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
                 BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value1, sourcePosition);
                 break;
 
             case BoonEffect.EffectType.GainVictoryPoints:
-                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
                 BoardManager.instance.player.AddVictoryPoints(effect.value1, sourcePosition);
                 break;
 
@@ -363,7 +363,7 @@ public class GenericBoon : ScriptableObject
                     var resources = new TileClass.ResourceType[] { TileClass.ResourceType.Wood, TileClass.ResourceType.Brick, TileClass.ResourceType.Sheep, TileClass.ResourceType.Ore, TileClass.ResourceType.Wheat };
                     int randomIndex = UnityEngine.Random.Range(1, 5);
                     var randomResource = resources[randomIndex];
-                    sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplay[this].transform.position;
+                    sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
                     BoardManager.instance.player.AddResource(randomResource, 1 , sourcePosition);   
                 }
                 break;

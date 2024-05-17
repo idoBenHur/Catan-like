@@ -49,11 +49,7 @@ public class BoonManager : MonoBehaviour
 
 
     }
-    private void buttonclick()
-    {
-        //ActivateBoon(Boon);
-        SetBoonsButtonWithRandomBoons();
-    }
+
 
 
     public void SetPlayerInBoonManager(PlayerClass playerInstance)

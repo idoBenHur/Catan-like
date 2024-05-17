@@ -53,11 +53,15 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] public Slider TurnSlider;
     public RectTransform ChallengeSliderIndicator;
-    [SerializeField] private GameObject BoonSelectionScreen;
     [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
+
+    // boons Ui
+    [SerializeField] private GameObject BoonSelectionScreen;
     [SerializeField] private GameObject EmptyBoonImagePrefab;
-    [SerializeField] private Transform BoonsPanel;
-    public Dictionary<GenericBoon, GameObject> BoonIconsDisplay = new Dictionary<GenericBoon, GameObject>();
+    [SerializeField] private Transform BoonsIconsPanel;
+    public Dictionary<GenericBoon, GameObject> BoonIconsDisplayDic = new Dictionary<GenericBoon, GameObject>();
+    [SerializeField] private RectTransform BoonsSelectionButtonsParent;
+    [SerializeField] private Image BoonsSelectionScreenBackground;
 
 
     private ResourceType? offerType = null;
@@ -747,7 +751,30 @@ public class UiManager : MonoBehaviour
 
     public void OpenAndCloseBoonSelectionScreen()
     {
-        BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
+        //BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
+
+        if (BoonSelectionScreen.activeSelf == false) 
+        {
+            BoonSelectionScreen.SetActive(true);
+
+            BoonsSelectionButtonsParent.transform.localPosition = new Vector3(0F, -1000F, 0F);
+            BoonsSelectionButtonsParent.DOAnchorPos(new Vector2(0f, 0f), 0.8f, false).SetEase(Ease.OutBack);
+
+
+            Color color = BoonsSelectionScreenBackground.color;
+            color.a = 0f;
+            BoonsSelectionScreenBackground.color = color;
+            BoonsSelectionScreenBackground.DOFade(0.99f, 0.5f);
+        }
+
+        else
+        {
+            BoonsSelectionButtonsParent.DOAnchorPos(new Vector2(0f, -10000f), 0.8f, false).SetEase(Ease.OutBack);
+
+        }
+
+
+
     }
 
     public void AddAndRemoveActiveBoonsDisplay(GenericBoon boon,bool isAdding, int? counter = null)
@@ -755,7 +782,7 @@ public class UiManager : MonoBehaviour
         if (isAdding == true)
         {
             //image
-            GameObject newBoonImage = Instantiate(EmptyBoonImagePrefab, BoonsPanel);
+            GameObject newBoonImage = Instantiate(EmptyBoonImagePrefab, BoonsIconsPanel);
             Image imageComponent = newBoonImage.GetComponent<Image>();
             imageComponent.sprite = boon.boonImage;
             imageComponent.color = boon.boonColor;
@@ -766,7 +793,7 @@ public class UiManager : MonoBehaviour
             toolTipTrigger.text = boon.description;
 
 
-            BoonIconsDisplay.Add(boon, newBoonImage);
+            BoonIconsDisplayDic.Add(boon, newBoonImage);
 
             if (counter != null)
             {
@@ -777,8 +804,8 @@ public class UiManager : MonoBehaviour
         }
         else
         {
-            var boonToRemove = BoonIconsDisplay[boon];
-            BoonIconsDisplay.Remove(boon);
+            var boonToRemove = BoonIconsDisplayDic[boon];
+            BoonIconsDisplayDic.Remove(boon);
             Destroy(boonToRemove);
             
 
@@ -787,7 +814,7 @@ public class UiManager : MonoBehaviour
 
     public void UpdateBoonCounter(GenericBoon boon,int Counter )
     {
-        GameObject icon = BoonIconsDisplay[boon];       
+        GameObject icon = BoonIconsDisplayDic[boon];       
         icon.GetComponentInChildren<TextMeshProUGUI>().text = Counter.ToString();
 
     }
