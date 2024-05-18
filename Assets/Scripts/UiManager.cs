@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -62,6 +63,7 @@ public class UiManager : MonoBehaviour
     public Dictionary<GenericBoon, GameObject> BoonIconsDisplayDic = new Dictionary<GenericBoon, GameObject>();
     [SerializeField] private RectTransform BoonsSelectionButtonsParent;
     [SerializeField] private Image BoonsSelectionScreenBackground;
+    [SerializeField] private GameObject BoonsAndBlackBackground;
 
 
     private ResourceType? offerType = null;
@@ -170,6 +172,7 @@ public class UiManager : MonoBehaviour
 
     public void CloseAllUi(Toggle CurrentToggle = null)
     {
+
         if (isUpdatingToggles)
         {
             return;
@@ -234,6 +237,15 @@ public class UiManager : MonoBehaviour
     {
 
 
+        // print not Enough Resources error
+        if (player.CanAffordToBuild(PricesClass.TownCost) == false && isUpdatingToggles == false)
+        {
+            TownIndicatorsToggle.isOn = false;
+            NotEnoughResourcesText();
+
+        }
+
+
 
         if (TownIndicatorsToggle.isOn == true)
         {
@@ -258,7 +270,18 @@ public class UiManager : MonoBehaviour
     public void ShowRoadBuildIndicatorsToggle()
     {
 
-        
+
+        // print not Enough Resources error
+        if (player.CanAffordToBuild(PricesClass.RoadCost) == false && isUpdatingToggles == false)
+        {
+            RoadIndicatorsToggle.isOn = false;
+            NotEnoughResourcesText();
+            
+        }
+
+
+
+
         if (RoadIndicatorsToggle.isOn == true)
         {
             BoardManager.instance.ShowBuildIndicatorsRoads();
@@ -277,7 +300,16 @@ public class UiManager : MonoBehaviour
     public void ShowCityBuildIndicatorToggle()
     {
 
-        
+        // print not Enough Resources error
+        if (player.CanAffordToBuild(PricesClass.CityCost) == false && isUpdatingToggles == false)
+        {
+            CityIndicatorsToggle.isOn = false;
+            NotEnoughResourcesText();
+
+        }
+
+
+
         if (CityIndicatorsToggle.isOn == true)
         {
             CloseAllUi(CityIndicatorsToggle);
@@ -311,6 +343,18 @@ public class UiManager : MonoBehaviour
             TradePannel.SetActive(false);
             CloseAllUi();
         }
+    }
+
+    public void UpgradeUnluckyMeterButton()
+    {
+
+        if (player.CanAffordToBuild(PricesClass.MeterUpgrade) == false && isUpdatingToggles == false)
+        {
+            
+           NotEnoughResourcesText();
+        }
+
+        BoardManager.instance.UpgradeUnluckyMeter();
     }
 
 
@@ -378,8 +422,6 @@ public class UiManager : MonoBehaviour
         }
     }
 
-
-
     public void VictoryPointsAddedAnimation(Vector3 FromPosition)
     {
         float offsetPositionX = FromPosition.x + UnityEngine.Random.Range(-0.5f, 0.5f);
@@ -387,7 +429,7 @@ public class UiManager : MonoBehaviour
         Vector3 spawnPosition = new Vector3(offsetPositionX, offsetPositionY, 0);
 
         var VPicon = Instantiate(VictoryPointsFlyingIcons, spawnPosition, Quaternion.identity);
-        var tweenVP = VPicon.transform.DOMove(TotalVictoryPointsText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
+        var tweenVP = VPicon.transform.DOMove(TotalVictoryPointsText.transform.position, 150).SetSpeedBased(true).SetEase(Ease.InQuint);
         tweenVP.OnComplete(() =>
         {
             
@@ -396,7 +438,6 @@ public class UiManager : MonoBehaviour
             Destroy(VPicon);
         });
     }
-
 
     public void UpdateResourceDisplay()
     {
@@ -449,8 +490,6 @@ public class UiManager : MonoBehaviour
 
     }
 
-
-
     public void RollDiceButton() 
     {
         //BoardManager.instance.DiceRoll();
@@ -462,11 +501,6 @@ public class UiManager : MonoBehaviour
         CloseAllUi();
 
     }
-
-
-
-
-
 
     private void SetupButtonListeners()
     {
@@ -506,9 +540,6 @@ public class UiManager : MonoBehaviour
 
 
     }
-
-
-
 
 
     //trade with bank functions
@@ -616,8 +647,6 @@ public class UiManager : MonoBehaviour
         return playerResourceCount >= requiredAmount;
     }
 
-
-
     private void SetTradeSelection(bool isSelected, ResourceType resourceType, Toggle toggle, bool isOffer)
     {
         if (isSelected == true)
@@ -655,7 +684,6 @@ public class UiManager : MonoBehaviour
         CheckTradeValidity();
     }
 
-
     private void UncheckOtherToggles(Toggle changedToggle, bool isOfferToggle)
     {
         Toggle[] toggles = isOfferToggle ? new Toggle[] { offerWoodToggle, offerBrickToggle, offerSheepToggle, offerOreToggle, offerWheatToggle }
@@ -671,8 +699,6 @@ public class UiManager : MonoBehaviour
     }
 
 
-
-
     private void CheckTradeValidity()
     {
         bool isValidTrade = offerType.HasValue && requestType.HasValue;
@@ -682,7 +708,6 @@ public class UiManager : MonoBehaviour
             Debug.Log($"Ready to trade {offerType.Value} for {requestType.Value}");
         }
     }
-
 
     public void ExecuteTradeButton() // called by button pressed
     {    
@@ -694,8 +719,6 @@ public class UiManager : MonoBehaviour
         }
 
     }
-
-
 
 
     // robber
@@ -733,9 +756,6 @@ public class UiManager : MonoBehaviour
     }
 
 
-
-
-
     private void CallRemoveRobber(ResourceType resourceType)
     {
         PayRobberUiPannel.SetActive(false);
@@ -745,31 +765,42 @@ public class UiManager : MonoBehaviour
     }
 
 
-
 // boons
 
 
-    public void OpenAndCloseBoonSelectionScreen()
+    public void OpenAndCloseBoonSelectionScreenAnimations()
     {
         //BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
+
+        Color BlackColor = BoonsSelectionScreenBackground.color;
 
         if (BoonSelectionScreen.activeSelf == false) 
         {
             BoonSelectionScreen.SetActive(true);
 
-            BoonsSelectionButtonsParent.transform.localPosition = new Vector3(0F, -1000F, 0F);
-            BoonsSelectionButtonsParent.DOAnchorPos(new Vector2(0f, 0f), 0.8f, false).SetEase(Ease.OutBack);
+            BoonsSelectionButtonsParent.transform.localPosition = new Vector3(0F, -1200F, 0F);
+            BoonsSelectionButtonsParent.DOAnchorPosY(0f, 0.8f, false).SetEase(Ease.OutBack);
 
 
-            Color color = BoonsSelectionScreenBackground.color;
-            color.a = 0f;
-            BoonsSelectionScreenBackground.color = color;
+
+            BlackColor.a = 0f;
+            BoonsSelectionScreenBackground.color = BlackColor;
             BoonsSelectionScreenBackground.DOFade(0.99f, 0.5f);
         }
 
         else
         {
-            BoonsSelectionButtonsParent.DOAnchorPos(new Vector2(0f, -10000f), 0.8f, false).SetEase(Ease.OutBack);
+            var exitAnimation = DOTween.Sequence();
+
+            exitAnimation.Append(BoonsSelectionButtonsParent.DOAnchorPosY(-1200f, 0.5f).SetEase(Ease.InBack));
+            exitAnimation.Join(BoonsSelectionScreenBackground.DOFade(0f, 0.5f));
+
+            exitAnimation.OnComplete(() =>
+            {
+                BoonSelectionScreen.SetActive(false);
+            });
+                
+                
 
         }
 
@@ -819,7 +850,10 @@ public class UiManager : MonoBehaviour
 
     }
 
-
+    public void ShowMapButton()
+    {
+        BoonsAndBlackBackground.SetActive(!BoonsAndBlackBackground.activeSelf);
+    }
 
 
     // ciruclar bar, unluckybar
@@ -880,11 +914,6 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public void UpgradeUnluckyMeterButton()
-    {
-        BoardManager.instance.UpgradeUnluckyMeter();
-    }
-
     public void NotEnoughResourcesText()
     {
 
@@ -898,4 +927,7 @@ public class UiManager : MonoBehaviour
         sequence.Join(textComponent.DOFade(0, 1f).SetEase(Ease.InCubic));
         sequence.OnComplete(() => Destroy(floatingText));
     }
+
+
+
 }

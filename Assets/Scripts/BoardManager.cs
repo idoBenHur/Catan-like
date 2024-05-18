@@ -419,7 +419,6 @@ public class BoardManager : MonoBehaviour
     {
         if (player.CanAffordToBuild(PricesClass.CityCost) == false)
         {
-            uiManager.NotEnoughResourcesText();
 
             return;
         }
@@ -478,7 +477,6 @@ public class BoardManager : MonoBehaviour
         if (player.CanAffordToBuild(PricesClass.TownCost) == false)
         {
 
-            uiManager.NotEnoughResourcesText();
             return;
         }
 
@@ -632,8 +630,7 @@ public class BoardManager : MonoBehaviour
     public void ShowBuildIndicatorsRoads()
     {
         if (player.CanAffordToBuild(PricesClass.RoadCost) == false)
-        {
-            uiManager.NotEnoughResourcesText();
+        {       
             return;
         }
 
@@ -731,10 +728,7 @@ public class BoardManager : MonoBehaviour
             UnluckyMeterMax--;
             uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
         }
-        else
-        {
-            uiManager.NotEnoughResourcesText();
-        }
+
 
         if (UnluckyMeterProgress == UnluckyMeterMax)
         {

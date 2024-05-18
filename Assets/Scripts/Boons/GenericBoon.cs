@@ -235,6 +235,7 @@ public class GenericBoon : ScriptableObject
     private bool IsConditionMet(BoonCondition condition)
     {
 
+
         switch (condition.type)
         {
             case BoonCondition.ConditionType.DiceRollEquals: // dice = X
@@ -253,10 +254,14 @@ public class GenericBoon : ScriptableObject
                 return conditionMet;
 
             case BoonCondition.ConditionType.AfterXAmountOfTrades: // every X trades
+                conditionMet = false;
                 condition.value2++;
-                BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
+                
                 int currentTrades = condition.value2;
-                return (currentTrades % (condition.value1) == 0 && currentTrades != 0);
+                if((currentTrades % (condition.value1) == 0 && currentTrades != 0) == true) { conditionMet = true; condition.value2 = 0; }
+
+                BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
+                return conditionMet;
 
             case BoonCondition.ConditionType.TownNextToDesert: // there is a town next to a desert
                 bool adjacentDesert = false;

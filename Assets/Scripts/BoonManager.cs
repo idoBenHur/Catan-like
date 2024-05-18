@@ -70,11 +70,11 @@ public class BoonManager : MonoBehaviour
     public void CheckBoonMilestones()
     {
         int CurrnetVictoryPoints = player.VictoryPoints;
-        Debug.Log("boon pannel open: " + BoonPannelOpen);
+        
         if (BoonPannelOpen == true) { return; }
         
 
-        // check if the player should get a boon
+        // check if the player should get a boon (overflow check)
         boonMilestones.Sort();
         foreach (var milestone in boonMilestones)
         {
@@ -82,7 +82,7 @@ public class BoonManager : MonoBehaviour
             {
                 lastVPChecked = milestone; 
                 SetBoonsButtonWithRandomBoons();
-                uiManager.OpenAndCloseBoonSelectionScreen();
+                uiManager.OpenAndCloseBoonSelectionScreenAnimations();
                 BoonPannelOpen = true;
                 break;
             }
@@ -145,7 +145,7 @@ public class BoonManager : MonoBehaviour
     private void ChooseBoon(int index)
     {
         GenericBoon selectedBoon = OfferedBoons[index];
-        uiManager.OpenAndCloseBoonSelectionScreen();
+        uiManager.OpenAndCloseBoonSelectionScreenAnimations();
         BoonPannelOpen = false;
 
         ActivateBoon(selectedBoon);
