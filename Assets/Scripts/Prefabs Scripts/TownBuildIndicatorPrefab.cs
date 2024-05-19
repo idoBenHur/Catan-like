@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TownBuildIndicatorPrefab : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class TownBuildIndicatorPrefab : MonoBehaviour
 
     void OnMouseDown()
     {
+
+        if (IsPointerOverUIObject())
+        {
+            return; // If it's over a UI element, don't process the click
+        }
+
         // Communicate back to build the settlement at `cornerPosition`
 
         if (ThisCorner.HasSettlement == false)
@@ -29,5 +36,17 @@ public class TownBuildIndicatorPrefab : MonoBehaviour
         
 
 
+    }
+
+
+
+    private bool IsPointerOverUIObject()
+    {
+        // Check if the current mouse position is over a UI element
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0;
     }
 }

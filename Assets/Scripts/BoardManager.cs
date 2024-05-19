@@ -169,7 +169,7 @@ public class BoardManager : MonoBehaviour
             Dice2Image.sprite = DiceSides[Dice2RandomSide - 1];
 
             // Pause before next itteration
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.1f);
         }
 
 
@@ -181,7 +181,18 @@ public class BoardManager : MonoBehaviour
         OnDiceRolled?.Invoke();
         DistributeResources(TotalDice);
 
-        uiManager.UpdateDiceRollDisplay(TotalDice);
+        // uiManager.UpdateDiceRollDisplay(TotalDice);
+
+
+        Color newColor;
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#1C3643", out newColor))
+        {
+            // Apply the color to the Image component
+            uiManager.diceBackground.color =  newColor;
+        }
+
+
+        
 
         
         DiceStilRolling = false;
@@ -242,7 +253,11 @@ public class BoardManager : MonoBehaviour
                     {
                         player.AddResource(tile.resourceType, 1, tile.TileWorldPostion);
                         EarnedResources = true;
-                        Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
+
+                        DOVirtual.DelayedCall(0.3f, () =>
+                        {
+                            Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
+                        });
                         
 
 
@@ -251,7 +266,10 @@ public class BoardManager : MonoBehaviour
                     {
                         player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
                         EarnedResources = true;
-                        Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
+                        DOVirtual.DelayedCall(0.3f, () =>
+                        {
+                            Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
+                        });
                     }
 
                 }

@@ -50,6 +50,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI TotalVictoryPointsText;
     [SerializeField] private TextMeshProUGUI VictoryPointsLeftUntilNextBoon;
     [SerializeField] private GameObject FloatingErrorTextPrefab;
+    [SerializeField] public Image diceBackground;
 
 
     [SerializeField] public Slider TurnSlider;
@@ -365,61 +366,70 @@ public class UiManager : MonoBehaviour
     public void ResourceAddedAnimation(ResourceType Resource, Vector3 FromPosition)
     {
 
-        float offsetPositionX = FromPosition.x + UnityEngine.Random.Range(-0.5f, 0.5f);
-        float offsetPositionY = FromPosition.y + UnityEngine.Random.Range(-0.5f, 0.5f);
-        Vector3 spawnPosition = new Vector3(offsetPositionX, offsetPositionY, 0);
-        switch (Resource)
+        DOVirtual.DelayedCall(0.3f, () =>
         {
-            case ResourceType.Wood:
-                var woodicon = Instantiate(WoodFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
-                //var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 1).SetEase(Ease.InBack);
-                tweenWood.OnComplete(() => {
-                    woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
-                    Destroy(woodicon);
-                });
-                break;
+            float offsetPositionX = FromPosition.x + UnityEngine.Random.Range(-0.5f, 0.5f);
+            float offsetPositionY = FromPosition.y + UnityEngine.Random.Range(-0.5f, 0.5f);
+            Vector3 spawnPosition = new Vector3(offsetPositionX, offsetPositionY, 0);
+            switch (Resource)
+            {
+                case ResourceType.Wood:
+                    var woodicon = Instantiate(WoodFlyingIcon, spawnPosition, Quaternion.identity);
+                    var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
+                    //var tweenWood = woodicon.transform.DOMove(woodText.transform.position, 1).SetEase(Ease.InBack);
+                    tweenWood.OnComplete(() =>
+                    {
+                        woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
+                        Destroy(woodicon);
+                    });
+                    break;
 
-            case ResourceType.Brick:
-                var brickicon = Instantiate(BrickFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
-                //var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 1).SetEase(Ease.InBack);
-                tweenBrick.OnComplete(() => {
-                    brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
-                    Destroy(brickicon);
-                });
-                break;
+                case ResourceType.Brick:
+                    var brickicon = Instantiate(BrickFlyingIcon, spawnPosition, Quaternion.identity);
+                    var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
+                    //var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 1).SetEase(Ease.InBack);
+                    tweenBrick.OnComplete(() =>
+                    {
+                        brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
+                        Destroy(brickicon);
+                    });
+                    break;
 
-            case ResourceType.Sheep:
-                var Sheepicon = Instantiate(SheepFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
-                //var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 1).SetEase(Ease.InBack);
-                tweenSheep.OnComplete(() => {
-                    sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
-                    Destroy(Sheepicon);
-                });
-                break;
+                case ResourceType.Sheep:
+                    var Sheepicon = Instantiate(SheepFlyingIcon, spawnPosition, Quaternion.identity);
+                    var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
+                    //var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 1).SetEase(Ease.InBack);
+                    tweenSheep.OnComplete(() =>
+                    {
+                        sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
+                        Destroy(Sheepicon);
+                    });
+                    break;
 
-            case ResourceType.Ore:
-                var Oreicon = Instantiate(OreFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
-                //var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 1).SetEase(Ease.InBack);
-                tweenOre.OnComplete(() => {
-                    oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
-                    Destroy(Oreicon);
-                });
-                break;
+                case ResourceType.Ore:
+                    var Oreicon = Instantiate(OreFlyingIcon, spawnPosition, Quaternion.identity);
+                    var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
+                    //var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 1).SetEase(Ease.InBack);
+                    tweenOre.OnComplete(() =>
+                    {
+                        oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
+                        Destroy(Oreicon);
+                    });
+                    break;
 
-            case ResourceType.Wheat:
-                var Wheaticon = Instantiate(WheatFlyingIcon, spawnPosition, Quaternion.identity);
-                var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
-                //var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 1).SetEase(Ease.InBack);
-                tweenWheat.OnComplete(() => {
-                    wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
-                    Destroy(Wheaticon);
-                });
-                break;
-        }
+                case ResourceType.Wheat:
+                    var Wheaticon = Instantiate(WheatFlyingIcon, spawnPosition, Quaternion.identity);
+                    var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
+                    //var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 1).SetEase(Ease.InBack);
+                    tweenWheat.OnComplete(() =>
+                    {
+                        wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
+                        Destroy(Wheaticon);
+                    });
+                    break;
+            }
+        });
+
     }
 
     public void VictoryPointsAddedAnimation(Vector3 FromPosition)
@@ -460,7 +470,7 @@ public class UiManager : MonoBehaviour
         VictoryPointsLeftUntilNextBoon.text = VPLeftUntilBoon + " Victory points until next boon";
 
     }
-    public void UpdateDiceRollDisplay(int DiceResult)
+    private void UpdateDiceRollDisplay(int DiceResult)
     {
         DiceDisplay.text = DiceResult.ToString();
     }
@@ -495,6 +505,14 @@ public class UiManager : MonoBehaviour
         //BoardManager.instance.DiceRoll();
         if(BoardManager.instance.DiceStilRolling == false)
         {
+            Color newColor;
+            if (UnityEngine.ColorUtility.TryParseHtmlString("#464646", out newColor))
+            {
+                // Apply the color to the Image component
+                diceBackground.color = newColor;
+            }
+
+            
             StartCoroutine(BoardManager.instance.RollTheDice());
         }
       
