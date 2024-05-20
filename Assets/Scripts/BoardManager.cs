@@ -254,7 +254,7 @@ public class BoardManager : MonoBehaviour
                         player.AddResource(tile.resourceType, 1, tile.TileWorldPostion);
                         EarnedResources = true;
 
-                        DOVirtual.DelayedCall(0.3f, () =>
+                        DOVirtual.DelayedCall(0f, () =>
                         {
                             Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
                         });

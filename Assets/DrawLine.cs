@@ -51,7 +51,8 @@ public class DrawLine : MonoBehaviour
     {
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(point);
         Collider2D hit = Physics2D.OverlapPoint(worldPoint, drawableLayer);
-        return hit != null;
+        // return hit != null;
+        return true;
     }
 
 }

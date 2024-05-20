@@ -39,7 +39,7 @@ public class Challenges : MonoBehaviour
 
             foreach (var Tile in TheTilesDic)
             {
-                if (Tile.Value.AdjacentTiles.Count <= 4 && Tile.Value.hasRobber == false)
+                if (Tile.Value.AdjacentTiles.Count <= 5 && Tile.Value.hasRobber == false)
                 {
                     RemainingOuterCircleTiles.Add(Tile.Value);
                 }
@@ -52,6 +52,7 @@ public class Challenges : MonoBehaviour
                 int RandomIndex = Random.Range(0, RemainingOuterCircleTiles.Count);
                 var BlockedTile = RemainingOuterCircleTiles[RandomIndex];
                 BlockedTile.PlaceRobber();
+                Destroy(BlockedTile.MyNumberPrefab);
                 Instantiate(testprefab, BlockedTile.TileWorldPostion, Quaternion.identity);
             }
 

@@ -46,16 +46,20 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI sheepText;
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI wheatText;
-    [SerializeField] private TextMeshProUGUI DiceDisplay;
     [SerializeField] private TextMeshProUGUI TotalVictoryPointsText;
     [SerializeField] private TextMeshProUGUI VictoryPointsLeftUntilNextBoon;
     [SerializeField] private GameObject FloatingErrorTextPrefab;
     [SerializeField] public Image diceBackground;
+    [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
 
+
+    // challenge slider
 
     [SerializeField] public Slider TurnSlider;
     public RectTransform ChallengeSliderIndicator;
-    [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
+    [SerializeField] private TextMeshProUGUI TurnLeftUntilChallengeText;
+    [SerializeField] private TextMeshProUGUI TurnLeftUntilDeathText;
+
 
     // boons Ui
     [SerializeField] private GameObject BoonSelectionScreen;
@@ -366,7 +370,7 @@ public class UiManager : MonoBehaviour
     public void ResourceAddedAnimation(ResourceType Resource, Vector3 FromPosition)
     {
 
-        DOVirtual.DelayedCall(0.3f, () =>
+        DOVirtual.DelayedCall(0f, () =>
         {
             float offsetPositionX = FromPosition.x + UnityEngine.Random.Range(-0.5f, 0.5f);
             float offsetPositionY = FromPosition.y + UnityEngine.Random.Range(-0.5f, 0.5f);
@@ -470,10 +474,7 @@ public class UiManager : MonoBehaviour
         VictoryPointsLeftUntilNextBoon.text = VPLeftUntilBoon + " Victory points until next boon";
 
     }
-    private void UpdateDiceRollDisplay(int DiceResult)
-    {
-        DiceDisplay.text = DiceResult.ToString();
-    }
+
 
     public void UpdateTurnSliderDisplay()
     {
@@ -485,6 +486,15 @@ public class UiManager : MonoBehaviour
         TurnSlider.maxValue = maxTurns;
         TurnSlider.value = CurrentTurn;
 
+        TurnLeftUntilDeathText.text = (maxTurns - CurrentTurn) + " Turns left";
+
+        if((challenges.RobberChallengeTurn - CurrentTurn) <= 0)
+        {
+            TurnLeftUntilChallengeText.text = "Active!";
+        }
+        else { TurnLeftUntilChallengeText.text = (challenges.RobberChallengeTurn - CurrentTurn) + " Turns left"; }
+
+        // inital challenge icon placment
         if (CurrentTurn == 0)
         {
             int challengeTurn = challenges.RobberChallengeTurn;

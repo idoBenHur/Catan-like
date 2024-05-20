@@ -71,17 +71,48 @@ public class Tooltips : MonoBehaviour
         float pivotX = position.x / Screen.width;
         float pivotY = position.y / Screen.height;
 
-        // Adjust the pivot to prevent the tooltip from going outside the screen bounds
-        pivotX = pivotX > 0.5f ? 1f : 0f;
-        pivotY = pivotY > 0.5f ? 1f : 0f;
 
-        rectTransform.pivot = new Vector2(pivotX, pivotY);
+        float finalPivotX = 0f;
+        float finalPivotY = 0f;
+
+        if (pivotX < 0.5) //If mouse on left of screen move tooltip to right of cursor and vice vera
+        {
+            finalPivotX = -0.2f;
+        }
+
+        else
+        {
+            finalPivotX = 1.01f;
+        }
+
+        if (pivotY < 0.5) //If mouse on lower half of screen move tooltip above cursor and vice versa
+        {
+            finalPivotY = 0;
+        }
+
+        else
+        {
+            finalPivotY = 1;
+        }
+
+
+
+        // Adjust the pivot to prevent the tooltip from going outside the screen bounds
+       // pivotX = pivotX > 0.5f ? 1f : 0f;
+       // pivotY = pivotY > 0.5f ? 1f : 0f;
+
+
+
+
+        rectTransform.pivot = new Vector2(finalPivotX, finalPivotY);
 
         // Set the position of the tooltip with an offset depending on the pivot
-        float offsetX = (pivotX == 1) ? -offset.x : offset.x;
-        float offsetY = (pivotY == 1) ? -offset.y : offset.y;
+        //float offsetX = (pivotX == 1) ? -offset.x : offset.x;
+        // float offsetY = (pivotY == 1) ? -offset.y : offset.y;
 
-        transform.position = position + new Vector2(offsetX, offsetY);
+        //   transform.position = position + new Vector2(offsetX, offsetY);
+        transform.position = position;
+
 
     }
 
