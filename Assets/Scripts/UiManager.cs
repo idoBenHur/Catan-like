@@ -17,6 +17,8 @@ public class UiManager : MonoBehaviour
     public Challenges challenges;
     [SerializeField] BoonManager boonManager;
     [SerializeField] private Canvas MainCanvas;
+    [SerializeField] private UIDrawer UIDrawer;
+    [SerializeField] private SpriteCursor spriteCursor;
 
 
 
@@ -802,9 +804,12 @@ public class UiManager : MonoBehaviour
 
         Color BlackColor = BoonsSelectionScreenBackground.color;
 
-        if (BoonSelectionScreen.activeSelf == false) 
+        if (BoonSelectionScreen.activeSelf == false) //enter
         {
             BoonSelectionScreen.SetActive(true);
+
+            spriteCursor.ChangeCursorHand();
+
 
             BoonsSelectionButtonsParent.transform.localPosition = new Vector3(0F, -1200F, 0F);
             BoonsSelectionButtonsParent.DOAnchorPosY(0f, 0.8f, false).SetEase(Ease.OutBack);
@@ -816,7 +821,7 @@ public class UiManager : MonoBehaviour
             BoonsSelectionScreenBackground.DOFade(0.99f, 0.5f);
         }
 
-        else
+        else //exit
         {
             var exitAnimation = DOTween.Sequence();
 
@@ -825,7 +830,14 @@ public class UiManager : MonoBehaviour
 
             exitAnimation.OnComplete(() =>
             {
+                spriteCursor.ChangeCursorHand();
+                UIDrawer.ClearDrawing(0);
+                UIDrawer.ClearDrawing(1);
+                UIDrawer.ClearDrawing(2);
                 BoonSelectionScreen.SetActive(false);
+
+
+
             });
                 
                 
