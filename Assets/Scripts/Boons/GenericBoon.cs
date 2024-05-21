@@ -427,8 +427,11 @@ public class GenericBoon : ScriptableObject
                 break;
 
 
-                // Add more cases as needed for other effect types
         }
+
+
+        BoardManager.instance.uiManager.ShakeBoonDisplay(this);
+
     }
 
 

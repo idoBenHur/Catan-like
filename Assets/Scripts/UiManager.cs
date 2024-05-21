@@ -896,6 +896,22 @@ public class UiManager : MonoBehaviour
     }
 
 
+    public void ShakeBoonDisplay(GenericBoon boon)
+    {
+        float duration = 0.5f;
+        float strength = 0.5f;
+
+        if(BoonIconsDisplayDic.ContainsKey(boon) == true)
+        {
+            BoonIconsDisplayDic[boon].transform.DOShakePosition(duration, strength);
+            BoonIconsDisplayDic[boon].transform.DOShakeRotation(duration, strength);
+            BoonIconsDisplayDic[boon].transform.DOShakeScale(duration, strength);
+            Debug.Log("shake!");
+        }
+
+
+    }
+
     // ciruclar bar, unluckybar
 
     public void UpdateUnluckyMeterProgress(int currentProgress)
