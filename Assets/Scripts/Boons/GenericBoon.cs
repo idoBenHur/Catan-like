@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.Texture2DShaderProperty;
-using static UnityEngine.Rendering.DebugUI;
+
 
 [System.Serializable]
 public class BoonCondition
@@ -66,7 +65,12 @@ public class BoonEffect
         TransformWoodTilesToStoneTiles,
         GetRandomRoad,
         TransformTownsNearDesertsToCities,
-        Trade1To1IfXAmountOfResources
+        TradeRatioIsNow5to1,
+        AddBrick,
+        AddSheep,
+        AddOre,
+        AddWheat
+
 
     }
 
@@ -414,23 +418,32 @@ public class GenericBoon : ScriptableObject
                 }
                 break;
 
-            case BoonEffect.EffectType.Trade1To1IfXAmountOfResources: // exceptional boon that contain the "condition" inside
+            case BoonEffect.EffectType.TradeRatioIsNow5to1: // exceptional boon that contain the "condition" inside
+                BoardManager.instance.player.TradeModifier = 5;
+                break;
 
-                int resourceCount = 0;
-                foreach (var resource in BoardManager.instance.player.PlayerResources)
-                {
-                    resourceCount += resource.Value;
-                }
-                if (resourceCount >= effect.value1) { BoardManager.instance.player.TradeModifier = 1; }
-                else BoardManager.instance.player.TradeModifier = null;
-
+            case BoonEffect.EffectType.AddBrick: // gain Brick
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Brick, effect.value1, sourcePosition);
+                break;
+            case BoonEffect.EffectType.AddSheep: // gain Sheep
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Sheep, effect.value1, sourcePosition);
+                break;
+            case BoonEffect.EffectType.AddOre: // gain ore
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Ore, effect.value1, sourcePosition);
+                break;
+            case BoonEffect.EffectType.AddWheat: // gain wheat
+                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Wheat, effect.value1, sourcePosition);
                 break;
 
 
         }
 
 
-        BoardManager.instance.uiManager.ShakeBoonDisplay(this);
+        BoardManager.instance.uiManager.ShakeBoonDisplayAnimation(this);
 
     }
 

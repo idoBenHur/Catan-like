@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Unholy trade
+  m_Name: no mORE wood
   m_EditorClassIdentifier: 
-  boonName: Unholy trade
-  description: if you have more then 15 resources, you can trade 1:1
+  boonName: no mORE wood
+  description: Convert all wood tiles to ore tiles.
   triggers:
   - type: 3
-  - type: 6
   conditions: []
   effects:
-  - type: 6
-    value1: 15
+  - type: 3
+    value1: 0
     boolValue: 0
   boonImage: {fileID: 0}
   boonColor: {r: 1, g: 1, b: 1, a: 1}

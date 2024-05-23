@@ -2208,13 +2208,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9629d05ed044ae439e47c6b88cc150a, type: 2}
   - {fileID: 11400000, guid: 3e7dd24f3a578884faa40a555f03928d, type: 2}
   - {fileID: 11400000, guid: b187ef24cdab90449bd41a50c01cbfed, type: 2}
-  - {fileID: 11400000, guid: 7710c3630810bd943ab7e177fdfcab25, type: 2}
+  - {fileID: 11400000, guid: 3f73658a656c4414780532ca53e379c5, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
   - {fileID: 675627773}
-  VPForFirstBoon: 3
-  VPForSecondBoon: 4
+  VPForFirstBoon: 1
+  VPForSecondBoon: 2
   VPForThirdBoon: 5
   VPForForthBoon: 9
   VPForFifthBoon: 10
@@ -7678,7 +7678,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 2b884ef2b20cb8b4d8113c56efdf17a5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -15329,7 +15329,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 2b884ef2b20cb8b4d8113c56efdf17a5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -15885,7 +15885,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 1d9a12222b374894bb0497f6ebc542ea, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: 2b884ef2b20cb8b4d8113c56efdf17a5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -18874,7 +18874,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 2b884ef2b20cb8b4d8113c56efdf17a5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901

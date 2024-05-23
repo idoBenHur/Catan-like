@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Resource Blast
   m_EditorClassIdentifier: 
   boonName: Resource Blast
-  description: Gain 4 resources when you roll 7, if you have 7 resource or last
+  description: When you roll a 7 and have 7 or fewer resources, gain 4 random resources.
   triggers:
   - type: 0
   conditions:

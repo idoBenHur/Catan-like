@@ -168,9 +168,10 @@ public class BoonManager : MonoBehaviour
         if (!activeBoons.Contains(boon))
         {
             activeBoons.Add(boon);
+            uiManager.AddAndRemoveActiveBoonsDisplay(boon, true);
             boon.Activate();
             boon.StoreValues();
-            uiManager.AddAndRemoveActiveBoonsDisplay(boon, true);
+            
             if(boon.isCounting == true) { uiManager.UpdateBoonCounter(boon, 0); }
 
             Debug.Log($"Activated boon: {boon.boonName}");

@@ -10,17 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Luck Road
+  m_Name: Inside Trade Policy
   m_EditorClassIdentifier: 
-  boonName: Luck Road
-  description: Get a random road when you roll a double
+  boonName: Inside Trade Policy
+  description: From now on, your trade ratio is 5:1. Gain 2 of each resource.
   triggers:
-  - type: 0
-  conditions:
-  - type: 7
-    value: 0
+  - type: 3
+  conditions: []
   effects:
-  - type: 4
-    value: 0
+  - type: 6
+    value1: 0
+    boolValue: 0
+  - type: 0
+    value1: 1
+    boolValue: 0
+  - type: 7
+    value1: 1
+    boolValue: 0
+  - type: 8
+    value1: 1
+    boolValue: 0
+  - type: 9
+    value1: 1
+    boolValue: 0
+  - type: 10
+    value1: 1
+    boolValue: 0
   boonImage: {fileID: 0}
   boonColor: {r: 1, g: 1, b: 1, a: 1}
+  isCounting: 0

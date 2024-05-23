@@ -10,16 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Profitable Port
+  m_Name: Open Market
   m_EditorClassIdentifier: 
-  boonName: Profitable Port
-  description: Building ports gives you victoy points
+  boonName: Open Market
+  description: Gain a peasant after every seventh trade
   triggers:
+  - type: 1
+  conditions:
   - type: 2
-  conditions: []
+    value1: 5
+    value2: 0
+    boolValue: 0
   effects:
   - type: 1
     value1: 1
-  boonImage: {fileID: 0}
-  boonColor: {r: 1, g: 1, b: 1, a: 1}
-  isCounting: 0
+    boolValue: 0
+  boonImage: {fileID: 21300000, guid: 8d05f05332a28cc41a2a29b0d2594eb4, type: 3}
+  boonColor: {r: 1, g: 0.9879642, b: 0.28773582, a: 1}
+  isCounting: 1

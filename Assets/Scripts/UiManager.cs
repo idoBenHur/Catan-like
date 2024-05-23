@@ -936,16 +936,16 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void ShakeBoonDisplay(GenericBoon boon)
+    public void ShakeBoonDisplayAnimation(GenericBoon boon)
     {
         float duration = 0.5f;
         float strength = 0.5f;
 
         if(BoonIconsDisplayDic.ContainsKey(boon) == true)
         {
-            BoonIconsDisplayDic[boon].transform.DOShakePosition(duration, strength);
-            BoonIconsDisplayDic[boon].transform.DOShakeRotation(duration, strength);
-            BoonIconsDisplayDic[boon].transform.DOShakeScale(duration, strength);
+            BoonIconsDisplayDic[boon].transform.DOShakePosition(duration, strength).SetDelay(0.1f);
+            BoonIconsDisplayDic[boon].transform.DOShakeRotation(duration, strength).SetDelay(0.1f);
+            BoonIconsDisplayDic[boon].transform.DOShakeScale(duration, strength).SetDelay(0.1f);
         }
 
 

@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: WoodLess
+  m_Name: Peasants' Port
   m_EditorClassIdentifier: 
-  boonName: WoodLess
-  description: turn all wood tiles to ore tiles
+  boonName: 'Peasants'' Port '
+  description: When you build a port gain a peasant
   triggers:
-  - type: 3
+  - type: 2
   conditions: []
   effects:
-  - type: 3
-    value: 0
+  - type: 1
+    value1: 1
+    boolValue: 0
   boonImage: {fileID: 0}
   boonColor: {r: 1, g: 1, b: 1, a: 1}
+  isCounting: 0

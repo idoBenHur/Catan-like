@@ -150,7 +150,6 @@ public class PlayerClass
         {
             OwnedHarbors.Add(corner.Harbor);
             OnHarborsGained?.Invoke();
-            Debug.Log("get port");
         }
     }
 
