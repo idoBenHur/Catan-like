@@ -12483,6 +12483,7 @@ GameObject:
   - component: {fileID: 1213868993}
   - component: {fileID: 1213868995}
   - component: {fileID: 1213868994}
+  - component: {fileID: 1213868996}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -12547,6 +12548,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213868992}
   m_CullTransparentMesh: 1
+--- !u!114 &1213868996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213868992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Unlucky Meter
+  text: "Whenever you roll the dice and get no resources, the meter fills. Once full,
+    pick one resource.\r"
 --- !u!1 &1223067501
 GameObject:
   m_ObjectHideFlags: 0
@@ -16591,6 +16607,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1705179754}
+  - component: {fileID: 1705179755}
   m_Layer: 5
   m_Name: UnluckyProgressBar
   m_TagString: Untagged
@@ -16621,6 +16638,21 @@ RectTransform:
   m_AnchoredPosition: {x: 730, y: -325}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1705179755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705179753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Unlucky Meter
+  text: Whenever you roll the dice and get no resources, the meter fills. Once full,
+    pick one resource.
 --- !u!1 &1707715888
 GameObject:
   m_ObjectHideFlags: 0
