@@ -181,7 +181,7 @@ public class BoardManager : MonoBehaviour
         OnDiceRolled?.Invoke();
         DistributeResources(TotalDice);
 
-        // uiManager.UpdateDiceRollDisplay(TotalDice);
+
 
 
         Color newColor;
@@ -358,7 +358,7 @@ public class BoardManager : MonoBehaviour
 
 
         // Build a town
-        if (FirstTurnPlacedPeices == 0 || FirstTurnPlacedPeices == 2)
+        if (FirstTurnPlacedPeices == 0 || FirstTurnPlacedPeices == 1)
         {
             FirstTurnPlacedPeices++;
             foreach (var corner in CornersDic.Values)
@@ -378,7 +378,7 @@ public class BoardManager : MonoBehaviour
        
 
         // Build a road
-        if(FirstTurnPlacedPeices == 1 || FirstTurnPlacedPeices == 3)
+        if(FirstTurnPlacedPeices == 2 || FirstTurnPlacedPeices == 3)
         {
             FirstTurnPlacedPeices++;
 
@@ -425,6 +425,7 @@ public class BoardManager : MonoBehaviour
         {
             FirstTurnPlacedPeices++;
             FirstTurnIsActive = false;
+            uiManager.ClosePlacmentScreen();
             return;
         }
 
@@ -756,6 +757,10 @@ public class BoardManager : MonoBehaviour
         }
 
     }
+
+
+
+
 }
 
 

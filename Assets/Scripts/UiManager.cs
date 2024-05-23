@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
 using static TileClass;
@@ -53,6 +54,12 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject FloatingErrorTextPrefab;
     [SerializeField] public Image diceBackground;
     [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
+    [SerializeField] private GameObject GameOverScreen;
+    [SerializeField] private GameObject VictoryScreen;
+    [SerializeField] private GameObject WelcomeScreen;
+    [SerializeField] private GameObject PlacementPhaseScreen;
+
+
 
 
     // challenge slider
@@ -473,8 +480,13 @@ public class UiManager : MonoBehaviour
         TotalVictoryPointsText.text = VPText + "/" + VPGoalText;
 
         string VPLeftUntilBoon = (boonManager.NextVPMilestoneForBoon - player.VictoryPoints).ToString();
-        VictoryPointsLeftUntilNextBoon.text = VPLeftUntilBoon + " Victory points until next boon";
+        VictoryPointsLeftUntilNextBoon.text = "Gather " + VPLeftUntilBoon + " more peasants to pass a new law";
 
+
+        if(player.VictoryPoints == BoardManager.instance.VictoryPointsGoal)
+        {
+            EndGame(true);
+        }
     }
 
 
@@ -490,11 +502,20 @@ public class UiManager : MonoBehaviour
 
         TurnLeftUntilDeathText.text = (maxTurns - CurrentTurn) + " Turns left";
 
+
+        if(CurrentTurn > maxTurns)
+        {
+            EndGame(false); // player lose
+        }
+
+        // update challenge indicator text 
+
         if((challenges.RobberChallengeTurn - CurrentTurn) <= 0)
         {
             TurnLeftUntilChallengeText.text = "Active!";
         }
         else { TurnLeftUntilChallengeText.text = (challenges.RobberChallengeTurn - CurrentTurn) + " Turns left"; }
+
 
         // inital challenge icon placment
         if (CurrentTurn == 0)
@@ -511,6 +532,25 @@ public class UiManager : MonoBehaviour
 
 
     }
+
+    public void EndGame(bool playerWon)
+    {
+        if (playerWon == true)
+        {
+            VictoryScreen.SetActive(true);
+        }
+        else if (playerWon == false)
+        {
+            GameOverScreen.SetActive(true);
+        }
+        
+    }
+
+    public void RestartGameButton()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+      
 
     public void RollDiceButton() 
     {
@@ -906,7 +946,6 @@ public class UiManager : MonoBehaviour
             BoonIconsDisplayDic[boon].transform.DOShakePosition(duration, strength);
             BoonIconsDisplayDic[boon].transform.DOShakeRotation(duration, strength);
             BoonIconsDisplayDic[boon].transform.DOShakeScale(duration, strength);
-            Debug.Log("shake!");
         }
 
 
@@ -970,6 +1009,8 @@ public class UiManager : MonoBehaviour
         }
     }
 
+
+ 
     public void NotEnoughResourcesText()
     {
 
@@ -985,5 +1026,16 @@ public class UiManager : MonoBehaviour
     }
 
 
+    // tutroial screen
+
+    public void WelcomeScreenButton()
+    {
+        WelcomeScreen.SetActive(false);
+    }
+
+    public void ClosePlacmentScreen()
+    {
+        PlacementPhaseScreen.SetActive(false);
+    }
 
 }
