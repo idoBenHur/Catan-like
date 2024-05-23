@@ -139,6 +139,7 @@ public class PlayerClass
             BoardManager.instance.uiManager.VictoryPointsAddedAnimation(SourcePosition);
         }
 
+
     }
 
     public void AddSettelment(CornersClass corner)
