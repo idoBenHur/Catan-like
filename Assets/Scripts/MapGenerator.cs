@@ -8,6 +8,19 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static TileClass;
 
+
+
+
+
+[System.Serializable]
+public class InitialSettlementData
+{
+    public Vector3 position;
+    public bool isCity;
+}
+
+
+
 public class MapGenerator : MonoBehaviour
 {
     public Tilemap tilemap;
@@ -18,23 +31,28 @@ public class MapGenerator : MonoBehaviour
     public GameObject CityPrefab;
     public GameObject HarborPrefab;
 
+
     private List<(CornersClass, CornersClass)> HarborCornersPairs;
     public Dictionary<Vector3Int, TileClass> InitialTilesDictionary = new Dictionary<Vector3Int, TileClass>();
     public Dictionary<Vector3, CornersClass> InitialCornersDic = new Dictionary<Vector3, CornersClass>();
     public Dictionary<Vector3, SidesClass> InitialSidesDic = new Dictionary<Vector3, SidesClass>();
+    public List<InitialSettlementData> initialSettlements = new List<InitialSettlementData>();
 
+    //private List<TileClass.ResourceType> ResourcesOnTheMapList = new List<TileClass.ResourceType>
+    //{
+    //    TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep,
+    //    TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood,
+    //    TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat,
+    //    TileClass.ResourceType.Brick, TileClass.ResourceType.Brick, TileClass.ResourceType.Brick,
+    //    TileClass.ResourceType.Ore, TileClass.ResourceType.Ore, TileClass.ResourceType.Ore,
+    //    TileClass.ResourceType.Desert
+    //};
 
-    private List<TileClass.ResourceType> ResourcesOnTheMapList = new List<TileClass.ResourceType>
-    {
-        TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep, TileClass.ResourceType.Sheep,
-        TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood, TileClass.ResourceType.Wood,
-        TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat, TileClass.ResourceType.Wheat,
-        TileClass.ResourceType.Brick, TileClass.ResourceType.Brick, TileClass.ResourceType.Brick,
-        TileClass.ResourceType.Ore, TileClass.ResourceType.Ore, TileClass.ResourceType.Ore,
-        TileClass.ResourceType.Desert
-    };
+    public List<TileClass.ResourceType> ResourcesOnTheMapList = new List<TileClass.ResourceType>();
 
-    private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
+    //private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
+    public List<int> availableNumbers = new List<int> ();
+
 
 
 
@@ -50,6 +68,7 @@ public class MapGenerator : MonoBehaviour
         CreateNeighborsLists();
         SetupHarbors();
         UpdateHarborsVisuals();
+
     }
 
     public void LoadMapVisuals(Dictionary<Vector3Int, TileClass> TilesDic)
@@ -696,5 +715,17 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+
+    public void PlaceInitalSettelments()
+    {
+        if(initialSettlements == null) { return; }
+
+
+        foreach(var settelment in initialSettlements)
+        {
+            BoardManager.instance.BuildSettlementAt(settelment.position, true);
+
+        }
+    }
 
 }

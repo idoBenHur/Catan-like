@@ -26,7 +26,7 @@ public class BoardManager : MonoBehaviour
 
 
    
-    private bool FirstTurnIsActive;
+    public bool FirstTurnIsActive;
     [HideInInspector] public bool DiceStilRolling = false;
     private int FirstTurnPlacedPeices = 0;
     [HideInInspector] public int TotalDice;
@@ -111,12 +111,15 @@ public class BoardManager : MonoBehaviour
             player = new PlayerClass();
             mapGenerator.InitialBuildMap();
 
+
             TilesDictionary = mapGenerator.InitialTilesDictionary;
             CornersDic = mapGenerator.InitialCornersDic;
             SidesDic = mapGenerator.InitialSidesDic;
-            FirstTurnIsActive = true;
-            FirstTurnPlacement();
 
+            mapGenerator.PlaceInitalSettelments();
+            
+            if(FirstTurnIsActive == true) { FirstTurnPlacement(); }
+            
 
         }
         else
@@ -555,11 +558,10 @@ public class BoardManager : MonoBehaviour
     public void BuildSettlementAt(Vector3 cornerPosition, bool isFree = false)
     {
 
-        //first turn
+
         if (CornersDic.TryGetValue(cornerPosition, out CornersClass corner) && corner.CanBeBuiltOn)
         {
-            
-
+            //first turn
             if ( FirstTurnIsActive == true)  
             {
                 corner.CanBeBuiltOn = false;
