@@ -21,6 +21,8 @@ public class InitialSettlementData
 
 
 
+
+
 public class MapGenerator : MonoBehaviour
 {
     public Tilemap tilemap;
@@ -30,6 +32,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject TownPrefab;
     public GameObject CityPrefab;
     public GameObject HarborPrefab;
+    [SerializeField] bool withHarbors;
 
 
     private List<(CornersClass, CornersClass)> HarborCornersPairs;
@@ -37,6 +40,7 @@ public class MapGenerator : MonoBehaviour
     public Dictionary<Vector3, CornersClass> InitialCornersDic = new Dictionary<Vector3, CornersClass>();
     public Dictionary<Vector3, SidesClass> InitialSidesDic = new Dictionary<Vector3, SidesClass>();
     public List<InitialSettlementData> initialSettlements = new List<InitialSettlementData>();
+    public List<Vector3> initialRoads = new List<Vector3>();
 
     //private List<TileClass.ResourceType> ResourcesOnTheMapList = new List<TileClass.ResourceType>
     //{
@@ -66,8 +70,13 @@ public class MapGenerator : MonoBehaviour
 
         CreateDicsAndAdjacentTiles();
         CreateNeighborsLists();
-        SetupHarbors();
-        UpdateHarborsVisuals();
+
+        if(withHarbors == true) 
+        {
+            SetupHarbors();
+            UpdateHarborsVisuals();
+        }
+
 
     }
 
@@ -98,6 +107,7 @@ public class MapGenerator : MonoBehaviour
 
     void InitializeTiles()
     {
+        List<int> TempNumbersList = new List<int> (availableNumbers);
 
         int ResourceIndex = 0;
 
@@ -110,9 +120,9 @@ public class MapGenerator : MonoBehaviour
 
                 if (resourceType != TileClass.ResourceType.Desert)
                 {
-                    int RandomNumberTokenIndex = Random.Range(0, availableNumbers.Count);
-                    int numberToken = availableNumbers[RandomNumberTokenIndex];
-                    availableNumbers.RemoveAt(RandomNumberTokenIndex);
+                    int RandomNumberTokenIndex = Random.Range(0, TempNumbersList.Count);
+                    int numberToken = TempNumbersList[RandomNumberTokenIndex];
+                    TempNumbersList.RemoveAt(RandomNumberTokenIndex);
 
 
 
@@ -724,6 +734,20 @@ public class MapGenerator : MonoBehaviour
         foreach(var settelment in initialSettlements)
         {
             BoardManager.instance.BuildSettlementAt(settelment.position, true);
+
+        }
+    }
+
+    public void PlaceInitalRoads()
+    {
+        if (initialRoads == null) { return; }
+
+
+        foreach (var road in initialRoads)
+        {
+
+
+            BoardManager.instance.BuildRoadAt(road, true);
 
         }
     }

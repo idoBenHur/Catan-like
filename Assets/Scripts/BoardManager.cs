@@ -117,6 +117,7 @@ public class BoardManager : MonoBehaviour
             SidesDic = mapGenerator.InitialSidesDic;
 
             mapGenerator.PlaceInitalSettelments();
+            mapGenerator.PlaceInitalRoads();
             
             if(FirstTurnIsActive == true) { FirstTurnPlacement(); }
             
@@ -667,8 +668,9 @@ public class BoardManager : MonoBehaviour
 
     public void BuildRoadAt(Vector3 SidePosition, bool isFree = false)
     {
-        if (SidesDic.TryGetValue(SidePosition, out SidesClass Side) && Side.CanBeBuiltOn)
+        if (SidesDic.TryGetValue(SidePosition, out SidesClass Side))// && Side.CanBeBuiltOn)
         {
+
 
             if (FirstTurnIsActive == true)
             {
