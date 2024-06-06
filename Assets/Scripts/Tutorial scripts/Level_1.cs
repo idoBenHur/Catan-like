@@ -19,8 +19,18 @@ public class Level_1 : MonoBehaviour
 
         startPos = GatherPeasantsOnject.anchoredPosition; // Save the starting position
         GatherPeasantsAnimation();
+        BoardManager.OnUnlcukyRoll += OpenUnluckyMeterToolTip;
 
     }
+
+    private void OnDestroy()
+    {
+        BoardManager.OnUnlcukyRoll -= OpenUnluckyMeterToolTip;
+
+    }
+
+
+
 
     private void GatherPeasantsAnimation()
     {
@@ -29,16 +39,51 @@ public class Level_1 : MonoBehaviour
             .OnComplete(() => {
 
                 CanvasGroup canvasGroup = GatherPeasantsOnject.GetComponent<CanvasGroup>();
-                canvasGroup.DOFade(0, 0.5f).SetEase(Ease.Linear);
-                
+                canvasGroup.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() => {
+                    GatherPeasantsOnject.gameObject.SetActive(false);
+                });
+
 
             });
+
+        
+
+    }
+
+
+
+
+    private void OpenUnluckyMeterToolTip()
+    {
+
+        CanvasGroup MeterTransperancy = UnluckyMeterToolTip.GetComponent<CanvasGroup>();
+        RectTransform MeterScale = UnluckyMeterToolTip.GetComponent<RectTransform>();
+        MeterTransperancy.alpha = 0;
+        MeterScale.localScale = Vector3.zero;
+
+        UnluckyMeterToolTip.gameObject.SetActive(true);
+        MeterTransperancy.DOFade(1, 0.3f);
+        MeterScale.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+
+        BoardManager.OnUnlcukyRoll -= OpenUnluckyMeterToolTip;
+
     }
 
     public void CloseUnluckyMeterToolTipButton()
     {
-        UnluckyMeterToolTip.gameObject.SetActive(false);
+        CanvasGroup MeterTransperancy = UnluckyMeterToolTip.GetComponent<CanvasGroup>();
+        RectTransform MeterScale = UnluckyMeterToolTip.GetComponent<RectTransform>();
+
+
+        MeterTransperancy.DOFade(0, 0.3f);
+        MeterScale.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            UnluckyMeterToolTip.gameObject.SetActive(false);
+        });
+
     }
+
+    
 
 
 }

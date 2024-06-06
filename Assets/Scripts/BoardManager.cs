@@ -73,6 +73,7 @@ public class BoardManager : MonoBehaviour
     public static event Action OnDiceRolled;
     public static event Action OnRoadBuilt;
     public static event Action OnTownBuilt;
+    public static event Action OnUnlcukyRoll;
 
 
 
@@ -280,8 +281,9 @@ public class BoardManager : MonoBehaviour
         {
             UnluckyMeterProgress++;
             uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
+            OnUnlcukyRoll?.Invoke();          
 
-            if(UnluckyMeterProgress == UnluckyMeterMax)
+            if (UnluckyMeterProgress == UnluckyMeterMax)
             {
                 UnluckyMeterProgress = 0;
                 uiManager.OpenUnluckyMeterRewardPannel();
@@ -551,6 +553,7 @@ public class BoardManager : MonoBehaviour
         }
         
         
+
         
 
     }

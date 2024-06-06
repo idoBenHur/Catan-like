@@ -4902,6 +4902,7 @@ GameObject:
   - component: {fileID: 516499061}
   - component: {fileID: 516499063}
   - component: {fileID: 516499062}
+  - component: {fileID: 516499064}
   m_Layer: 5
   m_Name: Skull
   m_TagString: Untagged
@@ -4966,6 +4967,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516499060}
   m_CullTransparentMesh: 1
+--- !u!114 &516499064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516499060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Horrific, Indescribable DEATH
+  text: Running out of turns will result in death. Be careful and plan wisely!
 --- !u!1 &532952788
 GameObject:
   m_ObjectHideFlags: 0
@@ -7573,7 +7588,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Road
-  text: 'Cost: <sprite name=wood>, <sprite name=brick>'
+  text: 'Cost: <sprite name=wood>, <sprite name=brick>
+
+    Connects towns and cities.'
 --- !u!1 &810349292
 GameObject:
   m_ObjectHideFlags: 0
@@ -11187,8 +11204,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Town
-  text: "Cannot be built next to another town or city\n\nworth 1 Victory Point \n\nCost:
-    <sprite name=wood>, <sprite name=brick>, <sprite name=sheep>, <sprite name=wheat>"
+  text: 'Cost: <sprite name=wood>, <sprite name=brick>, <sprite name=sheep>, <sprite
+    name=wheat>
+
+
+    Gain 1 <sprite name=peasant>
+
+    Produces 1 resource from
+    adjacent tiles
+
+
+    Must be connected to a road & Cannot be built next to another
+    town/city'
 --- !u!1 &1089559038
 GameObject:
   m_ObjectHideFlags: 0
@@ -18649,8 +18676,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: City
   text: "Cost: <sprite name=ore>, <sprite name=ore>, <sprite name=ore>, <sprite name=wheat>,
-    <sprite name=wheat>\n\nDoubles resource production\n  \nGain 1 <sprite name=peasant>
-    \n"
+    <sprite name=wheat>\n\nDoubles resource production from adjacent tiles\n  \nGain
+    1 <sprite name=peasant> \n"
 --- !u!1 &2072436213
 GameObject:
   m_ObjectHideFlags: 0

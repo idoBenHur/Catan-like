@@ -733,7 +733,20 @@ public class MapGenerator : MonoBehaviour
 
         foreach(var settelment in initialSettlements)
         {
+
+            
             BoardManager.instance.BuildSettlementAt(settelment.position, true);
+            
+
+            if(settelment.isCity == true)
+            {
+                BoardManager.instance.CornersDic.TryGetValue(settelment.position, out CornersClass town);
+                BoardManager.instance.UpgradeSettelmentToCity(town, true);
+            }
+            
+
+            
+
 
         }
     }

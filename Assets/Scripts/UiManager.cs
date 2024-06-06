@@ -162,7 +162,9 @@ public class UiManager : MonoBehaviour
     {
         player = playerInstance;
         BoardManager.OnDiceRolled += UpdateTurnSliderDisplay;
+        player.OnResourcesChanged += ShowInteractableToggels;
 
+        ShowInteractableToggels();
         UpdateResourceDisplay();  // Initial display update
         UpdateTurnSliderDisplay(); // inital slider postioning
 
@@ -176,10 +178,12 @@ public class UiManager : MonoBehaviour
 
     void OnDestroy()
     {
-        if (player != null)
-        {
-            BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
-        }
+        //if (player != null)
+        //{
+        //    BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
+        //}
+        BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
+        player.OnResourcesChanged -= ShowInteractableToggels;
     }
 
 
@@ -245,7 +249,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    // build roads/towns buttons
+    // build roads/towns toggles
 
     public void ShowTownBuildIndicatorsToggle()
     {
@@ -255,7 +259,7 @@ public class UiManager : MonoBehaviour
         if (player.CanAffordToBuild(PricesClass.TownCost) == false && isUpdatingToggles == false)
         {
             TownIndicatorsToggle.isOn = false;
-            NotEnoughResourcesText();
+            SpawnErrorText("Not enough resources!");
 
         }
 
@@ -269,6 +273,7 @@ public class UiManager : MonoBehaviour
             if(BoardManager.instance.TownsIndicatorsPrefabList.Count == 0)
             {
                 TownIndicatorsToggle.isOn = false;
+                SpawnErrorText("no vaild place for a town");
             }
 
         }
@@ -289,7 +294,7 @@ public class UiManager : MonoBehaviour
         if (player.CanAffordToBuild(PricesClass.RoadCost) == false && isUpdatingToggles == false)
         {
             RoadIndicatorsToggle.isOn = false;
-            NotEnoughResourcesText();
+            SpawnErrorText("Not enough resources!");
             
         }
 
@@ -318,7 +323,7 @@ public class UiManager : MonoBehaviour
         if (player.CanAffordToBuild(PricesClass.CityCost) == false && isUpdatingToggles == false)
         {
             CityIndicatorsToggle.isOn = false;
-            NotEnoughResourcesText();
+            SpawnErrorText("Not enough resources!");
 
         }
 
@@ -329,7 +334,13 @@ public class UiManager : MonoBehaviour
             CloseAllUi(CityIndicatorsToggle);
             BoardManager.instance.ShowCityUpgradeIndicators();
 
-            
+            if (BoardManager.instance.CitiesIndicatorsPrefabList.Count == 0)
+            {
+                CityIndicatorsToggle.isOn = false;
+                SpawnErrorText("no vaild place for a city");
+            }
+
+
 
         }
         else
@@ -365,10 +376,19 @@ public class UiManager : MonoBehaviour
         if (player.CanAffordToBuild(PricesClass.MeterUpgrade) == false && isUpdatingToggles == false)
         {
             
-           NotEnoughResourcesText();
+           SpawnErrorText("Not enough resources!");
         }
 
         BoardManager.instance.UpgradeUnluckyMeter();
+    }
+
+    private void ShowInteractableToggels()
+    {
+        CityIndicatorsToggle.interactable = player.CanAffordToBuild(PricesClass.CityCost);
+        RoadIndicatorsToggle.interactable = player.CanAffordToBuild(PricesClass.RoadCost);
+        TownIndicatorsToggle.interactable = player.CanAffordToBuild(PricesClass.TownCost);
+
+
     }
 
 
@@ -1013,14 +1033,15 @@ public class UiManager : MonoBehaviour
 
 
  
-    public void NotEnoughResourcesText()
+    public void SpawnErrorText(string ErrorText)
     {
 
         GameObject floatingText = Instantiate(FloatingErrorTextPrefab, MainCanvas.transform);
-
-
-
         TextMeshProUGUI textComponent = floatingText.GetComponent<TextMeshProUGUI>();
+        textComponent.text = ErrorText;
+
+
+
         DG.Tweening.Sequence sequence = DOTween.Sequence();
         sequence.Append(floatingText.transform.DOMoveY(floatingText.transform.position.y + 5, 4f));
         sequence.Join(textComponent.DOFade(0, 1f).SetEase(Ease.InCubic));
@@ -1028,7 +1049,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    // tutroial screen
+    // playtest tutroial screen
 
     public void WelcomeScreenButton()
     {
