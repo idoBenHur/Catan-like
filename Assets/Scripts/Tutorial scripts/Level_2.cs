@@ -7,11 +7,17 @@ public class Level_2 : MonoBehaviour
 {
 
     [SerializeField] private RectTransform TradeToolTip;
+    [SerializeField] private RectTransform StartingText;
+    private Vector2 StartPos;
 
     void Start()
     {
 
         BoardManager.instance.player.OnResourcesChanged += OpenTradeToolTip;
+
+        StartPos = StartingText.anchoredPosition;
+        StartingTextAnimation();
+
     }
 
     private void OnDestroy()
@@ -61,6 +67,24 @@ public class Level_2 : MonoBehaviour
         {
             TradeToolTip.gameObject.SetActive(false);
         });
+    }
+
+    private void StartingTextAnimation()
+    {
+        // Move the panel upwards
+        StartingText.DOAnchorPosY(StartPos.y + 0f, 5).SetEase(Ease.Linear) // Adjust the 100f to how much you want to move the panel
+            .OnComplete(() => {
+
+                CanvasGroup canvasGroup = StartingText.GetComponent<CanvasGroup>();
+                canvasGroup.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() => {
+                    StartingText.gameObject.SetActive(false);
+                });
+
+
+            });
+
+
+
     }
 
 

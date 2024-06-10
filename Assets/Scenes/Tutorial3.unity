@@ -2202,7 +2202,6 @@ GameObject:
   - component: {fileID: 240130135}
   - component: {fileID: 240130136}
   - component: {fileID: 240130137}
-  - component: {fileID: 240130138}
   m_Layer: 0
   m_Name: Gameplay Manager
   m_TagString: Untagged
@@ -2295,7 +2294,8 @@ MonoBehaviour:
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   HarborPrefab: {fileID: 7279220106939613855, guid: fa076f431d0539d4d9326a078c2f8c9b, type: 3}
-  withHarbors: 0
+  withHarbors: 1
+  RandomHarbors: 0
   initialSettlements:
   - position: {x: 0, y: -1, z: 0}
     isCity: 1
@@ -2440,20 +2440,6 @@ MonoBehaviour:
   PayRobberOreButton: {fileID: 1492902718}
   PayRobberWheatButton: {fileID: 2087136874}
   PayRobberUiPannel: {fileID: 1189103418}
---- !u!114 &240130138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240130131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c18e59aafbfa94a92abd75be9f9f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TradeToolTip: {fileID: 205324525}
-  StartingText: {fileID: 698034210}
 --- !u!1 &242206267
 GameObject:
   m_ObjectHideFlags: 0
@@ -6591,7 +6577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &698034210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17480,7 +17466,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 240130138}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Level_2, Assembly-CSharp
         m_MethodName: CloseTradeToolTip
         m_Mode: 1

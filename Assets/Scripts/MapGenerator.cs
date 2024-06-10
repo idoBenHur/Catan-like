@@ -33,6 +33,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject CityPrefab;
     public GameObject HarborPrefab;
     [SerializeField] bool withHarbors;
+    [SerializeField] bool RandomHarbors;
 
 
     private List<(CornersClass, CornersClass)> HarborCornersPairs;
@@ -614,16 +615,21 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < 9; i++)
         {
+            var currentCorrner = SeaCornners[i*3];
 
-
-            // pick a random corrner that is not in any pair
-            int ranodmIndex = Random.Range(0, SeaCornners.Count);
-            var currentCorrner = SeaCornners[ranodmIndex];
-            while (HarborPairs.Any(pair => pair.Item1 == currentCorrner || pair.Item2 == currentCorrner))
+            if (RandomHarbors == true)
             {
-                ranodmIndex = Random.Range(0, SeaCornners.Count);
+                // pick a random corrner that is not in any pair
+                int ranodmIndex = Random.Range(0, SeaCornners.Count);
                 currentCorrner = SeaCornners[ranodmIndex];
+                while (HarborPairs.Any(pair => pair.Item1 == currentCorrner || pair.Item2 == currentCorrner)) //picks a correnr that is not already in the harbor list
+                {
+                    ranodmIndex = Random.Range(0, SeaCornners.Count);
+                    currentCorrner = SeaCornners[ranodmIndex];
+                }
             }
+            
+
 
 
             //find its Adjacent corrner and make a pair
