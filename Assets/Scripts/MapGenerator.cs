@@ -33,7 +33,9 @@ public class MapGenerator : MonoBehaviour
     public GameObject CityPrefab;
     public GameObject HarborPrefab;
     [SerializeField] bool withHarbors;
-    [SerializeField] bool RandomHarbors;
+    [SerializeField] bool RandomHarborsPosition;
+    [SerializeField] bool RandomHarborsTypes;
+
 
 
     private List<(CornersClass, CornersClass)> HarborCornersPairs;
@@ -569,26 +571,44 @@ public class MapGenerator : MonoBehaviour
         };
 
 
-        for (int i = 0; i < HarborCornersPairs.Count; i++)
+        foreach (var pair in HarborCornersPairs)
         {
-            if (harborsTypes.Count > 0)
+            if (harborsTypes.Count == 0)
+                break;
+
+            if (lastHarbor == null)
             {
-                if(lastHarbor == null)
-                {
-                    int randomIndex = Random.Range(0, harborsTypes.Count);
-                    HarborCornersPairs[i].Item1.Harbor = harborsTypes[randomIndex];
-                    lastHarbor = harborsTypes[randomIndex];
-                    
-                }
-
-                HarborCornersPairs[i].Item2.Harbor = lastHarbor;
-                harborsTypes.Remove(lastHarbor);
-                lastHarbor = null;
-
+                int index = RandomHarborsTypes ? Random.Range(0, harborsTypes.Count) : 0; // if true random, if false 0
+                lastHarbor = harborsTypes[index];
+                harborsTypes.RemoveAt(index);
             }
 
-   
+            pair.Item1.Harbor = lastHarbor;
+            pair.Item2.Harbor = lastHarbor;
+            lastHarbor = null;
         }
+
+
+        //for (int i = 0; i < HarborCornersPairs.Count; i++)
+        //{
+        //    if (harborsTypes.Count > 0)
+        //    {
+        //        if(lastHarbor == null)
+        //        {
+        //            int randomIndex = Random.Range(0, harborsTypes.Count);
+        //            HarborCornersPairs[i].Item1.Harbor = harborsTypes[randomIndex];
+        //            lastHarbor = harborsTypes[randomIndex];
+                    
+        //        }
+
+        //        HarborCornersPairs[i].Item2.Harbor = lastHarbor;
+        //        harborsTypes.Remove(lastHarbor);
+        //        lastHarbor = null;
+
+        //    }
+
+   
+        //}
 
     }
 
@@ -615,9 +635,9 @@ public class MapGenerator : MonoBehaviour
 
         for (int i = 0; i < 9; i++)
         {
-            var currentCorrner = SeaCornners[i*3];
+            var currentCorrner = SeaCornners[i*3]; // default (non-random)
 
-            if (RandomHarbors == true)
+            if (RandomHarborsPosition == true)
             {
                 // pick a random corrner that is not in any pair
                 int ranodmIndex = Random.Range(0, SeaCornners.Count);
@@ -688,6 +708,7 @@ public class MapGenerator : MonoBehaviour
             Transform HarborSpriteObject = harborInstance.transform.GetChild(1);
             SpriteRenderer HarborSprite = HarborSpriteObject.GetComponent<SpriteRenderer>();
             TextMeshPro RatioTextComp = harborInstance.GetComponentInChildren<TextMeshPro>();
+            GameObjectsToolTipTrigger HarborToolTip = harborInstance.GetComponent<GameObjectsToolTipTrigger>();
 
 
             HarborResourceType PortResourceType = cornerPair.Item1.Harbor.TradeResource;
@@ -701,26 +722,38 @@ public class MapGenerator : MonoBehaviour
                 case HarborResourceType.Wood:
                     harborColor = new Color(35f / 255f, 72f / 255f, 18f / 255f);
                     RatioText = "2:1";
+                    HarborToolTip.header = "Wood Port <sprite name=wood>";
+                    HarborToolTip.text = "Building a settlement here will allow you to trade 2 <sprite name=wood> for 1 of any resource.";
                     break;
                 case HarborResourceType.Brick:
                     harborColor = new Color(192f / 255f, 90f / 255f, 15f / 255f);
                     RatioText = "2:1";
+                    HarborToolTip.header = "Brick Port <sprite name=brick>";
+                    HarborToolTip.text = "Building a settlement here will allow you to trade 2 <sprite name=brick> for 1 of any resource.";
                     break;
                 case HarborResourceType.Sheep:
                     harborColor = new Color(110f / 255f, 212f / 255f, 63f / 255f);
                     RatioText = "2:1";
+                    HarborToolTip.header = "Sheep Port <sprite name=sheep>";
+                    HarborToolTip.text = "Building a settlement here will allow you to trade 2 <sprite name=sheep> for 1 of any resource.";
                     break;
                 case HarborResourceType.Ore:
                     harborColor = new Color(160f / 255f, 162f / 255f, 164f / 255f);
                     RatioText = "2:1";
+                    HarborToolTip.header = "Ore Port <sprite name=ore>";
+                    HarborToolTip.text = "Building a settlement here will allow you to trade 2 <sprite name=ore> for 1 of any resource.";
                     break;
                 case HarborResourceType.Wheat:
                     harborColor = new Color(226f / 255f, 218f / 255f, 25f / 255f);
                     RatioText = "2:1";
+                    HarborToolTip.header = "Wheat Port <sprite name=wheat>";
+                    HarborToolTip.text = "Building a settlement here will allow you to trade 2 <sprite name=wheat> for 1 of any resource.";
                     break;
                 case HarborResourceType.Any:
                     harborColor = Color.white;
                     RatioText = "3:1";
+                    HarborToolTip.header = "General Port";
+                    HarborToolTip.text = "Building a settlement here will allow you to trade 3 of ANY resource for 1 of any other resource \n\n(doesn't affect better trade ratios from other ports).";
                     break;
 
             }

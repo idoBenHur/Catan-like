@@ -2296,6 +2296,8 @@ MonoBehaviour:
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   HarborPrefab: {fileID: 7279220106939613855, guid: fa076f431d0539d4d9326a078c2f8c9b, type: 3}
   withHarbors: 0
+  RandomHarborsPosition: 0
+  RandomHarborsTypes: 0
   initialSettlements:
   - position: {x: 0, y: -1, z: 0}
     isCity: 0
@@ -2306,12 +2308,10 @@ MonoBehaviour:
   initialRoads:
   - {x: -1.5, y: 0.75, z: 0}
   - {x: 1.5, y: 0.75, z: 0}
-  - {x: -0.5, y: 0.75, z: 0}
-  - {x: 0.5, y: 0.75, z: 0}
   - {x: 1, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
   - {x: 0.5, y: -0.75, z: 0}
   - {x: -0.5, y: -0.75, z: 0}
-  - {x: -1, y: 0, z: 0}
   ResourcesOnTheMapList: 03000000030000000300000003000000030000000300000003000000030000000400000004000000040000000400000004000000040000000400000004000000
   availableNumbers: 0300000004000000050000000600000008000000090000000a0000000b0000000300000004000000050000000600000008000000090000000a0000000b0000000c00000002000000
 --- !u!114 &240130135
@@ -6587,7 +6587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &698034210
 RectTransform:
   m_ObjectHideFlags: 0
