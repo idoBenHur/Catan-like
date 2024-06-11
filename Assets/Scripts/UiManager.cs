@@ -502,7 +502,7 @@ public class UiManager : MonoBehaviour
         int leftto = (boonManager.NextVPMilestoneForBoon - player.VictoryPoints);
         string VPLeftUntilBoon = (boonManager.NextVPMilestoneForBoon - player.VictoryPoints).ToString();
        
-        VictoryPointsLeftUntilNextBoon.text = "Gather " + VPLeftUntilBoon + " more peasants to pass a new law";
+        VictoryPointsLeftUntilNextBoon.text = "Gather " + VPLeftUntilBoon + " more <sprite name=peasant> to pass a new law";
         if (leftto <= 0) { VictoryPointsLeftUntilNextBoon.text = "no more new laws!"; }
 
         if (player.VictoryPoints == BoardManager.instance.VictoryPointsGoal)

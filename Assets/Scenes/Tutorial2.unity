@@ -782,26 +782,6 @@ Tilemap:
   m_GameObject: {fileID: 80364854}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: -1, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
-      m_TileMatrixIndex: 1
-      m_TileColorIndex: 1
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 0, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
-      m_TileMatrixIndex: 1
-      m_TileColorIndex: 1
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: -2, y: -1, z: 0}
     second:
       serializedVersion: 2
@@ -823,16 +803,6 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
   - first: {x: 0, y: -1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
-      m_TileMatrixIndex: 1
-      m_TileColorIndex: 1
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 1, y: -1, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 4
@@ -882,6 +852,26 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 2, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -3, y: 1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -2, y: 1, z: 0}
     second:
       serializedVersion: 2
@@ -913,6 +903,16 @@ Tilemap:
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
   - first: {x: 1, y: 1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 1
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -1, y: 2, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 4
@@ -2296,8 +2296,10 @@ MonoBehaviour:
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   HarborPrefab: {fileID: 7279220106939613855, guid: fa076f431d0539d4d9326a078c2f8c9b, type: 3}
   withHarbors: 0
+  RandomHarborsPosition: 0
+  RandomHarborsTypes: 0
   initialSettlements:
-  - position: {x: 0, y: -1, z: 0}
+  - position: {x: 0, y: 1, z: 0}
     isCity: 1
   - position: {x: 2, y: 1, z: 0}
     isCity: 1
@@ -2308,12 +2310,8 @@ MonoBehaviour:
   - {x: 1.5, y: 0.75, z: 0}
   - {x: -0.5, y: 0.75, z: 0}
   - {x: 0.5, y: 0.75, z: 0}
-  - {x: 1, y: 0, z: 0}
-  - {x: 0.5, y: -0.75, z: 0}
-  - {x: -0.5, y: -0.75, z: 0}
-  - {x: -1, y: 0, z: 0}
   ResourcesOnTheMapList: 04000000040000000400000004000000010000000100000001000000010000000100000001000000000000000000000000000000000000000000000000000000
-  availableNumbers: 0300000004000000050000000600000008000000090000000a0000000b0000000300000004000000050000000600000008000000090000000a0000000b0000000c00000002000000
+  availableNumbers: 0300000004000000050000000600000008000000090000000a0000000b0000000300000004000000050000000600000008000000090000000a0000000b000000
 --- !u!114 &240130135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5165,12 +5163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Towns cannot be adjacent to another town/city.
-
-    Towns must connect
-    to a road.
-
-'
+  m_text: Towns & cities must have at least 2 roads betweens them
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
   m_sharedMaterial: {fileID: -3790829913831308519, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
@@ -6591,7 +6584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &698034210
 RectTransform:
   m_ObjectHideFlags: 0
