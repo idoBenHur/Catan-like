@@ -6,6 +6,7 @@ using UnityEngine;
 public class Level_4 : MonoBehaviour
 {
     [SerializeField] private RectTransform ChallengeToolTip;
+    [SerializeField] private RectTransform BoonsToolTip;
     [SerializeField] private RectTransform StartingText;
     private Vector2 StartPos;
 
@@ -16,12 +17,15 @@ public class Level_4 : MonoBehaviour
         StartPos = StartingText.anchoredPosition;
         StartingTextAnimation();
         BoardManager.OnDiceRolled += ShowChallengeToolTip;
+        BoardManager.OnDiceRolled += ShowBoonsToolTip;
 
     }
 
     private void OnDestroy()
     {
         BoardManager.OnDiceRolled -= ShowChallengeToolTip;
+        BoardManager.OnDiceRolled -= ShowBoonsToolTip;
+
     }
 
 
@@ -30,7 +34,7 @@ public class Level_4 : MonoBehaviour
     private void StartingTextAnimation()
     {
         // Move the panel upwards
-        StartingText.DOAnchorPosY(StartPos.y + 0f, 5).SetEase(Ease.Linear) // Adjust the 100f to how much you want to move the panel
+        StartingText.DOAnchorPosY(StartPos.y + 0f, 3).SetEase(Ease.Linear) // Adjust the 100f to how much you want to move the panel
             .OnComplete(() => {
 
                 CanvasGroup canvasGroup = StartingText.GetComponent<CanvasGroup>();
@@ -49,7 +53,7 @@ public class Level_4 : MonoBehaviour
     {
         int currentTurn = BoardManager.instance.CurrentTurn;
 
-        if(currentTurn == 3)
+        if(currentTurn == 4)
         {
 
             RectTransform ChallengeIndicator = BoardManager.instance.uiManager.ChallengeSliderIndicator;
@@ -59,7 +63,7 @@ public class Level_4 : MonoBehaviour
             TooltipTransperancy.alpha = 0;
             TooltipScale.localScale = Vector3.zero;
 
-            TooltipScale.position = ChallengeIndicator.position;
+            TooltipScale.position = new Vector3(ChallengeIndicator.position.x, ChallengeIndicator.position.y -0.7f, ChallengeIndicator.position.z);
             ChallengeToolTip.gameObject.SetActive(true);
 
 
@@ -79,4 +83,70 @@ public class Level_4 : MonoBehaviour
         }
     }
 
+    private void ShowBoonsToolTip()
+    {
+        int currentTurn = BoardManager.instance.CurrentTurn;
+
+        if (currentTurn == 2)
+        {
+
+           
+
+            CanvasGroup TooltipTransperancy = BoonsToolTip.GetComponent<CanvasGroup>();
+            RectTransform TooltipScale = BoonsToolTip.GetComponent<RectTransform>();
+            TooltipTransperancy.alpha = 0;
+            TooltipScale.localScale = Vector3.zero;
+
+            BoonsToolTip.gameObject.SetActive(true);
+
+
+            DOVirtual.DelayedCall(0.5f, () =>
+            {
+                TooltipTransperancy.DOFade(1, 0.3f);
+                TooltipScale.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+            });
+
+            BoardManager.OnDiceRolled -= ShowBoonsToolTip;
+            return;
+
+
+
+
+
+        }
+
+    }
+
+
+
+    public void CloseChallengeToolTipBUTTON()
+    {
+
+        CanvasGroup ToolTipTransperancy = ChallengeToolTip.GetComponent<CanvasGroup>();
+        RectTransform MeterScale = ChallengeToolTip.GetComponent<RectTransform>();
+
+
+        ToolTipTransperancy.DOFade(0, 0.3f);
+        MeterScale.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            ChallengeToolTip.gameObject.SetActive(false);
+        });
+
+
+        
+    }
+
+    public void CloseBoonsToolTipBUTTON()
+    {
+        CanvasGroup ToolTipTransperancy = BoonsToolTip.GetComponent<CanvasGroup>();
+        RectTransform MeterScale = BoonsToolTip.GetComponent<RectTransform>();
+
+
+        ToolTipTransperancy.DOFade(0, 0.3f);
+        MeterScale.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            BoonsToolTip.gameObject.SetActive(false);
+        });
+
+    }
 }
