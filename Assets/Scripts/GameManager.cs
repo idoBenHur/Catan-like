@@ -12,6 +12,7 @@ public class GameState
     public Dictionary<Vector3Int, TileClass> tilesDic;
     public Dictionary<Vector3, CornersClass> cornersDic;
     public Dictionary<Vector3, SidesClass> sidesDic;
+    public bool FinishedTutorial;
 
 }
 
@@ -74,5 +75,13 @@ public class GameManager : MonoBehaviour
     {
         gameState.SeasonNumber++;
     }
+
+    public void FinishedTutorial() 
+    {
+        gameState.FinishedTutorial = true;
+    }
+
+
+
 
 }

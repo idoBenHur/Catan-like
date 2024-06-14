@@ -560,6 +560,10 @@ public class UiManager : MonoBehaviour
         if (playerWon == true)
         {
             VictoryScreen.SetActive(true);
+            if(SceneManager.GetActiveScene().buildIndex == 5) 
+            {
+                GameManager.Instance.FinishedTutorial();
+            }
         }
         else if (playerWon == false)
         {
@@ -568,11 +572,30 @@ public class UiManager : MonoBehaviour
         
     }
 
-    public void RestartGameButton()
+    public void RestartCurrentSceneBUTTON()
     {
+        DOTween.KillAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-      
+
+    public void NextSceneBUTTON()
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+    }
+
+    public void BackToMainMenuBUTTON()
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene(0);
+    }
+
+    public void BackTLevelSelectionBUTTON()
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene(1);
+    }
+
 
     public void RollDiceButton() 
     {
