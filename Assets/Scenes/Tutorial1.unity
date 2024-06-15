@@ -2113,7 +2113,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   CurrentTurn: 0
   MaxTurn: 50
-  VictoryPointsGoal: 3
+  VictoryPointsGoal: 4
   UnluckyMeterMax: 5
   CitiesIndicatorsPrefabList: []
   TownsIndicatorsPrefabList: []
@@ -6577,7 +6577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &698034210
 RectTransform:
   m_ObjectHideFlags: 0
