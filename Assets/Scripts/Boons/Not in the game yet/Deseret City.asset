@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Open Market
+  m_Name: Deseret City
   m_EditorClassIdentifier: 
-  boonName: Open Market
-  description: Gain a peasant after every seventh trade
+  boonName: Desert City
+  description: Towns next to deserts instantly become cities
   triggers:
-  - type: 1
+  - type: 5
+  - type: 3
   conditions:
-  - type: 2
-    value1: 7
+  - type: 3
+    value1: 0
     value2: 0
     boolValue: 0
   effects:
-  - type: 1
-    value1: 1
+  - type: 5
+    value1: 0
     boolValue: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.8792453, g: 0.35667494, b: 0.7766762, a: 1}
-  isCounting: 1
+  boonColor: {r: 0.93207544, g: 0.9253486, b: 0.5047276, a: 1}
+  isCounting: 0

@@ -69,7 +69,8 @@ public class BoonEffect
         AddBrick,
         AddSheep,
         AddOre,
-        AddWheat
+        AddWheat,
+        TransformWheatTilesToDesertTiles
 
 
     }
@@ -437,6 +438,20 @@ public class GenericBoon : ScriptableObject
             case BoonEffect.EffectType.AddWheat: // gain wheat
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
                 BoardManager.instance.player.AddResource(TileClass.ResourceType.Wheat, effect.value1, sourcePosition);
+                break;
+            case BoonEffect.EffectType.TransformWheatTilesToDesertTiles:
+                foreach(var tile in BoardManager.instance.TilesDictionary)
+                {
+                   if(tile.Value.resourceType == TileClass.ResourceType.Wheat)
+                    {
+                        tile.Value.resourceType = TileClass.ResourceType.Desert;
+                        Destroy(tile.Value.MyNumberPrefab);
+                        BoardManager.instance.mapGenerator.UpdateTileTypeVisual(BoardManager.instance.TilesDictionary);
+                    }
+                    
+                }
+
+
                 break;
 
 

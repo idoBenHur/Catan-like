@@ -885,6 +885,7 @@ public class UiManager : MonoBehaviour
 
     public void OpenAndCloseBoonSelectionScreenAnimations()
     {
+        
         //BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
 
         Color BlackColor = BoonsSelectionScreenBackground.color;

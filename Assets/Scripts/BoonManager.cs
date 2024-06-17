@@ -27,12 +27,12 @@ public class BoonManager : MonoBehaviour
 
     // other
 
-    [SerializeField] private int VPForFirstBoon = 3;
-    [SerializeField] private int VPForSecondBoon = 5;
-    [SerializeField] private int VPForThirdBoon = 7;
-    [SerializeField] private int VPForForthBoon = 10;
-    [SerializeField] private int VPForFifthBoon = 13;
-    [SerializeField] private int lastVPChecked = 0;
+    [SerializeField] private int VPForFirstBoon;
+    [SerializeField] private int VPForSecondBoon;
+    [SerializeField] private int VPForThirdBoon;
+    [SerializeField] private int VPForForthBoon ;
+    [SerializeField] private int VPForFifthBoon ;
+    [SerializeField] private int lastVPChecked ;
     [SerializeField] public int NextVPMilestoneForBoon;
     private bool BoonPannelOpen = false;
 
@@ -80,6 +80,7 @@ public class BoonManager : MonoBehaviour
         {
             if (CurrnetVictoryPoints >= milestone && lastVPChecked < milestone)
             {
+                Debug.Log("mile stone: "+ milestone + "last cheaced: " + lastVPChecked);
                 lastVPChecked = milestone; 
                 SetBoonsButtonWithRandomBoons();
                 uiManager.OpenAndCloseBoonSelectionScreenAnimations();
