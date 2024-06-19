@@ -10,20 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Wheat To Desert
+  m_Name: Lands Rebalance
   m_EditorClassIdentifier: 
-  boonName: Burn the farms!
-  description: Gain 10 <sprite name=wheat>, all wheat tiles become deserts
+  boonName: Lands Rebalance!
+  description: "Wood & Brick tiles become 2. \nWheat & Ore tiles become 6."
   triggers:
   - type: 3
   conditions: []
   effects:
-  - type: 11
+  - type: 12
     value1: 0
     boolValue: 0
-  - type: 10
-    value1: 10
-    boolValue: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.9245283, g: 0.5452262, b: 0.23549296, a: 1}
+  boonColor: {r: 0.8274938, g: 0.18178178, b: 0.8962264, a: 1}
   isCounting: 0

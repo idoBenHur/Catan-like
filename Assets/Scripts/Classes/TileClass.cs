@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TileClass
@@ -40,5 +41,14 @@ public class TileClass
     public void RemoveRobber()
     {
         hasRobber = false;
+    }
+
+    public void ChangeTileNumber(int newNumber) 
+    {
+        this.numberToken = newNumber;
+        Dictionary<Vector3Int, TileClass> tempdic = new Dictionary<Vector3Int, TileClass>();
+        tempdic.Add(TilePostion, this);
+
+        BoardManager.instance.mapGenerator.UpdateTileNumberVisual(tempdic);
     }
 }

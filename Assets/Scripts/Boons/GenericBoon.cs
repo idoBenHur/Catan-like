@@ -65,12 +65,16 @@ public class BoonEffect
         TransformWoodTilesToStoneTiles,
         GetRandomRoad,
         TransformTownsNearDesertsToCities,
-        TradeRatioIsNow5to1,
+        ChangeTradeRatioXToOne,
         AddBrick,
         AddSheep,
         AddOre,
         AddWheat,
-        TransformWheatTilesToDesertTiles
+        TransformWheatTilesToDesertTiles,
+        TransformToSixAndTwo,
+        IncreaseUnluckyMeter,
+        TransformAllTilesToNumber,
+        SkipTurns
 
 
     }
@@ -407,7 +411,7 @@ public class GenericBoon : ScriptableObject
                 BoardManager.instance.uiManager.CloseAllUi();
                 break;
 
-            case BoonEffect.EffectType.TransformTownsNearDesertsToCities: // Transform Towns Near Deserts To Cities
+            case BoonEffect.EffectType.TransformTownsNearDesertsToCities: // Transform Towns Near Deserts To Cities 
 
                 foreach (var settelment in BoardManager.instance.player.SettelmentsList)
                 {
@@ -419,8 +423,8 @@ public class GenericBoon : ScriptableObject
                 }
                 break;
 
-            case BoonEffect.EffectType.TradeRatioIsNow5to1: // exceptional boon that contain the "condition" inside
-                BoardManager.instance.player.TradeModifier = 5;
+            case BoonEffect.EffectType.ChangeTradeRatioXToOne: // change the trade ratio, (cannot be change by ports) 
+                BoardManager.instance.player.TradeModifier = effect.value1;
                 break;
 
             case BoonEffect.EffectType.AddBrick: // gain Brick
@@ -439,7 +443,7 @@ public class GenericBoon : ScriptableObject
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
                 BoardManager.instance.player.AddResource(TileClass.ResourceType.Wheat, effect.value1, sourcePosition);
                 break;
-            case BoonEffect.EffectType.TransformWheatTilesToDesertTiles:
+            case BoonEffect.EffectType.TransformWheatTilesToDesertTiles: // transform wheat tile to desert tiles
                 foreach(var tile in BoardManager.instance.TilesDictionary)
                 {
                    if(tile.Value.resourceType == TileClass.ResourceType.Wheat)
@@ -447,13 +451,39 @@ public class GenericBoon : ScriptableObject
                         tile.Value.resourceType = TileClass.ResourceType.Desert;
                         Destroy(tile.Value.MyNumberPrefab);
                         BoardManager.instance.mapGenerator.UpdateTileTypeVisual(BoardManager.instance.TilesDictionary);
-                    }
-                    
+                    }                   
                 }
+                break;
+            case BoonEffect.EffectType.TransformToSixAndTwo: // transform brick and wood to 2, and ore and wheat to 6
+                foreach (var tile in BoardManager.instance.TilesDictionary)
+                {
+                    if (tile.Value.resourceType == TileClass.ResourceType.Wheat || tile.Value.resourceType == TileClass.ResourceType.Ore)
+                    {
+                        tile.Value.ChangeTileNumber(6);
+                    }
+                    else if(tile.Value.resourceType == TileClass.ResourceType.Wood || tile.Value.resourceType == TileClass.ResourceType.Brick)
+                    {
+                        tile.Value.ChangeTileNumber(2);
+                    }
 
-
+                }
+                    break;
+            case BoonEffect.EffectType.IncreaseUnluckyMeter: // increase the max size of the unlucky meter by X
+                BoardManager.instance.IncreaseUnluckyMeter(effect.value1);              
+                break;
+            case BoonEffect.EffectType.TransformAllTilesToNumber: // transform all tiles numbers to a single number
+                foreach (var tile in BoardManager.instance.TilesDictionary)
+                {
+                    tile.Value.ChangeTileNumber(effect.value1);
+                }                                          
+                break;
+            case BoonEffect.EffectType.SkipTurns:
+                BoardManager.instance.CurrentTurn += effect.value1;
+                BoardManager.instance.uiManager.UpdateTurnSliderDisplay();
+                
                 break;
 
+                
 
         }
 

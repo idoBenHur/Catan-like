@@ -759,6 +759,11 @@ public class BoardManager : MonoBehaviour
 
     }
 
+    public void IncreaseUnluckyMeter(int IncreaseBy)
+    {
+        UnluckyMeterMax = UnluckyMeterMax + IncreaseBy;
+        uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
+    }
 
 
 

@@ -83,7 +83,7 @@ public class BoonManager : MonoBehaviour
                 Debug.Log("mile stone: "+ milestone + "last cheaced: " + lastVPChecked);
                 lastVPChecked = milestone; 
                 SetBoonsButtonWithRandomBoons();
-                uiManager.OpenAndCloseBoonSelectionScreenAnimations();
+                uiManager.OpenAndCloseBoonSelectionScreenAnimations(true);
                 BoonPannelOpen = true;
                 break;
             }
@@ -146,14 +146,16 @@ public class BoonManager : MonoBehaviour
     private void ChooseBoon(int index)
     {
         GenericBoon selectedBoon = OfferedBoons[index];
-        uiManager.OpenAndCloseBoonSelectionScreenAnimations();
+        uiManager.OpenAndCloseBoonSelectionScreenAnimations(false);
         BoonPannelOpen = false;
 
         ActivateBoon(selectedBoon);
         AvailableBoons.Remove(selectedBoon);
 
         
-        CheckBoonMilestones(); // re-call the CheckBoonMilestones to cover "VP overflow" case
+        //CheckBoonMilestones(); // re-call the CheckBoonMilestones to cover "VP overflow" case
+
+        Invoke("CheckBoonMilestones", 1.0f);
 
         Debug.Log($"Chosen boon: {selectedBoon.boonName}");
 

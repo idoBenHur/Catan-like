@@ -883,14 +883,14 @@ public class UiManager : MonoBehaviour
 // boons
 
 
-    public void OpenAndCloseBoonSelectionScreenAnimations()
+    public void OpenAndCloseBoonSelectionScreenAnimations(bool Open)
     {
         
         //BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
 
         Color BlackColor = BoonsSelectionScreenBackground.color;
 
-        if (BoonSelectionScreen.activeSelf == false) //enter
+        if (Open == true) //enter
         {
             BoonSelectionScreen.SetActive(true);
 

@@ -2437,9 +2437,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: 50a7019ce5d66f3448b43396b6bea25c, type: 2}
   - {fileID: 11400000, guid: 2dbf3543cdff6d84688cd015feb6db53, type: 2}
-  - {fileID: 11400000, guid: 18dd65cb63de1614ab88886e62e179b8, type: 2}
+  - {fileID: 11400000, guid: 30d041ec3c05f404f8f8e87aed13e51c, type: 2}
+  - {fileID: 11400000, guid: 3f73658a656c4414780532ca53e379c5, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}

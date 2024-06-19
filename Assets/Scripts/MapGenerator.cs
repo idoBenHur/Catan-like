@@ -209,7 +209,7 @@ public class MapGenerator : MonoBehaviour
 
         foreach (var Tile in TilesDic)
         {
-
+            if (Tile.Value.MyNumberPrefab != null) { Destroy(Tile.Value.MyNumberPrefab); } // if tile already have a number prefab, destroy it
 
             if (Tile.Value.resourceType != TileClass.ResourceType.Desert)
             {
