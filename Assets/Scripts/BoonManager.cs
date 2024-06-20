@@ -27,15 +27,15 @@ public class BoonManager : MonoBehaviour
 
     // other
 
-    [SerializeField] private int VPForFirstBoon;
+    [SerializeField] public int VPForFirstBoon;
     [SerializeField] private int VPForSecondBoon;
     [SerializeField] private int VPForThirdBoon;
     [SerializeField] private int VPForForthBoon ;
     [SerializeField] private int VPForFifthBoon ;
-    [SerializeField] private int lastVPChecked ;
+    private int lastVPChecked = -1;
     [SerializeField] public int NextVPMilestoneForBoon;
     private bool BoonPannelOpen = false;
-
+    [HideInInspector] public bool FinishedPrePlacementBoonSelect = false;
 
 
 
@@ -44,7 +44,7 @@ public class BoonManager : MonoBehaviour
 
     private void Start()
     {
-        AvailableBoons = new List<GenericBoon>(allBoons);
+        //
         
 
 
@@ -52,10 +52,18 @@ public class BoonManager : MonoBehaviour
 
 
 
-    public void SetPlayerInBoonManager(PlayerClass playerInstance)
+    public void InitializeBoonManager(PlayerClass playerInstance) //  HAPPENS BEFORE THIS SCRIPT'S "START" FUNCTION
     {
+        AvailableBoons = new List<GenericBoon>(allBoons);
         boonMilestones = new List<int> { VPForFirstBoon, VPForSecondBoon, VPForThirdBoon, VPForForthBoon, VPForFifthBoon };
         player = playerInstance;
+
+        if (VPForFirstBoon == 0)
+        {
+            lastVPChecked = -1;
+        }
+        else { lastVPChecked = 0; }
+
     }
 
 
@@ -69,6 +77,7 @@ public class BoonManager : MonoBehaviour
 
     public void CheckBoonMilestones()
     {
+        
         int CurrnetVictoryPoints = player.VictoryPoints;
         
         if (BoonPannelOpen == true) { return; }
@@ -78,9 +87,10 @@ public class BoonManager : MonoBehaviour
         boonMilestones.Sort();
         foreach (var milestone in boonMilestones)
         {
+            
             if (CurrnetVictoryPoints >= milestone && lastVPChecked < milestone)
             {
-                Debug.Log("mile stone: "+ milestone + "last cheaced: " + lastVPChecked);
+                
                 lastVPChecked = milestone; 
                 SetBoonsButtonWithRandomBoons();
                 uiManager.OpenAndCloseBoonSelectionScreenAnimations(true);
@@ -111,15 +121,17 @@ public class BoonManager : MonoBehaviour
     public void SetBoonsButtonWithRandomBoons()
     {
         List<GenericBoon> availableBoons = new List<GenericBoon>(AvailableBoons);
+        
+
         for (int i = 0; i < boonButtonsList.Length; i++)
         {
+            
             if (availableBoons.Count != 0)
             {
                 int randomIndex = Random.Range(0, availableBoons.Count);
                 OfferedBoons[i] = availableBoons[randomIndex];
             }
-            
-            
+
 
             TextMeshProUGUI boonText = boonButtonsList[i].GetComponentInChildren<TextMeshProUGUI>();
             Image boonImage = boonButtonsList[i].transform.GetChild(1).GetComponent<Image>();
@@ -130,6 +142,7 @@ public class BoonManager : MonoBehaviour
 
             availableBoons.Remove(OfferedBoons[i]);
 
+            
 
 
             // Remove the chosen boon to avoid duplicate selections
@@ -158,6 +171,13 @@ public class BoonManager : MonoBehaviour
         Invoke("CheckBoonMilestones", 1.0f);
 
         Debug.Log($"Chosen boon: {selectedBoon.boonName}");
+
+
+        if(lastVPChecked == 0)
+        {
+            FinishedPrePlacementBoonSelect = true;
+            BoardManager.instance.StartGame();
+        }
 
 
     }

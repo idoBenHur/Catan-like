@@ -120,7 +120,7 @@ public class BoardManager : MonoBehaviour
             mapGenerator.PlaceInitalSettelments();
             mapGenerator.PlaceInitalRoads();
             
-            if(FirstTurnIsActive == true) { FirstTurnPlacement(); }
+         //   if(FirstTurnIsActive == true) { FirstTurnPlacement(); }
             
 
         }
@@ -138,11 +138,12 @@ public class BoardManager : MonoBehaviour
 
         CurrentTurn = 0;
 
-        
-        boonManager.SetPlayerInBoonManager(player);
+        boonManager.InitializeBoonManager(player);
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
         uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
+
+        StartGame();
 
 
 
@@ -348,12 +349,21 @@ public class BoardManager : MonoBehaviour
         Destroy(robber.gameObject); // Remove the robber prefab from the scene
     }
 
+    public void StartGame()
+    {
+        if(FirstTurnIsActive == true && boonManager.VPForFirstBoon == 0 && boonManager.FinishedPrePlacementBoonSelect == true)
+        {
+            FirstTurnPlacement();
+        }
+        else if(FirstTurnIsActive == true && boonManager.VPForFirstBoon != 0)
+        {
+            FirstTurnPlacement();
+        }
+    }
 
     private void FirstTurnPlacement() 
     {
 
-
-        // Debug.Log("amount of Placed Peices in the first turn " + FirstTurnPlacedPeices);
 
 
 

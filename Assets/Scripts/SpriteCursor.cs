@@ -19,15 +19,18 @@ public class SpriteCursor : MonoBehaviour
     
 
 
-    void Start()
+    void Awake()
     {
         Cursor.visible = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         CurrentHotSpot = StartingHotSpot;
 
-
     }
+
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -62,6 +65,8 @@ public class SpriteCursor : MonoBehaviour
     {
         IsWriting = (!IsWriting);
 
+
+
         if (IsWriting == true) 
         {
             CurrentHotSpot = new Vector2(-2.33F, 2.04F);
@@ -75,5 +80,6 @@ public class SpriteCursor : MonoBehaviour
             spriteRenderer.sprite = PointingHand;
         }
 
+        Debug.Log("is wrting: " + IsWriting);
     }
 }

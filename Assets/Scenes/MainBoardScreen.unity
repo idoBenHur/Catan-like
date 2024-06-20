@@ -2446,17 +2446,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b187ef24cdab90449bd41a50c01cbfed, type: 2}
   - {fileID: 11400000, guid: 3f73658a656c4414780532ca53e379c5, type: 2}
   - {fileID: 11400000, guid: 9bfe8e42cd8e93f459ae1036a3804e11, type: 2}
+  - {fileID: 11400000, guid: 30d041ec3c05f404f8f8e87aed13e51c, type: 2}
+  - {fileID: 11400000, guid: 67c890105bb35834598001de54879be6, type: 2}
+  - {fileID: 11400000, guid: 90b33072e8e480444a933d568cc621d5, type: 2}
+  - {fileID: 11400000, guid: 2dbf3543cdff6d84688cd015feb6db53, type: 2}
+  - {fileID: 11400000, guid: 18dd65cb63de1614ab88886e62e179b8, type: 2}
+  - {fileID: 11400000, guid: 50a7019ce5d66f3448b43396b6bea25c, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
   - {fileID: 675627773}
-  VPForFirstBoon: 3
+  VPForFirstBoon: 1
   VPForSecondBoon: 4
   VPForThirdBoon: 5
   VPForForthBoon: 6
   VPForFifthBoon: 7
-  lastVPChecked: 0
   NextVPMilestoneForBoon: 0
+  FinishedPrePlacementBoonSelect: 0
 --- !u!114 &240130136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18640,10 +18646,10 @@ RectTransform:
   - {fileID: 2036740192}
   - {fileID: 1984863238}
   - {fileID: 243731603}
-  - {fileID: 1397506742}
   - {fileID: 1142476021}
   - {fileID: 1708407560}
   - {fileID: 1299899789}
+  - {fileID: 1397506742}
   - {fileID: 330310374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

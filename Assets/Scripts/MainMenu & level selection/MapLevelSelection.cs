@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class MapSelectionAnimation : MonoBehaviour
+public class MapLevelSelection : MonoBehaviour
 {
+    //this script is attached to each island part parent
     [SerializeField] Transform IslandParent;
     [SerializeField] GameObject LockedOverlay;
     [SerializeField] GameObject Island;
