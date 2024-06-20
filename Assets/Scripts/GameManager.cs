@@ -12,7 +12,13 @@ public class GameState
     public Dictionary<Vector3Int, TileClass> tilesDic;
     public Dictionary<Vector3, CornersClass> cornersDic;
     public Dictionary<Vector3, SidesClass> sidesDic;
-    public bool FinishedTutorial;
+    public List<int> CompletedLevelsBySceneNumber;
+
+
+    public GameState()
+    {
+        CompletedLevelsBySceneNumber = new List<int>();
+    }
 
 }
 
@@ -43,10 +49,17 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    private void Start()
+    {
+       // gameState.CompletedLevelsBySceneNumber = new List<int>();
+    }
+
     public GameState GameState
     {
         get => gameState;
         set => gameState = value;
+
     }
 
 
@@ -76,10 +89,16 @@ public class GameManager : MonoBehaviour
         gameState.SeasonNumber++;
     }
 
-    public void FinishedTutorial() 
+
+    public void FinishedLevel(int SceneBuildIndex)
     {
-        gameState.FinishedTutorial = true;
+        if (gameState.CompletedLevelsBySceneNumber.Contains(SceneBuildIndex) == false)
+        {
+            gameState.CompletedLevelsBySceneNumber.Add(SceneBuildIndex);
+        }
+       
     }
+
 
 
 

@@ -1069,7 +1069,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf25c7eafc2c55a4b83f7b71d84271a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IslandOneLockScreen: {fileID: 1312155652}
+  LockScreenIsland_1: {fileID: 1312155652}
+  LockScreenIsland_2: {fileID: 1537138163}
+  LockScreenIsland_3: {fileID: 64495442}
+  LockScreenIsland_4: {fileID: 89414321}
+  LockScreenIsland_5: {fileID: 1664944670}
+  LockScreenIsland_6: {fileID: 1468348680}
 --- !u!1 &384457201
 GameObject:
   m_ObjectHideFlags: 0
@@ -5153,7 +5158,7 @@ MonoBehaviour:
   IslandParent: {fileID: 943272173}
   LockedOverlay: {fileID: 64495442}
   Island: {fileID: 993465652}
-  LevelSceneIndex: 0
+  LevelSceneIndex: 7
 --- !u!1 &988987296
 GameObject:
   m_ObjectHideFlags: 0

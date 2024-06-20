@@ -560,10 +560,10 @@ public class UiManager : MonoBehaviour
         if (playerWon == true)
         {
             VictoryScreen.SetActive(true);
-            if(SceneManager.GetActiveScene().buildIndex == 5) 
-            {
-                GameManager.Instance.FinishedTutorial();
-            }
+
+            GameManager.Instance.FinishedLevel(SceneManager.GetActiveScene().buildIndex);
+
+
         }
         else if (playerWon == false)
         {
