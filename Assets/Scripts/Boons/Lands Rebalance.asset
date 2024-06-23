@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Lands Rebalance
   m_EditorClassIdentifier: 
   boonName: Lands Rebalance!
-  description: "Wood & Brick tiles become 2. \nWheat & Ore tiles become 6."
+  description: "Change all: \n\nWheat tiles to 6. \nOre tiles to 6.\nWood tiles to
+    2. \nBrick tiles to 2. "
   triggers:
   - type: 3
   conditions: []

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Peasants' Port
   m_EditorClassIdentifier: 
   boonName: 'Peasants'' Port '
-  description: When you build a port gain a peasant
+  description: 'Gain a <sprite name=peasant>
+
+    whenever you build a port.'
   triggers:
   - type: 2
   conditions: []

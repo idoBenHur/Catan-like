@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Risky investment
   m_EditorClassIdentifier: 
   boonName: Risky invesment
-  description: "All tiles' numbers become 8. \nUnlucky Meter +10"
+  description: "Change all \nresource tiles to 8. \n\nBut\n\nUnlucky Meter max +10."
   triggers:
   - type: 3
   conditions: []

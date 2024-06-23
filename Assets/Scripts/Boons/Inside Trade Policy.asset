@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Inside Trade Policy
   m_EditorClassIdentifier: 
   boonName: Inside Trade Policy
-  description: From now on, your trade ratio is 5:1. Gain 2 of each resource.
+  description: "Gain \n2X(<sprite name=wood>,<sprite name=brick>,<sprite name=sheep>,<sprite
+    name=wheat>,<sprite name=ore>)\n\nBut\n\nTrade ratio for all resources is now
+    5:1."
   triggers:
   - type: 3
   conditions: []

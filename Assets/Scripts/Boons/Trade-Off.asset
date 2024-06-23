@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Trade-Off
   m_EditorClassIdentifier: 
   boonName: Trade-Off
-  description: Trade ratio is now 2:1 for all resources. Lose 10 turns.
+  description: 'Trade ratio for all resources is now 2:1.
+
+
+    But
+
+
+    You lose
+    10 turns.'
   triggers:
   - type: 3
   conditions: []

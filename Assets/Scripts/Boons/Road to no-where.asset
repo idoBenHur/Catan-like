@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Road to no-where
   m_EditorClassIdentifier: 
   boonName: Road to no-where
-  description: Gain a peasant for every 5 roads you build
+  description: 'Gain a <sprite name=peasant>
+
+    for every 5 Roads you build.'
   triggers:
   - type: 4
   conditions:

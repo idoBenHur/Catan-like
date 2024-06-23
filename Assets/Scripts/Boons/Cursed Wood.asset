@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cursed Wood
   m_EditorClassIdentifier: 
   boonName: Cursed Wood
-  description: Whenever you roll a  7 gain 1 wood
+  description: "Gain 1 <sprite name=wood> \nwhenever you roll 7."
   triggers:
   - type: 0
   conditions:

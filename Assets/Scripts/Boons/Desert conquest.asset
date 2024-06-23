@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Desert conquest
   m_EditorClassIdentifier: 
   boonName: Desert conquest
-  description: If the desert is surrounded by roads, gain 3 peasants
+  description: 'Gain 3 <sprite name=peasant>
+
+    for any Desert tile surrounded
+    by Roads.'
   triggers:
   - type: 3
   - type: 4

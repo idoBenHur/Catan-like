@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: king of ports
   m_EditorClassIdentifier: 
   boonName: King of Ports
-  description: Receive a random resource each turn if you have 2+ ports.
+  description: 'Gain a random resource each turn,
+
+    if you have 2+ ports.'
   triggers:
   - type: 0
   conditions:

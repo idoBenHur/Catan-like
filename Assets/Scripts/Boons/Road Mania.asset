@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Road Mania
   m_EditorClassIdentifier: 
   boonName: Road Mania
-  description: Gain a random road when you roll a double
+  description: 'Gain a random Road
+
+    whenever you roll a double.'
   triggers:
   - type: 0
   conditions:

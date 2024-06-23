@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Burn the farms!
   m_EditorClassIdentifier: 
   boonName: Burn the farms!
-  description: Gain 10 <sprite name=wheat>, all wheat tiles become deserts
+  description: 'Gain 10 <sprite name=wheat>
+
+
+    But
+
+
+    all Wheat tiles become
+    Deserts.'
   triggers:
   - type: 3
   conditions: []

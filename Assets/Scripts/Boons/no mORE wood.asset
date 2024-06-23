@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: no mORE wood
   m_EditorClassIdentifier: 
   boonName: no mORE wood
-  description: Convert all wood tiles to ore tiles.
+  description: Change all Wood tiles to Ore tiles.
   triggers:
   - type: 3
   conditions: []

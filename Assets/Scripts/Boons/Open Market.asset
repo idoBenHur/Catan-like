@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Open Market
   m_EditorClassIdentifier: 
   boonName: Open Market
-  description: Gain a peasant after every seventh trade
+  description: "Gain a <sprite name=peasant> \nfor every 7 trades you make."
   triggers:
   - type: 1
   conditions:
