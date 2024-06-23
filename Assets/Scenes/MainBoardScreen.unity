@@ -355,7 +355,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 240130137}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: RestartGameButton
+        m_MethodName: RestartCurrentSceneBUTTON
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2371,8 +2371,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 40da3396537bb2b4db3426627da6b6b6, type: 3}
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   CurrentTurn: 0
-  MaxTurn: 50
-  VictoryPointsGoal: 12
+  MaxTurn: 55
+  VictoryPointsGoal: 15
   UnluckyMeterMax: 5
   CitiesIndicatorsPrefabList: []
   TownsIndicatorsPrefabList: []
@@ -2458,9 +2458,9 @@ MonoBehaviour:
   - {fileID: 675627773}
   VPForFirstBoon: 0
   VPForSecondBoon: 4
-  VPForThirdBoon: 5
-  VPForForthBoon: 6
-  VPForFifthBoon: 7
+  VPForThirdBoon: 7
+  VPForForthBoon: 10
+  VPForFifthBoon: 13
   NextVPMilestoneForBoon: 0
   FinishedPrePlacementBoonSelect: 0
 --- !u!114 &240130136

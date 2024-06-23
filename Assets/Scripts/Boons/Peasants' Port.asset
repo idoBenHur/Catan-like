@@ -15,7 +15,7 @@ MonoBehaviour:
   boonName: 'Peasants'' Port '
   description: 'Gain a <sprite name=peasant>
 
-    whenever you build a port.'
+    whenever you build a new port.'
   triggers:
   - type: 2
   conditions: []

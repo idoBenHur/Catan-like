@@ -505,7 +505,7 @@ public class UiManager : MonoBehaviour
         VictoryPointsLeftUntilNextBoon.text = "Gather " + VPLeftUntilBoon + " more <sprite name=peasant> to pass a new law";
         if (leftto <= 0) { VictoryPointsLeftUntilNextBoon.text = "no more new laws!"; }
 
-        if (player.VictoryPoints == BoardManager.instance.VictoryPointsGoal)
+        if (player.VictoryPoints >= BoardManager.instance.VictoryPointsGoal)
         {
             EndGame(true);
         }
