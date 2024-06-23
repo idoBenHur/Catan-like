@@ -2100,7 +2100,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   CurrentTurn: 0
   MaxTurn: 35
-  VictoryPointsGoal: 1
+  VictoryPointsGoal: 6
   UnluckyMeterMax: 5
   CitiesIndicatorsPrefabList: []
   TownsIndicatorsPrefabList: []
@@ -2178,7 +2178,7 @@ MonoBehaviour:
   - {fileID: 865626171}
   - {fileID: 1085971350}
   - {fileID: 675627773}
-  VPForFirstBoon: 2
+  VPForFirstBoon: 3
   VPForSecondBoon: 4
   VPForThirdBoon: 5
   VPForForthBoon: 6
