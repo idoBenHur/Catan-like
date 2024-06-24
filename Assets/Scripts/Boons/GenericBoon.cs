@@ -275,9 +275,11 @@ public class GenericBoon : ScriptableObject
             case BoonCondition.ConditionType.TownNextToDesert: // there is a town next to a desert
                 bool adjacentDesert = false;
                 foreach (var settelment in BoardManager.instance.player.SettelmentsList)
-                {                   
+                {       
+                    if(settelment.HasCityUpgade == true) { continue; }
                     foreach(var AdjacentTile in settelment.AdjacentTiles)
                     {
+                        
                         if(AdjacentTile.resourceType == TileClass.ResourceType.Desert ) { adjacentDesert = true;}
                         
                     }                  
