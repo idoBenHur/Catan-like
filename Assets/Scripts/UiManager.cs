@@ -575,32 +575,38 @@ public class UiManager : MonoBehaviour
     public void RestartCurrentSceneBUTTON()
     {
         DOTween.KillAll();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.Instance.RestartCurrentScene();
     }
 
     public void NextSceneBUTTON()
     {
         DOTween.KillAll();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
+        GameManager.Instance.NextScene();
     }
 
     public void BackToMainMenuBUTTON()
     {
         DOTween.KillAll();
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        GameManager.Instance.BackToMainMenu();
     }
 
     public void BackTLevelSelectionBUTTON()
     {
         DOTween.KillAll();
-        SceneManager.LoadScene(1);
+        // SceneManager.LoadScene(1);
+        GameManager.Instance.BackTLevelSelection();
     }
 
 
     public void RollDiceButton() 
     {
+        SoundFXManager.instance.PlaySFX(SoundFXManager.instance.clickSound);
+
         //BoardManager.instance.DiceRoll();
-        if(BoardManager.instance.DiceStilRolling == false)
+        if (BoardManager.instance.DiceStilRolling == false)
         {
             Color newColor;
             if (UnityEngine.ColorUtility.TryParseHtmlString("#464646", out newColor))
@@ -905,6 +911,8 @@ public class UiManager : MonoBehaviour
             BlackColor.a = 0f;
             BoonsSelectionScreenBackground.color = BlackColor;
             BoonsSelectionScreenBackground.DOFade(0.99f, 0.5f);
+            SoundFXManager.instance.PlaySFX(SoundFXManager.instance.BoonScreenOpen);
+
         }
 
         else //exit

@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static TileClass;
 
 [System.Serializable]
@@ -99,6 +101,35 @@ public class GameManager : MonoBehaviour
        
     }
 
+
+    public void RestartCurrentScene()
+    {
+        Time.timeScale = 1f;
+        DOTween.KillAll();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextScene()
+    {
+        Time.timeScale = 1f;
+        DOTween.KillAll();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void BackToMainMenu()
+    {
+        Debug.Log("HI");
+        Time.timeScale = 1f;
+        DOTween.KillAll();
+        SceneManager.LoadScene(0);
+    }
+
+    public void BackTLevelSelection()
+    {
+        Time.timeScale = 1f;
+        DOTween.KillAll();
+        SceneManager.LoadScene(1);
+    }
 
 
 

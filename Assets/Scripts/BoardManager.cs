@@ -157,7 +157,6 @@ public class BoardManager : MonoBehaviour
         int Dice1RandomSide = 0;
         int Dice2RandomSide = 0;
 
-        
         for (int i = 0; i <= 10; i++)
         {
 
@@ -178,6 +177,7 @@ public class BoardManager : MonoBehaviour
         TotalDice = Dice1FinalSide + Dice2FinalSide;
 
         CurrentTurn++;
+
         OnDiceRolled?.Invoke();
         DistributeResources(TotalDice);
 
