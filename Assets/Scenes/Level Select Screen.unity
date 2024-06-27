@@ -10381,7 +10381,7 @@ MonoBehaviour:
   IslandParent: {fileID: 1623705248}
   LockedOverlay: {fileID: 89414321}
   Island: {fileID: 384457201}
-  LevelSceneIndex: 0
+  LevelSceneIndex: 8
 --- !u!1 &1628173867
 GameObject:
   m_ObjectHideFlags: 0
