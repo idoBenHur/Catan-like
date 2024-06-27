@@ -54,6 +54,7 @@ public class Challenges : MonoBehaviour
                 BlockedTile.PlaceRobber();
                 Destroy(BlockedTile.MyNumberPrefab);
                 Instantiate(testprefab, BlockedTile.TileWorldPostion, Quaternion.identity);
+                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.TileDrowningSplash);
             }
 
         }

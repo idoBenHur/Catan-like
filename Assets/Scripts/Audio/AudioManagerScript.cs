@@ -20,6 +20,7 @@ public class AudioManagerScript : MonoBehaviour
     [SerializeField] public AudioClip ResourceCreate;
     [SerializeField] public AudioClip ResourceGain;
     [SerializeField] public AudioClip Build;
+    [SerializeField] public AudioClip TileDrowningSplash;
 
 
 

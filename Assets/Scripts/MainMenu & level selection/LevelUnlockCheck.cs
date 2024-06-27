@@ -56,7 +56,6 @@ public class LevelUnlockCheck : MonoBehaviour
                     LockScreenIsland_4.SetActive(false); // unlock level 3
                     LockScreenIsland_2.SetActive(false); // making sure the level played is unlocked
                     CheckMarkIsland_Island2.SetActive(true); // completed level 2
-
                     break;
                 case 8: // finished level 3
                     LockScreenIsland_4.SetActive(false); // making sure the level played is unlocked
