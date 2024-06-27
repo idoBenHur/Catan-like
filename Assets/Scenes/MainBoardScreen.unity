@@ -306,7 +306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000043891, y: -216}
+  m_AnchoredPosition: {x: -0.0000043891, y: -380}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &12894588
@@ -748,9 +748,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 1906475269}
   SFXSource: {fileID: 1377978029}
-  clickSound: {fileID: 8300000, guid: dc596de64eae09a4c9b1752a494a2e7a, type: 3}
+  clickSound: {fileID: 8300000, guid: 7fadeef8a4a5d8640b102c3b9fcce8e4, type: 3}
   BoonScreenOpen: {fileID: 8300000, guid: 74c00b5a90cb78144896a069f28d733d, type: 3}
   BackgroundMusic: {fileID: 8300000, guid: 62c2e7858e6e0514b84c73f43a1a3cd8, type: 3}
+  ResourceCreate: {fileID: 8300000, guid: bc9b156ef169af44c983db767c345a6b, type: 3}
+  ResourceGain: {fileID: 8300000, guid: 81a6ff0560fbe1945a7cd0856d36f79c, type: 3}
+  Build: {fileID: 8300000, guid: e1bc33bd07ffd134fb6afbdee24ca286, type: 3}
 --- !u!114 &79483034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2373,7 +2376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back to realm map
+  m_text: Next Realm!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
   m_sharedMaterial: {fileID: -3790829913831308519, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
@@ -2400,8 +2403,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.4
-  m_fontSizeBase: 19.4
+  m_fontSize: 25.89
+  m_fontSizeBase: 25.89
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3032,7 +3035,7 @@ MonoBehaviour:
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   HarborPrefab: {fileID: 7279220106939613855, guid: fa076f431d0539d4d9326a078c2f8c9b, type: 3}
   withHarbors: 1
-  RandomHarborsPosition: 0
+  RandomHarborsPosition: 1
   RandomHarborsTypes: 1
   initialSettlements: []
   initialRoads: []
@@ -4187,7 +4190,7 @@ RectTransform:
   m_Father: {fileID: 1540210110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.09990999, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5951,7 +5954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Build town
+  m_text: Build Town
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
   m_sharedMaterial: {fileID: -3790829913831308519, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
@@ -6140,6 +6143,140 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &500555091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 500555092}
+  - component: {fileID: 500555094}
+  - component: {fileID: 500555093}
+  m_Layer: 5
+  m_Name: Level Unlock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &500555092
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500555091}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0004728, y: 1.0004728, z: 1.0004728}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1708407560}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 3.85, y: -12.499996}
+  m_SizeDelta: {x: 509.86, y: 75}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &500555093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500555091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Realm unlocked!
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
+  m_sharedMaterial: {fileID: -3790829913831308519, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 60.9
+  m_fontSizeBase: 60.9
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &500555094
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500555091}
+  m_CullTransparentMesh: 1
 --- !u!1 &513716930
 GameObject:
   m_ObjectHideFlags: 0
@@ -6197,7 +6334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play Again
+  m_text: Replay Realm
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
   m_sharedMaterial: {fileID: -3790829913831308519, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
@@ -6224,8 +6361,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.9
-  m_fontSizeBase: 29.9
+  m_fontSize: 26.2
+  m_fontSizeBase: 26.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8104,7 +8241,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Upgrade to city
+  m_text: Upgrade to City
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
   m_sharedMaterial: {fileID: -3790829913831308519, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
@@ -9241,7 +9378,12 @@ MonoBehaviour:
   header: Road
   text: 'Cost: <sprite name=wood>, <sprite name=brick>
 
-    Connects towns and cities.'
+
+    Connects between Towns/Cities.
+
+
+    Must
+    be connected to another Road.'
 --- !u!1 &810349292
 GameObject:
   m_ObjectHideFlags: 0
@@ -10435,8 +10577,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2140554215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.09990999, y: 0}
+  m_AnchorMax: {x: 0.09990999, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13373,18 +13515,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Town
-  text: 'Cost: <sprite name=wood>, <sprite name=brick>, <sprite name=sheep>, <sprite
-    name=wheat>
-
-
-    Gain 1 <sprite name=peasant>
-
-    Produces 1 resource from
-    adjacent tiles
-
-
-    Must be connected to a road & Cannot be built next to another
-    town/city'
+  text: "Cost: <sprite name=wood>, <sprite name=brick>, <sprite name=sheep>, <sprite
+    name=wheat>\r\n\r\nGain 1 <sprite name=peasant>.\r\nProduces 1 resource from
+    adjacent tiles.\r\n\r\nMust be connected to a Road & cannot be built next to
+    another Town/City.\r"
 --- !u!1 &1089559038
 GameObject:
   m_ObjectHideFlags: 0
@@ -13531,12 +13665,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: Unlucky meter upgrade
-  text: 'reduce the unlucky meter by 1
+  header: Unlucky Meter Upgrade
+  text: 'Cost: <sprite name=ore>, <sprite name=sheep>, <sprite name=wheat>
 
 
-    Cost: <sprite name=ore>, <sprite name=sheep>,
-    <sprite name=wheat>'
+    Permanently
+    reduce the unlucky meter''s max by 1.
+
+
+'
 --- !u!1 &1104170671
 GameObject:
   m_ObjectHideFlags: 0
@@ -14300,7 +14437,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00000017136335, y: -380}
+  m_AnchoredPosition: {x: 0.00000017136335, y: -213}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1153327132
@@ -19751,6 +19888,7 @@ RectTransform:
   m_Children:
   - {fileID: 246911154}
   - {fileID: 476705867}
+  - {fileID: 500555092}
   - {fileID: 12894587}
   - {fileID: 1153327131}
   m_Father: {fileID: 1928236262}
@@ -20835,7 +20973,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -21997,10 +22135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0692e8472c19a9047865eae45ad6d1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  header: City
+  header: Upgrade to City
   text: "Cost: <sprite name=ore>, <sprite name=ore>, <sprite name=ore>, <sprite name=wheat>,
-    <sprite name=wheat>\n\nDoubles resource production from adjacent tiles\n  \nGain
-    1 <sprite name=peasant> \n"
+    <sprite name=wheat>\n\nGain 1 <sprite name=peasant> \n\nDoubles resource production
+    from adjacent tiles."
 --- !u!1 &2072436213
 GameObject:
   m_ObjectHideFlags: 0

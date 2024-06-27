@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: Deseret City
   m_EditorClassIdentifier: 
   boonName: Desert City
-  description: Towns next to Deserts instantly become Cities.
+  description: New Towns next to Deserts instantly become Cities.
   triggers:
   - type: 5
-  - type: 3
   conditions:
   - type: 3
     value1: 0

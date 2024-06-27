@@ -35,4 +35,10 @@ public class MainMenuScript : MonoBehaviour
         DOTween.KillAll();
         SceneManager.LoadScene(1);
     }
+
+    public void DiscordBUTTON()
+    {
+        // DOTween.KillAll();
+        Application.OpenURL("https://discord.gg/NXMtgwudQw");
+    }
 }

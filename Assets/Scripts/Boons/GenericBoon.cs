@@ -413,16 +413,24 @@ public class GenericBoon : ScriptableObject
                 BoardManager.instance.uiManager.CloseAllUi();
                 break;
 
-            case BoonEffect.EffectType.TransformTownsNearDesertsToCities: // Transform Towns Near Deserts To Cities 
+            case BoonEffect.EffectType.TransformTownsNearDesertsToCities: // Transform The last town Towns Near Deserts To Cities 
 
-                foreach (var settelment in BoardManager.instance.player.SettelmentsList)
+                var lastSettlement = BoardManager.instance.player.SettelmentsList[BoardManager.instance.player.SettelmentsList.Count - 1];
+
+                foreach (var tile in lastSettlement.AdjacentTiles)
                 {
-                    if(settelment.HasCityUpgade == true) { continue; }
-                    foreach (var AdjacentTile in settelment.AdjacentTiles)
-                    {
-                        if (AdjacentTile.resourceType == TileClass.ResourceType.Desert) { BoardManager.instance.UpgradeSettelmentToCity(settelment, true); }
-                    }
+                    if (tile.resourceType == TileClass.ResourceType.Desert) { BoardManager.instance.UpgradeSettelmentToCity(lastSettlement, true); }
                 }
+                
+                //the code for making it work retro as well
+                //foreach (var settelment in BoardManager.instance.player.SettelmentsList)
+                //{
+                //    if(settelment.HasCityUpgade == true) { continue; }
+                //    foreach (var AdjacentTile in settelment.AdjacentTiles)
+                //    {
+                //        if (AdjacentTile.resourceType == TileClass.ResourceType.Desert) { BoardManager.instance.UpgradeSettelmentToCity(settelment, true); }
+                //    }
+                //}
                 break;
 
             case BoonEffect.EffectType.ChangeTradeRatioXToOne: // change the trade ratio, (cannot be change by ports) 
@@ -451,6 +459,7 @@ public class GenericBoon : ScriptableObject
                    if(tile.Value.resourceType == TileClass.ResourceType.Wheat)
                     {
                         tile.Value.resourceType = TileClass.ResourceType.Desert;
+                        tile.Value.numberToken = 7;
                         Destroy(tile.Value.MyNumberPrefab);
                         BoardManager.instance.mapGenerator.UpdateTileTypeVisual(BoardManager.instance.TilesDictionary);
                     }                   

@@ -473,6 +473,8 @@ public class BoardManager : MonoBehaviour
         Settelment.HasCityUpgade = true;
 
         Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
+        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
+
 
         player.AddVictoryPoints(1, Settelment.Position);
 
@@ -582,8 +584,9 @@ public class BoardManager : MonoBehaviour
                 corner.HasSettlement = true;
 
                 Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
 
-               
+
                 player.AddSettelment(corner);
                 player.AddVictoryPoints(1,cornerPosition);
                 OnTownBuilt?.Invoke();
@@ -621,6 +624,8 @@ public class BoardManager : MonoBehaviour
                 corner.HasSettlement = true;
 
                 Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
+
 
 
                 player.AddSettelment(corner);
@@ -692,6 +697,7 @@ public class BoardManager : MonoBehaviour
 
                 Quaternion SideRotation = Quaternion.Euler(0, 0, Side.RotationZ);
                 Instantiate(RoadPrefab, Side.Position, SideRotation);
+                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
                 player.RoadsList.Add(Side);
                 OnRoadBuilt?.Invoke();
 
@@ -721,6 +727,7 @@ public class BoardManager : MonoBehaviour
 
                 Quaternion SideRotation2 = Quaternion.Euler(0, 0, Side.RotationZ);
                 Instantiate(RoadPrefab, Side.Position, SideRotation2);
+                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
                 player.RoadsList.Add(Side);
                 OnRoadBuilt?.Invoke();
 

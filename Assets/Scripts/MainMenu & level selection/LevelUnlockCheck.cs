@@ -14,6 +14,9 @@ public class LevelUnlockCheck : MonoBehaviour
 
     [SerializeField] GameObject CheckMarkIsland_Tutorial;
     [SerializeField] GameObject CheckMarkIsland_Island1;
+    [SerializeField] GameObject CheckMarkIsland_Island2;
+    [SerializeField] GameObject CheckMarkIsland_Island4;
+
 
     //  [SerializeField] private List<GameObject> IslandsLockScreens;
 
@@ -44,23 +47,27 @@ public class LevelUnlockCheck : MonoBehaviour
                     LockScreenIsland_1.SetActive(false); // unlock level 1
                     CheckMarkIsland_Tutorial.SetActive(true);
                     break;
-                case 23:
-                    LockScreenIsland_2.SetActive(false);
-                    break;
                 case 6: // finished level 1
                     LockScreenIsland_3.SetActive(false); // unlock level 2
                     LockScreenIsland_1.SetActive(false); // making sure the level played is unlocked
-                    CheckMarkIsland_Island1.SetActive(true);
+                    CheckMarkIsland_Island1.SetActive(true); // completed level 1
                     break;
-                case 22:
-                    LockScreenIsland_4.SetActive(false);
+                case 7: // finished level 2
+                    LockScreenIsland_4.SetActive(false); // unlock level 3
+                    LockScreenIsland_2.SetActive(false); // making sure the level played is unlocked
+                    CheckMarkIsland_Island2.SetActive(true); // completed level 2
+
                     break;
-                case 21:
-                    LockScreenIsland_5.SetActive(false);
+                case 8: // finished level 3
+                    LockScreenIsland_4.SetActive(false); // making sure the level played is unlocked
+                    CheckMarkIsland_Island4.SetActive(true);  // completed level 3
                     break;
                 case 20:
                     LockScreenIsland_6.SetActive(false);
-                break;
+                    break;
+                case 23:
+                    LockScreenIsland_2.SetActive(false);
+                    break;
             }
 
 

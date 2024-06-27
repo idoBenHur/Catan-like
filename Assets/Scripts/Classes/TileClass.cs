@@ -10,7 +10,7 @@ public class TileClass
 
     // Public properties
     public ResourceType resourceType { get; set; } // The type of resource this tile produces
-    public int numberToken { get; private set; } // The number token associated with this tile for resource distribution
+    public int numberToken { get;  set; } // The number token associated with this tile for resource distribution
     public bool hasRobber { get; private set; } // Indicates if the robber is on this tile
     public Vector3Int TilePostion { get; private set; }
     public Vector3 TileWorldPostion { get; private set; }

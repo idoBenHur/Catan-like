@@ -615,59 +615,107 @@ public class MapGenerator : MonoBehaviour
     private List<(CornersClass, CornersClass)> LoadHarborPositions() 
     {
 
-        List<CornersClass> SeaCornners = new List<CornersClass> ();
+        //List<CornersClass> SeaCornners = new List<CornersClass> ();
+        //List<(CornersClass, CornersClass)> HarborPairs = new List<(CornersClass, CornersClass)>();
+
+
+
+        ////find all coast a Adjacent corners
+        //foreach (var corner in InitialCornersDic)
+        //{
+        //    if( corner.Value.AdjacentTiles.Count < 3 ) 
+        //    {
+        //        SeaCornners.Add(corner.Value);
+
+        //    }
+        //}
+
+
+        //// create 9 harbor pairs
+
+        //for (int i = 0; i < 9; i++)
+        //{
+        //    var currentCorrner = SeaCornners[i*3]; // default (non-random)
+
+        //    if (RandomHarborsPosition == true)
+        //    {
+        //        // pick a random corrner that is not in any pair
+        //        int ranodmIndex = Random.Range(0, SeaCornners.Count);
+        //        currentCorrner = SeaCornners[ranodmIndex];
+        //        while (HarborPairs.Any(pair => pair.Item1 == currentCorrner || pair.Item2 == currentCorrner)) //picks a correnr that is not already in the harbor list
+        //        {
+        //            ranodmIndex = Random.Range(0, SeaCornners.Count);
+        //            currentCorrner = SeaCornners[ranodmIndex];
+        //        }
+        //    }
+
+
+
+
+        //    //find its Adjacent corrner and make a pair
+        //    foreach (var PossiblHarborPair in SeaCornners)
+        //    {
+        //        if (HarborPairs.Any(pair => pair.Item1 == PossiblHarborPair || pair.Item2 == PossiblHarborPair)) { continue; }
+
+        //        if (currentCorrner.AdjacentCorners.Contains(PossiblHarborPair) == true) 
+        //        { 
+        //            HarborPairs.Add((currentCorrner, PossiblHarborPair));
+
+
+        //            break;
+        //        }
+        //        else continue;
+        //    }
+        //}
+
+
+        //return HarborPairs;
+
+        List<CornersClass> SeaCorners = new List<CornersClass>();
         List<(CornersClass, CornersClass)> HarborPairs = new List<(CornersClass, CornersClass)>();
 
-
-
-        //find all coast a Adjacent corners
-        foreach (var corner in InitialCornersDic)
+        // Find all coast adjacent corners
+        foreach (var corner in InitialCornersDic.Values)
         {
-            if( corner.Value.AdjacentTiles.Count < 3 ) 
+            if (corner.AdjacentTiles.Count < 3)
             {
-                SeaCornners.Add(corner.Value);
-
+                SeaCorners.Add(corner);
             }
         }
 
-        
-        // create 9 harbor pairs
-
-        for (int i = 0; i < 9; i++)
+        if (RandomHarborsPosition)
         {
-            var currentCorrner = SeaCornners[i*3]; // default (non-random)
-
-            if (RandomHarborsPosition == true)
-            {
-                // pick a random corrner that is not in any pair
-                int ranodmIndex = Random.Range(0, SeaCornners.Count);
-                currentCorrner = SeaCornners[ranodmIndex];
-                while (HarborPairs.Any(pair => pair.Item1 == currentCorrner || pair.Item2 == currentCorrner)) //picks a correnr that is not already in the harbor list
-                {
-                    ranodmIndex = Random.Range(0, SeaCornners.Count);
-                    currentCorrner = SeaCornners[ranodmIndex];
-                }
-            }
-            
-
-
-
-            //find its Adjacent corrner and make a pair
-            foreach (var PossiblHarborPair in SeaCornners)
-            {
-                if (HarborPairs.Any(pair => pair.Item1 == PossiblHarborPair || pair.Item2 == PossiblHarborPair)) { continue; }
-
-                if (currentCorrner.AdjacentCorners.Contains(PossiblHarborPair) == true) 
-                { 
-                    HarborPairs.Add((currentCorrner, PossiblHarborPair));
-                    break;
-                }
-                else continue;
-            }
+            // Shuffle the list for random harbor positions
+            SeaCorners = SeaCorners.OrderBy(x => Random.Range(0, SeaCorners.Count)).ToList();
         }
 
+        // Create 9 harbor pairs
+        int pairsCount = 0;
+        while (pairsCount < 9 && SeaCorners.Count >= 2) // Ensure there are enough corners left to form pairs
+        {
+            CornersClass currentCorner = SeaCorners[0]; // Take the first corner
+
+            // Find its adjacent corner and make a pair
+            CornersClass possibleHarborPair = currentCorner.AdjacentCorners.FirstOrDefault(ac =>
+                SeaCorners.Contains(ac) && !HarborPairs.Any(pair => pair.Item1 == ac || pair.Item2 == ac));
+
+            if (possibleHarborPair != null)
+            {
+                HarborPairs.Add((currentCorner, possibleHarborPair));
+                SeaCorners.Remove(currentCorner);
+                SeaCorners.Remove(possibleHarborPair);
+                pairsCount++;
+            }
+            else
+            {
+                SeaCorners.Remove(currentCorner); // Remove currentCorner if no pair found
+            }
+        }
 
         return HarborPairs;
+
+
+
     }
 
 

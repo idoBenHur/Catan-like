@@ -398,6 +398,7 @@ public class UiManager : MonoBehaviour
 
     public void ResourceAddedAnimation(ResourceType Resource, Vector3 FromPosition)
     {
+        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceCreate);
 
         DOVirtual.DelayedCall(0f, () =>
         {
@@ -413,6 +414,7 @@ public class UiManager : MonoBehaviour
                     tweenWood.OnComplete(() =>
                     {
                         woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
+                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(woodicon);
                     });
                     break;
@@ -424,6 +426,7 @@ public class UiManager : MonoBehaviour
                     tweenBrick.OnComplete(() =>
                     {
                         brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
+                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(brickicon);
                     });
                     break;
@@ -435,6 +438,7 @@ public class UiManager : MonoBehaviour
                     tweenSheep.OnComplete(() =>
                     {
                         sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
+                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Sheepicon);
                     });
                     break;
@@ -446,6 +450,7 @@ public class UiManager : MonoBehaviour
                     tweenOre.OnComplete(() =>
                     {
                         oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
+                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Oreicon);
                     });
                     break;
@@ -457,6 +462,7 @@ public class UiManager : MonoBehaviour
                     tweenWheat.OnComplete(() =>
                     {
                         wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
+                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Wheaticon);
                     });
                     break;
@@ -600,14 +606,21 @@ public class UiManager : MonoBehaviour
         GameManager.Instance.BackTLevelSelection();
     }
 
+    public void DiscordBUTTON()
+    {
+        Application.OpenURL("https://discord.gg/NXMtgwudQw");
+
+    }
+
 
     public void RollDiceButton() 
     {
-        SoundFXManager.instance.PlaySFX(SoundFXManager.instance.clickSound);
+        
 
         //BoardManager.instance.DiceRoll();
         if (BoardManager.instance.DiceStilRolling == false)
         {
+            AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.clickSound);
             Color newColor;
             if (UnityEngine.ColorUtility.TryParseHtmlString("#464646", out newColor))
             {
@@ -911,7 +924,7 @@ public class UiManager : MonoBehaviour
             BlackColor.a = 0f;
             BoonsSelectionScreenBackground.color = BlackColor;
             BoonsSelectionScreenBackground.DOFade(0.99f, 0.5f);
-            SoundFXManager.instance.PlaySFX(SoundFXManager.instance.BoonScreenOpen);
+            AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.BoonScreenOpen);
 
         }
 
