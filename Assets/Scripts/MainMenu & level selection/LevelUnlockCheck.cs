@@ -14,7 +14,7 @@ public class LevelUnlockCheck : MonoBehaviour
 
     [SerializeField] GameObject CheckMarkIsland_Tutorial;
     [SerializeField] GameObject CheckMarkIsland_Island1;
-    [SerializeField] GameObject CheckMarkIsland_Island2;
+    [SerializeField] GameObject CheckMarkIsland_Island3;
     [SerializeField] GameObject CheckMarkIsland_Island4;
 
 
@@ -54,8 +54,8 @@ public class LevelUnlockCheck : MonoBehaviour
                     break;
                 case 7: // finished level 2
                     LockScreenIsland_4.SetActive(false); // unlock level 3
-                    LockScreenIsland_2.SetActive(false); // making sure the level played is unlocked
-                    CheckMarkIsland_Island2.SetActive(true); // completed level 2
+                    LockScreenIsland_3.SetActive(false); // making sure the level played is unlocked
+                    CheckMarkIsland_Island3.SetActive(true); // completed level 2
                     break;
                 case 8: // finished level 3
                     LockScreenIsland_4.SetActive(false); // making sure the level played is unlocked

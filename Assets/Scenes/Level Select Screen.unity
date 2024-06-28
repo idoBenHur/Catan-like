@@ -2122,7 +2122,7 @@ MonoBehaviour:
   LockScreenIsland_6: {fileID: 1468348680}
   CheckMarkIsland_Tutorial: {fileID: 385946830}
   CheckMarkIsland_Island1: {fileID: 676041045}
-  CheckMarkIsland_Island2: {fileID: 689764298}
+  CheckMarkIsland_Island3: {fileID: 689764298}
   CheckMarkIsland_Island4: {fileID: 1716587881}
 --- !u!1 &342487717
 GameObject:
@@ -5352,7 +5352,6 @@ Transform:
   m_Children:
   - {fileID: 144370172}
   - {fileID: 1537138164}
-  - {fileID: 689764299}
   m_Father: {fileID: 460001727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &576422535
@@ -6149,7 +6148,7 @@ GameObject:
   - component: {fileID: 689764299}
   - component: {fileID: 689764300}
   m_Layer: 0
-  m_Name: Check mark island 2
+  m_Name: Check mark island 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6164,12 +6163,12 @@ Transform:
   m_GameObject: {fileID: 689764298}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.07, z: 0}
+  m_LocalPosition: {x: 0.2, y: 0.19, z: 0}
   m_LocalScale: {x: 1.1660877, y: 1.1660877, z: 1.1660877}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 815726215}
-  m_Father: {fileID: 576422534}
+  m_Father: {fileID: 943272173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &689764300
 SpriteRenderer:
@@ -7326,6 +7325,7 @@ Transform:
   m_Children:
   - {fileID: 993465653}
   - {fileID: 64495443}
+  - {fileID: 689764299}
   m_Father: {fileID: 460001727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &943272174

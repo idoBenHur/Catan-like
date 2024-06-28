@@ -47,7 +47,7 @@ public class PauseMenuScript : MonoBehaviour
     }
 
 
-    private void PauseGame()
+    public void PauseGame()
     {
         PasueManuObject.transform.localPosition = new Vector3(0F, -1200F, 0F);
         PasueManuObject.SetActive(true);
@@ -95,5 +95,40 @@ public class PauseMenuScript : MonoBehaviour
     {
         ResumeGame();
 
+    }
+
+    public void CheatBUTTON()
+    {
+        int[] AllLevelsScenesIndexesList = { 5, 6, 7, 8 };
+
+        foreach (int number in AllLevelsScenesIndexesList)
+        {
+            GameManager.Instance.GameState.CompletedLevelsBySceneNumber.Add(number);
+        }
+
+
+        
+    }
+
+    public void OpenSettingBUTTON()
+    {
+        if (IsPaused == true)
+        {
+            if (FinishedAnimation == true)
+            {
+                FinishedAnimation = false;
+                ResumeGame();
+            }
+
+        }
+        else
+        {
+            if (FinishedAnimation == true)
+            {
+                FinishedAnimation = false;
+                PauseGame();
+            }
+
+        }
     }
 }
