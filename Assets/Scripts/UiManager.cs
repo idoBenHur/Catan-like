@@ -398,7 +398,7 @@ public class UiManager : MonoBehaviour
 
     public void ResourceAddedAnimation(ResourceType Resource, Vector3 FromPosition)
     {
-        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceCreate);
+       // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceCreate);
 
         DOVirtual.DelayedCall(0f, () =>
         {
@@ -414,7 +414,7 @@ public class UiManager : MonoBehaviour
                     tweenWood.OnComplete(() =>
                     {
                         woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
-                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
+                        //AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(woodicon);
                     });
                     break;
@@ -426,7 +426,7 @@ public class UiManager : MonoBehaviour
                     tweenBrick.OnComplete(() =>
                     {
                         brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
-                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
+                        // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(brickicon);
                     });
                     break;
@@ -438,7 +438,7 @@ public class UiManager : MonoBehaviour
                     tweenSheep.OnComplete(() =>
                     {
                         sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
-                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
+                        // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Sheepicon);
                     });
                     break;
@@ -450,7 +450,7 @@ public class UiManager : MonoBehaviour
                     tweenOre.OnComplete(() =>
                     {
                         oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
-                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
+                        // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Oreicon);
                     });
                     break;
@@ -462,7 +462,7 @@ public class UiManager : MonoBehaviour
                     tweenWheat.OnComplete(() =>
                     {
                         wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
-                        AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
+                        // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Wheaticon);
                     });
                     break;

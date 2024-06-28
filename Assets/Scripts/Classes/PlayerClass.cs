@@ -44,6 +44,7 @@ public class PlayerClass
         {
             PlayerResources[type] += amount;
             OnResourcesChanged?.Invoke();
+            AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceCreate);
 
             for (int i = 0; i < amount; i++)
             {
