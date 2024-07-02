@@ -8,6 +8,8 @@ public class SelectDiceBox : MonoBehaviour
     [SerializeField] private GameObject DiceBox;
     [SerializeField] private GameObject DicePrefab;
 
+
+    //destroys dice when in seleceted box
     private void Update()
     {
         if (transform.childCount == 2)
@@ -27,21 +29,19 @@ public class SelectDiceBox : MonoBehaviour
         }
     }
 
+
+    // destroy all dice, roll new ones
     public void RollNewDices()
     {
-        // Get a reference to the parent object
         GameObject SeletcBox = this.gameObject;
 
-        // Loop through all children of the parent object
         foreach (Transform child in SeletcBox.transform)
         {
-            // Destroy the child object
             Destroy(child.gameObject);
         }
 
         foreach (Transform child in DiceBox.transform)
         {
-            // Destroy the child object
             Destroy(child.gameObject);
         }
 
@@ -50,7 +50,7 @@ public class SelectDiceBox : MonoBehaviour
             Instantiate(DicePrefab, DiceBox.transform);
         }
 
-
+        BoardManager.instance.DicesRolled();
     }
 
 }

@@ -61,24 +61,6 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     void Update()
     {
         if (isDragging)
@@ -115,6 +97,12 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             transform.position = originalPosition;
             transform.SetParent(originalParent);
         }
+        else if (newParent.CompareTag("DestroyBox"))
+        {
+            // Destroy the dice and increase the count
+            Destroy(gameObject);
+            BoardManager.instance.AddOneToUnluckyMeter();
+        }
         else
         {
             transform.SetParent(newParent);
@@ -144,6 +132,11 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     boxTransform = result.gameObject.transform;
                     return true;
                 }
+            }
+            if (result.gameObject.CompareTag("DestroyBox"))
+            {
+                boxTransform = result.gameObject.transform;
+                return true;
             }
         }
 

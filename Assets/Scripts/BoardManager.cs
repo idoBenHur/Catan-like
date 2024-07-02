@@ -156,10 +156,17 @@ public class BoardManager : MonoBehaviour
     {
         TotalDice = sumDices;
 
-        CurrentTurn++;
 
-        OnDiceRolled?.Invoke();
+        
         DistributeResources(TotalDice);
+    }
+
+    public void DicesRolled()
+    {
+
+        CurrentTurn++;
+        OnDiceRolled?.Invoke();
+
     }
 
     public IEnumerator RollTheDice()
@@ -213,7 +220,19 @@ public class BoardManager : MonoBehaviour
     }
 
 
+    public void AddOneToUnluckyMeter()
+    {
+        UnluckyMeterProgress++;
+        uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
+        OnUnlcukyRoll?.Invoke();
 
+        if (UnluckyMeterProgress == UnluckyMeterMax)
+        {
+            UnluckyMeterProgress = 0;
+            uiManager.OpenUnluckyMeterRewardPannel();
+            uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
+        }
+    }
 
     public void TemoraraytNextSceneButton()
     {
@@ -291,6 +310,7 @@ public class BoardManager : MonoBehaviour
 
         if (EarnedResources == false)
         {
+            return;
             UnluckyMeterProgress++;
             uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
             OnUnlcukyRoll?.Invoke();          
