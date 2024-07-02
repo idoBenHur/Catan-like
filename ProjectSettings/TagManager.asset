@@ -11,6 +11,8 @@ TagManager:
   - RoadIndicator
   - Number
   - 'Number '
+  - Box
+  - LimitedBox
   layers:
   - Default
   - TransparentFX

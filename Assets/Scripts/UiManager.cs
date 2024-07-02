@@ -608,6 +608,7 @@ public class UiManager : MonoBehaviour
 
     public void DiscordBUTTON()
     {
+        //Application.ExternalEval("https://discord.gg/NXMtgwudQw");
         Application.OpenURL("https://discord.gg/NXMtgwudQw");
 
     }

@@ -80,6 +80,5 @@ public class SpriteCursor : MonoBehaviour
             spriteRenderer.sprite = PointingHand;
         }
 
-        Debug.Log("is wrting: " + IsWriting);
     }
 }

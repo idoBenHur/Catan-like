@@ -40,5 +40,6 @@ public class MainMenuScript : MonoBehaviour
     {
         // DOTween.KillAll();
         Application.OpenURL("https://discord.gg/NXMtgwudQw");
+       // Application.ExternalEval("https://discord.gg/NXMtgwudQw");
     }
 }

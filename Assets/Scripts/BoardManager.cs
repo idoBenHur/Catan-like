@@ -151,6 +151,17 @@ public class BoardManager : MonoBehaviour
 
     }
 
+
+    public void DicesPlayed(int sumDices)
+    {
+        TotalDice = sumDices;
+
+        CurrentTurn++;
+
+        OnDiceRolled?.Invoke();
+        DistributeResources(TotalDice);
+    }
+
     public IEnumerator RollTheDice()
     {               
         DiceStilRolling = true;
