@@ -44,16 +44,14 @@ public class SelectDiceBox : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        int currentDiceCount =0;
 
         foreach (Transform child in DiceBox.transform)
         {
-            currentDiceCount++;
+            Destroy(child.gameObject);
         }
 
-        int AmountOfNewDiceToCreate = AmountOfNewDiceEachRoll - currentDiceCount;
 
-        for (int i = 0; i < AmountOfNewDiceToCreate; i++)
+        for (int i = 0; i < 4; i++)
         {
             Instantiate(DicePrefab, DiceBox.transform);
         }

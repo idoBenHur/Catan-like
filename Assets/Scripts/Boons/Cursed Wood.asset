@@ -15,7 +15,7 @@ MonoBehaviour:
   boonName: Cursed Wood
   description: "Gain 1 <sprite name=wood> \nwhenever you roll 7."
   triggers:
-  - type: 0
+  - type: 7
   conditions:
   - type: 0
     value1: 7

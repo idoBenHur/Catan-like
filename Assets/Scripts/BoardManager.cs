@@ -72,6 +72,7 @@ public class BoardManager : MonoBehaviour
 
     // events
     public static event Action OnDiceRolled;
+    public static event Action OnDicePlayed;
     public static event Action OnRoadBuilt;
     public static event Action OnTownBuilt;
     public static event Action OnUnlcukyRoll;
@@ -159,9 +160,9 @@ public class BoardManager : MonoBehaviour
         Dice1FinalSide = Dice1;
         Dice2FinalSide = dice2;
         TotalDice = Dice1 + dice2;
+        OnDicePlayed?.Invoke();
 
 
-        
         DistributeResources(TotalDice);
     }
 
@@ -201,6 +202,7 @@ public class BoardManager : MonoBehaviour
         CurrentTurn++;
 
         OnDiceRolled?.Invoke();
+        OnDicePlayed?.Invoke();
         DistributeResources(TotalDice);
 
 

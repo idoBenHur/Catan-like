@@ -114,7 +114,8 @@ public class BoonTrigger
         OnBoonActivate,
         OnRoadBuilt,
         OnTownBuilt,
-        OnResourceChange
+        OnResourceChange,
+        OnDicePlayed
 
         // Add other trigger types as needed
     }
@@ -168,6 +169,9 @@ public class GenericBoon : ScriptableObject
                 case BoonTrigger.TriggerType.OnResourceChange:
                     player.OnResourcesChanged += GoThroughConditionsList;
                     break;
+                case BoonTrigger.TriggerType.OnDicePlayed:
+                     BoardManager.OnDicePlayed += GoThroughConditionsList;                   
+                     break;
 
 
                     // Add other cases as needed
@@ -200,6 +204,9 @@ public class GenericBoon : ScriptableObject
                     break;
                 case BoonTrigger.TriggerType.OnResourceChange:
                     BoardManager.instance.player.OnResourcesChanged -= GoThroughConditionsList;
+                    break;
+                case BoonTrigger.TriggerType.OnDicePlayed:
+                    BoardManager.OnDicePlayed -= GoThroughConditionsList;
                     break;
 
                     // Add other cases as needed

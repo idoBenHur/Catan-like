@@ -17,7 +17,7 @@ MonoBehaviour:
 
     whenever you roll a double.'
   triggers:
-  - type: 0
+  - type: 7
   conditions:
   - type: 7
     value1: 0
