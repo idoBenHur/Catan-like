@@ -55,6 +55,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public int MaxTurn = 40;
     [SerializeField] public int VictoryPointsGoal = 10;
     [SerializeField] private int UnluckyMeterMax = 5;
+    [SerializeField] bool PlayWithUnluckyMeter = true;
     private int UnluckyMeterProgress = 0;
 
 
@@ -152,9 +153,12 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    public void DicesPlayed(int sumDices)
+    public void DicesPlayed(int Dice1, int dice2)
     {
-        TotalDice = sumDices;
+
+        Dice1FinalSide = Dice1;
+        Dice2FinalSide = dice2;
+        TotalDice = Dice1 + dice2;
 
 
         
@@ -308,9 +312,8 @@ public class BoardManager : MonoBehaviour
 
         }
 
-        if (EarnedResources == false)
+        if (EarnedResources == false && PlayWithUnluckyMeter == true)
         {
-            return;
             UnluckyMeterProgress++;
             uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
             OnUnlcukyRoll?.Invoke();          

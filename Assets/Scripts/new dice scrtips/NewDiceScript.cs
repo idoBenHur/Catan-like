@@ -18,6 +18,7 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int DiceResult;
 
 
+
     void Start()
     {
         canvas = GetComponentInParent<Canvas>();
@@ -99,9 +100,8 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         else if (newParent.CompareTag("DestroyBox"))
         {
-            // Destroy the dice and increase the count
             Destroy(gameObject);
-            BoardManager.instance.AddOneToUnluckyMeter();
+           // BoardManager.instance.AddOneToUnluckyMeter();
         }
         else
         {
