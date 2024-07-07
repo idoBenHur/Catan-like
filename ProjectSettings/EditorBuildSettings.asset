@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level3.unity
     guid: d510f0a0f8e60144a926f1e78286b73a
+  - enabled: 1
+    path: Assets/Scenes/New Dice Test.unity
+    guid: ba2940ff3f899244e974a4583972992d
   m_configObjects: {}

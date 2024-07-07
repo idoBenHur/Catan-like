@@ -42,4 +42,10 @@ public class MainMenuScript : MonoBehaviour
         Application.OpenURL("https://discord.gg/NXMtgwudQw");
        // Application.ExternalEval("https://discord.gg/NXMtgwudQw");
     }
+
+    public void NewGameModeButton()
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene(9);
+    }
 }
