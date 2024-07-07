@@ -32,6 +32,7 @@ public class BoardManager : MonoBehaviour
     [HideInInspector] public int TotalDice;
     [HideInInspector] public int Dice1FinalSide;
     [HideInInspector] public int Dice2FinalSide;
+     public int PlayedAmountInTurn = 0;
 
 
     public PlayerClass player;
@@ -160,6 +161,8 @@ public class BoardManager : MonoBehaviour
         Dice1FinalSide = Dice1;
         Dice2FinalSide = dice2;
         TotalDice = Dice1 + dice2;
+        PlayedAmountInTurn++;
+
         OnDicePlayed?.Invoke();
 
 
@@ -171,6 +174,7 @@ public class BoardManager : MonoBehaviour
 
         CurrentTurn++;
         OnDiceRolled?.Invoke();
+        PlayedAmountInTurn = 0;
 
     }
 

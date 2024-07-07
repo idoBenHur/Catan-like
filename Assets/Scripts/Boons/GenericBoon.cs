@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 
 [System.Serializable]
@@ -18,7 +18,9 @@ public class BoonCondition
         RolledDouble,
         DeseretSurrondedByRoad,
         AmounOfRoadsBuilt,
-        
+        Played66Xtimes, // speciel dice boon
+        PlayedXDices // speciel dice boon
+
     }
 
     public ConditionType type;
@@ -74,7 +76,12 @@ public class BoonEffect
         TransformToSixAndTwo,
         IncreaseUnluckyMeter,
         TransformAllTilesToNumber,
-        SkipTurns
+        SkipTurns,
+        AddTemporaryDice, // special dice effect
+        AddPermanentDice, // special dice effect
+        MultipleRandomTransforms,
+        TransformRandomTileToX
+
 
 
     }
@@ -348,7 +355,33 @@ public class GenericBoon : ScriptableObject
                 }
                 BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
                 return (conditionIsMet);
-                 
+            case BoonCondition.ConditionType.Played66Xtimes:
+                conditionIsMet = false;
+                if (BoardManager.instance.Dice2FinalSide == 6 && BoardManager.instance.Dice1FinalSide == 6)
+                {
+                    condition.value2++;
+                }
+
+                if (condition.value2 % condition.value1 == 0 && condition.value2 != 0)
+                {
+                    conditionIsMet = true;
+                    condition.value2 = 0;
+                }
+                BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
+                return conditionIsMet;
+
+            case BoonCondition.ConditionType.PlayedXDices: // count the amount of times the trigger was met
+
+                int DicesPlayedInThisTurn = BoardManager.instance.PlayedAmountInTurn;
+                conditionMet = false;
+
+                if (DicesPlayedInThisTurn % condition.value1 == 0 && DicesPlayedInThisTurn != 0)
+                {
+                    conditionMet = true;
+
+                }
+
+                return conditionMet;
 
 
 
@@ -356,7 +389,9 @@ public class GenericBoon : ScriptableObject
 
 
 
-                
+
+
+
         }
 
         return false;
@@ -500,8 +535,65 @@ public class GenericBoon : ScriptableObject
                 BoardManager.instance.uiManager.UpdateTurnSliderDisplay();
                 
                 break;
+            case BoonEffect.EffectType.AddTemporaryDice: // adds a dice this turn, (will not add to the amount of dice player roll each turn)
 
-                
+                BoardManager.instance.gameObject.GetComponent<SelectDiceBox>().AddTemporerayDice();
+
+                break;
+            case BoonEffect.EffectType.AddPermanentDice:
+
+                BoardManager.instance.gameObject.GetComponent<SelectDiceBox>().AmountOfNewDiceEachRoll++;
+                break;
+            case BoonEffect.EffectType.MultipleRandomTransforms: // change 3 random tiles -  to desert, 8 and 6
+
+                var tilesValuesList = new List<TileClass>(BoardManager.instance.TilesDictionary.Values);
+                List<TileClass> shuffelList = tilesValuesList.OrderBy(x => Random.value).ToList();
+
+                foreach(var tile in shuffelList)
+                {
+                    if(tile.resourceType != TileClass.ResourceType.Desert && tile.hasRobber == false)
+                    {
+                        tile.resourceType = TileClass.ResourceType.Desert;
+                        break;
+                    }
+                }
+
+                foreach(var tile in shuffelList)
+                {
+                    if (tile.numberToken != 8 && tile.numberToken != 6 && tile.resourceType != TileClass.ResourceType.Desert && tile.hasRobber == false)
+                    {
+                        tile.ChangeTileNumber(8);
+                        break;
+                    }
+                }
+
+                foreach (var tile in shuffelList)
+                {
+                    if (tile.numberToken != 8 && tile.numberToken != 6 && tile.resourceType != TileClass.ResourceType.Desert && tile.hasRobber == false)
+                    {
+                        tile.ChangeTileNumber(6);
+                        break;
+                    }
+                }
+
+                BoardManager.instance.mapGenerator.UpdateTileTypeVisual(BoardManager.instance.TilesDictionary);
+
+                break;
+            case BoonEffect.EffectType.TransformRandomTileToX: // transfoarm random tile number to X number
+
+                var TempList = new List<TileClass>(BoardManager.instance.TilesDictionary.Values);
+                List<TileClass> shuffledList = TempList.OrderBy(x => Random.value).ToList(); //shuffle list
+
+                foreach(var tile in shuffledList)
+                {
+                    if(tile.numberToken != effect.value1 && tile.hasRobber == false)
+                    {
+                        tile.ChangeTileNumber(effect.value1);
+                        break;
+                    }
+                }
+
+                break;      
 
         }
 

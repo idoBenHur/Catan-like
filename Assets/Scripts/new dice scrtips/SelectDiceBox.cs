@@ -7,17 +7,20 @@ public class SelectDiceBox : MonoBehaviour
 
     [SerializeField] private GameObject DiceBox;
     [SerializeField] private GameObject DicePrefab;
-    private int AmountOfNewDiceEachRoll = 4;
+    [SerializeField] private GameObject SelectBox;
+
+    public int AmountOfNewDiceEachRoll = 5;
+    private int MaxDiceAmountInDiceBox = 6;
 
 
     //destroys dice when in seleceted box
     private void Update()
     {
-        if (transform.childCount == 2)
+        if (SelectBox.transform.childCount == 2)
         {
             int dice1 = 0;
             int dice2 = 0;
-            foreach (Transform child in transform)
+            foreach (Transform child in SelectBox.transform)
             {
                 NewDiceScript diceNumber = child.GetComponent<NewDiceScript>();
                 if (diceNumber != null)
@@ -51,7 +54,7 @@ public class SelectDiceBox : MonoBehaviour
         }
 
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < AmountOfNewDiceEachRoll; i++)
         {
             Instantiate(DicePrefab, DiceBox.transform);
         }
@@ -59,4 +62,14 @@ public class SelectDiceBox : MonoBehaviour
         BoardManager.instance.DicesRolled();
     }
 
+
+
+    public void AddTemporerayDice()
+    {
+
+        if(DiceBox.transform.childCount < MaxDiceAmountInDiceBox)
+        {
+            Instantiate(DicePrefab, DiceBox.transform);
+        }
+    }
 }
