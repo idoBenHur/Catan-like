@@ -554,6 +554,8 @@ public class GenericBoon : ScriptableObject
                     if(tile.resourceType != TileClass.ResourceType.Desert && tile.hasRobber == false)
                     {
                         tile.resourceType = TileClass.ResourceType.Desert;
+                        tile.numberToken = 7;
+                        Destroy(tile.MyNumberPrefab);
                         break;
                     }
                 }

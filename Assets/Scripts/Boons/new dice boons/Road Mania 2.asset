@@ -10,25 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Dicy Road
+  m_Name: Road Mania 2
   m_EditorClassIdentifier: 
-  boonName: Dicy Road
-  description: 'Gain a temoprary dice for every 3 Roads you build.
+  boonName: Road Mania
+  description: 'Gain a random Road
 
-
-    (Cannot
-    exceed the maximum dice limit.)'
+    whenever you play a double.'
   triggers:
-  - type: 4
+  - type: 7
   conditions:
-  - type: 9
-    value1: 3
+  - type: 7
+    value1: 0
     value2: 0
     boolValue: 0
   effects:
-  - type: 16
+  - type: 4
     value1: 0
     boolValue: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.46564615, g: 0.5772353, b: 0.9056604, a: 1}
-  isCounting: 1
+  boonColor: {r: 0.86415094, g: 0.5704973, b: 0.14837307, a: 1}
+  isCounting: 0

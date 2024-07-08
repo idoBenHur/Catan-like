@@ -3493,8 +3493,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 40da3396537bb2b4db3426627da6b6b6, type: 3}
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   CurrentTurn: 0
-  MaxTurn: 10
-  VictoryPointsGoal: 10
+  MaxTurn: 25
+  VictoryPointsGoal: 12
   UnluckyMeterMax: 4
   PlayWithUnluckyMeter: 0
   CitiesIndicatorsPrefabList: []
@@ -3560,8 +3560,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: c3aab8c3feeffa64898625f7008cca04, type: 2}
-  - {fileID: 11400000, guid: 78e9fd25bc9a3e94189039776d97c683, type: 2}
   - {fileID: 11400000, guid: b187ef24cdab90449bd41a50c01cbfed, type: 2}
   - {fileID: 11400000, guid: 18dd65cb63de1614ab88886e62e179b8, type: 2}
   - {fileID: 11400000, guid: 50a7019ce5d66f3448b43396b6bea25c, type: 2}
@@ -3572,6 +3570,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6ceee8253bf7d5a41b59137d9707ed89, type: 2}
   - {fileID: 11400000, guid: 19991ca958226384ab6facee6f7359d3, type: 2}
   - {fileID: 11400000, guid: f4dd152cae81d134a9b3edd3d68a8d05, type: 2}
+  - {fileID: 11400000, guid: a180f1af89009a747a4aa20e6a9f2fb4, type: 2}
+  - {fileID: 11400000, guid: f460a79bbae1eb04780ecaa3aa845d98, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
@@ -3579,7 +3579,7 @@ MonoBehaviour:
   VPForFirstBoon: 0
   VPForSecondBoon: 3
   VPForThirdBoon: 5
-  VPForForthBoon: 0
+  VPForForthBoon: 7
   VPForFifthBoon: 0
   NextVPMilestoneForBoon: 0
   FinishedPrePlacementBoonSelect: 0
@@ -3596,7 +3596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testprefab: {fileID: 6535064077697926397, guid: 597594eb23e57f94d8686d49a4e54ce2, type: 3}
-  RobberChallengeTurn: 5
+  RobberChallengeTurn: 15
 --- !u!114 &240130137
 MonoBehaviour:
   m_ObjectHideFlags: 0

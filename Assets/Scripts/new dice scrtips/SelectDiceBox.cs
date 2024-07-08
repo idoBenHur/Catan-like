@@ -40,6 +40,10 @@ public class SelectDiceBox : MonoBehaviour
     // destroy all dice, roll new ones
     public void RollNewDicesBUTTON()
     {
+
+        BoardManager.instance.uiManager.CloseAllUi();
+
+
         GameObject SeletcBox = this.gameObject;
 
         foreach (Transform child in SeletcBox.transform)
