@@ -20,22 +20,14 @@ public class BoonManager : MonoBehaviour
     private List<GenericBoon> activeBoons = new List<GenericBoon>();
     public Button[] boonButtonsList;
     private GenericBoon[] OfferedBoons = new GenericBoon[3];
-    private List<int> boonMilestones;
+
+
 
 
 
 
     // other
 
-    [SerializeField] public int VPForFirstBoon;
-    [SerializeField] private int VPForSecondBoon;
-    [SerializeField] private int VPForThirdBoon;
-    [SerializeField] private int VPForForthBoon ;
-    [SerializeField] private int VPForFifthBoon ;
-    private int lastVPChecked = -1;
-    [SerializeField] public int NextVPMilestoneForBoon;
-    private bool BoonPannelOpen = false;
-    [HideInInspector] public bool FinishedPrePlacementBoonSelect = false;
 
 
 
@@ -55,14 +47,8 @@ public class BoonManager : MonoBehaviour
     public void InitializeBoonManager(PlayerClass playerInstance) //  HAPPENS BEFORE THIS SCRIPT'S "START" FUNCTION
     {
         AvailableBoons = new List<GenericBoon>(allBoons);
-        boonMilestones = new List<int> { VPForFirstBoon, VPForSecondBoon, VPForThirdBoon, VPForForthBoon, VPForFifthBoon };
         player = playerInstance;
 
-        if (VPForFirstBoon == 0)
-        {
-            lastVPChecked = -1;
-        }
-        else { lastVPChecked = 0; }
 
     }
 
@@ -75,43 +61,13 @@ public class BoonManager : MonoBehaviour
 
 
 
-    public void CheckBoonMilestones()
+
+
+
+    public void GiveBoon()
     {
-        
-        int CurrnetVictoryPoints = player.VictoryPoints;
-        
-        if (BoonPannelOpen == true) { return; }
-        
-
-        // check if the player should get a boon (overflow check)
-        boonMilestones.Sort();
-        foreach (var milestone in boonMilestones)
-        {
-            
-            if (CurrnetVictoryPoints >= milestone && lastVPChecked < milestone)
-            {
-                
-                lastVPChecked = milestone; 
-                SetBoonsButtonWithRandomBoons();
-                uiManager.OpenAndCloseBoonSelectionScreenAnimations(true);
-                BoonPannelOpen = true;
-                break;
-            }
-        }
-
-
-        //find the next milestone
-        foreach (int milestone in boonMilestones)
-        {
-            if (CurrnetVictoryPoints < milestone)
-            {
-                NextVPMilestoneForBoon = milestone;
-                break;  
-            }
-        }
-
-
-
+        SetBoonsButtonWithRandomBoons();
+        uiManager.OpenAndCloseBoonSelectionScreenAnimations(true);
 
     }
 
@@ -160,7 +116,6 @@ public class BoonManager : MonoBehaviour
     {
         GenericBoon selectedBoon = OfferedBoons[index];
         uiManager.OpenAndCloseBoonSelectionScreenAnimations(false);
-        BoonPannelOpen = false;
 
         ActivateBoon(selectedBoon);
         AvailableBoons.Remove(selectedBoon);
@@ -168,16 +123,11 @@ public class BoonManager : MonoBehaviour
         
         //CheckBoonMilestones(); // re-call the CheckBoonMilestones to cover "VP overflow" case
 
-        Invoke("CheckBoonMilestones", 1.0f);
+       // Invoke("CheckBoonMilestones", 1.0f);
 
         Debug.Log($"Chosen boon: {selectedBoon.boonName}");
 
 
-        if(lastVPChecked == 0)
-        {
-            FinishedPrePlacementBoonSelect = true;
-            BoardManager.instance.StartGame();
-        }
 
 
     }

@@ -3493,8 +3493,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 40da3396537bb2b4db3426627da6b6b6, type: 3}
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   CurrentTurn: 0
-  MaxTurn: 25
-  VictoryPointsGoal: 12
+  MaxTurn: 3
   UnluckyMeterMax: 4
   PlayWithUnluckyMeter: 0
   CitiesIndicatorsPrefabList: []
@@ -3576,13 +3575,6 @@ MonoBehaviour:
   - {fileID: 865626171}
   - {fileID: 1085971350}
   - {fileID: 675627773}
-  VPForFirstBoon: 0
-  VPForSecondBoon: 3
-  VPForThirdBoon: 5
-  VPForForthBoon: 7
-  VPForFifthBoon: 0
-  NextVPMilestoneForBoon: 0
-  FinishedPrePlacementBoonSelect: 0
 --- !u!114 &240130136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3623,14 +3615,11 @@ MonoBehaviour:
   SheepFlyingIcon: {fileID: 3406339626918101979, guid: 19a21c142886cb542ad1e39f3cfcff46, type: 3}
   OreFlyingIcon: {fileID: 1963722359244448366, guid: c4c8e87e6c3ef0e4db619462fef142e7, type: 3}
   WheatFlyingIcon: {fileID: 4856539939112054990, guid: 6eaf65d541685354daf2c01cc43a18d8, type: 3}
-  VictoryPointsFlyingIcons: {fileID: 8029713281594004978, guid: 7e37ca0c5fc89ae4198037fcfdc11297, type: 3}
   woodText: {fileID: 2127671916}
   brickText: {fileID: 205566798}
   sheepText: {fileID: 1065270698}
   oreText: {fileID: 1773014194}
   wheatText: {fileID: 1123290756}
-  TotalVictoryPointsText: {fileID: 1627731957}
-  VictoryPointsLeftUntilNextBoon: {fileID: 1364663300}
   FloatingErrorTextPrefab: {fileID: 1954634889196204036, guid: 8f5c807f68a74694f8502e0c1219bf05, type: 3}
   diceBackground: {fileID: 408054817}
   TradePannel: {fileID: 751060042}

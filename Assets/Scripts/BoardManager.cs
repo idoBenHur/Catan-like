@@ -21,7 +21,7 @@ public class BoardManager : MonoBehaviour
     //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     [SerializeField] public UiManager uiManager;
     [SerializeField] public MapGenerator mapGenerator;
-    [SerializeField] private BoonManager boonManager;
+    [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
 
 
@@ -54,7 +54,6 @@ public class BoardManager : MonoBehaviour
     // "to be balanced" game parameters
     [HideInInspector] public int CurrentTurn;
     [SerializeField] public int MaxTurn = 40;
-    [SerializeField] public int VictoryPointsGoal = 10;
     [SerializeField] private int UnluckyMeterMax = 5;
     [SerializeField] bool PlayWithUnluckyMeter = true;
     private int UnluckyMeterProgress = 0;
@@ -134,7 +133,6 @@ public class BoardManager : MonoBehaviour
             CornersDic = GameManager.Instance.GameState.cornersDic;
             SidesDic = GameManager.Instance.GameState.sidesDic;
             mapGenerator.LoadMapVisuals(TilesDictionary);
-            Debug.Log("victory points " + player.VictoryPoints);
             FirstTurnIsActive = false;
 
         }
@@ -175,6 +173,11 @@ public class BoardManager : MonoBehaviour
         CurrentTurn++;
         OnDiceRolled?.Invoke();
         PlayedAmountInTurn = 0;
+
+        if (CurrentTurn > MaxTurn)
+        {
+            uiManager.EndGame(false); // player lose
+        }
 
     }
 
@@ -391,14 +394,9 @@ public class BoardManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(FirstTurnIsActive == true && boonManager.VPForFirstBoon == 0 && boonManager.FinishedPrePlacementBoonSelect == true)
-        {
-            FirstTurnPlacement();
-        }
-        else if(FirstTurnIsActive == true && boonManager.VPForFirstBoon != 0)
-        {
-            FirstTurnPlacement();
-        }
+
+        FirstTurnPlacement();
+
     }
 
     private void FirstTurnPlacement() 
@@ -516,7 +514,6 @@ public class BoardManager : MonoBehaviour
         AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
 
 
-        player.AddVictoryPoints(1, Settelment.Position);
 
 
         foreach (var indicator in CitiesIndicatorsPrefabList)
@@ -628,7 +625,6 @@ public class BoardManager : MonoBehaviour
 
 
                 player.AddSettelment(corner);
-                player.AddVictoryPoints(1,cornerPosition);
                 OnTownBuilt?.Invoke();
 
                 foreach (var adjustTile in corner.AdjacentTiles)
@@ -669,7 +665,6 @@ public class BoardManager : MonoBehaviour
 
 
                 player.AddSettelment(corner);
-                player.AddVictoryPoints(1, cornerPosition);
                 OnTownBuilt?.Invoke();
 
 

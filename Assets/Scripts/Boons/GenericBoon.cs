@@ -62,7 +62,6 @@ public class BoonEffect
     public enum EffectType
     {
         AddWood,
-        GainVictoryPoints,
         GainRandomResources,
         TransformWoodTilesToStoneTiles,
         GetRandomRoad,
@@ -408,12 +407,6 @@ public class GenericBoon : ScriptableObject
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
                 BoardManager.instance.player.AddResource(TileClass.ResourceType.Wood, effect.value1, sourcePosition);
                 break;
-
-            case BoonEffect.EffectType.GainVictoryPoints:
-                sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
-                BoardManager.instance.player.AddVictoryPoints(effect.value1, sourcePosition);
-                break;
-
             case BoonEffect.EffectType.GainRandomResources: // gain ranodm resources
 
                 for (int i = 0; i < effect.value1; i++)

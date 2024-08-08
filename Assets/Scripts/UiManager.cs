@@ -39,7 +39,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject SheepFlyingIcon;
     [SerializeField] private GameObject OreFlyingIcon;
     [SerializeField] private GameObject WheatFlyingIcon;
-    [SerializeField] private GameObject VictoryPointsFlyingIcons;
 
 
     //screen UI:
@@ -49,8 +48,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI sheepText;
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI wheatText;
-    [SerializeField] private TextMeshProUGUI TotalVictoryPointsText;
-    [SerializeField] private TextMeshProUGUI VictoryPointsLeftUntilNextBoon;
     [SerializeField] private GameObject FloatingErrorTextPrefab;
     [SerializeField] public Image diceBackground;
     [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
@@ -169,8 +166,7 @@ public class UiManager : MonoBehaviour
         UpdateTurnSliderDisplay(); // inital slider postioning
 
         //inital update for total VP and next boon milestone
-        boonManager.CheckBoonMilestones(); 
-        UpdateVictoryPointsDisplay();
+       // boonManager.CheckBoonMilestones(); 
 
         
     }
@@ -471,22 +467,7 @@ public class UiManager : MonoBehaviour
 
     }
 
-    public void VictoryPointsAddedAnimation(Vector3 FromPosition)
-    {
-        float offsetPositionX = FromPosition.x + UnityEngine.Random.Range(-0.5f, 0.5f);
-        float offsetPositionY = FromPosition.y + UnityEngine.Random.Range(-0.5f, 0.5f);
-        Vector3 spawnPosition = new Vector3(offsetPositionX, offsetPositionY, 0);
 
-        var VPicon = Instantiate(VictoryPointsFlyingIcons, spawnPosition, Quaternion.identity);
-        var tweenVP = VPicon.transform.DOMove(TotalVictoryPointsText.transform.position, 150).SetSpeedBased(true).SetEase(Ease.InQuint);
-        tweenVP.OnComplete(() =>
-        {
-            
-            boonManager.CheckBoonMilestones();
-            UpdateVictoryPointsDisplay();
-            Destroy(VPicon);
-        });
-    }
 
     public void UpdateResourceDisplay()
     {
@@ -498,24 +479,7 @@ public class UiManager : MonoBehaviour
 
     }
 
-    public void UpdateVictoryPointsDisplay()
-    {
 
-        string VPText = player.VictoryPoints.ToString();
-        string VPGoalText = BoardManager.instance.VictoryPointsGoal.ToString();
-        TotalVictoryPointsText.text = VPText + "/" + VPGoalText;
-
-        int leftto = (boonManager.NextVPMilestoneForBoon - player.VictoryPoints);
-        string VPLeftUntilBoon = (boonManager.NextVPMilestoneForBoon - player.VictoryPoints).ToString();
-       
-        VictoryPointsLeftUntilNextBoon.text = "Gather " + VPLeftUntilBoon + " more <sprite name=peasant> to pass a new law";
-        if (leftto <= 0) { VictoryPointsLeftUntilNextBoon.text = "no more new laws!"; }
-
-        if (player.VictoryPoints >= BoardManager.instance.VictoryPointsGoal)
-        {
-            EndGame(true);
-        }
-    }
 
 
     public void UpdateTurnSliderDisplay()
@@ -531,10 +495,7 @@ public class UiManager : MonoBehaviour
         TurnLeftUntilDeathText.text = (maxTurns - CurrentTurn) + " Turns left";
 
 
-        if(CurrentTurn > maxTurns)
-        {
-            EndGame(false); // player lose
-        }
+
 
         // update challenge indicator text 
 

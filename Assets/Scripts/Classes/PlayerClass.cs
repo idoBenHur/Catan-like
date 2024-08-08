@@ -10,10 +10,8 @@ public class PlayerClass
 {
     public Dictionary<ResourceType, int> PlayerResources { get; private set; }
     public event Action OnResourcesChanged;
-    public event Action <int> OnVictoryPointsChanged;
     public event Action OnTrade;
     public event Action OnHarborsGained;
-    public int VictoryPoints;
     public int TradeCount; // used for an old boon, will modifiy the boon and will remove this value when i have the power to do it...
     public int? TradeModifier = null; //brute force change for trade ratio (used by boon) 
     public List<TileClass> TilesSurrondedByRoadsList = new List<TileClass>(); // used for an old boon, will modifiy the boon and will remove this value when i have the power to do it...
@@ -33,7 +31,6 @@ public class PlayerClass
             { ResourceType.Wheat, 0 }
         };
 
-        VictoryPoints = 0;
         TradeCount = 0;
         
     }
@@ -129,19 +126,7 @@ public class PlayerClass
 
     }
 
-
-    public void AddVictoryPoints(int VictoryPointsAmount, Vector3 SourcePosition)
-    {
-       VictoryPoints = VictoryPoints + VictoryPointsAmount;
-        OnVictoryPointsChanged?.Invoke(VictoryPoints);
-
-        for (int i = 0; i < VictoryPointsAmount; i++)
-        {
-            BoardManager.instance.uiManager.VictoryPointsAddedAnimation(SourcePosition);
-        }
-
-
-    }
+    
 
     public void AddSettelment(CornersClass corner)
     {
