@@ -8,24 +8,27 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public int RequiredDiceCount;
     public List<DiceType> RequiredDiceTypes;
 
-    protected List<NewNewDice> diceInSlot = new List<NewNewDice>();
+    protected List<NewNewDice> DiceInSlotList = new List<NewNewDice>();
 
 
 
 
-    public void OnDrop(PointerEventData eventData)
+
+    // Checks if the die can be added to the slot, and if so remove the dice from its previous slot
+    // triggred automatically when a draggable object is dropped onto a GameObject with this fucntion 
+    public void OnDrop(PointerEventData eventData) 
     {
         GameObject droppedObject = eventData.pointerDrag;
         NewNewDice dice = droppedObject.GetComponent<NewNewDice>();
 
-        if (CanAcceptDice(dice))
-        {
+        if (dice.currentSlot != this && CanAcceptDice(dice))
+        {            
+            if (dice.currentSlot != null)
+            {
+                dice.currentSlot.RemoveDice(dice);
+            }
+            
             AddDice(dice);
-        }
-        else
-        {
-            // Return the dice to its original parent if it cannot be accepted
-          //  dice.SetParent(dice.originalParent);
         }
     }
 
@@ -33,9 +36,19 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     {
         if (CanAcceptDice(dice))
         {
-            diceInSlot.Add(dice);
+            DiceInSlotList.Add(dice);
             OnDiceAdded(dice);
-            dice.SetParent(transform);  // Move the dice to the slot's position
+            dice.ChangeDieParent(transform);
+        }
+    }
+
+
+    public void RemoveDice(NewNewDice dice)
+    {
+        if (DiceInSlotList.Contains(dice))
+        {
+            DiceInSlotList.Remove(dice);
+            OnDiceRemoved(dice);
         }
     }
 
@@ -44,6 +57,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public abstract bool CanAcceptDice(NewNewDice dice);
 
     protected abstract void OnDiceAdded(NewNewDice dice);
+    protected abstract void OnDiceRemoved(NewNewDice dice);
 
     public abstract void ActivateSlotEffect();
 

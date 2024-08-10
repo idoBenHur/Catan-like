@@ -7,8 +7,8 @@ public class SkillTest : AbstractSkillSlot
     public override bool CanAcceptDice(NewNewDice dice)
     {
         // Example: This slot accepts any dice
-        RequiredDiceCount = 1;
-        return diceInSlot.Count < RequiredDiceCount;
+       // RequiredDiceCount = 1;
+        return DiceInSlotList.Count < RequiredDiceCount;
     }
 
     protected override void OnDiceAdded(NewNewDice dice)
@@ -17,10 +17,20 @@ public class SkillTest : AbstractSkillSlot
         Debug.Log("Dice added to SplitDiceSlot.");
     }
 
+
+
+    protected override void OnDiceRemoved(NewNewDice dice)
+    {
+        // Logic for when a dice is removed from the SkillTest slot
+        Debug.Log("Dice removed from SkillTest slot.");
+    }
+
+
+
     public override void ActivateSlotEffect()
     {
         // Implement the effect for splitting the dice
-        if (diceInSlot.Count > 0)
+        if (DiceInSlotList.Count > 0)
         {
            // NewNewDice dice = diceInSlot[0];
             // Split dice logic

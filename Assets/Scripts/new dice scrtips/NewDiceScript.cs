@@ -35,6 +35,8 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public IEnumerator RollTheDice()
     {
+
+
        // DiceStilRolling = true;
         int Dice1RandomSide = 0;
 
