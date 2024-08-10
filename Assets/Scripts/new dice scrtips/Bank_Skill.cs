@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillTest : AbstractSkillSlot
+public class Bank_Skill : AbstractSkillSlot
 {
 
 
 
     private void Start()
     {
-        RequiredDiceCount = 2;
+        RequiredDiceCount = 1;
     }
-
 
     public override bool CanAcceptDice(NewNewDice dice)
     {
-
+                
         return DiceInSlotList.Count < RequiredDiceCount;
     }
 
@@ -31,6 +30,8 @@ public class SkillTest : AbstractSkillSlot
 
     }
 
+
+
     public override void ActivateSlotEffect()
     {
 
@@ -38,4 +39,8 @@ public class SkillTest : AbstractSkillSlot
 
 
 
+    public override void DestroyAllDiceInSlot()
+    {
+        // does noting because this is the bank skill
+    }
 }

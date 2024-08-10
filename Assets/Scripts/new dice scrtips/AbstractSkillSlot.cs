@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
 {
-    public int RequiredDiceCount;
+    public int RequiredDiceCount = 1;
     public List<DiceType> RequiredDiceTypes;
 
     protected List<NewNewDice> DiceInSlotList = new List<NewNewDice>();
@@ -50,6 +50,19 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
             DiceInSlotList.Remove(dice);
             OnDiceRemoved(dice);
         }
+    }
+
+
+
+    public virtual void DestroyAllDiceInSlot()
+    {
+      
+        foreach (NewNewDice dice in new List<NewNewDice>(DiceInSlotList))
+        {
+            Destroy(dice.gameObject);
+        }
+
+        DiceInSlotList.Clear(); // Clear the list after destruction
     }
 
 
