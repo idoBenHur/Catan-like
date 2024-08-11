@@ -530,7 +530,7 @@ public class GenericBoon : ScriptableObject
                 break;
             case BoonEffect.EffectType.AddTemporaryDice: // adds a dice this turn, (will not add to the amount of dice player roll each turn)
 
-                BoardManager.instance.gameObject.GetComponent<SelectDiceBox>().AddTemporerayDice();
+               // BoardManager.instance.gameObject.GetComponent<SelectDiceBox>().AddTemporerayDice();
 
                 break;
             case BoonEffect.EffectType.AddPermanentDice:

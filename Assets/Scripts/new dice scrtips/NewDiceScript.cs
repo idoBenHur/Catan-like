@@ -33,7 +33,7 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
 
-    public IEnumerator RollTheDice()
+    private IEnumerator RollTheDice()
     {
 
 

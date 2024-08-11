@@ -9,7 +9,7 @@ public class Bank_Skill : AbstractSkillSlot
 
     private void Start()
     {
-        RequiredDiceCount = 1;
+        RequiredDiceCount = 2;
     }
 
     public override bool CanAcceptDice(NewNewDice dice)

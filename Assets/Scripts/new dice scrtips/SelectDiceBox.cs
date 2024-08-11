@@ -38,7 +38,7 @@ public class SelectDiceBox : MonoBehaviour
 
 
     // destroy all dice, roll new ones
-    public void RollNewDicesBUTTON() // OLD
+    private void RollNewDicesBUTTON() // OLD
     {
 
         BoardManager.instance.uiManager.CloseAllUi();
@@ -68,7 +68,7 @@ public class SelectDiceBox : MonoBehaviour
 
 
 
-    public void AddTemporerayDice()
+    private void AddTemporerayDice()
     {
 
         if(DiceBox.transform.childCount < MaxDiceAmountInDiceBox)
