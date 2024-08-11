@@ -25,14 +25,14 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         {            
             if (dice.currentSlot != null)
             {
-                dice.currentSlot.RemoveDice(dice);
+                dice.currentSlot.RemoveDiceFromDiceList(dice);
             }
             
-            AddDice(dice);
+            AddDiceToSlotList(dice);
         }
     }
 
-    public void AddDice(NewNewDice dice)
+    public void AddDiceToSlotList(NewNewDice dice)
     {
         if (CanAcceptDice(dice))
         {
@@ -43,7 +43,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     }
 
 
-    public void RemoveDice(NewNewDice dice)
+    public void RemoveDiceFromDiceList(NewNewDice dice)
     {
         if (DiceInSlotList.Contains(dice))
         {

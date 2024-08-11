@@ -38,7 +38,7 @@ public class SelectDiceBox : MonoBehaviour
 
 
     // destroy all dice, roll new ones
-    public void RollNewDicesBUTTON()
+    public void RollNewDicesBUTTON() // OLD
     {
 
         BoardManager.instance.uiManager.CloseAllUi();

@@ -23,6 +23,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public MapGenerator mapGenerator;
     [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
+    [SerializeField] public SkillSlotManager skillSlotManager;
 
 
    
@@ -169,7 +170,7 @@ public class BoardManager : MonoBehaviour
 
     public void DicesRolled()
     {
-
+        skillSlotManager.SpawnNewDiceInSlot();
         CurrentTurn++;
         OnDiceRolled?.Invoke();
         PlayedAmountInTurn = 0;

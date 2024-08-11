@@ -77,7 +77,6 @@ public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         DieResult = Dice1RandomSide;
 
-        Debug.Log(DieResult);
     }
 
 

@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillTest : AbstractSkillSlot
+public class PlayDice_Skill : AbstractSkillSlot
 {
-
 
 
     private void Start()
     {
         RequiredDiceCount = 2;
     }
-
 
     public override bool CanAcceptDice(NewNewDice dice)
     {
@@ -22,6 +20,12 @@ public class SkillTest : AbstractSkillSlot
     protected override void OnDiceAdded(NewNewDice dice)
     {
 
+        if (DiceInSlotList.Count == 2)
+        {
+            ActivateSlotEffect();
+        }
+
+
     }
 
 
@@ -31,10 +35,19 @@ public class SkillTest : AbstractSkillSlot
 
     }
 
-    public override void ActivateSlotEffect()
+
+
+    public override void ActivateSlotEffect() // play the dice 
     {
+        int firstDice = DiceInSlotList[0].DieResult;
+        int secondDice = DiceInSlotList[1].DieResult;
+
+        BoardManager.instance.DicesPlayed(firstDice, secondDice);
+
+        DestroyAllDiceInSlot();
 
     }
+
 
 
 

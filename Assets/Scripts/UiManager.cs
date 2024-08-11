@@ -575,7 +575,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void RollDiceButton() 
+    public void RollDiceButton() // OLD!
     {
         
 
@@ -597,6 +597,17 @@ public class UiManager : MonoBehaviour
         CloseAllUi();
 
     }
+
+    public void NewRollDinceBUTTON()
+    {
+        CloseAllUi();
+        BoardManager.instance.DicesRolled();
+        
+
+    }
+
+
+
 
     private void SetupButtonListeners()
     {

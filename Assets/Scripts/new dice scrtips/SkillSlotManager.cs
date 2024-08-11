@@ -6,24 +6,28 @@ using UnityEngine.UI;
 
 public class SkillSlotManager : MonoBehaviour
 {
-    public AbstractSkillSlot[] slots; // Reference to all slots in the scene
-    public GameObject dicePrefab;      // Prefab of the dice to be spawned
-    public Button resetButton;         // Reference to the reset button
+    public AbstractSkillSlot[] Allslots; // Reference to all slots in the scene
+    [SerializeField] AbstractSkillSlot DiceBox;
+        
 
     private void Start()
     {
-        resetButton.onClick.AddListener(ResetDice);
+        
     }
 
-    public void ResetDice()
+    public void SpawnNewDiceInSlot()
     {
-        // Destroy dice in all slots
-        foreach (AbstractSkillSlot slot in slots)
+        DiceBox.DestroyAllDiceInSlot();
+
+        foreach (var slot in Allslots)
         {
             slot.DestroyAllDiceInSlot();
         }
+        DiceBox.ActivateSlotEffect();
 
-        // Spawn 4 new dice in the first slot (or any other target slot)
-      //  slots[0].SpawnNewDice(4);
+
+
+
+
     }
 }
