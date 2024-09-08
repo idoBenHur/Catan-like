@@ -21,15 +21,15 @@ public class Challenges : MonoBehaviour
 
     private void OnDestroy()
     {
-        BoardManager.OnDiceRolled -= RobbersChallenge;
+        BoardManager.OnDiceRolled -= TsunamiChallenge;
     }
 
     public void SetUpPlayerChallenges(PlayerClass player)
     {
-        BoardManager.OnDiceRolled += RobbersChallenge;
+        BoardManager.OnDiceRolled += TsunamiChallenge;
     }
 
-    public void RobbersChallenge()
+    public void TsunamiChallenge()
     {
         if(BoardManager.instance.CurrentTurn >= RobberChallengeTurn)
         {

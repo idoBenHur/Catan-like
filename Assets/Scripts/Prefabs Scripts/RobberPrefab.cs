@@ -6,16 +6,13 @@ using UnityEngine.UI;
 
 public class RobberPrefab : MonoBehaviour
 {
-    public TileClass currentTile; // The tile this robber is on
-    public static int SelctedRobbersCounter = 0;
-    public GameObject SelectedIndicatorGameobject;
     
-
+    //DEALET THIS ALREADY
 
     private void OnMouseDown()
     {
 
-        UiManager.UIinstance.RobberInteraction(this);
+       
 
 
 

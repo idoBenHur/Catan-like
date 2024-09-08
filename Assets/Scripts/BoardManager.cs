@@ -24,9 +24,10 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
+    [SerializeField] private Winning_Condition winning_Condition;
 
 
-   
+
     public bool FirstTurnIsActive;
     [HideInInspector] public bool DiceStilRolling = false;
     private int FirstTurnPlacedPeices = 0;
@@ -144,6 +145,7 @@ public class BoardManager : MonoBehaviour
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
         uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
+        winning_Condition.SetupWinningCondition(player);
 
         StartGame();
 
@@ -339,59 +341,10 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    private void ChooseRobberTile()
-    {
-        List<TileClass> NearPlayerTiles = new List<TileClass>();
-        List<TileClass> AwayFromPlayerTiles = new List<TileClass>();
-
-        foreach (var corner in player.SettelmentsList)
-        {
-            foreach( var AdjacentTile in corner.AdjacentTiles)
-            {
-                if (!NearPlayerTiles.Contains(AdjacentTile) && AdjacentTile.hasRobber ==false)
-                {
-                    NearPlayerTiles.Add(AdjacentTile);
-                }
-            }
-        }
-
-
-        foreach(var tile in TilesDictionary) 
-        {
-            if(NearPlayerTiles.Contains(tile.Value) == false)
-            {
-                AwayFromPlayerTiles.Add(tile.Value);
-            }
-        }
-
-
-        if(AwayFromPlayerTiles.Count > 0)
-        {
-            int randomindex = UnityEngine.Random.Range(0, AwayFromPlayerTiles.Count);
-            AwayFromPlayerTiles[randomindex].PlaceRobber();
-
-
-            RobberPrefab robber = Instantiate(robberPrefab, AwayFromPlayerTiles[randomindex].TileWorldPostion + (Vector3.right * 0.5f), Quaternion.identity);
-            robber.currentTile = AwayFromPlayerTiles[randomindex];
-
-        }
 
 
 
-    }
 
-
-    public void RemoveRobber(RobberPrefab robber, ResourceType resourceType)
-    {
-        Dictionary<ResourceType, int> amountToReduce = new Dictionary<ResourceType, int> // create temp dic with relvent costs to use to exsiting subtruct resources function 
-        {
-            { resourceType, 4 }
-        };
-
-        player.SubtractResources(amountToReduce);
-        robber.currentTile.RemoveRobber(); // Update the tile status
-        Destroy(robber.gameObject); // Remove the robber prefab from the scene
-    }
 
     public void StartGame()
     {

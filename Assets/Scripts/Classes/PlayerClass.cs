@@ -52,9 +52,6 @@ public class PlayerClass
         }
   
 
-
-
-
     }
 
     public void SubtractResources(Dictionary<ResourceType, int> cost)
@@ -87,7 +84,20 @@ public class PlayerClass
     }
 
 
- 
+
+    public int CheckResourceAmount(ResourceType resource)
+    {
+        if (PlayerResources.ContainsKey(resource))
+        {
+            return PlayerResources[resource];
+        }
+        return 0; // If the resource doesn't exist, return 0
+    }
+
+
+
+
+
 
 
     public void TradeWithBank(ResourceType offerType, ResourceType requestType)

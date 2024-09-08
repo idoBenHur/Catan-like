@@ -133,7 +133,7 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 if (result.gameObject.transform.childCount < 2)
                 {
                     boxTransform = result.gameObject.transform;
-                    BoardManager.instance.boonManager.GiveBoon();
+                    //BoardManager.instance.boonManager.GiveBoon();
                     return true;
                 }
             }

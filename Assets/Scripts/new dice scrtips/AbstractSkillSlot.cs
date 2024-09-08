@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
 {
-    public int RequiredDiceCount = 1;
+    public int RequiredDiceCount;
     public List<DiceType> RequiredDiceTypes;
 
     protected List<NewNewDice> DiceInSlotList = new List<NewNewDice>();
