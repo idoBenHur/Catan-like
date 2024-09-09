@@ -32,7 +32,7 @@ public class SelectDiceBox : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
-            BoardManager.instance.DicesPlayed(dice1,dice2);
+           // BoardManager.instance.DicesPlayed(dice1,dice2);
         }
     }
 
@@ -63,7 +63,7 @@ public class SelectDiceBox : MonoBehaviour
             Instantiate(DicePrefab, DiceBox.transform);
         }
 
-        BoardManager.instance.DicesRolled();
+       // BoardManager.instance.DicesRolled();
     }
 
 

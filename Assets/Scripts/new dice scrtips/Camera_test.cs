@@ -1,52 +1,82 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class camera_test : MonoBehaviour
 {
-    public float panSpeed = 20f;         // Speed of camera movement
-    public float scrollSpeed = 20f;      // Speed of zooming with the scroll wheel
-    public float edgeThreshold = 10f;    // Distance from the edge of the screen to trigger movement
+    public float moveSpeed = 5f; // Speed of the camera movement
+    public float screenEdgeThickness = 10f; // The thickness of the screen edge to detect the mouse
+    public float minX = -10f, maxX = 10f; // Threshold limits for X axis movement
+    public float minY = -10f, maxY = 10f; // Threshold limits for Y axis movement
 
-    public Vector2 panLimitMin;          // Minimum boundary for the camera movement
-    public Vector2 panLimitMax;          // Maximum boundary for the camera movement
-    public float minZoom = 5f;           // Minimum zoom level
-    public float maxZoom = 50f;          // Maximum zoom level
+    public float zoomSpeed = 2f; // Speed of zooming in and out
+    public float minZoom = 5f; // Minimum orthographic size for zoom (zoomed in)
+    public float maxZoom = 20f; // Maximum orthographic size for zoom (zoomed out)
 
-    private float fixedZ = -10f;         // Fixed Z position for the camera
+    private Vector3 DragOrigin;
+    [SerializeField] private Camera MainCamera;
+    private bool isDragging = false;
+
+    private void Start()
+    {
+        
+    }
 
     void Update()
     {
         Vector3 pos = transform.position;
 
-        // Pan camera when mouse is at the edge of the screen (X and Y movement)
-        if (Input.mousePosition.x >= Screen.width - edgeThreshold)
+        // Check if mouse is near the edges of the screen for X axis movement (left and right)
+        if (Input.mousePosition.x >= Screen.width - screenEdgeThickness && pos.x < maxX)
         {
-            pos.x += panSpeed * Time.deltaTime;
+            pos.x += moveSpeed * Time.deltaTime;
         }
-        if (Input.mousePosition.x <= edgeThreshold)
+        if (Input.mousePosition.x <= screenEdgeThickness && pos.x > minX)
         {
-            pos.x -= panSpeed * Time.deltaTime;
-        }
-        if (Input.mousePosition.y >= Screen.height - edgeThreshold)
-        {
-            pos.y += panSpeed * Time.deltaTime;
-        }
-        if (Input.mousePosition.y <= edgeThreshold)
-        {
-            pos.y -= panSpeed * Time.deltaTime;
+            pos.x -= moveSpeed * Time.deltaTime;
         }
 
-        // Scroll wheel for zooming (affects orthographic size if using 2D)
+        // Check if mouse is near the edges of the screen for Y axis movement (up and down)
+        if (Input.mousePosition.y >= Screen.height - screenEdgeThickness && pos.y < maxY)
+        {
+            pos.y += moveSpeed * Time.deltaTime;
+        }
+        if (Input.mousePosition.y <= screenEdgeThickness && pos.y > minY)
+        {
+            pos.y -= moveSpeed * Time.deltaTime;
+        }
+
+        // Zooming in and out with the mouse wheel
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - scroll * scrollSpeed * 100f * Time.deltaTime, minZoom, maxZoom);
+        if (scroll != 0f)
+        {
+            MainCamera.orthographicSize -= scroll * zoomSpeed;
+            MainCamera.orthographicSize = Mathf.Clamp(MainCamera.orthographicSize, minZoom, maxZoom);
+        }
 
-        // Clamp camera position within the specified boundaries for X and Y
-        pos.x = Mathf.Clamp(pos.x, panLimitMin.x, panLimitMax.x);
-        pos.y = Mathf.Clamp(pos.y, panLimitMin.y, panLimitMax.y);
-
-        // Keep the Z position fixed at -10
-        pos.z = fixedZ;
-
-        // Apply the new camera position
+        // Apply the new position
         transform.position = pos;
+
+        MouseDragCameraMovment();
+    }
+
+    private void MouseDragCameraMovment()
+    {
+        // Check if the pointer is over a UI element only when clicking
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            DragOrigin = MainCamera.ScreenToWorldPoint(Input.mousePosition);
+            isDragging = true; // Allow dragging only if we started on a non-UI element
+        }
+
+        if (Input.GetMouseButton(0) && isDragging)
+        {
+            Vector3 difference = DragOrigin - MainCamera.ScreenToWorldPoint(Input.mousePosition);
+            MainCamera.transform.position += difference;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false; // Stop dragging when the mouse button is released
+        }
     }
 }

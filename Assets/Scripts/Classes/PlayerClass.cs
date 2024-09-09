@@ -9,6 +9,7 @@ using static Unity.VisualScripting.Member;
 public class PlayerClass
 {
     public Dictionary<ResourceType, int> PlayerResources { get; private set; }
+    public Dictionary<ResourceType, int> ResourcesMaxStorage { get; private set; }
     public event Action OnResourcesChanged;
     public event Action OnTrade;
     public event Action OnHarborsGained;
@@ -30,6 +31,17 @@ public class PlayerClass
             { ResourceType.Ore, 0 },
             { ResourceType.Wheat, 0 }
         };
+
+        ResourcesMaxStorage = new Dictionary<ResourceType, int>
+        {
+            { ResourceType.Wood, 1 },
+            { ResourceType.Brick, 1 },
+            { ResourceType.Sheep, 1 },
+            { ResourceType.Ore, 1 },
+            { ResourceType.Wheat, 1 }
+        };
+
+
 
         TradeCount = 0;
         

@@ -175,6 +175,8 @@ public class BoardManager : MonoBehaviour
         skillSlotManager.SpawnNewDiceInSlot();
         CurrentTurn++;
         OnDiceRolled?.Invoke();
+        FlushResources();
+
         PlayedAmountInTurn = 0;
 
         if (CurrentTurn > MaxTurn)
@@ -771,6 +773,25 @@ public class BoardManager : MonoBehaviour
         uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
     }
 
+
+    private void FlushResources()
+    {
+        foreach (var resourceMax in player.ResourcesMaxStorage)
+        {
+           if(player.CheckResourceAmount(resourceMax.Key) > resourceMax.Value)
+            {
+                int decreaseAmount = player.PlayerResources[resourceMax.Key] - resourceMax.Value;
+
+                Dictionary<ResourceType, int> tempDic = new Dictionary<ResourceType, int>
+                {
+                    { resourceMax.Key, decreaseAmount }
+                };
+
+                player.SubtractResources(tempDic);
+            }
+            
+        }
+    }
 
 
 }
