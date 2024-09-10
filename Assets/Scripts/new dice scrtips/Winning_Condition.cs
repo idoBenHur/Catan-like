@@ -54,11 +54,9 @@ public class Winning_Condition : MonoBehaviour
             // If the player doesn't have enough of this resource, they haven't won
             if (playerResourceAmount < requirement.requiredAmount)
             {
-                Debug.Log("Player hasn't met the win condition yet.");
                 return; // Exit early if the player hasn't met this requirement
             }
         }
 
-        Debug.Log("you win");
     }
 }

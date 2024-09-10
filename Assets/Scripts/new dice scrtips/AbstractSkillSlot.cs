@@ -21,6 +21,9 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         GameObject droppedObject = eventData.pointerDrag;
         NewNewDice dice = droppedObject.GetComponent<NewNewDice>();
 
+        if (dice.DraggableActive == false) { return; }
+
+
         if (dice.currentSlot != this && CanAcceptDice(dice))
         {            
             if (dice.currentSlot != null)
@@ -36,9 +39,9 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     {
         if (CanAcceptDice(dice))
         {
-            DiceInSlotList.Add(dice);
-            OnDiceAdded(dice);
+            DiceInSlotList.Add(dice);           
             dice.ChangeDieParent(transform);
+            OnDiceAdded(dice);
         }
     }
 
@@ -59,6 +62,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
       
         foreach (NewNewDice dice in new List<NewNewDice>(DiceInSlotList))
         {
+            RemoveDiceFromDiceList(dice);
             Destroy(dice.gameObject);
         }
 

@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 66345568}
   - component: {fileID: 66345571}
   m_Layer: 5
-  m_Name: Dice Bank
+  m_Name: Bank
   m_TagString: LimitedBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3506,6 +3506,8 @@ MonoBehaviour:
   Allslots:
   - {fileID: 416424959}
   - {fileID: 66345571}
+  - {fileID: 1922531759}
+  - {fileID: 1887304880}
   DiceBox: {fileID: 439090090}
 --- !u!114 &240130141
 MonoBehaviour:
@@ -6023,7 +6025,7 @@ GameObject:
   - component: {fileID: 439090087}
   - component: {fileID: 439090090}
   m_Layer: 5
-  m_Name: Dice Box
+  m_Name: Spawn Box
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21984,6 +21986,7 @@ RectTransform:
   - {fileID: 803711769}
   - {fileID: 439090086}
   - {fileID: 66345567}
+  - {fileID: 1922531758}
   - {fileID: 1887304875}
   - {fileID: 1984211791}
   - {fileID: 308240845}
@@ -24195,6 +24198,121 @@ Transform:
   m_Children: []
   m_Father: {fileID: 79483035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1922531757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1922531758}
+  - component: {fileID: 1922531763}
+  - component: {fileID: 1922531762}
+  - component: {fileID: 1922531761}
+  - component: {fileID: 1922531759}
+  m_Layer: 5
+  m_Name: Seven skill
+  m_TagString: LimitedBox
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1922531758
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922531757}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.88356453, y: 0.88356453, z: 0.88356453}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1622811973}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 675, y: -336}
+  m_SizeDelta: {x: 201.32, y: 121.41}
+  m_Pivot: {x: 0.5000002, y: 0.5}
+--- !u!114 &1922531759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922531757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88562ed42a92564459a2cfe88022bee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RequiredDiceCount: 2
+  RequiredDiceTypes: 
+--- !u!114 &1922531761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922531757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 5
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: -8, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
+--- !u!114 &1922531762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922531757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.4509804, g: 0.8784314, b: 0.8319833, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f7bd95421852f2e428f07196c97474f7, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1922531763
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922531757}
+  m_CullTransparentMesh: 1
 --- !u!1 &1925982811
 GameObject:
   m_ObjectHideFlags: 0

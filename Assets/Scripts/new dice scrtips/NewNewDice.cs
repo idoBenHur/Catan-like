@@ -25,12 +25,15 @@ public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private CanvasGroup canvasGroup;
     public Sprite[] DiceSides;
     private UnityEngine.UI.Image DiceImage;
+    [HideInInspector] public bool DraggableActive = true;
 
     [HideInInspector] public AbstractSkillSlot currentSlot; 
 
 
     private void Awake()
     {
+        DraggableActive = true;
+
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
@@ -58,7 +61,6 @@ public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public IEnumerator RollTheDice2()
     {
-        Debug.Log(DiceSides.Length);
 
         int Dice1RandomSide = 0;
 
@@ -86,6 +88,9 @@ public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (DraggableActive == false) { return; }
+
+
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
 
@@ -94,13 +99,18 @@ public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnDrag(PointerEventData eventData)
     {
+
+        if (DraggableActive == false) { return; }
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+
+        if (DraggableActive == false) { return; }
 
         if (transform.parent == canvas.transform) // if the new parent is still the canvas, return to original slot (currentSlot)
         {
