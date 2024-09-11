@@ -238,7 +238,7 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    public void AddOneToUnluckyMeter()
+    private void AddOneToUnluckyMeter() // delete this
     {
         UnluckyMeterProgress++;
         uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
@@ -247,7 +247,7 @@ public class BoardManager : MonoBehaviour
         if (UnluckyMeterProgress == UnluckyMeterMax)
         {
             UnluckyMeterProgress = 0;
-            uiManager.OpenUnluckyMeterRewardPannel();
+           // uiManager.OpenUnluckyMeterRewardPannel();
             uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
         }
     }
@@ -335,7 +335,7 @@ public class BoardManager : MonoBehaviour
             if (UnluckyMeterProgress == UnluckyMeterMax)
             {
                 UnluckyMeterProgress = 0;
-                uiManager.OpenUnluckyMeterRewardPannel();
+               // uiManager.OpenUnluckyMeterRewardPannel();
                 uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
             }
 
@@ -761,7 +761,7 @@ public class BoardManager : MonoBehaviour
         if (UnluckyMeterProgress == UnluckyMeterMax)
         {
             UnluckyMeterProgress = 0;
-            uiManager.OpenUnluckyMeterRewardPannel();
+           // uiManager.OpenUnluckyMeterRewardPannel();
             uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
         }
 

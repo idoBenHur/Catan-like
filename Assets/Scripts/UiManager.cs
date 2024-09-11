@@ -115,7 +115,23 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Toggle requestSheepToggle;
     [SerializeField] private Toggle requestOreToggle;
     [SerializeField] private Toggle requestWheatToggle;
-    
+
+
+
+    // Winning condition buttons / icons
+    [SerializeField] private GameObject WoodIconWinningCondition;
+    [SerializeField] private GameObject BrickIconWinningCondition;
+    [SerializeField] private GameObject SheepIconWinningCondition;
+    [SerializeField] private GameObject OreIconWinningCondition;
+    [SerializeField] private GameObject WheatIconWinningCondition;
+
+    private Dictionary<ResourceType, GameObject> WinningConditionIconDic;
+
+    [SerializeField] private Button WinButton;
+
+
+
+
 
 
 
@@ -632,6 +648,9 @@ public class UiManager : MonoBehaviour
         WheatRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Wheat));
 
 
+        // winning button
+        WinButton.onClick.AddListener(() => EndGame(true));
+
 
 
     }
@@ -981,7 +1000,7 @@ public class UiManager : MonoBehaviour
         
     }
 
-    public void OpenUnluckyMeterRewardPannel()
+    public void OpenSevenSkillRewardPannel()
     {
         UnluckyRewardPannel.SetActive(true);
         UpgradeUnluckyRewardButton.interactable = false;
@@ -1029,4 +1048,34 @@ public class UiManager : MonoBehaviour
         PlacementPhaseScreen.SetActive(false);
     }
 
+
+    public void ShowWinningCondition(List<ResourceRequirement> theWinningConditions)
+    {
+        WinningConditionIconDic = new Dictionary<ResourceType, GameObject>
+        {
+            { ResourceType.Wood, WoodIconWinningCondition },
+            { ResourceType.Brick, BrickIconWinningCondition },
+            { ResourceType.Sheep, SheepIconWinningCondition },
+            { ResourceType.Ore, OreIconWinningCondition },
+            { ResourceType.Wheat, WheatIconWinningCondition }
+        };
+
+        foreach (var resource in theWinningConditions)
+        {
+            if (WinningConditionIconDic.TryGetValue(resource.resourceType, out GameObject icon))
+            {
+                icon.SetActive(true);
+                TextMeshProUGUI text = icon.GetComponentInChildren<TextMeshProUGUI>();
+                text.text = resource.requiredAmount.ToString();
+            }
+        }
+
+
+
+    }
+
+    public void ShowTheButtonWin()
+    {
+        WinButton.gameObject.SetActive(true);
+    }
 }

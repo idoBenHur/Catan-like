@@ -29,6 +29,8 @@ public class Winning_Condition : MonoBehaviour
         {
             Player.OnResourcesChanged += CheckForWin;
         }
+
+        BoardManager.instance.uiManager.ShowWinningCondition(WinningConditions);
     }
 
 
@@ -57,6 +59,8 @@ public class Winning_Condition : MonoBehaviour
                 return; // Exit early if the player hasn't met this requirement
             }
         }
+
+        BoardManager.instance.uiManager.ShowTheButtonWin();
 
     }
 }

@@ -55,7 +55,7 @@ public class Seven_Skill : AbstractSkillSlot
     {
 
 
-        BoardManager.instance.uiManager.OpenUnluckyMeterRewardPannel();
+        BoardManager.instance.uiManager.OpenSevenSkillRewardPannel();
 
         DestroyAllDiceInSlot();
 
