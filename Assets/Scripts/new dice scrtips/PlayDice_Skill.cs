@@ -8,13 +8,15 @@ public class PlayDice_Skill : AbstractSkillSlot
 
     private void Start()
     {
-        RequiredDiceCount = 2;
+        MaxDiceCap = 2;
+        SkillName = SkillName.PlayDice;
+
     }
 
     public override bool CanAcceptDice(NewNewDice dice)
     {
 
-        return DiceInSlotList.Count < RequiredDiceCount;
+        return DiceInSlotList.Count < MaxDiceCap;
     }
 
     protected override void OnDiceAdded(NewNewDice dice)

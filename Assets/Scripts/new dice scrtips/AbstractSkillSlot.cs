@@ -3,10 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+
+
+public enum SkillName
+{
+    DiceBox,
+    SevenAbility,
+    PlayDice,
+    Bank,
+    Boons
+    // Add more skill types as needed
+}
+
+
+
 public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
 {
-    public int RequiredDiceCount;
+    [HideInInspector] public SkillName SkillName;
+    public bool DestroyDiceInsideUponRoll = true;
+    [HideInInspector] public int MaxDiceCap;
     public List<DiceType> RequiredDiceTypes;
+    
 
     protected List<NewNewDice> DiceInSlotList = new List<NewNewDice>();
 

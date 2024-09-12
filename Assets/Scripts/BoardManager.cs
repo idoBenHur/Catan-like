@@ -172,7 +172,7 @@ public class BoardManager : MonoBehaviour
 
     public void DicesRolled()
     {
-        skillSlotManager.SpawnNewDiceInSlot();
+        skillSlotManager.RollNewDice();
         CurrentTurn++;
         OnDiceRolled?.Invoke();
         FlushResources();

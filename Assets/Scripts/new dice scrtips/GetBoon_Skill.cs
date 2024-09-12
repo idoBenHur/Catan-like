@@ -8,7 +8,10 @@ public class GetBoon_Skill : AbstractSkillSlot
 {
     private void Start()
     {
-       // RequiredDiceCount = 6;
+        MaxDiceCap = 6;
+        SkillName = SkillName.Boons;
+        DestroyDiceInsideUponRoll = false;
+
     }
 
     public override bool CanAcceptDice(NewNewDice dice)
@@ -30,7 +33,7 @@ public class GetBoon_Skill : AbstractSkillSlot
         TheNewDie.DraggableActive = false;
 
 
-        if (DiceInSlotList.Count == RequiredDiceCount)
+        if (DiceInSlotList.Count == MaxDiceCap)
         {
             ActivateSlotEffect();
         }

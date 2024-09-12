@@ -866,7 +866,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d50f70cd19649714fb4dc3af6ea2a129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredDiceCount: 2
+  SkillName: 0
+  DestroyDiceInsideUponRoll: 1
+  MaxDiceCap: 0
   RequiredDiceTypes: 
 --- !u!1 &79483032
 GameObject:
@@ -3549,18 +3551,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: b187ef24cdab90449bd41a50c01cbfed, type: 2}
-  - {fileID: 11400000, guid: 18dd65cb63de1614ab88886e62e179b8, type: 2}
-  - {fileID: 11400000, guid: 50a7019ce5d66f3448b43396b6bea25c, type: 2}
-  - {fileID: 11400000, guid: 8d9c206dc1d622842a3a30cae10ca971, type: 2}
-  - {fileID: 11400000, guid: 4d5bf2dc10f4a044e992d615bcf2d445, type: 2}
-  - {fileID: 11400000, guid: 95c78bf619bb74c42832ba8874d3a04c, type: 2}
-  - {fileID: 11400000, guid: 87c7f6ba31f118e498588bce9957c945, type: 2}
-  - {fileID: 11400000, guid: 6ceee8253bf7d5a41b59137d9707ed89, type: 2}
-  - {fileID: 11400000, guid: 19991ca958226384ab6facee6f7359d3, type: 2}
-  - {fileID: 11400000, guid: f4dd152cae81d134a9b3edd3d68a8d05, type: 2}
-  - {fileID: 11400000, guid: a180f1af89009a747a4aa20e6a9f2fb4, type: 2}
-  - {fileID: 11400000, guid: f460a79bbae1eb04780ecaa3aa845d98, type: 2}
+  - {fileID: 11400000, guid: eb8ed1ae9b287e3488a4c43cc4040bd3, type: 2}
+  - {fileID: 11400000, guid: eb8ed1ae9b287e3488a4c43cc4040bd3, type: 2}
+  - {fileID: 11400000, guid: eb8ed1ae9b287e3488a4c43cc4040bd3, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
@@ -3684,7 +3677,9 @@ MonoBehaviour:
   - {fileID: 416424959}
   - {fileID: 66345571}
   - {fileID: 1922531759}
+  - {fileID: 439090090}
   DiceBox: {fileID: 439090090}
+  NormalDicePrefab: {fileID: 0}
 --- !u!114 &240130141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6212,7 +6207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17cd36692149464ba5b11e639374132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredDiceCount: 22
+  SkillName: 0
+  DestroyDiceInsideUponRoll: 1
+  MaxDiceCap: 0
   RequiredDiceTypes: 
 --- !u!1 &439090085
 GameObject:
@@ -6327,7 +6324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a217041bc363ca440a84c3c3162355db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredDiceCount: 4
+  SkillName: 0
+  DestroyDiceInsideUponRoll: 1
+  MaxDiceCap: 0
   RequiredDiceTypes: 
   NormalDicePrefab: {fileID: 2422953580468282202, guid: 1357d8d1a8a3f5940b6de959832ef9a1, type: 3}
 --- !u!1 &440855815
@@ -22356,7 +22355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a217041bc363ca440a84c3c3162355db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredDiceCount: 0
+  SkillName: 0
+  DestroyDiceInsideUponRoll: 1
+  MaxDiceCap: 0
   RequiredDiceTypes: 
   NormalDicePrefab: {fileID: 0}
 --- !u!1 &1643363005
@@ -24535,7 +24536,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec509af95e385ee459bf3f5bfd2e8258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredDiceCount: 6
+  SkillName: 0
+  DestroyDiceInsideUponRoll: 1
+  MaxDiceCap: 0
   RequiredDiceTypes: 
 --- !u!1 &1906475268
 GameObject:
@@ -24716,7 +24719,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88562ed42a92564459a2cfe88022bee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RequiredDiceCount: 2
+  SkillName: 0
+  DestroyDiceInsideUponRoll: 1
+  MaxDiceCap: 0
   RequiredDiceTypes: 
 --- !u!114 &1922531761
 MonoBehaviour:

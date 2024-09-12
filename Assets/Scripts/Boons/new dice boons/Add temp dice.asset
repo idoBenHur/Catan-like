@@ -10,27 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Dice 1+
+  m_Name: Add temp dice
   m_EditorClassIdentifier: 
-  boonName: Dice 1+
-  description: 'Gain an extra dice to your rolls
-
-
-    But
-
-
-    Trade ratio for
-    all resources is now 5:1.'
+  boonName: 
+  description: add temp dice on
   triggers:
-  - type: 3
-  conditions: []
+  - type: 7
+  conditions:
+  - type: 0
+    value1: 6
+    value2: 0
+    boolValue: 0
   effects:
-  - type: 5
-    value1: 5
+  - type: 15
+    value1: 1
     boolValue: 0
-  - type: 16
-    value1: 0
-    boolValue: 0
-  boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.9245283, g: 0.22241008, b: 0.22241008, a: 1}
+  boonImage: {fileID: 0}
+  boonColor: {r: 1, g: 1, b: 1, a: 1}
   isCounting: 0
