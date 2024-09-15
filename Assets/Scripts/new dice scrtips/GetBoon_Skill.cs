@@ -8,7 +8,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 {
     private void Start()
     {
-        MaxDiceCap = 6;
+        MaxDiceCap = 1;
         SkillName = SkillName.Boons;
         DestroyDiceInsideUponRoll = false;
 

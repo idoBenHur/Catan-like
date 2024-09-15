@@ -8,18 +8,20 @@ public class BoonCondition
 {
     public enum ConditionType
     {
-        DiceRollEquals,
+        DicePlayedEquals,
         ResourceCount,
         AfterXAmountOfTrades,
         TownNextToDesert,
         AmountOfHarbors,
         MoreSettelmentsThenResources,
         AmountOfTowns,
-        RolledDouble,
+        PlayedDouble, 
         DeseretSurrondedByRoad,
         AmounOfRoadsBuilt,
-        Played66Xtimes, // speciel dice boon
-        PlayedXDices // speciel dice boon
+        Played66Xtimes, //  dice boon
+        PlayedXDices, //  dice boon
+        PlayedNumberX,
+        PlayedEvenOrOdd
 
     }
 
@@ -260,7 +262,7 @@ public class GenericBoon : ScriptableObject
 
         switch (condition.type)
         {
-            case BoonCondition.ConditionType.DiceRollEquals: // dice = X
+            case BoonCondition.ConditionType.DicePlayedEquals: // dice = X
                 return BoardManager.instance.TotalDice == condition.value1;
 
             case BoonCondition.ConditionType.ResourceCount: // if boolValue == false, return true if resources are less then X. if boolValue == true  return ture if resources are more then X
@@ -319,7 +321,7 @@ public class GenericBoon : ScriptableObject
                 }
                 return condition.value1 >= townsAmount;
 
-            case BoonCondition.ConditionType.RolledDouble: // Rolled Double
+            case BoonCondition.ConditionType.PlayedDouble: // Rolled Double
                 return (BoardManager.instance.Dice1FinalSide == BoardManager.instance.Dice2FinalSide);
 
             case BoonCondition.ConditionType.DeseretSurrondedByRoad: // Deseret Surronded By Road
@@ -354,7 +356,7 @@ public class GenericBoon : ScriptableObject
                 }
                 BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
                 return (conditionIsMet);
-            case BoonCondition.ConditionType.Played66Xtimes:
+            case BoonCondition.ConditionType.Played66Xtimes: // every X times you play double 6 
                 conditionIsMet = false;
                 if (BoardManager.instance.Dice2FinalSide == 6 && BoardManager.instance.Dice1FinalSide == 6)
                 {
@@ -369,10 +371,12 @@ public class GenericBoon : ScriptableObject
                 BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
                 return conditionIsMet;
 
-            case BoonCondition.ConditionType.PlayedXDices: // count the amount of times the trigger was met
+            case BoonCondition.ConditionType.PlayedXDices: // count the amount of times the dice were played
 
                 int DicesPlayedInThisTurn = BoardManager.instance.PlayedAmountInTurn;
                 conditionMet = false;
+                condition.value2 = DicesPlayedInThisTurn;
+                BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
 
                 if (DicesPlayedInThisTurn % condition.value1 == 0 && DicesPlayedInThisTurn != 0)
                 {
@@ -381,6 +385,20 @@ public class GenericBoon : ScriptableObject
                 }
 
                 return conditionMet;
+            case BoonCondition.ConditionType.PlayedNumberX: // played spesific number
+                return BoardManager.instance.TotalDice == condition.value1;
+            case BoonCondition.ConditionType.PlayedEvenOrOdd: // if bool true, contdition will be met if the played number is even. if bool falue, contdition will be met if the played number is odd;
+                if (condition.boolValue == true)
+                {
+                    return BoardManager.instance.TotalDice % 2 == 0;
+                }
+                else return BoardManager.instance.TotalDice % 2 != 0;
+
+
+
+
+
+
 
 
 
@@ -539,7 +557,12 @@ public class GenericBoon : ScriptableObject
                 break;
             case BoonEffect.EffectType.AddPermanentDice:
 
-                BoardManager.instance.gameObject.GetComponent<SelectDiceBox>().AmountOfNewDiceEachRoll++;
+
+                diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+                diceBox.AddPermaDie();
+                diceBox.AddTempDie(1);
+
+
                 break;
             case BoonEffect.EffectType.MultipleRandomTransforms: // change 3 random tiles -  to desert, 8 and 6
 

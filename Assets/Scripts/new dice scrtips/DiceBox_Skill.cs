@@ -70,6 +70,10 @@ public class DiceBox_Skill : AbstractSkillSlot
 
     }
 
+    public void AddPermaDie()
+    {
+        DiceAmoutEachTurn += 1;
+    }
     
 
 

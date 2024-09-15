@@ -174,10 +174,11 @@ public class BoardManager : MonoBehaviour
     {
         skillSlotManager.RollNewDice();
         CurrentTurn++;
+        PlayedAmountInTurn = 0;
         OnDiceRolled?.Invoke();
         FlushResources();
 
-        PlayedAmountInTurn = 0;
+        
 
         if (CurrentTurn > MaxTurn)
         {

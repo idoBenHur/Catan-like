@@ -49,7 +49,7 @@ public class SkillSlotManager : MonoBehaviour
 
     public void IncreaseMaxDiceCap(SkillName skillName)
     {
-
+        SkillSlotsDictionary[skillName].MaxDiceCap =+ 1;
     }
 
 }
