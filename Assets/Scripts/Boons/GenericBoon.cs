@@ -21,7 +21,8 @@ public class BoonCondition
         Played66Xtimes, //  dice boon
         PlayedXDices, //  dice boon
         PlayedNumberX,
-        PlayedEvenOrOdd
+        PlayedEvenOrOdd,
+        RolledTriple
 
     }
 
@@ -393,6 +394,31 @@ public class GenericBoon : ScriptableObject
                     return BoardManager.instance.TotalDice % 2 == 0;
                 }
                 else return BoardManager.instance.TotalDice % 2 != 0;
+            case BoonCondition.ConditionType.RolledTriple:
+
+                var diceList = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox].DiceInSlotList;
+                Dictionary<int, int> diceCount = new Dictionary<int, int>();
+
+                foreach ( var die in diceList ) 
+                {
+                    
+                    if (diceCount.ContainsKey(die.DieResult))
+                    {
+                        diceCount[die.DieResult]++;
+                    }
+                    else
+                    {
+                        diceCount[die.DieResult] = 1;
+                    }
+
+                    // Check if any dice value has occurred 3 or more times
+                    if (diceCount[die.DieResult] >= 3)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
 
 
 

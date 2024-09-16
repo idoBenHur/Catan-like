@@ -63,6 +63,7 @@ public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
 
         int Dice1RandomSide = 0;
+        DieResult = UnityEngine.Random.Range(1, 7);
 
         for (int i = 0; i <= 10; i++)
         {
@@ -77,7 +78,8 @@ public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             yield return new WaitForSeconds(0.1f);
         }
 
-        DieResult = Dice1RandomSide;
+        DiceImage.sprite = DiceSides[DieResult - 1];
+        
 
     }
 

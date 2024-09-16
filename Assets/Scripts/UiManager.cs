@@ -602,7 +602,7 @@ public class UiManager : MonoBehaviour
             }
 
             
-            StartCoroutine(BoardManager.instance.RollTheDice());
+           // StartCoroutine(BoardManager.instance.RollTheDice());
         }
       
         CloseAllUi();

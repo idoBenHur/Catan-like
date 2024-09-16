@@ -870,6 +870,7 @@ MonoBehaviour:
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 
+  DiceInSlotList: []
 --- !u!1 &79483032
 GameObject:
   m_ObjectHideFlags: 0
@@ -6211,6 +6212,7 @@ MonoBehaviour:
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 
+  DiceInSlotList: []
 --- !u!1 &439090085
 GameObject:
   m_ObjectHideFlags: 0
@@ -6328,6 +6330,7 @@ MonoBehaviour:
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 
+  DiceInSlotList: []
   NormalDicePrefab: {fileID: 2422953580468282202, guid: 1357d8d1a8a3f5940b6de959832ef9a1, type: 3}
 --- !u!1 &440855815
 GameObject:
@@ -22359,6 +22362,7 @@ MonoBehaviour:
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 
+  DiceInSlotList: []
   NormalDicePrefab: {fileID: 0}
 --- !u!1 &1643363005
 GameObject:
@@ -24540,6 +24544,7 @@ MonoBehaviour:
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 
+  DiceInSlotList: []
 --- !u!1 &1906475268
 GameObject:
   m_ObjectHideFlags: 0
@@ -24723,6 +24728,7 @@ MonoBehaviour:
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 
+  DiceInSlotList: []
 --- !u!114 &1922531761
 MonoBehaviour:
   m_ObjectHideFlags: 0

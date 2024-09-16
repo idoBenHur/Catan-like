@@ -15,9 +15,9 @@ MonoBehaviour:
   boonName: 
   description: 
   triggers:
-  - type: 7
+  - type: 0
   conditions:
-  - type: 13
+  - type: 14
     value1: 0
     value2: 0
     boolValue: 0

@@ -175,7 +175,9 @@ public class BoardManager : MonoBehaviour
         skillSlotManager.RollNewDice();
         CurrentTurn++;
         PlayedAmountInTurn = 0;
-        OnDiceRolled?.Invoke();
+        // OnDiceRolled?.Invoke();
+        DOVirtual.DelayedCall(1.3f, () => OnDiceRolled?.Invoke()); // waits for the dice animation to finish
+
         FlushResources();
 
         
@@ -187,56 +189,7 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    public IEnumerator RollTheDice()
-    {               
-        DiceStilRolling = true;
-        int Dice1RandomSide = 0;
-        int Dice2RandomSide = 0;
-
-        for (int i = 0; i <= 10; i++)
-        {
-
-            Dice1RandomSide = UnityEngine.Random.Range(1, 7);
-            Dice2RandomSide = UnityEngine.Random.Range(1, 7);
-
-            // Set sprite to upper face of dice from array according to random value
-            Dice1Image.sprite = DiceSides[Dice1RandomSide - 1];
-            Dice2Image.sprite = DiceSides[Dice2RandomSide - 1];
-
-            // Pause before next itteration
-            yield return new WaitForSeconds(0.1f);
-        }
-
-
-        Dice1FinalSide = Dice1RandomSide;
-        Dice2FinalSide = Dice2RandomSide;
-        TotalDice = Dice1FinalSide + Dice2FinalSide;
-
-        CurrentTurn++;
-
-        OnDiceRolled?.Invoke();
-        OnDicePlayed?.Invoke();
-        DistributeResources(TotalDice);
-
-
-
-
-        Color newColor;
-        if (UnityEngine.ColorUtility.TryParseHtmlString("#1C3643", out newColor))
-        {
-            // Apply the color to the Image component
-            uiManager.diceBackground.color =  newColor;
-        }
-
-
-        
-
-        
-        DiceStilRolling = false;
-        
-
- 
-    }
+    
 
 
     private void AddOneToUnluckyMeter() // delete this

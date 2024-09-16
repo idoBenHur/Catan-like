@@ -26,7 +26,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public List<DiceType> RequiredDiceTypes;
     
 
-    protected List<NewNewDice> DiceInSlotList = new List<NewNewDice>();
+    public List<NewNewDice> DiceInSlotList = new List<NewNewDice>();
 
 
 
