@@ -17,15 +17,19 @@ public class GetBoon_Skill : AbstractSkillSlot
     public override bool CanAcceptDice(NewNewDice dice)
     {
 
-        foreach(var existingDie in DiceInSlotList)
-        {
-            if(existingDie.DieResult == dice.DieResult)
-            {
-                return false;
-            }
-        }
+        
+        //foreach(var existingDie in DiceInSlotList)
+        //{
+        //    if(existingDie.DieResult == dice.DieResult)
+        //    {
+        //        return false;
+        //    }
+        //}
 
-        return true;
+       /// return true;
+       /// 
+
+        return DiceInSlotList.Count < MaxDiceCap;
     }
 
     protected override void OnDiceAdded(NewNewDice TheNewDie)

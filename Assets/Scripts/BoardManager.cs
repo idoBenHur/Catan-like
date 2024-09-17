@@ -316,7 +316,7 @@ public class BoardManager : MonoBehaviour
 
 
         // Build a town
-        if (FirstTurnPlacedPeices == 0 || FirstTurnPlacedPeices == 1)
+        if (FirstTurnPlacedPeices == 0 || FirstTurnPlacedPeices == 50)
         {
             FirstTurnPlacedPeices++;
             foreach (var corner in CornersDic.Values)
@@ -336,7 +336,7 @@ public class BoardManager : MonoBehaviour
        
 
         // Build a road
-        if(FirstTurnPlacedPeices == 2 || FirstTurnPlacedPeices == 3)
+        if(FirstTurnPlacedPeices == 1 || FirstTurnPlacedPeices == 3)
         {
             FirstTurnPlacedPeices++;
 
@@ -379,7 +379,7 @@ public class BoardManager : MonoBehaviour
 
 
 
-        if (FirstTurnPlacedPeices == 4)
+        if (FirstTurnPlacedPeices == 2)
         {
             FirstTurnPlacedPeices++;
             FirstTurnIsActive = false;

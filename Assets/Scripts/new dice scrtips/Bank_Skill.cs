@@ -9,7 +9,7 @@ public class Bank_Skill : AbstractSkillSlot
 
     private void Start()
     {
-        MaxDiceCap = 2;
+        MaxDiceCap = 1;
         SkillName = SkillName.Bank;
 
     }
