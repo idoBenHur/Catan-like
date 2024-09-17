@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: 666
+  m_Name: Deseret City
   m_EditorClassIdentifier: 
-  boonName: 666
-  description: Change a random tile to 6, every time you play a 12
+  boonName: Desert City
+  description: New Towns next to Deserts instantly become Cities.
   triggers:
-  - type: 7
+  - type: 5
   conditions:
-  - type: 10
-    value1: 1
+  - type: 3
+    value1: 0
     value2: 0
     boolValue: 0
   effects:
-  - type: 19
-    value1: 6
+  - type: 4
+    value1: 0
     boolValue: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.46079564, g: 0.8962264, b: 0.5349676, a: 1}
+  boonColor: {r: 0.93207544, g: 0.9253486, b: 0.5047276, a: 1}
   isCounting: 0

@@ -10,23 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Road Mania 2
+  m_Name: Dice trade
   m_EditorClassIdentifier: 
-  boonName: Road Mania
-  description: 'Gain a random Road
+  boonName: Dice trade
+  description: 'Gain a temoprary dice for every 3 trades made.
 
-    whenever you play a double.'
+
+    (Cannot exceed
+    the maximum dice limit.)'
   triggers:
-  - type: 7
+  - type: 1
   conditions:
-  - type: 7
-    value1: 0
+  - type: 2
+    value1: 3
     value2: 0
     boolValue: 0
   effects:
-  - type: 4
-    value1: 0
+  - type: 15
+    value1: 1
     boolValue: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.86415094, g: 0.5704973, b: 0.14837307, a: 1}
-  isCounting: 0
+  boonColor: {r: 0.5492168, g: 0.9622642, b: 0.9160728, a: 1}
+  isCounting: 1

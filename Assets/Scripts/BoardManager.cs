@@ -537,9 +537,9 @@ public class BoardManager : MonoBehaviour
                 player.AddSettelment(corner);
                 OnTownBuilt?.Invoke();
 
-                foreach (var adjustTile in corner.AdjacentTiles)
+                foreach (var adjustTile in corner.AdjacentTiles) // gain resources
                 {
-                    player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
+                   // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
                 }
 
 

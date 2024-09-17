@@ -10,25 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: Dice trade
+  m_Name: 666
   m_EditorClassIdentifier: 
-  boonName: Dice trade
-  description: 'Gain a temoprary dice for every 3 trades made.
-
-
-    (Cannot exceed
-    the maximum dice limit.)'
+  boonName: 666
+  description: Change a random tile to 6, every time you play a 12
   triggers:
-  - type: 1
+  - type: 7
   conditions:
-  - type: 2
-    value1: 3
+  - type: 12
+    value1: 12
     value2: 0
     boolValue: 0
   effects:
-  - type: 16
-    value1: 0
+  - type: 18
+    value1: 6
     boolValue: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.5492168, g: 0.9622642, b: 0.9160728, a: 1}
-  isCounting: 1
+  boonColor: {r: 0.46079564, g: 0.8962264, b: 0.5349676, a: 1}
+  isCounting: 0

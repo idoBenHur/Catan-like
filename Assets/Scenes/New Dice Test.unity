@@ -3486,7 +3486,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 40da3396537bb2b4db3426627da6b6b6, type: 3}
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   CurrentTurn: 0
-  MaxTurn: 50
+  MaxTurn: 15
   UnluckyMeterMax: 4
   PlayWithUnluckyMeter: 0
   CitiesIndicatorsPrefabList: []
@@ -3552,9 +3552,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 240130137}
   allBoons:
-  - {fileID: 11400000, guid: 63ee9697c78b6a247a2026734c69876e, type: 2}
-  - {fileID: 11400000, guid: 63ee9697c78b6a247a2026734c69876e, type: 2}
-  - {fileID: 11400000, guid: 63ee9697c78b6a247a2026734c69876e, type: 2}
+  - {fileID: 11400000, guid: e6fd84d620f8cc840a307be20e8d81e8, type: 2}
+  - {fileID: 11400000, guid: 19991ca958226384ab6facee6f7359d3, type: 2}
+  - {fileID: 11400000, guid: 50a7019ce5d66f3448b43396b6bea25c, type: 2}
+  - {fileID: 11400000, guid: f4dd152cae81d134a9b3edd3d68a8d05, type: 2}
+  - {fileID: 11400000, guid: 8d9c206dc1d622842a3a30cae10ca971, type: 2}
+  - {fileID: 11400000, guid: 4d5bf2dc10f4a044e992d615bcf2d445, type: 2}
+  - {fileID: 11400000, guid: f460a79bbae1eb04780ecaa3aa845d98, type: 2}
+  - {fileID: 11400000, guid: 407d0018527acb64a8646cf459308431, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
@@ -3572,7 +3577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testprefab: {fileID: 6535064077697926397, guid: 597594eb23e57f94d8686d49a4e54ce2, type: 3}
-  RobberChallengeTurn: 60
+  RobberChallengeTurn: 100
 --- !u!114 &240130137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3695,11 +3700,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WinningConditions:
   - resourceType: 0
-    requiredAmount: 1
+    requiredAmount: 3
   - resourceType: 1
-    requiredAmount: 1
+    requiredAmount: 3
   - resourceType: 4
-    requiredAmount: 2
+    requiredAmount: 3
 --- !u!1 &242206267
 GameObject:
   m_ObjectHideFlags: 0

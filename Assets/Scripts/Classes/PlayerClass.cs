@@ -25,11 +25,11 @@ public class PlayerClass
     {
         PlayerResources = new Dictionary<ResourceType, int>
         {
-            { ResourceType.Wood, 0 },
-            { ResourceType.Brick, 0 },
-            { ResourceType.Sheep, 0 },
-            { ResourceType.Ore, 0 },
-            { ResourceType.Wheat, 0 }
+            { ResourceType.Wood, 1 },
+            { ResourceType.Brick, 1 },
+            { ResourceType.Sheep, 1 },
+            { ResourceType.Ore, 1 },
+            { ResourceType.Wheat, 1 }
         };
 
         ResourcesMaxStorage = new Dictionary<ResourceType, int>
