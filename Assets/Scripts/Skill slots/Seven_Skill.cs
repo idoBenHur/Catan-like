@@ -13,7 +13,7 @@ public class Seven_Skill : AbstractSkillSlot
         SkillName = SkillName.SevenAbility;
     }
 
-    public override bool CanAcceptDice(NewNewDice dice)
+    public override bool CanAcceptDice(TheDiceScript dice)
     {
 
         if (DiceInSlotList.Count == 0)
@@ -29,7 +29,7 @@ public class Seven_Skill : AbstractSkillSlot
         return false;
     }
 
-    protected override void OnDiceAdded(NewNewDice dice)
+    protected override void OnDiceAdded(TheDiceScript dice)
     {
 
 
@@ -46,7 +46,7 @@ public class Seven_Skill : AbstractSkillSlot
 
 
 
-    protected override void OnDiceRemoved(NewNewDice dice)
+    protected override void OnDiceRemoved(TheDiceScript dice)
     {
         SUMDiceInSlot -= dice.DieResult;
     }

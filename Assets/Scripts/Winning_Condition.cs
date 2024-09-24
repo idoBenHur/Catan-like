@@ -29,6 +29,7 @@ public class Winning_Condition : MonoBehaviour
     [SerializeField] public List<ResourceRequirement> WinningConditions = new List<ResourceRequirement>();
     private PlayerClass Player;
     [SerializeField] private PaymentMode ThePaymentMode;
+    [HideInInspector] public int PaidCount = 0; // used in uimanager
 
 
     public void SetupWinningCondition(PlayerClass player_From_BoardManager) // called on start
@@ -44,7 +45,7 @@ public class Winning_Condition : MonoBehaviour
     }
 
 
-    private void OnDestroy()
+    private void OnDestroy() 
     {
         if (Player != null)
         {

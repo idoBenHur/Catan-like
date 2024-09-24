@@ -43,7 +43,6 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject WoodIcon;
     [SerializeField] private GameObject CornerIndicatorPrefab;
     [SerializeField] private GameObject SideIndicatorPrefab;
-    [SerializeField] private RobberPrefab robberPrefab;
     [SerializeField] private GameObject RoadPrefab;
     [SerializeField] private GameObject TownPrefab;
     [SerializeField] private GameObject CityPrefab;
@@ -246,12 +245,12 @@ public class BoardManager : MonoBehaviour
                         continue;
 
                     }
-                    else if(tile.numberToken == DiceResult && tile.hasRobber == true)
+                    else if(tile.numberToken == DiceResult && tile.isBlocked == true)
                     {
                         continue;
                     }
 
-                    else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == false)
+                    else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == false)
                     {
                         player.AddResource(tile.resourceType, 1, tile.TileWorldPostion);
                         EarnedResources = true;
@@ -264,7 +263,7 @@ public class BoardManager : MonoBehaviour
 
 
                     }
-                    else if (tile.numberToken == DiceResult && tile.hasRobber == false && settelment.HasCityUpgade == true)
+                    else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == true)
                     {
                         player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
                         EarnedResources = true;

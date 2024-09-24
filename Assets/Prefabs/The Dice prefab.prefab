@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2494603252202961157}
   - component: {fileID: 5053081639468639756}
   m_Layer: 5
-  m_Name: dice test
+  m_Name: The Dice prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

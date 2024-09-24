@@ -17,20 +17,20 @@ public class DiceBox_Skill : AbstractSkillSlot
     }
 
 
-    public override bool CanAcceptDice(NewNewDice dice)
+    public override bool CanAcceptDice(TheDiceScript dice)
     {
 
         return DiceInSlotList.Count < MaxDiceCap;
     }
 
-    protected override void OnDiceAdded(NewNewDice dice)
+    protected override void OnDiceAdded(TheDiceScript dice)
     {
 
     }
 
 
 
-    protected override void OnDiceRemoved(NewNewDice dice)
+    protected override void OnDiceRemoved(TheDiceScript dice)
     {
 
     }
@@ -42,7 +42,7 @@ public class DiceBox_Skill : AbstractSkillSlot
         {
             // Instantiate the prefab
             GameObject newObject = Instantiate(NormalDicePrefab, transform);
-            NewNewDice diceComp = newObject.GetComponent<NewNewDice>();
+            TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
             DiceInSlotList.Add(diceComp);
         }
 
@@ -58,7 +58,7 @@ public class DiceBox_Skill : AbstractSkillSlot
             if (DiceInSlotList.Count < MaxDiceCap)
             {
                 GameObject newObject = Instantiate(NormalDicePrefab, transform);
-                NewNewDice diceComp = newObject.GetComponent<NewNewDice>();
+                TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
                 DiceInSlotList.Add(diceComp);
             }
             else

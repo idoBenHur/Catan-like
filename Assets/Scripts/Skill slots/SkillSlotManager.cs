@@ -9,8 +9,6 @@ public class SkillSlotManager : MonoBehaviour
 {
     public AbstractSkillSlot[] Allslots; // Reference to all slots in the scene
     [HideInInspector] public Dictionary<SkillName, AbstractSkillSlot> SkillSlotsDictionary = new Dictionary<SkillName, AbstractSkillSlot>();
-    [SerializeField] AbstractSkillSlot DiceBox;
-    [SerializeField] private GameObject NormalDicePrefab;
 
 
 
@@ -29,7 +27,11 @@ public class SkillSlotManager : MonoBehaviour
 
     public void RollNewDice()
     {
-        DiceBox.DestroyAllDiceInSlot();
+
+        AbstractSkillSlot theDicebox = SkillSlotsDictionary[SkillName.DiceBox];
+        theDicebox.DestroyAllDiceInSlot();
+
+      //  DiceBox.DestroyAllDiceInSlot();
 
         foreach (var slot in Allslots)
         {
@@ -41,7 +43,7 @@ public class SkillSlotManager : MonoBehaviour
 
             
         }
-        DiceBox.ActivateSlotEffect();
+        theDicebox.ActivateSlotEffect();
 
     }
 

@@ -597,7 +597,7 @@ public class GenericBoon : ScriptableObject
 
                 foreach(var tile in shuffelList)
                 {
-                    if(tile.resourceType != TileClass.ResourceType.Desert && tile.hasRobber == false)
+                    if(tile.resourceType != TileClass.ResourceType.Desert && tile.isBlocked == false)
                     {
                         tile.resourceType = TileClass.ResourceType.Desert;
                         tile.numberToken = 7;
@@ -608,7 +608,7 @@ public class GenericBoon : ScriptableObject
 
                 foreach(var tile in shuffelList)
                 {
-                    if (tile.numberToken != 8 && tile.numberToken != 6 && tile.resourceType != TileClass.ResourceType.Desert && tile.hasRobber == false)
+                    if (tile.numberToken != 8 && tile.numberToken != 6 && tile.resourceType != TileClass.ResourceType.Desert && tile.isBlocked == false)
                     {
                         tile.ChangeTileNumber(8);
                         break;
@@ -617,7 +617,7 @@ public class GenericBoon : ScriptableObject
 
                 foreach (var tile in shuffelList)
                 {
-                    if (tile.numberToken != 8 && tile.numberToken != 6 && tile.resourceType != TileClass.ResourceType.Desert && tile.hasRobber == false)
+                    if (tile.numberToken != 8 && tile.numberToken != 6 && tile.resourceType != TileClass.ResourceType.Desert && tile.isBlocked == false)
                     {
                         tile.ChangeTileNumber(6);
                         break;
@@ -634,7 +634,7 @@ public class GenericBoon : ScriptableObject
 
                 foreach(var tile in shuffledList)
                 {
-                    if(tile.numberToken != effect.value1 && tile.hasRobber == false)
+                    if(tile.numberToken != effect.value1 && tile.isBlocked == false)
                     {
                         tile.ChangeTileNumber(effect.value1);
                         break;

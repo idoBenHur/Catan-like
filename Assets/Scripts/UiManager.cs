@@ -144,8 +144,6 @@ public class UiManager : MonoBehaviour
 
 
 
-    private RobberPrefab selectedRobber;
-    [SerializeField] private GameObject PayRobberUiPannel;
 
 
 
@@ -519,18 +517,18 @@ public class UiManager : MonoBehaviour
 
         // update challenge indicator text 
 
-        if((challenges.RobberChallengeTurn - CurrentTurn) <= 0)
+        if((challenges.TsunamiChallengeTurn - CurrentTurn) <= 0)
         {
             TurnLeftUntilChallengeText.text = "Active!";
         }
-        else { TurnLeftUntilChallengeText.text = (challenges.RobberChallengeTurn - CurrentTurn) + " Turns left"; }
+        else { TurnLeftUntilChallengeText.text = (challenges.TsunamiChallengeTurn - CurrentTurn) + " Turns left"; }
 
 
         // inital challenge icon placment
         if (CurrentTurn == 0)
         {
-            int challengeTurn = challenges.RobberChallengeTurn;
-            float reletivePostion = (float)challenges.RobberChallengeTurn / maxTurns;
+            int challengeTurn = challenges.TsunamiChallengeTurn;
+            float reletivePostion = (float)challenges.TsunamiChallengeTurn / maxTurns;
 
             ChallengeSliderIndicator.anchorMin = new Vector2(reletivePostion, ChallengeSliderIndicator.anchorMin.y);
             ChallengeSliderIndicator.anchorMax = new Vector2(reletivePostion, ChallengeSliderIndicator.anchorMax.y);
@@ -1063,7 +1061,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void ShowWinningCondition(List<ResourceRequirement> theWinningConditions, PaymentMode payMode)
+    public void ShowWinningCondition(List<ResourceRequirement> theWinningConditions, PaymentMode payMode) // shows the resoures amount to win, hides the button if its a "PayAllAtOnce"
     {
         WinningConditionIconDic = new Dictionary<ResourceType, GameObject>
         {
@@ -1102,7 +1100,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void WinButtonsPayResources(ResourceType buttonResource )
+    public void WinButtonsPayResources(ResourceType buttonResource ) // pays the resoures amount
     {
 
         foreach (var Condition in BoardManager.instance.winning_Condition.WinningConditions)
@@ -1117,13 +1115,19 @@ public class UiManager : MonoBehaviour
                 player.SubtractResources(resourceDictionary);
                 GameObject icon = WinningConditionIconDic[Condition.resourceType];
                 Destroy(icon);
-               if( icon.transform.parent.childCount == 0) { EndGame(true); }
+               BoardManager.instance.winning_Condition.PaidCount++;
             }
 
             
         }
 
         
+        if (BoardManager.instance.winning_Condition.PaidCount >= BoardManager.instance.winning_Condition.WinningConditions.Count)
+        {
+            EndGame(true);
+        }
+
+
     }
 
 

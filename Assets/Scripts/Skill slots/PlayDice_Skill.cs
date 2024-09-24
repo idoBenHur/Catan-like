@@ -13,13 +13,13 @@ public class PlayDice_Skill : AbstractSkillSlot
 
     }
 
-    public override bool CanAcceptDice(NewNewDice dice)
+    public override bool CanAcceptDice(TheDiceScript dice)
     {
 
         return DiceInSlotList.Count < MaxDiceCap;
     }
 
-    protected override void OnDiceAdded(NewNewDice dice)
+    protected override void OnDiceAdded(TheDiceScript dice)
     {
 
         if (DiceInSlotList.Count == 2)
@@ -32,7 +32,7 @@ public class PlayDice_Skill : AbstractSkillSlot
 
 
 
-    protected override void OnDiceRemoved(NewNewDice dice)
+    protected override void OnDiceRemoved(TheDiceScript dice)
     {
 
     }

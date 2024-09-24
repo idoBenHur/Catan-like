@@ -26,7 +26,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public List<DiceType> RequiredDiceTypes;
     
 
-    public List<NewNewDice> DiceInSlotList = new List<NewNewDice>();
+    public List<TheDiceScript> DiceInSlotList = new List<TheDiceScript>();
 
 
 
@@ -37,7 +37,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData) 
     {
         GameObject droppedObject = eventData.pointerDrag;
-        NewNewDice dice = droppedObject.GetComponent<NewNewDice>();
+        TheDiceScript dice = droppedObject.GetComponent<TheDiceScript>();
 
         if (dice.DraggableActive == false) { return; }
 
@@ -53,7 +53,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         }
     }
 
-    public void AddDiceToSlotList(NewNewDice dice)
+    public void AddDiceToSlotList(TheDiceScript dice)
     {
         if (CanAcceptDice(dice))
         {
@@ -64,7 +64,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     }
 
 
-    public void RemoveDiceFromDiceList(NewNewDice dice)
+    public void RemoveDiceFromDiceList(TheDiceScript dice)
     {
         if (DiceInSlotList.Contains(dice))
         {
@@ -78,7 +78,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public virtual void DestroyAllDiceInSlot()
     {
       
-        foreach (NewNewDice dice in new List<NewNewDice>(DiceInSlotList))
+        foreach (TheDiceScript dice in new List<TheDiceScript>(DiceInSlotList))
         {
             RemoveDiceFromDiceList(dice);
             Destroy(dice.gameObject);
@@ -89,10 +89,10 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
 
 
 
-    public abstract bool CanAcceptDice(NewNewDice dice);
+    public abstract bool CanAcceptDice(TheDiceScript dice);
 
-    protected abstract void OnDiceAdded(NewNewDice dice);
-    protected abstract void OnDiceRemoved(NewNewDice dice);
+    protected abstract void OnDiceAdded(TheDiceScript dice);
+    protected abstract void OnDiceRemoved(TheDiceScript dice);
 
     public abstract void ActivateSlotEffect();
 

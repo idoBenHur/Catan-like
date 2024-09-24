@@ -6,7 +6,7 @@ public class Challenges : MonoBehaviour
 {
     public GameObject testprefab;
     List<TileClass> OuterCircleTiles = new List<TileClass>();
-    [SerializeField]  public int RobberChallengeTurn;
+    [SerializeField]  public int TsunamiChallengeTurn;
 
 
 
@@ -31,7 +31,7 @@ public class Challenges : MonoBehaviour
 
     public void TsunamiChallenge()
     {
-        if(BoardManager.instance.CurrentTurn >= RobberChallengeTurn)
+        if(BoardManager.instance.CurrentTurn >= TsunamiChallengeTurn)
         {
             var TheTilesDic = BoardManager.instance.TilesDictionary;
             List<TileClass> RemainingOuterCircleTiles = new List<TileClass>();
@@ -39,7 +39,7 @@ public class Challenges : MonoBehaviour
 
             foreach (var Tile in TheTilesDic)
             {
-                if (Tile.Value.AdjacentTiles.Count <= 5 && Tile.Value.hasRobber == false)
+                if (Tile.Value.AdjacentTiles.Count <= 5 && Tile.Value.isBlocked == false)
                 {
                     RemainingOuterCircleTiles.Add(Tile.Value);
                 }
@@ -51,7 +51,7 @@ public class Challenges : MonoBehaviour
             {
                 int RandomIndex = Random.Range(0, RemainingOuterCircleTiles.Count);
                 var BlockedTile = RemainingOuterCircleTiles[RandomIndex];
-                BlockedTile.PlaceRobber();
+                BlockedTile.PlaceBlockOnTile();
                 Destroy(BlockedTile.MyNumberPrefab);
                 Instantiate(testprefab, BlockedTile.TileWorldPostion, Quaternion.identity);
                 AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.TileDrowningSplash);

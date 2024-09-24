@@ -16,7 +16,7 @@ public enum DiceType
     // Add more dice types as needed
 }
 
-public class NewNewDice : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public int DieResult { get; private set; }
     public DiceType Type { get; private set; }

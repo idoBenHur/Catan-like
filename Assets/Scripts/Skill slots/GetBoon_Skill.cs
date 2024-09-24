@@ -14,7 +14,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 
     }
 
-    public override bool CanAcceptDice(NewNewDice dice)
+    public override bool CanAcceptDice(TheDiceScript dice)
     {
 
         
@@ -32,7 +32,7 @@ public class GetBoon_Skill : AbstractSkillSlot
         return DiceInSlotList.Count < MaxDiceCap;
     }
 
-    protected override void OnDiceAdded(NewNewDice TheNewDie)
+    protected override void OnDiceAdded(TheDiceScript TheNewDie)
     {
         TheNewDie.DraggableActive = false;
 
@@ -54,7 +54,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 
 
 
-    protected override void OnDiceRemoved(NewNewDice dice)
+    protected override void OnDiceRemoved(TheDiceScript dice)
     {
 
     }
