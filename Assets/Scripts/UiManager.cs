@@ -129,6 +129,15 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private Button WinButton;
 
+    [SerializeField] private Button WoodCompleteButton;
+    [SerializeField] private Button BrickCompleteButton;
+    [SerializeField] private Button SheepCompleteButton;
+    [SerializeField] private Button OreCompleteButton;
+    [SerializeField] private Button WheatCompleteButton;
+
+
+
+
 
 
 
@@ -650,6 +659,11 @@ public class UiManager : MonoBehaviour
 
         // winning button
         WinButton.onClick.AddListener(() => EndGame(true));
+        WoodCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wood));
+        BrickCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Brick));
+        SheepCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Sheep));
+        OreCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Ore));
+        WheatCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wheat));
 
 
 
@@ -1049,7 +1063,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void ShowWinningCondition(List<ResourceRequirement> theWinningConditions)
+    public void ShowWinningCondition(List<ResourceRequirement> theWinningConditions, PaymentMode payMode)
     {
         WinningConditionIconDic = new Dictionary<ResourceType, GameObject>
         {
@@ -1068,6 +1082,14 @@ public class UiManager : MonoBehaviour
                 TextMeshProUGUI text = icon.GetComponentInChildren<TextMeshProUGUI>();
                 text.text = resource.requiredAmount.ToString();
             }
+
+            if(payMode == PaymentMode.PayAllAtOnce)
+            {
+                Button button = icon.GetComponentInChildren<Button>();
+                button.gameObject.SetActive(false);
+            }
+
+
         }
 
 
@@ -1078,4 +1100,31 @@ public class UiManager : MonoBehaviour
     {
         WinButton.gameObject.SetActive(true);
     }
+
+
+    public void WinButtonsPayResources(ResourceType buttonResource )
+    {
+
+        foreach (var Condition in BoardManager.instance.winning_Condition.WinningConditions)
+        {
+            if (Condition.resourceType != buttonResource) { continue; }
+
+            Dictionary<ResourceType, int> resourceDictionary = new Dictionary<ResourceType, int>();
+            resourceDictionary.Add(Condition.resourceType, Condition.requiredAmount);
+
+            if(player.CanAffordToBuild(resourceDictionary)) 
+            {
+                player.SubtractResources(resourceDictionary);
+                GameObject icon = WinningConditionIconDic[Condition.resourceType];
+                Destroy(icon);
+               if( icon.transform.parent.childCount == 0) { EndGame(true); }
+            }
+
+            
+        }
+
+        
+    }
+
+
 }

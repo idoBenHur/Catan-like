@@ -89,6 +89,7 @@ public class PlayerClass
         {
             if (!PlayerResources.ContainsKey(item.Key) || PlayerResources[item.Key] < item.Value)
             {
+                Debug.LogWarning("not enoghe resources to buy");
                 return false; // Not enough of one of the required resources
             }
         }

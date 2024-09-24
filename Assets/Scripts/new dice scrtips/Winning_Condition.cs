@@ -6,6 +6,15 @@ using static TileClass;
 
 
 
+
+public enum PaymentMode
+{
+    PayAllAtOnce,
+    PayOneByOne
+}
+
+
+
 [System.Serializable]
 public class ResourceRequirement
 {
@@ -17,8 +26,9 @@ public class ResourceRequirement
 public class Winning_Condition : MonoBehaviour
 {
 
-    [SerializeField] private List<ResourceRequirement> WinningConditions = new List<ResourceRequirement>();
+    [SerializeField] public List<ResourceRequirement> WinningConditions = new List<ResourceRequirement>();
     private PlayerClass Player;
+    [SerializeField] private PaymentMode ThePaymentMode;
 
 
     public void SetupWinningCondition(PlayerClass player_From_BoardManager) // called on start
@@ -30,7 +40,7 @@ public class Winning_Condition : MonoBehaviour
             Player.OnResourcesChanged += CheckForWin;
         }
 
-        BoardManager.instance.uiManager.ShowWinningCondition(WinningConditions);
+        BoardManager.instance.uiManager.ShowWinningCondition(WinningConditions, ThePaymentMode);
     }
 
 
@@ -48,19 +58,26 @@ public class Winning_Condition : MonoBehaviour
 
     public void CheckForWin()
     {
-        foreach (ResourceRequirement requirement in WinningConditions)
+        if(ThePaymentMode == PaymentMode.PayAllAtOnce)     
         {
-            // Get the player's current amount of the required resource
-            int playerResourceAmount = BoardManager.instance.player.CheckResourceAmount(requirement.resourceType);
 
-            // If the player doesn't have enough of this resource, they haven't won
-            if (playerResourceAmount < requirement.requiredAmount)
+            foreach (ResourceRequirement requirement in WinningConditions)
             {
-                return; // Exit early if the player hasn't met this requirement
+                // Get the player's current amount of the required resource
+                int playerResourceAmount = BoardManager.instance.player.CheckResourceAmount(requirement.resourceType);
+
+                // If the player doesn't have enough of this resource, they haven't won
+                if (playerResourceAmount < requirement.requiredAmount)
+                {
+                    return; // Exit early if the player hasn't met this requirement
+                }
             }
+
+            BoardManager.instance.uiManager.ShowTheButtonWin();
         }
 
-        BoardManager.instance.uiManager.ShowTheButtonWin();
+
+
 
     }
 }

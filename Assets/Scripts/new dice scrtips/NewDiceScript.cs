@@ -27,13 +27,13 @@ public class NewDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         originalParent = transform.parent;
         DiceImage = GetComponent<Image>();
 
-        StartCoroutine(RollTheDice());
+       // StartCoroutine(RollTheDice());
         
     }
 
 
 
-    private IEnumerator RollTheDice()
+    public IEnumerator RollTheDice()
     {
 
 

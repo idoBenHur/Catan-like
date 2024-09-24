@@ -24,7 +24,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
-    [SerializeField] private Winning_Condition winning_Condition;
+    [SerializeField] public Winning_Condition winning_Condition;
 
 
 
