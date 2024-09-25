@@ -177,7 +177,7 @@ public class BoardManager : MonoBehaviour
         // OnDiceRolled?.Invoke();
         DOVirtual.DelayedCall(1.3f, () => OnDiceRolled?.Invoke()); // waits for the dice animation to finish
 
-        FlushResources();
+      //  FlushResources();
 
         
 
@@ -593,9 +593,11 @@ public class BoardManager : MonoBehaviour
 
                 ShowBuildIndicatorsTowns();
 
-                
 
 
+                DiceBox_Skill diceBox = skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+                diceBox.AddPermaDie();
+                diceBox.AddTempDie(1);
 
             }
 

@@ -3586,9 +3586,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WinningConditions:
   - resourceType: 0
-    requiredAmount: 4
+    requiredAmount: 5
   - resourceType: 1
-    requiredAmount: 4
+    requiredAmount: 5
+  - resourceType: 2
+    requiredAmount: 5
   ThePaymentMode: 1
   PaidCount: 0
 --- !u!1 &242206267

@@ -11,7 +11,7 @@ public class DiceBox_Skill : AbstractSkillSlot
     private void Start()
     {
         MaxDiceCap = 6;
-        DiceAmoutEachTurn = 4;
+        DiceAmoutEachTurn = 2;
 
         SkillName = SkillName.DiceBox;
     }
@@ -35,7 +35,7 @@ public class DiceBox_Skill : AbstractSkillSlot
 
     }
 
-    public override void ActivateSlotEffect() // spawns new dices up to its max cap
+    public override void ActivateSlotEffect() // spawns new dices up to its DiceAmoutEachTurn
     {
         
         for (int i = 0; i < DiceAmoutEachTurn; i++)
