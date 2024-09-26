@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7762692701668541283}
   - component: {fileID: 3625462147299313434}
   - component: {fileID: 8330609255556883056}
+  - component: {fileID: 4276693822593447842}
   m_Layer: 5
   m_Name: Dice Parent
   m_TagString: Box
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -2, y: -6.000061}
-  m_SizeDelta: {x: 570.87, y: 154.57}
+  m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5294415136328581950
 CanvasRenderer:
@@ -119,6 +120,25 @@ MonoBehaviour:
   RequiredDiceTypes: 
   DiceInSlotList: []
   NormalDicePrefab: {fileID: 2422953580468282202, guid: 1357d8d1a8a3f5940b6de959832ef9a1, type: 3}
+--- !u!114 &4276693822593447842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137307623143714581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffa59fc68b348774cb87646af29f69e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridLayoutGroup: {fileID: 3625462147299313434}
+  slotRectTransform: {fileID: 1320087827100551033}
+  dicePerRow: 4
+  diceSize: {x: 100, y: 100}
+  padding: 50
+  defaultSlotSize: {x: 500, y: 150}
+  diceThreshold: 4
 --- !u!1 &761898730118944775
 GameObject:
   m_ObjectHideFlags: 0

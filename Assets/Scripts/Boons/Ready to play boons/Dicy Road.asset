@@ -13,22 +13,23 @@ MonoBehaviour:
   m_Name: Dicy Road
   m_EditorClassIdentifier: 
   boonName: Dicy Road
-  description: 'Gain a temoprary dice for every 3 Roads you build.
+  description: 'Gain a temoprary dice for Road you build.
 
 
-    (Cannot
-    exceed the maximum dice limit.)'
+    (Cannot exceed the
+    maximum dice limit.)'
   triggers:
   - type: 4
   conditions:
   - type: 9
-    value1: 3
+    value1: 1
     value2: 0
     boolValue: 0
   effects:
   - type: 15
     value1: 1
     boolValue: 0
+  Or_And_Condition: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
   boonColor: {r: 0.46564615, g: 0.5772353, b: 0.9056604, a: 1}
-  isCounting: 1
+  isCounting: 0

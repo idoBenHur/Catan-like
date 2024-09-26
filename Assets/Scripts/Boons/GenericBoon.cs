@@ -133,6 +133,17 @@ public class BoonTrigger
 }
 
 
+[System.Serializable]
+public enum Or_And_Condition_type
+{
+    AndCondition, // all condition must be true
+    OrCondition, // at least on condition must be true
+
+}
+
+
+
+
 [CreateAssetMenu(fileName = "New Generic Boon", menuName = "Boons/GenericBoon")]
 public class GenericBoon : ScriptableObject
 {
@@ -141,6 +152,7 @@ public class GenericBoon : ScriptableObject
     public List<BoonTrigger> triggers = new List<BoonTrigger>();
     public List<BoonCondition> conditions;
     public List<BoonEffect> effects = new List<BoonEffect>();
+    public Or_And_Condition_type Or_And_Condition = Or_And_Condition_type.AndCondition; // default as and
     public Sprite boonImage;
     public Color boonColor = Color.white;  // Default color is white
     public bool isCounting = false;
@@ -238,23 +250,55 @@ public class GenericBoon : ScriptableObject
 
     public void GoThroughConditionsList()
     {
-        foreach (var condition in conditions)
+
+        bool conditions_met = false;
+
+        if(Or_And_Condition == Or_And_Condition_type.AndCondition)
         {
-            if (IsConditionMet(condition) == false)
+            conditions_met = true; 
+
+            foreach (var condition in conditions) //condition_met is true until found otherwise
             {
-                Debug.Log("conditions not met");
-                return;
+                if (IsConditionMet(condition) == false)
+                {
+                    conditions_met = false; break;
+                }
+                
             }
-            Debug.Log("conditions met");
-
+         
         }
 
-        foreach (var effect in effects)
+
+        else if(Or_And_Condition == Or_And_Condition_type.OrCondition)
         {
-            ApplyEffect(effect);
-            Debug.Log("apply effect");
+            conditions_met = false; 
+
+            foreach (var condition in conditions) //condition_met is false until found otherwise
+            {
+                if (IsConditionMet(condition) == true)
+                {
+                    conditions_met = true;
+                    break;
+                }
+
+               
+            }
+            
 
         }
+
+
+        if(conditions_met == true)
+        {
+            foreach (var effect in effects)
+            {
+                ApplyEffect(effect);
+                //  Debug.Log("apply effect");
+
+            }
+
+        }
+
 
     }
     private bool IsConditionMet(BoonCondition condition)

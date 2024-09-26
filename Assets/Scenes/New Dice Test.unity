@@ -3444,6 +3444,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4d5bf2dc10f4a044e992d615bcf2d445, type: 2}
   - {fileID: 11400000, guid: f460a79bbae1eb04780ecaa3aa845d98, type: 2}
   - {fileID: 11400000, guid: 407d0018527acb64a8646cf459308431, type: 2}
+  - {fileID: 11400000, guid: a83ca00e67f62824888d3ec5b17db260, type: 2}
+  - {fileID: 11400000, guid: 526eaa081e6027848a42e4f361f16930, type: 2}
+  - {fileID: 11400000, guid: cab67d20e7a33bb4db88fe3a5c379d6d, type: 2}
+  - {fileID: 11400000, guid: c830575bb2b3b2843a1ff5a93d8e6575, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}

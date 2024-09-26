@@ -104,6 +104,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         if (DraggableActive == false) { return; }
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        currentSlot.RemoveDiceFromDiceList(this); 
     }
 
     public void OnEndDrag(PointerEventData eventData)

@@ -13,22 +13,23 @@ MonoBehaviour:
   m_Name: Dice trade
   m_EditorClassIdentifier: 
   boonName: Dice trade
-  description: 'Gain a temoprary dice for every 3 trades made.
+  description: 'Gain a temoprary dice aftery every trade you made.
 
 
-    (Cannot exceed
-    the maximum dice limit.)'
+    (Cannot
+    exceed the maximum dice limit.)'
   triggers:
   - type: 1
   conditions:
   - type: 2
-    value1: 3
+    value1: 1
     value2: 0
     boolValue: 0
   effects:
   - type: 15
     value1: 1
     boolValue: 0
+  Or_And_Condition: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
   boonColor: {r: 0.5492168, g: 0.9622642, b: 0.9160728, a: 1}
   isCounting: 1

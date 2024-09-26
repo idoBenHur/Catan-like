@@ -6,13 +6,30 @@ using UnityEngine.UI;
 
 public class GetBoon_Skill : AbstractSkillSlot
 {
+    private RectTransform slotRectTransform;
+
+
     private void Start()
     {
-        MaxDiceCap = 6;
+        MaxDiceCap = 3;
         SkillName = SkillName.Boons;
         DestroyDiceInsideUponRoll = false;
+        slotRectTransform = GetComponent<RectTransform>();
 
     }
+
+
+    private void IncreaseCap()
+    {
+
+        if (MaxDiceCap <= 6)
+        {
+            MaxDiceCap += 1;
+            slotRectTransform.sizeDelta = new Vector2(slotRectTransform.sizeDelta.x, slotRectTransform.sizeDelta.y + 100f);
+        }
+
+    }
+
 
     public override bool CanAcceptDice(TheDiceScript dice)
     {
@@ -66,8 +83,11 @@ public class GetBoon_Skill : AbstractSkillSlot
 
 
         BoardManager.instance.boonManager.GiveBoon();
-
         DestroyAllDiceInSlot();
+        IncreaseCap();
 
     }
+
+
+
 }

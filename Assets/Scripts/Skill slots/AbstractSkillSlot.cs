@@ -42,8 +42,8 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         if (dice.DraggableActive == false) { return; }
 
 
-        if (dice.currentSlot != this && CanAcceptDice(dice))
-        {            
+        if (CanAcceptDice(dice)) //dice.currentSlot != this &&
+        {
             if (dice.currentSlot != null)
             {
                 dice.currentSlot.RemoveDiceFromDiceList(dice);
@@ -55,22 +55,37 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
 
     public void AddDiceToSlotList(TheDiceScript dice)
     {
+
         if (CanAcceptDice(dice))
         {
             DiceInSlotList.Add(dice);           
             dice.ChangeDieParent(transform);
             OnDiceAdded(dice);
         }
+
+        DynamicSlotResizer resizer = GetComponent<DynamicSlotResizer>();
+        if (resizer != null)
+        {
+            resizer.AdjustSlotSize();
+        }
     }
 
 
     public void RemoveDiceFromDiceList(TheDiceScript dice)
     {
+        DynamicSlotResizer resizer = GetComponent<DynamicSlotResizer>();
+        if (resizer != null)
+        {
+            resizer.AdjustSlotSize();
+        }
+
         if (DiceInSlotList.Contains(dice))
         {
             DiceInSlotList.Remove(dice);
             OnDiceRemoved(dice);
         }
+
+
     }
 
 
