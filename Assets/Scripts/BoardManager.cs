@@ -144,7 +144,7 @@ public class BoardManager : MonoBehaviour
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
         uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
-        winning_Condition.SetupWinningCondition(player);
+      //  winning_Condition.SetupWinningCondition(player);
 
         StartGame();
 

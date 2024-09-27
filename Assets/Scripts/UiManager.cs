@@ -657,11 +657,11 @@ public class UiManager : MonoBehaviour
 
         // winning button
         WinButton.onClick.AddListener(() => EndGame(true));
-        WoodCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wood));
-        BrickCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Brick));
-        SheepCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Sheep));
-        OreCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Ore));
-        WheatCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wheat));
+        //WoodCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wood));
+        //BrickCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Brick));
+        //SheepCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Sheep));
+        //OreCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Ore));
+        //WheatCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wheat));
 
 
 
