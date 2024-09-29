@@ -16,7 +16,7 @@ public enum PaymentMode
 
 
 [System.Serializable]
-public class ResourceRequirement
+public class ResourceRequirement1
 {
     public ResourceType resourceType;
     public int requiredAmount;
@@ -26,7 +26,7 @@ public class ResourceRequirement
 public class Winning_Condition : MonoBehaviour
 {
 
-    [SerializeField] public List<ResourceRequirement> WinningConditions = new List<ResourceRequirement>();
+    [SerializeField] public List<ResourceRequirement1> WinningConditions = new List<ResourceRequirement1>();
     private PlayerClass Player;
     [SerializeField] private PaymentMode ThePaymentMode;
     [HideInInspector] public int PaidCount = 0; // used in uimanager
@@ -62,7 +62,7 @@ public class Winning_Condition : MonoBehaviour
         if(ThePaymentMode == PaymentMode.PayAllAtOnce)     
         {
 
-            foreach (ResourceRequirement requirement in WinningConditions)
+            foreach (ResourceRequirement1 requirement in WinningConditions)
             {
                 // Get the player's current amount of the required resource
                 int playerResourceAmount = BoardManager.instance.player.CheckResourceAmount(requirement.resourceType);

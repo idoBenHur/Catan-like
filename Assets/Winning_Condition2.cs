@@ -3,22 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using static TileClass;
 
+
+
+[System.Serializable]
+public class ResourceRequirement2 
+{
+    public ResourceType resourceType;
+    public int requiredAmount;
+}
+
+
+[System.Serializable]
+public class ResourceRequirementSet
+{
+    public List<ResourceRequirement2> resourceRequirementsList;
+}
+
+
 public class Winning_Condition2 : MonoBehaviour
 {
-    public List<ResourceRequirement> resourceRequirementsList; // Set up your resource requirements
-    public RectTransform paymentArea; // UI container for payment prefabs
-    private int currentResourceIndex = 0;
+    [SerializeField] private List<ResourceRequirementSet> resourceRequirementsSet;
+    [SerializeField] private RectTransform paymentArea;
 
-    // Dictionary to store resource type and its corresponding prefab
+
+    [SerializeField] private GameObject woodPrefab;
+    [SerializeField] private GameObject BrickPrefab;
+    [SerializeField] private GameObject SheepPrefab;
+    [SerializeField] private GameObject OrePrefab;
+    [SerializeField] private GameObject WheatPrefab;
+
+    private List<ResourceRequirement2> ChosenWinningCondition;  
+    private int currentResourceIndex = 0;
     private Dictionary<ResourceType, GameObject> resourcePrefabDictionary = new Dictionary<ResourceType, GameObject>();
     private List<GameObject> spawnedPrefabs = new List<GameObject>();
 
 
-    public GameObject woodPrefab;
-    public GameObject BrickPrefab;
-    public GameObject SheepPrefab;
-    public GameObject OrePrefab;
-    public GameObject WheatPrefab;
+
 
 
 
@@ -32,15 +52,15 @@ public class Winning_Condition2 : MonoBehaviour
         resourcePrefabDictionary.Add(ResourceType.Wheat, WheatPrefab);
 
 
-
+        SelectRandomResourceRequirementList();
         SpawnAllResourcePrefabs();
     }
 
     private void SpawnAllResourcePrefabs()
     {
-        for (int i = 0; i < resourceRequirementsList.Count; i++)
+        for (int i = 0; i < ChosenWinningCondition.Count; i++)
         {
-            ResourceRequirement requirement = resourceRequirementsList[i];
+            ResourceRequirement2 requirement = ChosenWinningCondition[i];
 
             if (resourcePrefabDictionary.TryGetValue(requirement.resourceType, out GameObject prefabToSpawn))
             {
@@ -108,6 +128,23 @@ public class Winning_Condition2 : MonoBehaviour
         ResourcePayPrefab nextPaymentPrefab = nextPrefab.GetComponent<ResourcePayPrefab>();
         nextPaymentPrefab.ToggleReveal(true); // Reveal the next resource
     }
+
+
+
+    private void SelectRandomResourceRequirementList()
+    {
+        if (resourceRequirementsSet.Count > 0)
+        {
+            int randomIndex = Random.Range(0, resourceRequirementsSet.Count); // Pick a random set
+            ChosenWinningCondition = resourceRequirementsSet[randomIndex].resourceRequirementsList; // Assign the selected list
+        }
+        else
+        {
+            Debug.LogError("No resource requirement sets defined!");
+        }
+    }
+
+
 
 
 

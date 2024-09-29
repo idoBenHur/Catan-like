@@ -656,7 +656,7 @@ public class UiManager : MonoBehaviour
 
 
         // winning button
-        WinButton.onClick.AddListener(() => EndGame(true));
+       // WinButton.onClick.AddListener(() => EndGame(true));
         //WoodCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wood));
         //BrickCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Brick));
         //SheepCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Sheep));
@@ -1061,7 +1061,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void ShowWinningCondition(List<ResourceRequirement> theWinningConditions, PaymentMode payMode) // shows the resoures amount to win, hides the button if its a "PayAllAtOnce"
+    public void ShowWinningCondition(List<ResourceRequirement1> theWinningConditions, PaymentMode payMode) // shows the resoures amount to win, hides the button if its a "PayAllAtOnce"
     {
         WinningConditionIconDic = new Dictionary<ResourceType, GameObject>
         {
