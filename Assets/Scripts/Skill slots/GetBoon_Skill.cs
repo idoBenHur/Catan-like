@@ -12,7 +12,6 @@ public class GetBoon_Skill : AbstractSkillSlot
     private void Start()
     {
         MaxDiceCap = 3;
-        SkillName = SkillName.Boons;
         DestroyDiceInsideUponRoll = false;
         slotRectTransform = GetComponent<RectTransform>();
 

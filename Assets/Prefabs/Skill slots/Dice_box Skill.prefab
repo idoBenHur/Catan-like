@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4276693822593447842}
   m_Layer: 5
   m_Name: Dice Parent
-  m_TagString: Box
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,11 +134,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridLayoutGroup: {fileID: 3625462147299313434}
   slotRectTransform: {fileID: 1320087827100551033}
-  dicePerRow: 4
-  diceSize: {x: 100, y: 100}
+  ChildrenPerRow: 4
   padding: 50
   defaultSlotSize: {x: 500, y: 150}
-  diceThreshold: 4
+  ChildrenThreshold: 4
 --- !u!1 &761898730118944775
 GameObject:
   m_ObjectHideFlags: 0

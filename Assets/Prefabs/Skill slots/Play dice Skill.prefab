@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 2281364303772921599}
   m_Layer: 5
   m_Name: Dice Parent box
-  m_TagString: LimitedBox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17cd36692149464ba5b11e639374132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillName: 0
+  SkillName: 2
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 

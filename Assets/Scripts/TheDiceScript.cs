@@ -42,13 +42,13 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         ChangeDieParent(transform.parent); //inital paraen set
 
-        
+        PickNumber();
+
     }
 
 
     private void Start()
     {
-        StartCoroutine(RollTheDice2());
     }
 
     public void Initialize(int value, DiceType type)
@@ -59,11 +59,19 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
 
-    public IEnumerator RollTheDice2()
+    private void PickNumber()
+    {
+        DieResult = UnityEngine.Random.Range(1, 7);
+        StartCoroutine(RollDiceAnimation());
+    }
+
+
+
+    public IEnumerator RollDiceAnimation()
     {
 
         int Dice1RandomSide = 0;
-        DieResult = UnityEngine.Random.Range(1, 7);
+        
 
         for (int i = 0; i <= 10; i++)
         {
@@ -97,6 +105,8 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup.blocksRaycasts = false;
 
         transform.SetParent(canvas.transform, true); // change parent while moving the die for clean movment
+       // currentSlot.RemoveDiceFromDiceList(this);
+
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -104,7 +114,6 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         if (DraggableActive == false) { return; }
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-        currentSlot.RemoveDiceFromDiceList(this); 
     }
 
     public void OnEndDrag(PointerEventData eventData)

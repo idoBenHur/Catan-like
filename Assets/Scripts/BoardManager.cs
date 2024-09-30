@@ -171,15 +171,15 @@ public class BoardManager : MonoBehaviour
 
     public void DicesRolled()
     {
-        skillSlotManager.RollNewDice();
+       // skillSlotManager.RollNewDice();
         CurrentTurn++;
         PlayedAmountInTurn = 0;
-        // OnDiceRolled?.Invoke();
-        DOVirtual.DelayedCall(1.3f, () => OnDiceRolled?.Invoke()); // waits for the dice animation to finish
+        OnDiceRolled?.Invoke();
 
-      //  FlushResources();
+       // DOVirtual.DelayedCall(1.3f, () => OnDiceRolled?.Invoke()); // waits for the dice animation to finish
+        //  FlushResources();
 
-        
+
 
         if (CurrentTurn > MaxTurn)
         {
@@ -538,7 +538,9 @@ public class BoardManager : MonoBehaviour
 
                 foreach (var adjustTile in corner.AdjacentTiles) // gain resources
                 {
-                   // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
+                    // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
+                   adjustTile.underFog = false;
+                   mapGenerator.PlaceAndRemoveFogTiles();
                 }
 
 
@@ -575,6 +577,14 @@ public class BoardManager : MonoBehaviour
 
                 player.AddSettelment(corner);
                 OnTownBuilt?.Invoke();
+
+                foreach (var adjustTile in corner.AdjacentTiles) // gain resources
+                {
+                    // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
+                    adjustTile.underFog = false;
+                    mapGenerator.PlaceAndRemoveFogTiles();
+                }
+
 
 
 

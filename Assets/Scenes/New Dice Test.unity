@@ -3147,13 +3147,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ba769d184d4ec4fafc883e9aae01be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 80364855}
+  BaseTilemap: {fileID: 80364855}
+  FogTileMap: {fileID: 732742694}
   woodTile: {fileID: 11400000, guid: 774b4d35c8bc48c4ca5ba523154fe771, type: 2}
   brickTile: {fileID: 11400000, guid: 0644b8f79e96e3748993f7575445848a, type: 2}
   wheatTile: {fileID: 11400000, guid: f7503ccc2b048984aa7662dde5c356b9, type: 2}
   oreTile: {fileID: 11400000, guid: 9cd414d351a02114daf5b2e35672574d, type: 2}
   sheepTile: {fileID: 11400000, guid: 0747458385f50e14abc4cd09d308cbe8, type: 2}
   desertTile: {fileID: 11400000, guid: 5f877564374622a4b81c5396f736bbfc, type: 2}
+  fogTile: {fileID: 11400000, guid: d599cd47a7f52ae4981a6dbbb9bdbe71, type: 2}
   NumberTokenPrefab: {fileID: 9066862628740351056, guid: cb2bb741f39064b45925b49c7cb2d2de, type: 3}
   RoadPrefab: {fileID: 6665533023127773880, guid: 1d2df8e8eb128204d89eb527bb0cc645, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
@@ -3318,8 +3320,9 @@ MonoBehaviour:
   Allslots:
   - {fileID: 416424959}
   - {fileID: 66345571}
-  - {fileID: 1922531759}
   - {fileID: 439090090}
+  - {fileID: 1922531759}
+  - {fileID: 1887304880}
 --- !u!114 &240130141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8141,6 +8144,150 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719116569}
   m_CullTransparentMesh: 1
+--- !u!1 &732742691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732742692}
+  - component: {fileID: 732742694}
+  - component: {fileID: 732742693}
+  m_Layer: 0
+  m_Name: fog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &732742692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732742691}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.34, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1495605064}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!483693784 &732742693
+TilemapRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732742691}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1282056651
+  m_SortingLayer: 1
+  m_SortingOrder: 2
+  m_ChunkSize: {x: 32, y: 32, z: 32}
+  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_MaxChunkCount: 16
+  m_MaxFrameAge: 16
+  m_SortOrder: 0
+  m_Mode: 0
+  m_DetectChunkCullingBounds: 0
+  m_MaskInteraction: 0
+--- !u!1839735485 &732742694
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732742691}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  m_TileMatrixArray:
+  - m_RefCount: 0
+    m_Data:
+      e00: 0
+      e01: 0
+      e02: 7.346862e-39
+      e03: 7.346862e-39
+      e10: 0
+      e11: 0
+      e12: 5.3e-43
+      e13: 5.3e-43
+      e20: 8.267158e-17
+      e21: -0.00000068855115
+      e22: -6.636772e-19
+      e23: 2.505949e+29
+      e30: 4.5904e-41
+      e31: 5.34e-43
+      e32: 5.3e-43
+      e33: 5.32e-43
+  m_TileColorArray:
+  - m_RefCount: 0
+    m_Data: {r: 6.11126e-40, g: 6.11126e-40, b: 6.11126e-40, a: 6.11126e-40}
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: -3, y: -2, z: 0}
+  m_Size: {x: 6, y: 5, z: 1}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &742667762
 GameObject:
   m_ObjectHideFlags: 0
@@ -10809,7 +10956,7 @@ GameObject:
   - component: {fileID: 1005109700}
   - component: {fileID: 1005109699}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: ocean Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20170,6 +20317,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 80364857}
+  - {fileID: 732742692}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &1495605065
@@ -22938,7 +23086,7 @@ MonoBehaviour:
   maxY: 10
   zoomSpeed: 2
   minZoom: 5
-  maxZoom: 10
+  maxZoom: 7
   MainCamera: {fileID: 1813965068}
 --- !u!1 &1829340034
 GameObject:
@@ -23187,6 +23335,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883715514}
   m_CullTransparentMesh: 1
+--- !u!114 &1887304880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8079105402654738136, guid: a9d89faa96b498d439e68a7adf9460c7, type: 3}
+  m_PrefabInstance: {fileID: 393495833663323403}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec509af95e385ee459bf3f5bfd2e8258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1906475268
 GameObject:
   m_ObjectHideFlags: 0
@@ -25551,10 +25710,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1622811973}
     m_Modifications:
-    - target: {fileID: 583327930983867491, guid: a9d89faa96b498d439e68a7adf9460c7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5758298378159720526, guid: a9d89faa96b498d439e68a7adf9460c7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -25638,10 +25793,6 @@ PrefabInstance:
     - target: {fileID: 8318104122828379643, guid: a9d89faa96b498d439e68a7adf9460c7, type: 3}
       propertyPath: m_Name
       value: Boons_Skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 8750914648258949274, guid: a9d89faa96b498d439e68a7adf9460c7, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

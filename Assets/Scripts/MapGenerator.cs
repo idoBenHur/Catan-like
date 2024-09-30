@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using static TileClass;
 
 
@@ -25,8 +26,9 @@ public class InitialSettlementData
 
 public class MapGenerator : MonoBehaviour
 {
-    public Tilemap tilemap;
-    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
+    public Tilemap BaseTilemap;
+    [SerializeField] private Tilemap FogTileMap;
+    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
@@ -80,6 +82,7 @@ public class MapGenerator : MonoBehaviour
             UpdateHarborsVisuals();
         }
 
+        
 
     }
 
@@ -114,11 +117,11 @@ public class MapGenerator : MonoBehaviour
 
         int ResourceIndex = 0;
 
-        foreach (var TilePosition in tilemap.cellBounds.allPositionsWithin) 
+        foreach (var TilePosition in BaseTilemap.cellBounds.allPositionsWithin) 
         {
-            if (tilemap.HasTile(TilePosition))
+            if (BaseTilemap.HasTile(TilePosition))
             {
-                Vector3 worldPosition = tilemap.CellToWorld(TilePosition);
+                Vector3 worldPosition = BaseTilemap.CellToWorld(TilePosition);
                 var resourceType = ResourcesOnTheMapList[ResourceIndex];  
 
                 if (resourceType != TileClass.ResourceType.Desert)
@@ -178,22 +181,22 @@ public class MapGenerator : MonoBehaviour
             switch (tile.resourceType)
             {
                 case TileClass.ResourceType.Wood:
-                    tilemap.SetTile(position, woodTile);
+                    BaseTilemap.SetTile(position, woodTile);
                     break;
                 case TileClass.ResourceType.Brick:
-                    tilemap.SetTile(position, brickTile);
+                    BaseTilemap.SetTile(position, brickTile);
                     break;
                 case TileClass.ResourceType.Wheat:
-                    tilemap.SetTile(position, wheatTile);
+                    BaseTilemap.SetTile(position, wheatTile);
                     break;
                 case TileClass.ResourceType.Ore:
-                    tilemap.SetTile(position, oreTile);
+                    BaseTilemap.SetTile(position, oreTile);
                     break;
                 case TileClass.ResourceType.Sheep:
-                    tilemap.SetTile(position, sheepTile);
+                    BaseTilemap.SetTile(position, sheepTile);
                     break;
                 case TileClass.ResourceType.Desert:
-                    tilemap.SetTile(position, desertTile);
+                    BaseTilemap.SetTile(position, desertTile);
                     break;
                 default:
                     break; 
@@ -266,7 +269,7 @@ public class MapGenerator : MonoBehaviour
         {
             Vector3Int TilePosition = tilePair.Key;
             TileClass TileValue = tilePair.Value;
-            Vector3 TileWorldPosition = tilemap.CellToWorld(TilePosition);
+            Vector3 TileWorldPosition = BaseTilemap.CellToWorld(TilePosition);
 
 
 
@@ -371,8 +374,8 @@ public class MapGenerator : MonoBehaviour
     // Calculate and store the positions for each corner of the hex tiles
     public List<Vector3> GetCornerPositionsForTile(Vector3 HexCenterPostion)
     {
-        Vector3 tilemapScale = tilemap.transform.localScale; // Get the scale of the tilemap     
-        float size = Mathf.Max(tilemap.cellSize.x, tilemap.cellSize.y) / 2; // Half the cell size
+        Vector3 tilemapScale = BaseTilemap.transform.localScale; // Get the scale of the tilemap     
+        float size = Mathf.Max(BaseTilemap.cellSize.x, BaseTilemap.cellSize.y) / 2; // Half the cell size
         List<Vector3> corners = new List<Vector3>();
 
 
@@ -850,6 +853,26 @@ public class MapGenerator : MonoBehaviour
             BoardManager.instance.BuildRoadAt(road, true);
 
         }
+    }
+
+
+    public void PlaceAndRemoveFogTiles()
+    {
+        var dic = BoardManager.instance.TilesDictionary;
+
+        foreach (var tile in dic.Values)
+        {
+            if(tile.underFog == true)
+            {
+                FogTileMap.SetTile(tile.TilePostion, fogTile);
+            }
+            else
+            {
+                FogTileMap.SetTile(tile.TilePostion, null);
+            }
+        }
+
+
     }
 
 }

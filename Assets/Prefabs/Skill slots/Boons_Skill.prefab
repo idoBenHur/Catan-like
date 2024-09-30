@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2647084209516858713
 RectTransform:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 8079105402654738136}
   m_Layer: 5
   m_Name: Dice parent
-  m_TagString: LimitedBox
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +171,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1.6900024, y: -302.26392}
-  m_SizeDelta: {x: 99.14, y: 516.1}
+  m_SizeDelta: {x: 99.14, y: 300}
   m_Pivot: {x: 0.5000002, y: 0}
 --- !u!222 &922367814179908645
 CanvasRenderer:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec509af95e385ee459bf3f5bfd2e8258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillName: 0
+  SkillName: 4
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   RequiredDiceTypes: 

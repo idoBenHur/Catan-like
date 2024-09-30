@@ -13,7 +13,6 @@ public class DiceBox_Skill : AbstractSkillSlot
         MaxDiceCap = 6;
         DiceAmoutEachTurn = 2;
 
-        SkillName = SkillName.DiceBox;
     }
 
 
@@ -43,7 +42,8 @@ public class DiceBox_Skill : AbstractSkillSlot
             // Instantiate the prefab
             GameObject newObject = Instantiate(NormalDicePrefab, transform);
             TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
-            DiceInSlotList.Add(diceComp);
+           // DiceInSlotList.Add(diceComp);
+           AddDiceToSlotList(diceComp);
         }
 
     }

@@ -12,6 +12,7 @@ public class TileClass
     public ResourceType resourceType { get; set; } // The type of resource this tile produces
     public int numberToken { get;  set; } // The number token associated with this tile for resource distribution
     public bool isBlocked { get; private set; } // blocked tile is a tile effected by the tsunami (can not preduce resolurces)
+    public bool underFog;
     public Vector3Int TilePostion { get; private set; }
     public Vector3 TileWorldPostion { get; private set; }
     public List<CornersClass> AdjacentCorners { get; set; } = new List<CornersClass>();
@@ -22,7 +23,7 @@ public class TileClass
 
 
     // Constructor to initialize the tile with specific properties
-    public TileClass(ResourceType resourceType, int numberToken, Vector3Int tileposition, Vector3 worldpostion, bool isBlocked = false, GameObject numberTokenPrefab = null)
+    public TileClass(ResourceType resourceType, int numberToken, Vector3Int tileposition, Vector3 worldpostion, bool isBlocked = false, GameObject numberTokenPrefab = null, bool underFog = true)
     {
         this.resourceType = resourceType;
         this.numberToken = numberToken;
@@ -30,6 +31,7 @@ public class TileClass
         TilePostion = tileposition;
         TileWorldPostion = worldpostion;
         MyNumberPrefab = numberTokenPrefab;
+        this.underFog = underFog;
     }
 
     // Methods to place or remove the robber on this tile

@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
@@ -136,7 +134,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Button WheatCompleteButton;
 
 
-
+    // tiles effect
+    private List<TileClass> PreviouslyAffectedTiles = new List<TileClass>();
 
 
 
@@ -619,7 +618,11 @@ public class UiManager : MonoBehaviour
     public void NewRollDinceBUTTON()
     {
         CloseAllUi();
-        BoardManager.instance.DicesRolled();
+        BoardManager.instance.skillSlotManager.RollNewDice();
+        DOVirtual.DelayedCall(1.3f, () => BoardManager.instance.DicesRolled());
+
+
+       // BoardManager.instance.DicesRolled();
         
 
     }
@@ -1060,7 +1063,7 @@ public class UiManager : MonoBehaviour
         PlacementPhaseScreen.SetActive(false);
     }
 
-
+    // win conditions
     public void ShowWinningCondition(List<ResourceRequirement1> theWinningConditions, PaymentMode payMode) // shows the resoures amount to win, hides the button if its a "PayAllAtOnce"
     {
         WinningConditionIconDic = new Dictionary<ResourceType, GameObject>
@@ -1130,5 +1133,53 @@ public class UiManager : MonoBehaviour
 
     }
 
+
+    // numbers attention
+
+
+    public void IncreaseNumbersTokenSize(List<int> listsOfSums)
+    {
+        
+
+        // Reset scale and color to normal
+        foreach (var tile in PreviouslyAffectedTiles)
+        {
+
+            if (tile.MyNumberPrefab == null) { continue; }
+            if (listsOfSums.Contains(tile.numberToken) == true){ Debug.Log(tile.numberToken); continue; };
+
+            SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
+
+
+            tile.MyNumberPrefab.transform.DOScale(new Vector3(0.05f, 0.05f, 0.05f), 0.5f);
+            spriteRenderer.DOColor(new Color32(0xFA, 0xFA, 0xFA, 0xFF), 0.5f);
+
+        }
+        
+     
+
+        PreviouslyAffectedTiles.Clear();
+
+
+
+
+        foreach (var tile in BoardManager.instance.TilesDictionary.Values) 
+        {
+            if (tile.MyNumberPrefab == null) {  continue; }
+
+            SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
+
+            if (listsOfSums.Contains(tile.numberToken) == true && tile.underFog == false)
+            {
+                tile.MyNumberPrefab.transform.DOScale(new Vector3(0.08f, 0.08f, 0.08f), 0.5f).SetDelay(1.3f);
+                spriteRenderer.DOColor(new Color32(0xCD, 0xF8, 0xCF, 0xFF), 0.5f).SetDelay(1.3f);
+                PreviouslyAffectedTiles.Add(tile);
+
+            }
+
+        }
+
+        
+    }
 
 }

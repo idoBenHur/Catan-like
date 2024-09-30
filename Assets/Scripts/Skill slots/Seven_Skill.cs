@@ -7,10 +7,11 @@ public class Seven_Skill : AbstractSkillSlot
     int SUMDiceInSlot = 0;
 
 
+
+
     private void Start()
     {
         // RequiredDiceCount = 2;
-        SkillName = SkillName.SevenAbility;
     }
 
     public override bool CanAcceptDice(TheDiceScript dice)

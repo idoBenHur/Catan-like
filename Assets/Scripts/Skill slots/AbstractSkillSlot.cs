@@ -20,7 +20,7 @@ public enum SkillName
 
 public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
 {
-    [HideInInspector] public SkillName SkillName;
+    public SkillName SkillName;
     public bool DestroyDiceInsideUponRoll = true;
     [HideInInspector] public int MaxDiceCap;
     public List<DiceType> RequiredDiceTypes;
@@ -36,6 +36,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     // triggred automatically when a draggable object is dropped onto a GameObject with this fucntion 
     public void OnDrop(PointerEventData eventData) 
     {
+        
         GameObject droppedObject = eventData.pointerDrag;
         TheDiceScript dice = droppedObject.GetComponent<TheDiceScript>();
 
@@ -55,7 +56,6 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
 
     public void AddDiceToSlotList(TheDiceScript dice)
     {
-
         if (CanAcceptDice(dice))
         {
             DiceInSlotList.Add(dice);           
@@ -68,11 +68,14 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         {
             resizer.AdjustSlotSize();
         }
+
+       BoardManager.instance.skillSlotManager.allDicesOutcome();
     }
 
 
     public void RemoveDiceFromDiceList(TheDiceScript dice)
     {
+
         DynamicSlotResizer resizer = GetComponent<DynamicSlotResizer>();
         if (resizer != null)
         {
@@ -85,6 +88,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
             OnDiceRemoved(dice);
         }
 
+       //BoardManager.instance.skillSlotManager.allDicesOutcome();
 
     }
 

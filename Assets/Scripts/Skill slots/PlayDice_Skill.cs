@@ -9,7 +9,6 @@ public class PlayDice_Skill : AbstractSkillSlot
     private void Start()
     {
         MaxDiceCap = 2;
-        SkillName = SkillName.PlayDice;
 
     }
 

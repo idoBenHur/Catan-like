@@ -25,25 +25,25 @@ public class camera_test : MonoBehaviour
     {
         Vector3 pos = transform.position;
 
-        // Check if mouse is near the edges of the screen for X axis movement (left and right)
-        if (Input.mousePosition.x >= Screen.width - screenEdgeThickness && pos.x < maxX)
-        {
-            pos.x += moveSpeed * Time.deltaTime;
-        }
-        if (Input.mousePosition.x <= screenEdgeThickness && pos.x > minX)
-        {
-            pos.x -= moveSpeed * Time.deltaTime;
-        }
+        //// Check if mouse is near the edges of the screen for X axis movement (left and right)
+        //if (Input.mousePosition.x >= Screen.width - screenEdgeThickness && pos.x < maxX)
+        //{
+        //    pos.x += moveSpeed * Time.deltaTime;
+        //}
+        //if (Input.mousePosition.x <= screenEdgeThickness && pos.x > minX)
+        //{
+        //    pos.x -= moveSpeed * Time.deltaTime;
+        //}
 
-        // Check if mouse is near the edges of the screen for Y axis movement (up and down)
-        if (Input.mousePosition.y >= Screen.height - screenEdgeThickness && pos.y < maxY)
-        {
-            pos.y += moveSpeed * Time.deltaTime;
-        }
-        if (Input.mousePosition.y <= screenEdgeThickness && pos.y > minY)
-        {
-            pos.y -= moveSpeed * Time.deltaTime;
-        }
+        //// Check if mouse is near the edges of the screen for Y axis movement (up and down)
+        //if (Input.mousePosition.y >= Screen.height - screenEdgeThickness && pos.y < maxY)
+        //{
+        //    pos.y += moveSpeed * Time.deltaTime;
+        //}
+        //if (Input.mousePosition.y <= screenEdgeThickness && pos.y > minY)
+        //{
+        //    pos.y -= moveSpeed * Time.deltaTime;
+        //}
 
         // Zooming in and out with the mouse wheel
         float scroll = Input.GetAxis("Mouse ScrollWheel");
