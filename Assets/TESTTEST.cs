@@ -9,11 +9,11 @@ public class TESTTEST : MonoBehaviour
     public GameObject prefab;  // The object to instantiate at each corner
 
     // Define the vertical offset between the large and small hexagons
-    public float verticalOffset = 0.15014577259f;    //0.1501f;  // Calculated previously
+    public float verticalOffset = 0.15f; // 0.15014577259f;  // Adjust based on your design
 
     // Define the small hexagon's dimensions in Unity units (based on its pixel size and PPU)
-    private float hexWidth = 1.0f;  // Hexagon width in Unity units
-    private float hexHeight = 0.86005830903f;    //0.86f;  // Hexagon height in Unity units
+    private float hexWidth = 1.0f;  // Small hexagon width in Unity units
+    private float hexHeight = 0.86f;//0.86005830903f;//  // Small hexagon height in Unity units
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class TESTTEST : MonoBehaviour
                 // Get the world position of the large hexagon's center point
                 Vector3 worldPosition = grid.CellToWorld(hexagonPosition);
 
-                // Apply tilemap scale adjustment to the world position
+                // Apply tilemap scale adjustment to the world position (center of the hexagon)
                 Vector3 scaledWorldPosition = new Vector3(
                     worldPosition.x * tilemapScale.x,
                     worldPosition.y * tilemapScale.y,
@@ -40,7 +40,7 @@ public class TESTTEST : MonoBehaviour
                 scaledWorldPosition.y += verticalOffset;
 
                 // Get the corners for this hexagon
-                List<Vector3> corners = GetCornerPositionsForTile(scaledWorldPosition);
+                List<Vector3> corners = GetCorrectedCornerPositions(scaledWorldPosition, tilemapScale);
 
                 // Instantiate the prefab at each corner
                 foreach (Vector3 corner in corners)
@@ -52,32 +52,40 @@ public class TESTTEST : MonoBehaviour
         }
     }
 
-    // Function to calculate the 6 corner positions for a hexagon
-    public List<Vector3> GetCornerPositionsForTile(Vector3 hexCenterPosition)
+    // Function to calculate the 6 corner positions for a hexagon, focusing on the top corner first
+    public List<Vector3> GetCorrectedCornerPositions(Vector3 hexCenterPosition, Vector3 tilemapScale)
     {
-        Vector3 tilemapScale = tilemap.transform.localScale; // Get the scale of the tilemap
-
-        // Corrected half size based on the actual dimensions of the smaller hexagon
-        float halfWidth = (hexWidth / 2) * tilemapScale.x;
-        float halfHeight = (hexHeight / 2) * tilemapScale.y;
-
         List<Vector3> corners = new List<Vector3>();
 
-        for (int i = 0; i < 6; i++)
-        {
-            float angle_deg = 60 * i - 30; // Offset by -30 degrees for pointy top
-            float angle_rad = Mathf.Deg2Rad * angle_deg;
+        // Calculate half of the small hexagon's width and height, accounting for the tilemap's scale
+        float halfWidth = (hexWidth / 2f) * tilemapScale.x;
+        float halfHeight = (hexHeight / 2f) * tilemapScale.y;
 
-            // Use the halfWidth for x direction and halfHeight for y direction
-            Vector3 cornerOffset = new Vector3(halfWidth * Mathf.Cos(angle_rad), halfHeight * Mathf.Sin(angle_rad), 0);
+        // Top corner (the correct one)
+        Vector3 topCorner = RoundVector3(new Vector3(hexCenterPosition.x, hexCenterPosition.y + halfHeight, hexCenterPosition.z), 1);
+        corners.Add(topCorner);  // Add the top corner to the list
 
-            // Calculate the world position for the corner
-            Vector3 cornerWorld = hexCenterPosition + cornerOffset;
+        // Now calculate the other corners relative to the top corner
 
-            // Round the position to avoid floating-point errors
-            Vector3 roundedCornerPos = RoundVector3(cornerWorld, 1);  // Rounding to 3 decimal places
-            corners.Add(roundedCornerPos);
-        }
+        // Top-right corner
+        Vector3 topRightCorner = RoundVector3(new Vector3(hexCenterPosition.x + halfWidth, hexCenterPosition.y + halfHeight / 2f, hexCenterPosition.z), 1);
+        corners.Add(topRightCorner);
+
+        // Bottom-right corner
+        Vector3 bottomRightCorner = RoundVector3(new Vector3(hexCenterPosition.x + halfWidth, hexCenterPosition.y - halfHeight / 2f, hexCenterPosition.z), 1);
+        corners.Add(bottomRightCorner);
+
+        // Bottom corner
+        Vector3 bottomCorner = RoundVector3(new Vector3(hexCenterPosition.x, hexCenterPosition.y - halfHeight, hexCenterPosition.z), 1);
+        corners.Add(bottomCorner);
+
+        // Bottom-left corner
+        Vector3 bottomLeftCorner = RoundVector3(new Vector3(hexCenterPosition.x - halfWidth, hexCenterPosition.y - halfHeight / 2f, hexCenterPosition.z), 1);
+        corners.Add(bottomLeftCorner);
+
+        // Top-left corner
+        Vector3 topLeftCorner = RoundVector3(new Vector3(hexCenterPosition.x - halfWidth, hexCenterPosition.y + halfHeight / 2f, hexCenterPosition.z), 1);
+        corners.Add(topLeftCorner);
 
         return corners;
     }
