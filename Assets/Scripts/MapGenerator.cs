@@ -275,11 +275,15 @@ public class MapGenerator : MonoBehaviour
 
             var CornerPositions = GetCornerPositionsForTile(TileWorldPosition);
             var sidePositions = GetSidesPositionsForTile(TileWorldPosition);
+            Debug.Log("total " + CornerPositions.Count);
 
+            
 
 
             foreach (var CornerPos in CornerPositions)
             {
+                Debug.Log(CornerPos);
+
                 if (!InitialCornersDic.ContainsKey(CornerPos))
                 {
                     InitialCornersDic[CornerPos] = new CornersClass(CornerPos);

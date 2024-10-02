@@ -19,7 +19,6 @@ public class SkillSlotManager : MonoBehaviour
         foreach (var skillSlot in Allslots)
         {
             SkillSlotsDictionary[skillSlot.SkillName] = skillSlot;
-            Debug.Log(skillSlot.SkillName.ToString());
         }
 
 
