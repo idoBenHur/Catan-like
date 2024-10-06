@@ -26,6 +26,7 @@ public class InitialSettlementData
 
 public class MapGenerator : MonoBehaviour
 {
+    public Grid grid;
     public Tilemap BaseTilemap;
     [SerializeField] private Tilemap FogTileMap;
     public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile; // Assign these in the inspector
@@ -61,6 +62,11 @@ public class MapGenerator : MonoBehaviour
 
     //private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
     public List<int> availableNumbers = new List<int> ();
+
+
+    // 693px (the whole hex hieght ) - 590px (the surface area hex hieght) = 103 px. 103 % 693 (pixel per unit of the image) = 0.1486291
+    // 0.1486291 = the "units" amount needed to be adjusted to recive the "surface area hex" corners'
+    private float HexagonCenterOffset = 0.1486291f;
 
 
 
@@ -121,7 +127,8 @@ public class MapGenerator : MonoBehaviour
         {
             if (BaseTilemap.HasTile(TilePosition))
             {
-                Vector3 worldPosition = BaseTilemap.CellToWorld(TilePosition);
+                Vector3 centerPosition = BaseTilemap.CellToWorld(TilePosition);
+                Vector3 worldPosition = new Vector3(centerPosition.x, centerPosition.y + HexagonCenterOffset, centerPosition.z);           //BaseTilemap.CellToWorld(TilePosition);
                 var resourceType = ResourcesOnTheMapList[ResourceIndex];  
 
                 if (resourceType != TileClass.ResourceType.Desert)
@@ -273,16 +280,14 @@ public class MapGenerator : MonoBehaviour
 
 
 
-            var CornerPositions = GetCornerPositionsForTile(TileWorldPosition);
-            var sidePositions = GetSidesPositionsForTile(TileWorldPosition);
-            Debug.Log("total " + CornerPositions.Count);
+            var CornerPositions = CornersFinderNEW(TileWorldPosition);     // GetCornerPositionsForTile(TileWorldPosition);
+            var sidePositions = SidesFinderNEW(TileWorldPosition, CornerPositions);                                        //GetSidesPositionsForTile(TileWorldPosition);
 
             
 
 
             foreach (var CornerPos in CornerPositions)
             {
-                Debug.Log(CornerPos);
 
                 if (!InitialCornersDic.ContainsKey(CornerPos))
                 {
@@ -340,9 +345,7 @@ public class MapGenerator : MonoBehaviour
 
 
 
-
-
-
+        
 
 
 
@@ -433,6 +436,82 @@ public class MapGenerator : MonoBehaviour
 
         //return corners;
     }
+
+
+
+
+
+
+    private List<Vector3> CornersFinderNEW(Vector3 HexCenterPostion)
+    {
+        Vector3 gridCellSize = grid.cellSize; 
+        Vector3 tilemapScale = BaseTilemap.transform.localScale;
+
+
+
+
+        List<Vector3> hexCorners = new List<Vector3>();
+        List<Vector3> RoundedHexCorners = new List<Vector3>();
+
+        float width = gridCellSize.x * tilemapScale.x;
+        float height = gridCellSize.y * tilemapScale.y;
+
+
+
+        // Calculate hex corners with custom Y offsets for tall hexagons relative to the tile world position
+        hexCorners.Add(HexCenterPostion + new Vector3(0, height * 0.5f + HexagonCenterOffset, 0)); // Top
+        hexCorners.Add(HexCenterPostion + new Vector3(width * 0.5f, height * 0.25f + HexagonCenterOffset, 0)); // Top-right
+        hexCorners.Add(HexCenterPostion + new Vector3(width * 0.5f, -height * 0.25f + HexagonCenterOffset, 0)); // Bottom-right
+        hexCorners.Add(HexCenterPostion + new Vector3(0, -height * 0.5f + HexagonCenterOffset, 0)); // Bottom
+        hexCorners.Add(HexCenterPostion + new Vector3(-width * 0.5f, -height * 0.25f + HexagonCenterOffset, 0)); // Bottom-left
+        hexCorners.Add(HexCenterPostion + new Vector3(-width * 0.5f, height * 0.25f + HexagonCenterOffset, 0)); // Top-left
+
+
+        foreach (var corner in hexCorners)
+        {
+            RoundedHexCorners.Add(RoundVector3(corner, 3));
+        }
+
+        return RoundedHexCorners;
+    }
+
+
+    private List<SidesClass> SidesFinderNEW(Vector3 HexCenterPosition, List<Vector3> cornersPosition)
+    {
+        List<SidesClass> sides = new List<SidesClass>();
+
+        for (int i = 0; i < 6; i++)
+        {
+            Vector3 currentCorner = cornersPosition[i];
+            Vector3 nextCorner = cornersPosition[(i + 1) % 6]; // Wrap around at the last corner
+
+            // Calculate the midpoint between the current corner and the next
+            Vector3 sideMidpoint = (currentCorner + nextCorner) / 2;
+            Vector3 roundedSidePos = RoundVector3(sideMidpoint, 3);
+
+            // Calculate rotation: Angle in degrees from the horizontal axis
+            float rotationZ = Mathf.Atan2(nextCorner.y - currentCorner.y, nextCorner.x - currentCorner.x) * Mathf.Rad2Deg;
+
+            // Create new SideClass object and add it to the list
+            sides.Add(new SidesClass(roundedSidePos, rotationZ));
+        }
+
+
+        return sides;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
