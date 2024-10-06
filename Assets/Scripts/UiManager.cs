@@ -1139,7 +1139,52 @@ public class UiManager : MonoBehaviour
 
     public void IncreaseNumbersTokenSize(List<int> listsOfSums)
     {
-        
+
+        Vector3 originalScale = new Vector3(0.25f,0.25f,0.25f);
+        Vector3 increaseScale = new Vector3(originalScale.x * 1.5f, originalScale.y * 1.5f, originalScale.z);
+
+
+        foreach (var tile in BoardManager.instance.TilesDictionary.Values)
+        {
+            if (tile.MyNumberPrefab == null) { continue; }
+
+            SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
+
+            if (listsOfSums.Contains(tile.numberToken) == true && tile.underFog == false)
+            {
+                tile.MyNumberPrefab.transform.DOScale(new Vector3(increaseScale.x, increaseScale.y, increaseScale.z), 0.5f).SetDelay(1.3f);
+                spriteRenderer.DOColor(new Color32(0xCD, 0xF8, 0xCF, 0xFF), 0.5f).SetDelay(1.3f);
+                PreviouslyAffectedTiles.Add(tile);
+
+            }
+
+            else
+            {
+                if (tile.MyNumberPrefab.transform.localScale != originalScale)
+                {
+                    tile.MyNumberPrefab.transform.DOScale(new Vector3(originalScale.x, originalScale.y, originalScale.z), 0.5f);
+                    spriteRenderer.DOColor(new Color32(0xFA, 0xFA, 0xFA, 0xFF), 0.5f);
+                    PreviouslyAffectedTiles.Add(tile);
+                }
+
+            }
+
+        }
+
+        return;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Reset scale and color to normal
         foreach (var tile in PreviouslyAffectedTiles)
@@ -1149,9 +1194,9 @@ public class UiManager : MonoBehaviour
             if (listsOfSums.Contains(tile.numberToken) == true){ Debug.Log(tile.numberToken); continue; };
 
             SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
+            Vector3 originalSize = tile.MyNumberPrefab.transform.localScale;
 
-
-            tile.MyNumberPrefab.transform.DOScale(new Vector3(0.05f, 0.05f, 0.05f), 0.5f);
+            tile.MyNumberPrefab.transform.DOScale(new Vector3(originalSize.x * 1.5f, originalSize.y * 1.5f, originalSize.z), 0.5f);
             spriteRenderer.DOColor(new Color32(0xFA, 0xFA, 0xFA, 0xFF), 0.5f);
 
         }

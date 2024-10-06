@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: sheep
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: c05ec982fafd2124c8b9270d4b25769a, type: 3}
-  m_Color: {r: 0.4740869, g: 0.9245283, b: 0.31835172, a: 1}
+  m_Color: {r: 0.6872366, g: 0.8584906, b: 0.62767, a: 1}
   m_Transform:
     e00: 1
     e01: 0

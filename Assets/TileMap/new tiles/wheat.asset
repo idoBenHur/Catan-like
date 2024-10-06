@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: wheat
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: c05ec982fafd2124c8b9270d4b25769a, type: 3}
-  m_Color: {r: 0.88941246, g: 0.9056604, b: 0.19223925, a: 1}
+  m_Color: {r: 0.84315914, g: 0.8490566, b: 0.5807227, a: 1}
   m_Transform:
     e00: 1
     e01: 0

@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using TMPro;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 using static TileClass;
 
 
@@ -26,10 +23,11 @@ public class InitialSettlementData
 
 public class MapGenerator : MonoBehaviour
 {
-    public Grid grid;
+    [SerializeField] private Grid grid;
     public Tilemap BaseTilemap;
     [SerializeField] private Tilemap FogTileMap;
-    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile; // Assign these in the inspector
+    [SerializeField] private Tilemap ObjectsTileMap;
+    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, rumTileObject; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
@@ -81,8 +79,9 @@ public class MapGenerator : MonoBehaviour
 
         CreateDicsAndAdjacentTiles();
         CreateNeighborsLists();
+        PlaceResourceObjects();
 
-        if(withHarbors == true) 
+        if (withHarbors == true) 
         {
             SetupHarbors();
             UpdateHarborsVisuals();
@@ -956,6 +955,33 @@ public class MapGenerator : MonoBehaviour
         }
 
 
+    }
+
+
+    private void PlaceResourceObjects()
+    {
+        foreach (var tile in InitialTilesDictionary.Values)
+        {
+            switch (tile.resourceType)
+            {
+                case ResourceType.Wood:
+                    
+                    break;
+                case ResourceType.Brick:
+                    ObjectsTileMap.SetTile(tile.TilePostion, rumTileObject);
+                    break;
+                case ResourceType.Sheep:
+                    ObjectsTileMap.SetTile(tile.TilePostion, goldTileObject);
+                    break;
+                case ResourceType.Wheat:
+                    break;
+                case ResourceType.Ore:
+                    break;
+                case ResourceType.Desert:
+                    break;
+
+            }
+        }
     }
 
 }
