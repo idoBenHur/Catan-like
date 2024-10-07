@@ -1111,9 +1111,9 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: 3.9623e-41, g: 3.9623e-41, b: 3.9623e-41, a: 3.9623e-41}
+    m_Data: {r: 9.36168e-40, g: 9.36168e-40, b: 9.36168e-40, a: 9.36168e-40}
   - m_RefCount: 19
-    m_Data: {r: 1, g: 1, b: 1, a: 1}
+    m_Data: {r: 0.8867924, g: 0.85480493, b: 0.8324136, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3151,15 +3151,16 @@ MonoBehaviour:
   BaseTilemap: {fileID: 80364855}
   FogTileMap: {fileID: 732742694}
   ObjectsTileMap: {fileID: 1529353811}
-  woodTile: {fileID: 11400000, guid: a1c9e1b191c8c68499dec54e06a337bf, type: 2}
-  brickTile: {fileID: 11400000, guid: 8e8069c58b142104290b76eae91ebde6, type: 2}
-  wheatTile: {fileID: 11400000, guid: bd32a1cf5d6daad4590d5b695855a86a, type: 2}
-  oreTile: {fileID: 11400000, guid: 0e452d01c978a274592fac5edbc18832, type: 2}
-  sheepTile: {fileID: 11400000, guid: 0002442fa92f2784f909622e1ee956c6, type: 2}
-  desertTile: {fileID: 11400000, guid: 00d0822a7c012b243a2d2989d1cf273b, type: 2}
+  woodTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
+  brickTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
+  wheatTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
+  oreTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
+  sheepTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
+  desertTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
   fogTile: {fileID: 11400000, guid: a4bd1f88e77aaa3448eebc556ea35aef, type: 2}
   goldTileObject: {fileID: 11400000, guid: ea61d97514fbeac41bdec5b129dad036, type: 2}
   rumTileObject: {fileID: 11400000, guid: 613b652737ae991419138e9bfc50fc13, type: 2}
+  gemsTileObject: {fileID: 11400000, guid: 49295501539fdae49960a6692056c6fb, type: 2}
   NumberTokenPrefab: {fileID: 9066862628740351056, guid: cb2bb741f39064b45925b49c7cb2d2de, type: 3}
   RoadPrefab: {fileID: 6665533023127773880, guid: 1d2df8e8eb128204d89eb527bb0cc645, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}

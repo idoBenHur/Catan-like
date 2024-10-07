@@ -13,6 +13,8 @@ public class CornersClass
     public List<CornersClass> AdjacentCorners { get; set; } = new List<CornersClass>();
     public List<SidesClass> AdjacentSides { get; set; } = new List<SidesClass>();
 
+    public GameObject BuildingPrefab;
+
 
     // public HashSet<Vector3Int> AdjacentTiles { get; set; } = new HashSet<Vector3Int>();
 

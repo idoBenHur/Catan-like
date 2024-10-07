@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: gold obj
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: a7b1b7eb1dab28947af2bc80f1337ee3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8301887, g: 0.80034715, b: 0.48949805, a: 1}
   m_Transform:
     e00: 1
     e01: 0

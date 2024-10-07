@@ -419,7 +419,10 @@ public class BoardManager : MonoBehaviour
 
         Settelment.HasCityUpgade = true;
 
-        Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
+        Destroy(Settelment.BuildingPrefab);
+
+        var cityPrefav = Instantiate(CityPrefab, Settelment.Position, Quaternion.identity);
+        Settelment.BuildingPrefab = cityPrefav;
         AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
 
 
@@ -529,7 +532,11 @@ public class BoardManager : MonoBehaviour
                 corner.CanBeBuiltOn = false;
                 corner.HasSettlement = true;
 
-                Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+                var settelmentPrefab = Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+                corner.BuildingPrefab = settelmentPrefab;
+
+
+
                 AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
 
 
@@ -570,7 +577,8 @@ public class BoardManager : MonoBehaviour
                 corner.CanBeBuiltOn = false;
                 corner.HasSettlement = true;
 
-                Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+                var settelmentPrefab = Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+                corner.BuildingPrefab = settelmentPrefab;
                 AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
 
 
