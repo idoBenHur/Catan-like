@@ -12,14 +12,16 @@ public class ResourcePayPrefab : MonoBehaviour
     [SerializeField] private GameObject NumberCircle;
     [SerializeField] private Button payButton;
     [SerializeField] private GameObject QuestionMarkImage;
+    private bool awardBoon = false;
     [HideInInspector] public int requiredAmount; // Set this dynamically when spawning the prefab
 
     private Winning_Condition2 winningCondition;
 
-    public void Initialize(Winning_Condition2 manager, int amount, bool isRevealed)
+    public void Initialize(Winning_Condition2 manager, int amount, bool isRevealed, bool giveBoon)
     {
         winningCondition = manager;
         requiredAmount = amount;
+        awardBoon = giveBoon;
         AmountText.text = requiredAmount.ToString(); // Update the amount display
 
         ToggleReveal(isRevealed);
@@ -32,7 +34,7 @@ public class ResourcePayPrefab : MonoBehaviour
 
     private void OnPayButtonClicked()
     {
-        winningCondition.PayResource(resourceType, requiredAmount); // Pay the resource
+        winningCondition.PayResource(resourceType, requiredAmount, awardBoon); // Pay the resource
     }
 
 

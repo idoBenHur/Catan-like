@@ -27,7 +27,9 @@ public class MapGenerator : MonoBehaviour
     public Tilemap BaseTilemap;
     [SerializeField] private Tilemap FogTileMap;
     [SerializeField] private Tilemap ObjectsTileMap;
-    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, rumTileObject, gemsTileObject; // Assign these in the inspector
+    [SerializeField] private Tilemap BottomObjectsTileMap;
+
+    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, rumTileObject, gemsTileObject, woodTileObject,gunPowderTileObject,woodTop,woodBottom ; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
@@ -965,7 +967,11 @@ public class MapGenerator : MonoBehaviour
             switch (tile.resourceType)
             {
                 case ResourceType.Wood:
-                    
+                    ObjectsTileMap.SetTile(tile.TilePostion, woodTop);
+                    BottomObjectsTileMap.SetTile(tile.TilePostion, woodBottom);
+
+
+
                     break;
                 case ResourceType.Brick:
                     ObjectsTileMap.SetTile(tile.TilePostion, rumTileObject);
@@ -974,6 +980,7 @@ public class MapGenerator : MonoBehaviour
                     ObjectsTileMap.SetTile(tile.TilePostion, goldTileObject);
                     break;
                 case ResourceType.Wheat:
+                    ObjectsTileMap.SetTile(tile.TilePostion, gunPowderTileObject);
                     break;
                 case ResourceType.Ore:
                     ObjectsTileMap.SetTile(tile.TilePostion, gemsTileObject);

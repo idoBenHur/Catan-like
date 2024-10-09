@@ -11,7 +11,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 
     private void Start()
     {
-        MaxDiceCap = 3;
+        MaxDiceCap = 4;
         DestroyDiceInsideUponRoll = false;
         slotRectTransform = GetComponent<RectTransform>();
 
@@ -81,9 +81,10 @@ public class GetBoon_Skill : AbstractSkillSlot
     {
 
 
-        BoardManager.instance.boonManager.GiveBoon();
+        // BoardManager.instance.boonManager.GiveBoon();
+        BoardManager.instance.uiManager.OpenSevenSkillRewardPannel();
         DestroyAllDiceInSlot();
-        IncreaseCap();
+       // IncreaseCap();
 
     }
 

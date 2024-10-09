@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: rum obj
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: d6568de11f1dab74ba3956ce64066b77, type: 3}
-  m_Color: {r: 0.65850836, g: 0.9245283, b: 0.7187027, a: 1}
+  m_Color: {r: 0.9433962, g: 0.7325036, b: 0.4761481, a: 1}
   m_Transform:
     e00: 1
     e01: 0

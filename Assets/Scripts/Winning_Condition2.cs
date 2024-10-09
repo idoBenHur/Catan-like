@@ -10,6 +10,7 @@ public class ResourceRequirement2
 {
     public ResourceType resourceType;
     public int requiredAmount;
+    public bool awardBoon;
 }
 
 
@@ -69,7 +70,7 @@ public class Winning_Condition2 : MonoBehaviour
 
                 ResourcePayPrefab paymentPrefabScript = spawnedPrefab.GetComponent<ResourcePayPrefab>();
                 bool isRevealed = i == 0; //Reveal only the first resource
-                paymentPrefabScript.Initialize(this, requirement.requiredAmount, isRevealed);
+                paymentPrefabScript.Initialize(this, requirement.requiredAmount, isRevealed, requirement.awardBoon );
 
             }
 
@@ -86,7 +87,7 @@ public class Winning_Condition2 : MonoBehaviour
 
     }
 
-    public void PayResource(ResourceType resourceType, int requiredAmount)
+    public void PayResource(ResourceType resourceType, int requiredAmount, bool awardBoon)
     {
         Dictionary<ResourceType, int> tempCost = new Dictionary<ResourceType, int>();
         tempCost.Add(resourceType, requiredAmount);
@@ -97,7 +98,13 @@ public class Winning_Condition2 : MonoBehaviour
             thePlayer.SubtractResources(tempCost);
             DestroyCurrentPrefab();
         }
-        
+
+        if(awardBoon == true )
+        {
+            BoardManager.instance.boonManager.GiveBoon();
+
+        }
+
     }
 
     private void DestroyCurrentPrefab()

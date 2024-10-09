@@ -88,7 +88,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
             OnDiceRemoved(dice);
         }
 
-       //BoardManager.instance.skillSlotManager.allDicesOutcome();
+      // BoardManager.instance.skillSlotManager.allDicesOutcome();
 
     }
 
@@ -104,6 +104,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         }
 
         DiceInSlotList.Clear(); // Clear the list after destruction
+        BoardManager.instance.skillSlotManager.allDicesOutcome();
     }
 
 

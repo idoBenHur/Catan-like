@@ -1152,8 +1152,8 @@ public class UiManager : MonoBehaviour
 
             if (listsOfSums.Contains(tile.numberToken) == true && tile.underFog == false)
             {
-                tile.MyNumberPrefab.transform.DOScale(new Vector3(increaseScale.x, increaseScale.y, increaseScale.z), 0.5f).SetDelay(1.3f);
-                spriteRenderer.DOColor(new Color32(0xCD, 0xF8, 0xCF, 0xFF), 0.5f).SetDelay(1.3f);
+                tile.MyNumberPrefab.transform.DOScale(new Vector3(increaseScale.x, increaseScale.y, increaseScale.z), 0.5f);//.SetDelay(1.3f);
+                spriteRenderer.DOColor(new Color32(0xCD, 0xF8, 0xCF, 0xFF), 0.5f);//.SetDelay(1.3f);
                 PreviouslyAffectedTiles.Add(tile);
 
             }

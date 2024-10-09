@@ -97,6 +97,11 @@ public class SkillSlotManager : MonoBehaviour
             }
         }
 
+        foreach (var number in sumOfPairs)
+        {
+           // Debug.Log(number);
+        }
+        
 
         BoardManager.instance.uiManager.IncreaseNumbersTokenSize(sumOfPairs);
 

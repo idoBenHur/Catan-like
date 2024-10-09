@@ -59,7 +59,8 @@ public class DiceBox_Skill : AbstractSkillSlot
             {
                 GameObject newObject = Instantiate(NormalDicePrefab, transform);
                 TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
-                DiceInSlotList.Add(diceComp);
+                AddDiceToSlotList(diceComp);
+                //DiceInSlotList.Add(diceComp);
             }
             else
             {

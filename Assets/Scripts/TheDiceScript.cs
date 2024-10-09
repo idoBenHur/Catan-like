@@ -73,7 +73,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         int Dice1RandomSide = 0;
         
 
-        for (int i = 0; i <= 10; i++)
+        for (int i = 0; i <= 3; i++)
         {
 
             Dice1RandomSide = UnityEngine.Random.Range(1, 7);
@@ -83,7 +83,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
             // Pause before next itteration
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.08f);
         }
 
         DiceImage.sprite = DiceSides[DieResult - 1];
