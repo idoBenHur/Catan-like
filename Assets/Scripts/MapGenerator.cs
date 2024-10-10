@@ -67,7 +67,7 @@ public class MapGenerator : MonoBehaviour
 
     // 693px (the whole hex hieght ) - 590px (the surface area hex hieght) = 103 px. 103 % 693 (pixel per unit of the image) = 0.1486291
     // 0.1486291 = the "units" amount needed to be adjusted to recive the "surface area hex" corners'
-    private float HexagonCenterOffset = 0.1486291f;
+    private float HexagonCenterOffset = 0.104f;//0.0910425f; // 0.1486291f;
 
 
 

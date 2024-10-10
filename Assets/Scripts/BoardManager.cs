@@ -660,27 +660,41 @@ public class BoardManager : MonoBehaviour
 
             Side.CanBeBuiltOn = false;
             Side.HasRoad = true;
-            Quaternion SideRotation = Quaternion.Euler(0, 0, Side.RotationZ);
+            float rotationZ = Side.RotationZ;
+            Quaternion SideRotation;
 
-            if (Side.RotationZ == -90f || Side.RotationZ == 90f)
+            if (Mathf.Abs(rotationZ) == 90f)
             {
                 SideRotation = Quaternion.Euler(0, 0, 90);
                 Instantiate(RoadPrefab, Side.Position, SideRotation);
             }
 
-            else if (Side.RotationZ > 0)
+            // Handle the sideways roads for angles between -90 and 90 degrees (with no upside-down roads)
+            else if (rotationZ >= 0 && rotationZ < 90f)
             {
-                SideRotation = Quaternion.Euler(0, 0, 23.66f);
+                SideRotation = Quaternion.Euler(0, 0, 23.66f); // Use positive angle for one side
+                Instantiate(RoadPrefab2, Side.Position, SideRotation);
+            }
+            else if (rotationZ < 0 && rotationZ > -90f)
+            {
+                SideRotation = Quaternion.Euler(0, 0, -23.66f); // Use negative angle for the opposite side
+                Instantiate(RoadPrefab2, Side.Position, SideRotation);
+            }
+            // For larger angles, flip the road instead of rotating it upside down
+            else if (Mathf.Abs(rotationZ) > 90f)
+            {
+                // Ensure the road is not upside down by flipping horizontally (no rotation inversion)
+                if (rotationZ > 90f)
+                {
+                    SideRotation = Quaternion.Euler(0, 180, 23.66f); // Flip the sideways road but keep right-side up
+                }
+                else
+                {
+                    SideRotation = Quaternion.Euler(0, 180, -23.66f); // Flip the sideways road on the negative side
+                }
                 Instantiate(RoadPrefab2, Side.Position, SideRotation);
             }
 
-            else if(Side.RotationZ < 0)
-            {
-                SideRotation = Quaternion.Euler(0, 0, -23.66f);
-                Instantiate(RoadPrefab2, Side.Position, SideRotation);
-            }
-
-            
 
             AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
             player.RoadsList.Add(Side);
