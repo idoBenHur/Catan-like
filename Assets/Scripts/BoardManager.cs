@@ -44,6 +44,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject CornerIndicatorPrefab;
     [SerializeField] private GameObject SideIndicatorPrefab;
     [SerializeField] private GameObject RoadPrefab;
+    [SerializeField] private GameObject RoadPrefab2;
     [SerializeField] private GameObject TownPrefab;
     [SerializeField] private GameObject CityPrefab;
     [SerializeField] private GameObject ResourceGainPS;
@@ -652,67 +653,56 @@ public class BoardManager : MonoBehaviour
     {
         if (SidesDic.TryGetValue(SidePosition, out SidesClass Side))// && Side.CanBeBuiltOn)
         {
+            if (FirstTurnIsActive == true) { isFree = true; }
+
+            if (isFree == false) { player.SubtractResources(PricesClass.RoadCost); }
 
 
-            if (FirstTurnIsActive == true)
+            Side.CanBeBuiltOn = false;
+            Side.HasRoad = true;
+            Quaternion SideRotation = Quaternion.Euler(0, 0, Side.RotationZ);
+
+            if (Side.RotationZ == -90f || Side.RotationZ == 90f)
             {
-                Side.CanBeBuiltOn = false;
-                Side.HasRoad = true;
-
-                Quaternion SideRotation = Quaternion.Euler(0, 0, Side.RotationZ);
+                SideRotation = Quaternion.Euler(0, 0, 90);
                 Instantiate(RoadPrefab, Side.Position, SideRotation);
-                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
-                player.RoadsList.Add(Side);
-                OnRoadBuilt?.Invoke();
-
-
-
-
-                foreach (var NeighborsRoads in Side.AdjacentSides)
-                {
-                    NeighborsRoads.CanBeBuiltOn = true;
-                }
-
-                foreach (var indicator in RoadsIndicatorsPrefabList)
-                {
-                    Destroy(indicator.gameObject);
-                }
-
-                FirstTurnPlacement();
             }
 
-            else
+            else if (Side.RotationZ > 0)
             {
-
-                if (isFree == false) { player.SubtractResources(PricesClass.RoadCost); }
-                
-                Side.CanBeBuiltOn = false;
-                Side.HasRoad = true;
-
-                Quaternion SideRotation2 = Quaternion.Euler(0, 0, Side.RotationZ);
-                Instantiate(RoadPrefab, Side.Position, SideRotation2);
-                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
-                player.RoadsList.Add(Side);
-                OnRoadBuilt?.Invoke();
-
-
-
-                foreach (var NeighborsRoads in Side.AdjacentSides)
-                {
-                    NeighborsRoads.CanBeBuiltOn = true;
-                }
-
-                foreach (var indicator in RoadsIndicatorsPrefabList)
-                {
-                    Destroy(indicator.gameObject);
-                }
-
-
-                ShowBuildIndicatorsRoads();
-
-                
-
+                SideRotation = Quaternion.Euler(0, 0, 23.66f);
+                Instantiate(RoadPrefab2, Side.Position, SideRotation);
             }
+
+            else if(Side.RotationZ < 0)
+            {
+                SideRotation = Quaternion.Euler(0, 0, -23.66f);
+                Instantiate(RoadPrefab2, Side.Position, SideRotation);
+            }
+
+            
+
+            AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
+            player.RoadsList.Add(Side);
+            OnRoadBuilt?.Invoke();
+
+
+
+
+            foreach (var NeighborsRoads in Side.AdjacentSides)
+            {
+                NeighborsRoads.CanBeBuiltOn = true;
+            }
+
+            foreach (var indicator in RoadsIndicatorsPrefabList)
+            {
+                Destroy(indicator.gameObject);
+            }
+
+            if (FirstTurnIsActive == true) { FirstTurnPlacement(); }
+            else { ShowBuildIndicatorsRoads(); }
+
+
 
 
             

@@ -26,10 +26,11 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private Grid grid;
     public Tilemap BaseTilemap;
     [SerializeField] private Tilemap FogTileMap;
-    [SerializeField] private Tilemap ObjectsTileMap;
+    [SerializeField] private Tilemap TopObjectsTileMap;
     [SerializeField] private Tilemap BottomObjectsTileMap;
 
-    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, rumTileObject, gemsTileObject, woodTileObject,gunPowderTileObject,woodTop,woodBottom ; // Assign these in the inspector
+    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, rumTileObject, gemsTileObject, woodTileObject,gunPowderTileObject,
+        woodTop,woodBottom,gemsTop,gemsBottom,goldTop,goldBottom,gunpowderTop,gunpowderBottom ; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
@@ -967,23 +968,28 @@ public class MapGenerator : MonoBehaviour
             switch (tile.resourceType)
             {
                 case ResourceType.Wood:
-                    ObjectsTileMap.SetTile(tile.TilePostion, woodTop);
+                    TopObjectsTileMap.SetTile(tile.TilePostion, woodTop);
                     BottomObjectsTileMap.SetTile(tile.TilePostion, woodBottom);
 
 
 
                     break;
                 case ResourceType.Brick:
-                    ObjectsTileMap.SetTile(tile.TilePostion, rumTileObject);
+                    TopObjectsTileMap.SetTile(tile.TilePostion, rumTileObject);
                     break;
                 case ResourceType.Sheep:
-                    ObjectsTileMap.SetTile(tile.TilePostion, goldTileObject);
+                    TopObjectsTileMap.SetTile(tile.TilePostion, goldTop);
+                    BottomObjectsTileMap.SetTile(tile.TilePostion, goldBottom);
                     break;
                 case ResourceType.Wheat:
-                    ObjectsTileMap.SetTile(tile.TilePostion, gunPowderTileObject);
+                    TopObjectsTileMap.SetTile(tile.TilePostion, gunpowderTop);
+                    BottomObjectsTileMap.SetTile(tile.TilePostion, gunpowderBottom);
+
                     break;
                 case ResourceType.Ore:
-                    ObjectsTileMap.SetTile(tile.TilePostion, gemsTileObject);
+                    TopObjectsTileMap.SetTile(tile.TilePostion, gemsTop);
+                    BottomObjectsTileMap.SetTile(tile.TilePostion, gemsBottom);
+
                     break;
                 case ResourceType.Desert:
                     break;

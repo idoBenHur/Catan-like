@@ -3195,6 +3195,7 @@ MonoBehaviour:
   CornerIndicatorPrefab: {fileID: 3579992415153703632, guid: ca10fc29f9d7a3647b1e00b49eb125c4, type: 3}
   SideIndicatorPrefab: {fileID: 3694540549687393739, guid: 0e6fbceb24717e74d836fd1c284e150f, type: 3}
   RoadPrefab: {fileID: 6665533023127773880, guid: 86698e68ddb09694ba7d38fbddeef028, type: 3}
+  RoadPrefab2: {fileID: 6665533023127773880, guid: 83aab6d11eb201941a501d079f5758d9, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   ResourceGainPS: {fileID: 8566326398363421716, guid: 6df5ae7c06e54954b9c15f5b8124ac70, type: 3}
@@ -3244,7 +3245,7 @@ MonoBehaviour:
   grid: {fileID: 1495605065}
   BaseTilemap: {fileID: 80364855}
   FogTileMap: {fileID: 732742694}
-  ObjectsTileMap: {fileID: 1529353811}
+  TopObjectsTileMap: {fileID: 1529353811}
   BottomObjectsTileMap: {fileID: 727035390}
   woodTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
   brickTile: {fileID: 11400000, guid: aa03648b4a8c7354a9af796e8ef1bba3, type: 2}
@@ -3260,6 +3261,12 @@ MonoBehaviour:
   gunPowderTileObject: {fileID: 11400000, guid: d797d8677bc20c945b5e167206496912, type: 2}
   woodTop: {fileID: 11400000, guid: a423738ed7d748b4680ff052ddae45c8, type: 2}
   woodBottom: {fileID: 11400000, guid: 492a3ce454266ce45bc16e0a5f81b514, type: 2}
+  gemsTop: {fileID: 11400000, guid: 74eb4a3ff6488c34e9e52598898ee333, type: 2}
+  gemsBottom: {fileID: 11400000, guid: 1ba8d4a4b46d6c74da7ee3ccd3edc8f0, type: 2}
+  goldTop: {fileID: 11400000, guid: 1406281b0bf28e443bc19aab49396595, type: 2}
+  goldBottom: {fileID: 11400000, guid: 202d5f383cef44843a5a844cae6b9215, type: 2}
+  gunpowderTop: {fileID: 11400000, guid: 0d572cbffd2c3f94c82f33e3425698c1, type: 2}
+  gunpowderBottom: {fileID: 11400000, guid: b632b8a2ed2d71945b1be7fc3a7b7f78, type: 2}
   NumberTokenPrefab: {fileID: 9066862628740351056, guid: cb2bb741f39064b45925b49c7cb2d2de, type: 3}
   RoadPrefab: {fileID: 6665533023127773880, guid: 86698e68ddb09694ba7d38fbddeef028, type: 3}
   TownPrefab: {fileID: 7191106204158726007, guid: 8b14e69108eeaec46902fc98e45571fe, type: 3}
@@ -8467,7 +8474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &732742692
 Transform:
   m_ObjectHideFlags: 0
@@ -20840,7 +20847,7 @@ GameObject:
   - component: {fileID: 1529353811}
   - component: {fileID: 1529353810}
   m_Layer: 0
-  m_Name: objects tilemap
+  m_Name: objects tilemap top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
