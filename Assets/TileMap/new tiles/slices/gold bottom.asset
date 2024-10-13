@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: gold bottom
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 86e930f70bf6586489d9de5e4dad951e, type: 3}
-  m_Color: {r: 0.47615832, g: 0.5019608, b: 0.27058825, a: 1}
+  m_Color: {r: 0.9339623, g: 0.900445, b: 0.4008989, a: 1}
   m_Transform:
     e00: 1
     e01: 0

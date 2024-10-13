@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class GetBoon_Skill : AbstractSkillSlot
 {
     private RectTransform slotRectTransform;
+    private List<int> numbers_requirement = new List<int>();
+    [SerializeField] private Sprite[] DiceSides;
+    [SerializeField] private GameObject dicePrefab;
 
 
     private void Start()
@@ -15,7 +18,31 @@ public class GetBoon_Skill : AbstractSkillSlot
         DestroyDiceInsideUponRoll = false;
         slotRectTransform = GetComponent<RectTransform>();
 
+        shuffleNumbers();
     }
+
+
+    private void shuffleNumbers()
+    {
+        for (int i = 0; i < MaxDiceCap; i++)
+        {
+            int randomNumber = Random.Range(1, 6);
+            numbers_requirement.Add(randomNumber);
+        }
+        spawnDiceRequirementPrefabs();
+    }
+
+    private void spawnDiceRequirementPrefabs()
+    {
+        foreach (var number in numbers_requirement)
+        {
+            GameObject dice = Instantiate(dicePrefab, this.transform);
+            Image diceImage = dice.GetComponent<Image>();
+            diceImage.sprite = DiceSides[number - 1];
+        }
+    }
+
+
 
 
     private void IncreaseCap()
@@ -32,6 +59,9 @@ public class GetBoon_Skill : AbstractSkillSlot
 
     public override bool CanAcceptDice(TheDiceScript dice)
     {
+        if (numbers_requirement.Contains(dice.DieResult)){ return true; }
+
+
 
         
         //foreach(var existingDie in DiceInSlotList)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: gems top
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: ab09fe804cdc71741b3350ca7a72ca83, type: 3}
-  m_Color: {r: 0.47615832, g: 0.5019608, b: 0.27058825, a: 1}
+  m_Color: {r: 0.8490566, g: 0.6127626, b: 0.75585395, a: 1}
   m_Transform:
     e00: 1
     e01: 0
