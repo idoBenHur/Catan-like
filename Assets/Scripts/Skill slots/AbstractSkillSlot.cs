@@ -73,7 +73,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     }
 
 
-    public void RemoveDiceFromDiceList(TheDiceScript dice)
+    public void RemoveDiceFromDiceList(TheDiceScript dice, bool destroyDice = false)
     {
 
         DynamicSlotResizer resizer = GetComponent<DynamicSlotResizer>();
@@ -86,6 +86,11 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         {
             DiceInSlotList.Remove(dice);
             OnDiceRemoved(dice);
+        }
+
+        if(destroyDice == true)
+        {
+            Destroy(dice.gameObject);
         }
 
       // BoardManager.instance.skillSlotManager.allDicesOutcome();

@@ -45,6 +45,14 @@ public class PlayDice_Skill : AbstractSkillSlot
 
         BoardManager.instance.DicesPlayed(firstDice, secondDice);
 
+        if(firstDice + secondDice == 7)
+        {
+            BoardManager.instance.uiManager.OpenSevenSkillRewardPannel();
+
+        }
+
+
+
         DestroyAllDiceInSlot();
 
     }
