@@ -541,7 +541,10 @@ public class UiManager : MonoBehaviour
 
     public void EndGame(bool playerWon)
     {
+        Debug.Log("hi");
+
         if (playerWon == true)
+
         {
             VictoryScreen.SetActive(true);
 
@@ -1103,7 +1106,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void WinButtonsPayResources(ResourceType buttonResource ) // pays the resoures amount
+    private void WinButtonsPayResources(ResourceType buttonResource ) // pays the resoures amount // OLD!
     {
 
         foreach (var Condition in BoardManager.instance.winning_Condition.WinningConditions)

@@ -59,7 +59,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 
     private void spawnDiceRequirementPrefab(int number)
     {
-        GameObject dicePrefab = Instantiate(diceShadowPrefab, shdowDiceParent.transform);
+        GameObject dicePrefab = Instantiate(diceShadowPrefab, this.transform);
 
         if(AnyDice == true)
         {

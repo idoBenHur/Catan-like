@@ -2,29 +2,31 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 
 
 
 
-public enum DiceType
-{
-    Normal,
-    Fire,
-    Water,
-    // Add more dice types as needed
-}
 
-public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+
+public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public int DieResult { get; private set; }
-    public DiceType Type { get; private set; }
     private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     public Sprite[] DiceSides;
     private UnityEngine.UI.Image DiceImage;
+
+    private GameObject diceVisualsParent;
+    private GameObject visualInstance;
+    private Vector3 visualInstanceOGScale;
+    [SerializeField] private GameObject DiceImageChild;
+    private DiceRollAnimation DiceRollAnimation;
+
+
     [HideInInspector] public bool DraggableActive = true;
 
     [HideInInspector] public AbstractSkillSlot currentSlot; 
@@ -42,27 +44,48 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         ChangeDieParent(transform.parent); //inital paraen set
 
+
+        diceVisualsParent = GameObject.FindWithTag("DiceVisuals");
+        visualInstance = Instantiate(DiceImageChild, diceVisualsParent.transform);
+        visualInstanceOGScale = visualInstance.transform.localScale;
+        DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
+
+
         PickNumber();
 
     }
 
 
+    void Update()
+    {
+        if (visualInstance != null && visualInstance.transform.position != this.transform.position)
+        {
+            Vector3 targetPosition = this.transform.position; // Target the dice position
+            visualInstance.transform.position = Vector3.Lerp(visualInstance.transform.position, targetPosition, Time.deltaTime * 15f);
+            //visualInstance.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+        }
+    }
+
+
     private void Start()
     {
+
+
+        
     }
 
-    public void Initialize(int value, DiceType type)
+
+    private void OnDestroy()
     {
-        DieResult = value;
-        Type = type;
+        DOTween.Kill(visualInstance.transform);
+        Destroy(visualInstance);
     }
-
-
 
     private void PickNumber()
     {
         DieResult = UnityEngine.Random.Range(1, 7);
-        StartCoroutine(RollDiceAnimation());
+        StartCoroutine(DiceRollAnimation.RollDiceAnimation2(DieResult));
+        // StartCoroutine(RollDiceAnimation());
     }
 
 
@@ -105,7 +128,10 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup.blocksRaycasts = false;
 
         transform.SetParent(canvas.transform, true); // change parent while moving the die for clean movment
-       // currentSlot.RemoveDiceFromDiceList(this);
+                                                     // currentSlot.RemoveDiceFromDiceList(this);
+
+
+
 
     }
 
@@ -114,6 +140,12 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         if (DraggableActive == false) { return; }
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+
+
+        float tilt = eventData.delta.x * 5f * 0.1f; // Tilt based on the horizontal drag (adjust factor for more/less tilt)
+
+        // Apply the tilt (adjust Z-axis rotation based on drag direction)
+        visualInstance.transform.eulerAngles = new Vector3(0, 0, tilt);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -128,7 +160,32 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             ChangeDieParent(currentSlot.transform);
         }
+
+        visualInstance.transform.rotation = Quaternion.identity;
+
+
     }
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+
+        visualInstance.transform.DOScale(visualInstanceOGScale * 1.2f, 0.3f);
+
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+
+
+        visualInstance.transform.DOScale(visualInstanceOGScale, 0.3f);
+
+    }
+
+
+
+
+
 
     public void ChangeDieParent(Transform newParent)
     {

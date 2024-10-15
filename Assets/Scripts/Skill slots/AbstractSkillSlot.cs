@@ -23,7 +23,6 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public SkillName SkillName;
     public bool DestroyDiceInsideUponRoll = true;
     [HideInInspector] public int MaxDiceCap;
-    public List<DiceType> RequiredDiceTypes;
     
 
     public List<TheDiceScript> DiceInSlotList = new List<TheDiceScript>();

@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -97,6 +97,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 91053ed8503fb2f49a289b104d3491bf, type: 3}
   - {fileID: 21300000, guid: 40da3396537bb2b4db3426627da6b6b6, type: 3}
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
+  DiceImageChild: {fileID: 1382784795085520507, guid: d10cc5f97a9f3e040a721b5b5af284df, type: 3}
+  DraggableActive: 1
   currentSlot: {fileID: 0}
 --- !u!225 &2494603252202961157
 CanvasGroup:

@@ -123,6 +123,7 @@ public class Winning_Condition2 : MonoBehaviour
             }
             else
             {
+                BoardManager.instance.uiManager.EndGame(true);
                 Debug.Log("All resources have been paid!");
             }
         }

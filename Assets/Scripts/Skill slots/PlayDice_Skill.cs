@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayDice_Skill : AbstractSkillSlot
 {
-
+    [SerializeField] private GameObject particleEffect;
 
     private void Start()
     {
@@ -51,9 +51,11 @@ public class PlayDice_Skill : AbstractSkillSlot
 
         }
 
-
+        
 
         DestroyAllDiceInSlot();
+
+        Instantiate(particleEffect);
 
     }
 

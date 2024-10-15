@@ -4,16 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Road
-  - Town
   - GameManager
-  - TownIndicator
-  - RoadIndicator
-  - Number
-  - 'Number '
-  - Box
-  - LimitedBox
-  - DestroyBox
+  - DiceVisuals
   layers:
   - Default
   - TransparentFX

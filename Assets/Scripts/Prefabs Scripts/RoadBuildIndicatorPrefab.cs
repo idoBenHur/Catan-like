@@ -21,7 +21,7 @@ public class RoadBuildIndicatorPrefab : MonoBehaviour
 
         if (IsPointerOverUIObject())
         {
-            return; // If it's over a UI element, don't process the click
+           // return; // If it's over a UI element, don't process the click
         }
 
         // Communicate back to build the settlement at `cornerPosition`

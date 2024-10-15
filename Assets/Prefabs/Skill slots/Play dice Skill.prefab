@@ -325,8 +325,8 @@ MonoBehaviour:
   SkillName: 2
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
-  RequiredDiceTypes: 
   DiceInSlotList: []
+  particleEffect: {fileID: 6258881574706070954, guid: 2623f3ea1fe9aa84b959eca0627b2ee6, type: 3}
 --- !u!1 &4664405322976183417
 GameObject:
   m_ObjectHideFlags: 0
