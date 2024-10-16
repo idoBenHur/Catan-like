@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3 n 11 brick-wood
   m_EditorClassIdentifier: 
   boonName: 3 n 11 brick-wood
-  description: 'Whenever you play 3 or 11, gain 1 <sprite name=brick> and 1 <sprite
+  description: 'Whenever you play 3 or 11, gain 1 <sprite name=rum> and 1 <sprite
     name=wood> '
   triggers:
   - type: 7

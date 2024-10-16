@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: dice master
   m_EditorClassIdentifier: 
   boonName: dice master
-  description: 'Gain <sprite name=wood>, <sprite name=brick>, <sprite name=sheep>,
-    <sprite name=ore>, <sprite name=wheat>
+  description: 'Gain <sprite name=wood>, <sprite name=rum>, <sprite name=gold>, <sprite
+    name=gem>, <sprite name=gunpowder>
 
-    Whenever you play 4 dices in the
-    same turn'
+    Whenever you play 4 dices in the same
+    turn'
   triggers:
   - type: 7
   conditions:

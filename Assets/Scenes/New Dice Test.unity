@@ -5164,7 +5164,7 @@ RectTransform:
   m_GameObject: {fileID: 389023290}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.181968, y: 1.181968, z: 1.181968}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1643363006}
@@ -5176,8 +5176,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125, y: -12}
-  m_SizeDelta: {x: 570.87, y: 154.57}
+  m_AnchoredPosition: {x: -161.25, y: -28.47}
+  m_SizeDelta: {x: 545.37, y: 162.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389023292
 MonoBehaviour:
@@ -5192,14 +5192,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.39822793, g: 0.745283, b: 0.33397114, a: 1}
+  m_Color: {r: 0.70157826, g: 0.9245283, b: 0.65850836, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3eceb354d212d7c41a8150984da85592, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7bd95421852f2e428f07196c97474f7, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5232,15 +5232,15 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 10
-    m_Bottom: 0
+    m_Top: 0
+    m_Bottom: 12
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 190, y: 190}
-  m_Spacing: {x: -95.2, y: -8.1}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_CellSize: {x: 217.1, y: 247}
+  m_Spacing: {x: -117.6, y: 0}
+  m_Constraint: 2
+  m_ConstraintCount: 1
 --- !u!1 &389150375
 GameObject:
   m_ObjectHideFlags: 0
@@ -6293,8 +6293,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -134, y: 66}
-  m_SizeDelta: {x: 958.8, y: 426.72}
+  m_AnchoredPosition: {x: -161.25, y: -92.4}
+  m_SizeDelta: {x: 958.8, y: 356.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &481276212
 MonoBehaviour:
@@ -7403,8 +7403,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 380.235, y: -82.285}
-  m_SizeDelta: {x: 190, y: 190}
+  m_AnchoredPosition: {x: 372.185, y: -75.28}
+  m_SizeDelta: {x: 217.1, y: 247}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &636824439
 MonoBehaviour:
@@ -7470,7 +7470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7352b6feb79edcd409f520efc41a1eed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 588d6d6cbc872074d9b69e0d4bd59e51, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8997,8 +8997,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 190.635, y: -82.285}
-  m_SizeDelta: {x: 190, y: 190}
+  m_AnchoredPosition: {x: 173.185, y: -75.28}
+  m_SizeDelta: {x: 217.1, y: 247}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756432849
 MonoBehaviour:
@@ -9064,7 +9064,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c73a3ebad297e1d4b877124355a77abe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a753a79eb6b7f38499d40d524bdd5b54, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9691,7 +9691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Road
-  text: 'Cost: <sprite name=wood>, <sprite name=brick>
+  text: 'Cost: <sprite name=wood>, <sprite name=rum>
 
 
     Connects between Towns/Cities.
@@ -10028,7 +10028,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 149f01829aee8e94aadf28bb3c1bbb72, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: 40771507ee1e7c14ba2dd11b9ce471e5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -13325,7 +13325,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 250
+  m_PreferredWidth: 300
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -13656,10 +13656,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Town
-  text: "Cost: <sprite name=wood>, <sprite name=brick>, <sprite name=sheep>, <sprite
-    name=wheat>\r\n\r\nGain 1 <sprite name=peasant>.\r\nProduces 1 resource from
-    adjacent tiles.\r\n\r\nMust be connected to a Road & cannot be built next to
-    another Town/City.\r"
+  text: "Cost: <sprite name=wood>, <sprite name=rum>, <sprite name=gold>, <sprite
+    name=gunpowder>\n\r\nProduces 1 resource from adjacent tiles.\r\n\r\nMust be
+    connected to a Road.\n\nCannot be built next to another Town/City.\r"
 --- !u!1 &1089559038
 GameObject:
   m_ObjectHideFlags: 0
@@ -15664,8 +15663,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 285.435, y: -82.285}
-  m_SizeDelta: {x: 190, y: 190}
+  m_AnchoredPosition: {x: 272.685, y: -75.28}
+  m_SizeDelta: {x: 217.1, y: 247}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1280385368
 MonoBehaviour:
@@ -15731,7 +15730,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a276a68e73d1814a91bd67573637ed0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a53fc771dfb39bf4f819e14fb293be59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17230,7 +17229,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 149f01829aee8e94aadf28bb3c1bbb72, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: 40771507ee1e7c14ba2dd11b9ce471e5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -17238,8 +17237,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12.5
-  m_fontSizeBase: 12.5
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -18295,7 +18294,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 149f01829aee8e94aadf28bb3c1bbb72, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: 40771507ee1e7c14ba2dd11b9ce471e5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -19165,7 +19164,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 149f01829aee8e94aadf28bb3c1bbb72, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: 40771507ee1e7c14ba2dd11b9ce471e5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -19173,8 +19172,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.4
-  m_fontSizeBase: 18.4
+  m_fontSize: 22
+  m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -19462,8 +19461,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 95.83499, y: -82.285}
-  m_SizeDelta: {x: 190, y: 190}
+  m_AnchoredPosition: {x: 73.68498, y: -75.28}
+  m_SizeDelta: {x: 217.1, y: 247}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643363007
 MonoBehaviour:
@@ -19529,7 +19528,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: da0d4175b3803944d94648468ce03cf8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 548159d7694495c4c974fcf0f61aa0ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22073,8 +22072,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 200, y: 200}
-  m_Spacing: {x: -96.8, y: 0}
+  m_CellSize: {x: 212, y: 244}
+  m_Spacing: {x: -109.3, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &2014697871
@@ -22548,9 +22547,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   header: Upgrade to City
-  text: "Cost: <sprite name=ore>, <sprite name=ore>, <sprite name=ore>, <sprite name=wheat>,
-    <sprite name=wheat>\n\nGain 1 <sprite name=peasant> \n\nDoubles resource production
-    from adjacent tiles."
+  text: 'Cost: <sprite name=gem>, <sprite name=gem>, <sprite name=gem>, <sprite name=gunpowder>,
+    <sprite name=gunpowder>
+
+
+    Doubles resource production from adjacent tiles.'
 --- !u!1 &2077757975
 GameObject:
   m_ObjectHideFlags: 0
@@ -22959,7 +22960,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -22969,7 +22970,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 149f01829aee8e94aadf28bb3c1bbb72, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: 40771507ee1e7c14ba2dd11b9ce471e5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -23052,8 +23053,8 @@ RectTransform:
   m_GameObject: {fileID: 2117594971}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.726, y: 0.726, z: 0.726}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 389023291}
   - {fileID: 481276211}
@@ -23061,7 +23062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 61, y: -410}
+  m_AnchoredPosition: {x: 130.9, y: -389.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2127407064
@@ -23415,8 +23416,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 475.035, y: -82.285}
-  m_SizeDelta: {x: 190, y: 190}
+  m_AnchoredPosition: {x: 471.685, y: -75.28}
+  m_SizeDelta: {x: 217.1, y: 247}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2133225963
 MonoBehaviour:
@@ -23482,7 +23483,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bb3646dcb5ae86c4587896104a9a0fb5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0eed896192c3b554caf412b9783a3fe4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

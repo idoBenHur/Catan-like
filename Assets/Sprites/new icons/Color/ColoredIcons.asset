@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: coustom emojis2
+  m_Name: ColoredIcons
   m_EditorClassIdentifier: 
-  hashCode: 799692043
-  material: {fileID: 8497568088248588753}
+  hashCode: -197311738
+  material: {fileID: 7327465736247601724}
   materialHashCode: 0
   m_Version: 1.1.0
   m_FaceInfo:
@@ -38,144 +38,122 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  spriteSheet: {fileID: 2800000, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
+  spriteSheet: {fileID: 2800000, guid: c34185d6e63f0dc44be35e184e423c53, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 1
-    m_Scale: 1.5
-    m_Name: wheat
-    m_HashCode: 140362319
+    m_GlyphIndex: 0
+    m_Scale: 1
+    m_Name: rum
+    m_HashCode: 124874
   - m_ElementType: 2
     m_Unicode: 65534
-    m_GlyphIndex: 0
-    m_Scale: 1.5
-    m_Name: wood2
-    m_HashCode: 140045185
+    m_GlyphIndex: 1
+    m_Scale: 1
+    m_Name: gem
+    m_HashCode: 110863
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 2
-    m_Scale: 1.5
-    m_Name: sheep
-    m_HashCode: 135627211
+    m_Scale: 1
+    m_Name: gold
+    m_HashCode: 3668640
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 3
-    m_Scale: 1.5
-    m_Name: ore
-    m_HashCode: 120248
+    m_Scale: 1
+    m_Name: gunpowder
+    m_HashCode: 1403086663
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 4
-    m_Scale: 1.5
-    m_Name: brick
-    m_HashCode: 117847185
-  - m_ElementType: 2
-    m_Unicode: 65534
-    m_GlyphIndex: 5
-    m_Scale: 1.5
-    m_Name: peasant
-    m_HashCode: -615578052
+    m_Scale: 1
+    m_Name: wood
+    m_HashCode: 4243795
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 212
-      m_Height: 244
+      m_Width: 167
+      m_Height: 190
       m_HorizontalBearingX: -0
-      m_HorizontalBearingY: 200
-      m_HorizontalAdvance: 212
+      m_HorizontalBearingY: 190
+      m_HorizontalAdvance: 167
     m_GlyphRect:
-      m_X: 22
-      m_Y: 263
-      m_Width: 212
-      m_Height: 244
+      m_X: 0
+      m_Y: 0
+      m_Width: 167
+      m_Height: 190
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: -122329447, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
+    sprite: {fileID: -1366568882, guid: c34185d6e63f0dc44be35e184e423c53, type: 3}
   - m_Index: 1
     m_Metrics:
-      m_Width: 212
-      m_Height: 244
+      m_Width: 167
+      m_Height: 190
       m_HorizontalBearingX: -0
-      m_HorizontalBearingY: 200
-      m_HorizontalAdvance: 212
+      m_HorizontalBearingY: 190
+      m_HorizontalAdvance: 167
     m_GlyphRect:
-      m_X: 278
-      m_Y: 263
-      m_Width: 212
-      m_Height: 244
+      m_X: 167
+      m_Y: 0
+      m_Width: 167
+      m_Height: 190
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: -2664702, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
+    sprite: {fileID: 533643871, guid: c34185d6e63f0dc44be35e184e423c53, type: 3}
   - m_Index: 2
     m_Metrics:
-      m_Width: 212
-      m_Height: 244
+      m_Width: 167
+      m_Height: 190
       m_HorizontalBearingX: -0
-      m_HorizontalBearingY: 200
-      m_HorizontalAdvance: 212
+      m_HorizontalBearingY: 190
+      m_HorizontalAdvance: 167
     m_GlyphRect:
-      m_X: 534
-      m_Y: 263
-      m_Width: 212
-      m_Height: 244
+      m_X: 334
+      m_Y: 0
+      m_Width: 167
+      m_Height: 190
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: -1684659869, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
+    sprite: {fileID: -1923331952, guid: c34185d6e63f0dc44be35e184e423c53, type: 3}
   - m_Index: 3
     m_Metrics:
-      m_Width: 212
-      m_Height: 244
+      m_Width: 167
+      m_Height: 190
       m_HorizontalBearingX: -0
-      m_HorizontalBearingY: 200
-      m_HorizontalAdvance: 212
+      m_HorizontalBearingY: 190
+      m_HorizontalAdvance: 167
     m_GlyphRect:
-      m_X: 790
-      m_Y: 263
-      m_Width: 212
-      m_Height: 244
+      m_X: 501
+      m_Y: 0
+      m_Width: 167
+      m_Height: 190
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: -428426405, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
+    sprite: {fileID: 1605722598, guid: c34185d6e63f0dc44be35e184e423c53, type: 3}
   - m_Index: 4
     m_Metrics:
-      m_Width: 212
-      m_Height: 244
+      m_Width: 167
+      m_Height: 190
       m_HorizontalBearingX: -0
-      m_HorizontalBearingY: 200
-      m_HorizontalAdvance: 212
+      m_HorizontalBearingY: 190
+      m_HorizontalAdvance: 167
     m_GlyphRect:
-      m_X: 1046
-      m_Y: 263
-      m_Width: 212
-      m_Height: 244
+      m_X: 668
+      m_Y: 0
+      m_Width: 167
+      m_Height: 190
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: -1896041999, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
-  - m_Index: 5
-    m_Metrics:
-      m_Width: 230
-      m_Height: 229
-      m_HorizontalBearingX: -0
-      m_HorizontalBearingY: 200
-      m_HorizontalAdvance: 230
-    m_GlyphRect:
-      m_X: 13
-      m_Y: 14
-      m_Width: 230
-      m_Height: 229
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
-    sprite: {fileID: 576374994, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
+    sprite: {fileID: -413494485, guid: c34185d6e63f0dc44be35e184e423c53, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
---- !u!21 &8497568088248588753
+--- !u!21 &7327465736247601724
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 1
@@ -199,7 +177,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3a423b19f6b82444e9279ad842f8f2b5, type: 3}
+        m_Texture: {fileID: 2800000, guid: c34185d6e63f0dc44be35e184e423c53, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

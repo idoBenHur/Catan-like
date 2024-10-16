@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 6 n 8 sheep
   m_EditorClassIdentifier: 
   boonName: 6 n 8 sheep
-  description: Whenever you play 6 or 8, gain 1 <sprite name=sheep>
+  description: Whenever you play 6 or 8, gain 1 <sprite name=gold>
   triggers:
   - type: 7
   conditions:

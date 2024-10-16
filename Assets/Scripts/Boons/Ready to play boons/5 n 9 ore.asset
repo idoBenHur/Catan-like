@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 5 n 9 ore
   m_EditorClassIdentifier: 
   boonName: 5 n 9 ore
-  description: Whenever you play 5 or 9, gain 1 <sprite name=ore>
+  description: Whenever you play 5 or 9, gain 1 <sprite name=gem>
   triggers:
   - type: 7
   conditions:

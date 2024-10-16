@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4 n 10 wheat
   m_EditorClassIdentifier: 
   boonName: 4 n 10 wheat
-  description: Whenever you play 4 or 10, gain 1 <sprite name=wheat>
+  description: Whenever you play 4 or 10, gain 1 <sprite name=gunpowder>
   triggers:
   - type: 7
   conditions:
