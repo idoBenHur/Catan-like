@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.EventSystems;
 public class TownBuildIndicatorPrefab : MonoBehaviour
 {
     private Vector3 cornerPosition;
+    private Vector3 initialScale;
+
     private CornersClass ThisCorner;
 
     public void Setup(CornersClass Corner)
@@ -13,6 +16,23 @@ public class TownBuildIndicatorPrefab : MonoBehaviour
         cornerPosition = Corner.Position;
         ThisCorner = Corner;
         // Optional: Add visual/audio feedback
+    }
+
+
+
+    private void Start()
+    {
+        initialScale = transform.localScale;
+        transform.DOScale(initialScale * 1.1f, 0.5f)
+           .SetLoops(-1, LoopType.Yoyo) // Loop forever, scaling back and forth
+           .SetEase(Ease.InOutSine);
+    }
+
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(transform);
+
     }
 
     void OnMouseDown()

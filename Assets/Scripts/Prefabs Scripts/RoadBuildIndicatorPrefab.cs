@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class RoadBuildIndicatorPrefab : MonoBehaviour
 {
 
     private Vector3 SidePosition;
+    private Vector3 initialScale;
+
 
 
 
@@ -14,6 +17,22 @@ public class RoadBuildIndicatorPrefab : MonoBehaviour
     {
         SidePosition = position;
         // Optional: Add visual/audio feedback
+    }
+
+
+    private void Start()
+    {
+
+        initialScale = transform.localScale;
+        transform.DOScale(initialScale * 1.2f, 0.5f)
+           .SetLoops(-1, LoopType.Yoyo) // Loop forever, scaling back and forth
+           .SetEase(Ease.InOutSine);
+    }
+
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(transform);
     }
 
     void OnMouseDown()
