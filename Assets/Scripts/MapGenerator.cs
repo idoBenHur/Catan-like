@@ -29,8 +29,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private Tilemap TopObjectsTileMap;
     [SerializeField] private Tilemap BottomObjectsTileMap;
 
-    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, rumTileObject, gemsTileObject, woodTileObject,gunPowderTileObject,
-        woodTop,woodBottom,gemsTop,gemsBottom,goldTop,goldBottom,gunpowderTop,gunpowderBottom ; // Assign these in the inspector
+    public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, gemsTileObject, woodTileObject,gunPowderTileObject,
+        woodTop,woodBottom,gemsTop,gemsBottom,goldTop,goldBottom,gunpowderTop,gunpowderBottom, rumBottom ; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
@@ -975,7 +975,7 @@ public class MapGenerator : MonoBehaviour
 
                     break;
                 case ResourceType.Brick:
-                    TopObjectsTileMap.SetTile(tile.TilePostion, rumTileObject);
+                    BottomObjectsTileMap.SetTile(tile.TilePostion, rumBottom);
                     break;
                 case ResourceType.Sheep:
                     TopObjectsTileMap.SetTile(tile.TilePostion, goldTop);

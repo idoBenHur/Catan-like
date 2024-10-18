@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: gems bottom
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 8cde1255e4d50504280eb799ce122d1d, type: 3}
-  m_Color: {r: 0.8509804, g: 0.6156863, b: 0.75686276, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0ab73de8492ad244d9ec2890308fb21e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0

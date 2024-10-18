@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Wood bottom 1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 46db8fb26fc0cd441bc0643b14e7b321, type: 3}
-  m_Color: {r: 0.2712264, g: 0.5, b: 0.3240203, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6f035ed652b6beb4e828b597e595777e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0

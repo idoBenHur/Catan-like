@@ -137,6 +137,8 @@ public class UiManager : MonoBehaviour
     // tiles effect
     private List<TileClass> PreviouslyAffectedTiles = new List<TileClass>();
 
+    // roll button
+    [SerializeField] private GameObject rollButton;
 
 
 
@@ -620,6 +622,9 @@ public class UiManager : MonoBehaviour
 
     public void NewRollDinceBUTTON()
     {
+
+
+        rollButton.transform.DOPunchScale(transform.localScale * -0.1f, 0.3f, 5, 0.5f);
         CloseAllUi();
         BoardManager.instance.skillSlotManager.RollNewDice();
         DOVirtual.DelayedCall(1.3f, () => BoardManager.instance.DicesRolled());
