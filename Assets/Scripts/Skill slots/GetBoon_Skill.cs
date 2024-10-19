@@ -134,7 +134,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 
     public override void ActivateSlotEffect()
     {
-        // Destroy all dice objects in the dictionary
+        // Destroy all shadow dice objects in the dictionary
         foreach (var diceList in ShadowDiceDic.Values)
         {
             foreach (var shadowDice in diceList)
@@ -144,17 +144,25 @@ public class GetBoon_Skill : AbstractSkillSlot
         }
 
         ShadowDiceDic.Clear();
+        DiceBox_Skill diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+        diceBox.AddPermaDie();
+        diceBox.AddTempDie(1);
+
 
 
         // BoardManager.instance.uiManager.OpenSevenSkillRewardPannel();
-        BoardManager.instance.boonManager.GiveBoon();
+        //BoardManager.instance.boonManager.GiveBoon();
+
+
+
+
         IncreaseCap();
         shuffleNumbers();
     }
 
     private void IncreaseCap()
     {
-        if (MaxDiceCap <= 6)
+        if (MaxDiceCap < 6)
         {
             MaxDiceCap += 1;
             slotRectTransform.sizeDelta = new Vector2(slotRectTransform.sizeDelta.x, slotRectTransform.sizeDelta.y + 100f);

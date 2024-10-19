@@ -101,7 +101,7 @@ public class Winning_Condition2 : MonoBehaviour
 
         if(awardBoon == true )
         {
-           // BoardManager.instance.boonManager.GiveBoon();
+            BoardManager.instance.boonManager.GiveBoon();
 
         }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: rum obj
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: c4bad2d60df9e2b4a8848b81963227ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b38a832b7f931c4eadcd60ceadd3ce9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

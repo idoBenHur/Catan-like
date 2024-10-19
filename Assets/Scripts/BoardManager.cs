@@ -24,7 +24,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
-    [SerializeField] public Winning_Condition winning_Condition;
+    
 
 
 
@@ -527,98 +527,56 @@ public class BoardManager : MonoBehaviour
 
         if (CornersDic.TryGetValue(cornerPosition, out CornersClass corner) && corner.CanBeBuiltOn)
         {
-            //first turn
-            if ( FirstTurnIsActive == true)  
+
+            if (FirstTurnIsActive == true) { isFree = true; }
+
+            if (isFree == false) { player.SubtractResources(PricesClass.TownCost); }
+
+            corner.CanBeBuiltOn = false;
+            corner.HasSettlement = true;
+
+            var settelmentPrefab = Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+            corner.BuildingPrefab = settelmentPrefab;
+
+            AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
+
+
+            player.AddSettelment(corner);
+            OnTownBuilt?.Invoke();
+
+            foreach (var adjustTile in corner.AdjacentTiles) // gain resources
             {
-                corner.CanBeBuiltOn = false;
-                corner.HasSettlement = true;
-
-                var settelmentPrefab = Instantiate(TownPrefab, corner.Position, Quaternion.identity);
-                corner.BuildingPrefab = settelmentPrefab;
-
-
-
-                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
-
-
-                player.AddSettelment(corner);
-                OnTownBuilt?.Invoke();
-
-                foreach (var adjustTile in corner.AdjacentTiles) // gain resources
-                {
-                    // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
-                   adjustTile.underFog = false;
-                   mapGenerator.PlaceAndRemoveFogTiles();
-                }
-
-
-                foreach (var NeighborCornerKey in corner.AdjacentCorners)
-                {
-                    CornersDic[NeighborCornerKey.Position].CanBeBuiltOn = false;
-                }
-
-
-
-                foreach (var indicator in TownsIndicatorsPrefabList)
-                {
-                    Destroy(indicator.gameObject);
-                }
-                TownsIndicatorsPrefabList.Clear();
-
-                FirstTurnPlacement();
-
+                // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
+                adjustTile.underFog = false;
+                mapGenerator.PlaceAndRemoveFogTiles();
             }
 
-            // not first turn
-            else 
-            {   
-                if (isFree == false) { player.SubtractResources(PricesClass.TownCost); }
-                
 
-                corner.CanBeBuiltOn = false;
-                corner.HasSettlement = true;
-
-                var settelmentPrefab = Instantiate(TownPrefab, corner.Position, Quaternion.identity);
-                corner.BuildingPrefab = settelmentPrefab;
-                AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
-
-
-
-                player.AddSettelment(corner);
-                OnTownBuilt?.Invoke();
-
-                foreach (var adjustTile in corner.AdjacentTiles) // gain resources
-                {
-                    // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
-                    adjustTile.underFog = false;
-                    mapGenerator.PlaceAndRemoveFogTiles();
-                }
-
-
-
-
-                foreach (var NeighborCornerKey in corner.AdjacentCorners)
-                {
-                    CornersDic[NeighborCornerKey.Position].CanBeBuiltOn = false;
-                }
-
-
-
-                foreach (var indicator in TownsIndicatorsPrefabList)
-                {
-                    Destroy(indicator.gameObject);
-                }
-                TownsIndicatorsPrefabList.Clear();
-
-                ShowBuildIndicatorsTowns();
-
-
-
-                DiceBox_Skill diceBox = skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
-                diceBox.AddPermaDie();
-                diceBox.AddTempDie(1);
-
+            foreach (var NeighborCornerKey in corner.AdjacentCorners)
+            {
+                CornersDic[NeighborCornerKey.Position].CanBeBuiltOn = false;
             }
+
+
+
+            foreach (var indicator in TownsIndicatorsPrefabList)
+            {
+                Destroy(indicator.gameObject);
+            }
+            TownsIndicatorsPrefabList.Clear();
+
+
+
+
+
+            //DiceBox_Skill diceBox = skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+            //diceBox.AddPermaDie();
+            //diceBox.AddTempDie(1);
+
+
+            if (FirstTurnIsActive == true) { FirstTurnPlacement(); }
+            else { ShowBuildIndicatorsRoads(); }
+
 
 
         }

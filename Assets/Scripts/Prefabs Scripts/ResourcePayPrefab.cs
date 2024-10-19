@@ -15,11 +15,11 @@ public class ResourcePayPrefab : MonoBehaviour
     private bool awardBoon = false;
     [HideInInspector] public int requiredAmount; // Set this dynamically when spawning the prefab
 
-    private Winning_Condition2 winningCondition;
+    private Winning_Condition2 winningCondition2;
 
     public void Initialize(Winning_Condition2 manager, int amount, bool isRevealed, bool giveBoon)
     {
-        winningCondition = manager;
+        winningCondition2 = manager;
         requiredAmount = amount;
         awardBoon = giveBoon;
         AmountText.text = requiredAmount.ToString(); // Update the amount display
@@ -34,7 +34,7 @@ public class ResourcePayPrefab : MonoBehaviour
 
     private void OnPayButtonClicked()
     {
-        winningCondition.PayResource(resourceType, requiredAmount, awardBoon); // Pay the resource
+        winningCondition2.PayResource(resourceType, requiredAmount, awardBoon); // Pay the resource
     }
 
 

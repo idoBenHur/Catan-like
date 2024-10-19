@@ -53,6 +53,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject VictoryScreen;
     [SerializeField] private GameObject WelcomeScreen;
     [SerializeField] private GameObject PlacementPhaseScreen;
+    [SerializeField] private GameObject Sevenflag;
+    private Vector2 sevenFlagOGPos;
 
 
 
@@ -125,7 +127,6 @@ public class UiManager : MonoBehaviour
 
     private Dictionary<ResourceType, GameObject> WinningConditionIconDic;
 
-    [SerializeField] private Button WinButton;
 
     [SerializeField] private Button WoodCompleteButton;
     [SerializeField] private Button BrickCompleteButton;
@@ -170,7 +171,7 @@ public class UiManager : MonoBehaviour
     {
         SetupButtonListeners();
 
-
+        sevenFlagOGPos = Sevenflag.GetComponent<RectTransform>().anchoredPosition;
 
     }
 
@@ -1072,74 +1073,13 @@ public class UiManager : MonoBehaviour
     }
 
     // win conditions
-    public void ShowWinningCondition(List<ResourceRequirement1> theWinningConditions, PaymentMode payMode) // shows the resoures amount to win, hides the button if its a "PayAllAtOnce"
-    {
-        WinningConditionIconDic = new Dictionary<ResourceType, GameObject>
-        {
-            { ResourceType.Wood, WoodIconWinningCondition },
-            { ResourceType.Brick, BrickIconWinningCondition },
-            { ResourceType.Sheep, SheepIconWinningCondition },
-            { ResourceType.Ore, OreIconWinningCondition },
-            { ResourceType.Wheat, WheatIconWinningCondition }
-        };
-
-        foreach (var resource in theWinningConditions)
-        {
-            if (WinningConditionIconDic.TryGetValue(resource.resourceType, out GameObject icon))
-            {
-                icon.SetActive(true);
-                TextMeshProUGUI text = icon.GetComponentInChildren<TextMeshProUGUI>();
-                text.text = resource.requiredAmount.ToString();
-            }
-
-            if(payMode == PaymentMode.PayAllAtOnce)
-            {
-                Button button = icon.GetComponentInChildren<Button>();
-                button.gameObject.SetActive(false);
-            }
-
-
-        }
 
 
 
-    }
-
-    public void ShowTheButtonWin()
-    {
-        WinButton.gameObject.SetActive(true);
-    }
 
 
-    private void WinButtonsPayResources(ResourceType buttonResource ) // pays the resoures amount // OLD!
-    {
-
-        foreach (var Condition in BoardManager.instance.winning_Condition.WinningConditions)
-        {
-            if (Condition.resourceType != buttonResource) { continue; }
-
-            Dictionary<ResourceType, int> resourceDictionary = new Dictionary<ResourceType, int>();
-            resourceDictionary.Add(Condition.resourceType, Condition.requiredAmount);
-
-            if(player.CanAffordToBuild(resourceDictionary)) 
-            {
-                player.SubtractResources(resourceDictionary);
-                GameObject icon = WinningConditionIconDic[Condition.resourceType];
-                Destroy(icon);
-               BoardManager.instance.winning_Condition.PaidCount++;
-            }
-
-            
-        }
-
-        
-        if (BoardManager.instance.winning_Condition.PaidCount >= BoardManager.instance.winning_Condition.WinningConditions.Count)
-        {
-            EndGame(true);
-        }
 
 
-    }
 
 
     // numbers attention
@@ -1148,7 +1088,7 @@ public class UiManager : MonoBehaviour
     public void IncreaseNumbersTokenSize(List<int> listsOfSums)
     {
 
-        Vector3 originalScale = new Vector3(0.25f,0.25f,0.25f);
+        Vector3 originalScale = new Vector3(0.25f, 0.25f, 0.25f);
         Vector3 increaseScale = new Vector3(originalScale.x * 1.5f, originalScale.y * 1.5f, originalScale.z);
 
 
@@ -1179,60 +1119,52 @@ public class UiManager : MonoBehaviour
 
         }
 
-        return;
 
 
 
+        bool contains7 = listsOfSums.Contains(7);
+        Debug.Log(contains7);
 
+        RectTransform SevenFlagRectTransform = Sevenflag.GetComponent<RectTransform>();
 
-
-
-
-
-
-
-
-
-
-        // Reset scale and color to normal
-        foreach (var tile in PreviouslyAffectedTiles)
+        if (contains7 == false && SevenFlagRectTransform.anchoredPosition == sevenFlagOGPos) // no 7, og pos == do nothing
         {
-
-            if (tile.MyNumberPrefab == null) { continue; }
-            if (listsOfSums.Contains(tile.numberToken) == true){ Debug.Log(tile.numberToken); continue; };
-
-            SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
-            Vector3 originalSize = tile.MyNumberPrefab.transform.localScale;
-
-            tile.MyNumberPrefab.transform.DOScale(new Vector3(originalSize.x * 1.5f, originalSize.y * 1.5f, originalSize.z), 0.5f);
-            spriteRenderer.DOColor(new Color32(0xFA, 0xFA, 0xFA, 0xFF), 0.5f);
-
+            return;
         }
-        
-     
 
-        PreviouslyAffectedTiles.Clear();
-
-
-
-
-        foreach (var tile in BoardManager.instance.TilesDictionary.Values) 
+        else if (contains7 == false && SevenFlagRectTransform.anchoredPosition != sevenFlagOGPos) // no 7, diffrent pos == back to og pos
         {
-            if (tile.MyNumberPrefab == null) {  continue; }
-
-            SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
-
-            if (listsOfSums.Contains(tile.numberToken) == true && tile.underFog == false)
-            {
-                tile.MyNumberPrefab.transform.DOScale(new Vector3(0.08f, 0.08f, 0.08f), 0.5f).SetDelay(1.3f);
-                spriteRenderer.DOColor(new Color32(0xCD, 0xF8, 0xCF, 0xFF), 0.5f).SetDelay(1.3f);
-                PreviouslyAffectedTiles.Add(tile);
-
-            }
+            SevenFlagRectTransform.DOKill();
+            SevenFlagRectTransform.DOAnchorPosY(sevenFlagOGPos.y, 0.2f);
 
         }
 
-        
+        else if (contains7 == true && SevenFlagRectTransform.anchoredPosition == sevenFlagOGPos) // has 7, og pos == move up
+        {
+            SevenFlagRectTransform.DOKill();
+            SevenFlagRectTransform.DOAnchorPosY(65f, 0.2f);
+        }
+
+ 
+
+
+
+
+
+       
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
 
 }
