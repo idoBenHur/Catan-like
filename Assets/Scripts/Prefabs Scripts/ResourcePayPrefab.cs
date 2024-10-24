@@ -33,7 +33,7 @@ public class ResourcePayPrefab : MonoBehaviour
     }
 
     private void OnPayButtonClicked()
-    {
+    { 
         winningCondition2.PayResource(resourceType, requiredAmount, awardBoon); // Pay the resource
     }
 

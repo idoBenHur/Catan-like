@@ -128,8 +128,8 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup.blocksRaycasts = false;
 
         transform.SetParent(canvas.transform, true); // change parent while moving the die for clean movment
-                                                     // currentSlot.RemoveDiceFromDiceList(this);
-
+      //  currentSlot.RemoveDiceFromDiceList(this);
+        BoardManager.instance.skillSlotManager.allDicesOutcome();
 
 
 
@@ -159,7 +159,11 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (transform.parent == canvas.transform) // if the new parent is still the canvas, return to original slot (currentSlot)
         {
             ChangeDieParent(currentSlot.transform);
+           // currentSlot.AddDiceToSlotList(this);
+
         }
+
+        BoardManager.instance.skillSlotManager.allDicesOutcome();
 
         visualInstance.transform.rotation = Quaternion.identity;
 
@@ -198,5 +202,6 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             currentSlot = newSlot;
         }
+
     }
 }

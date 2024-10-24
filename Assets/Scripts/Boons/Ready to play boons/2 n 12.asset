@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2 n 12
   m_EditorClassIdentifier: 
   boonName: 2 n 12
-  description: Whenever you play 2 or 12, gain a 2 temporary dice
+  description: Whenever you play 2 or 12, gain 2 temporary dice
   triggers:
   - type: 7
   conditions:

@@ -93,15 +93,16 @@ public class Winning_Condition2 : MonoBehaviour
         tempCost.Add(resourceType, requiredAmount);
         PlayerClass thePlayer = BoardManager.instance.player;
 
-        if(thePlayer.CanAffordToBuild(tempCost) == true ) 
+        if (thePlayer.CanAffordToBuild(tempCost) == true)
         {
             thePlayer.SubtractResources(tempCost);
             DestroyCurrentPrefab();
-        }
 
-        if(awardBoon == true )
-        {
-            BoardManager.instance.boonManager.GiveBoon();
+            if (awardBoon == true)
+            {
+                BoardManager.instance.boonManager.GiveBoon();
+
+            }
 
         }
 

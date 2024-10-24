@@ -46,7 +46,7 @@ public class GetBoon_Skill : AbstractSkillSlot
     {
         for (int i = 0; i < MaxDiceCap; i++)
         {
-            int randomNumber = Random.Range(1, 6);
+            int randomNumber = Random.Range(1, 7);
             if (!ShadowDiceDic.ContainsKey(randomNumber))
             {
                 ShadowDiceDic[randomNumber] = new List<ShadowDiceData>();

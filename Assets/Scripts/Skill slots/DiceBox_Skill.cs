@@ -10,7 +10,7 @@ public class DiceBox_Skill : AbstractSkillSlot
 
     private void Start()
     {
-        MaxDiceCap = 6;
+        MaxDiceCap = 200;
         DiceAmoutEachTurn = 2;
 
     }
@@ -25,13 +25,61 @@ public class DiceBox_Skill : AbstractSkillSlot
     protected override void OnDiceAdded(TheDiceScript dice)
     {
 
+        if(DiceInSlotList.Count >= 5)
+        {
+            float newHeight = 100f;
+
+            // Calculate the number of groups of 4 (rounding up to ensure we account for leftover items)
+            int numberOfGroupsOfFour = Mathf.CeilToInt(DiceInSlotList.Count / 4f);
+
+            // Adjust the height (each group of 4 adds 200, starting from 300 when there are more than 4 items)
+            if (numberOfGroupsOfFour > 1)
+            {
+                newHeight = 100f + (numberOfGroupsOfFour - 1) * 200f; // For each group of 4 beyond the first, add 200
+            }
+
+            // Get the RectTransform of the parent
+            RectTransform parentRectTransform = transform.parent.GetComponent<RectTransform>();
+
+            if (parentRectTransform != null)
+            {
+                // Set the new height while keeping the current width
+                Vector2 newSize = parentRectTransform.sizeDelta;
+                newSize.y = newHeight; // Set the calculated height
+                parentRectTransform.sizeDelta = newSize;
+            }
+
+        }
+
+ 
     }
+        
 
 
 
     protected override void OnDiceRemoved(TheDiceScript dice)
     {
+        float newHeight = 100f;
 
+        // Calculate the number of groups of 4 (rounding up to ensure we account for leftover items)
+        int numberOfGroupsOfFour = Mathf.CeilToInt(DiceInSlotList.Count / 4f);
+
+        // Adjust the height (each group of 4 adds 200, starting from 300 when there are more than 4 items)
+        if (numberOfGroupsOfFour > 1)
+        {
+            newHeight = 100f + (numberOfGroupsOfFour - 1) * 200f; // For each group of 4 beyond the first, add 200
+        }
+
+        // Get the RectTransform of the parent
+        RectTransform parentRectTransform = transform.parent.GetComponent<RectTransform>();
+
+        if (parentRectTransform != null)
+        {
+            // Set the new height while keeping the current width
+            Vector2 newSize = parentRectTransform.sizeDelta;
+            newSize.y = newHeight; // Set the calculated height
+            parentRectTransform.sizeDelta = newSize;
+        }
     }
 
     public override void ActivateSlotEffect() // spawns new dices up to its DiceAmoutEachTurn
@@ -39,12 +87,14 @@ public class DiceBox_Skill : AbstractSkillSlot
         
         for (int i = 0; i < DiceAmoutEachTurn; i++)
         {
+            
             // Instantiate the prefab
             GameObject newObject = Instantiate(NormalDicePrefab, transform);
             TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
-           // DiceInSlotList.Add(diceComp);
+            // DiceInSlotList.Add(diceComp);
            AddDiceToSlotList(diceComp);
         }
+        BoardManager.instance.skillSlotManager.allDicesOutcome();
 
     }
 
@@ -68,12 +118,17 @@ public class DiceBox_Skill : AbstractSkillSlot
             }
 
         }
+        BoardManager.instance.skillSlotManager.allDicesOutcome();
 
     }
 
     public void AddPermaDie()
     {
-        DiceAmoutEachTurn += 1;
+        if(DiceAmoutEachTurn < MaxDiceCap)
+        {
+            DiceAmoutEachTurn += 1;
+
+        }
     }
     
 

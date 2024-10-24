@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: Dicy Road
   m_EditorClassIdentifier: 
   boonName: Dicy Road
-  description: 'Gain a temoprary dice for Road you build.
-
-
-    (Cannot exceed the
-    maximum dice limit.)'
+  description: Gain a die when you build a road.
   triggers:
   - type: 4
   conditions:

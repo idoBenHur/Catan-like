@@ -253,7 +253,7 @@ public class BoardManager : MonoBehaviour
 
                     else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == false)
                     {
-                        player.AddResource(tile.resourceType, 1, tile.TileWorldPostion);
+                        player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
                         EarnedResources = true;
 
                         DOVirtual.DelayedCall(0f, () =>
@@ -266,7 +266,7 @@ public class BoardManager : MonoBehaviour
                     }
                     else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == true)
                     {
-                        player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
+                        player.AddResource(tile.resourceType, 3, tile.TileWorldPostion);
                         EarnedResources = true;
                         DOVirtual.DelayedCall(0.3f, () =>
                         {

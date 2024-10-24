@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Tripel Roller
   m_EditorClassIdentifier: 
   boonName: Tripel Roller
-  description: When you roll a triple, gain 1 of each resource
+  description: When you roll a triple, gain <sprite name=wood>, <sprite name=rum>,
+    <sprite name=gold>, <sprite name=gem>, <sprite name=gunpowder>
   triggers:
   - type: 0
   conditions:

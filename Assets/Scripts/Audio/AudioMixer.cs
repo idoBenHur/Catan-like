@@ -15,7 +15,7 @@ public class AudioMixer : MonoBehaviour
     private void Start()
     {
         //default volume
-        SetMusicVolumeSLIDER(0.5f);
+        SetMusicVolumeSLIDER(-2.0f);
         SetSoundFXVolumeSLIDER(0.2f);
 
     }

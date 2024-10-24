@@ -96,10 +96,13 @@ public class SkillSlotManager : MonoBehaviour
             }
         }
 
-        foreach (var number in sumOfPairs)
-        {
-           // Debug.Log(number);
-        }
+        //foreach (var number in sumOfPairs)
+        //{
+        //    if(number == 7)
+        //    {
+
+        //    }
+        //}
         
 
         BoardManager.instance.uiManager.IncreaseNumbersTokenSize(sumOfPairs);

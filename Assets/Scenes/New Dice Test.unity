@@ -3189,9 +3189,6 @@ MonoBehaviour:
   allBoons:
   - {fileID: 11400000, guid: e6fd84d620f8cc840a307be20e8d81e8, type: 2}
   - {fileID: 11400000, guid: 19991ca958226384ab6facee6f7359d3, type: 2}
-  - {fileID: 11400000, guid: 50a7019ce5d66f3448b43396b6bea25c, type: 2}
-  - {fileID: 11400000, guid: f4dd152cae81d134a9b3edd3d68a8d05, type: 2}
-  - {fileID: 11400000, guid: 8d9c206dc1d622842a3a30cae10ca971, type: 2}
   - {fileID: 11400000, guid: 4d5bf2dc10f4a044e992d615bcf2d445, type: 2}
   - {fileID: 11400000, guid: f460a79bbae1eb04780ecaa3aa845d98, type: 2}
   - {fileID: 11400000, guid: 407d0018527acb64a8646cf459308431, type: 2}
@@ -3344,42 +3341,42 @@ MonoBehaviour:
   resourceRequirementsSet:
   - resourceRequirementsList:
     - resourceType: 0
-      requiredAmount: 3
+      requiredAmount: 6
       awardBoon: 1
     - resourceType: 2
-      requiredAmount: 3
+      requiredAmount: 6
       awardBoon: 1
     - resourceType: 1
-      requiredAmount: 2
-      awardBoon: 1
-    - resourceType: 4
-      requiredAmount: 5
-      awardBoon: 0
-  - resourceRequirementsList:
-    - resourceType: 3
-      requiredAmount: 3
-      awardBoon: 1
-    - resourceType: 4
-      requiredAmount: 2
-      awardBoon: 1
-    - resourceType: 0
       requiredAmount: 4
       awardBoon: 1
     - resourceType: 4
-      requiredAmount: 5
+      requiredAmount: 10
       awardBoon: 0
   - resourceRequirementsList:
-    - resourceType: 1
-      requiredAmount: 3
-      awardBoon: 1
     - resourceType: 3
-      requiredAmount: 3
+      requiredAmount: 6
       awardBoon: 1
     - resourceType: 4
       requiredAmount: 4
       awardBoon: 1
     - resourceType: 0
-      requiredAmount: 5
+      requiredAmount: 8
+      awardBoon: 1
+    - resourceType: 4
+      requiredAmount: 10
+      awardBoon: 0
+  - resourceRequirementsList:
+    - resourceType: 1
+      requiredAmount: 6
+      awardBoon: 1
+    - resourceType: 3
+      requiredAmount: 6
+      awardBoon: 1
+    - resourceType: 4
+      requiredAmount: 8
+      awardBoon: 1
+    - resourceType: 0
+      requiredAmount: 10
       awardBoon: 0
   paymentArea: {fileID: 1104093336}
   woodPrefab: {fileID: 5935309381275047704, guid: a717899812a89524bb453425019c905c, type: 3}
@@ -19616,7 +19613,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1622811973}
-  - component: {fileID: 1622811975}
   m_Layer: 5
   m_Name: Dice & Skills Pannel
   m_TagString: Untagged
@@ -19636,7 +19632,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 803711769}
   - {fileID: 1501294864}
   - {fileID: 147630023}
   - {fileID: 5784155833044182353}
@@ -19649,23 +19644,6 @@ RectTransform:
   m_AnchoredPosition: {x: 54, y: 30}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1622811975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622811972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a217041bc363ca440a84c3c3162355db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SkillName: 0
-  DestroyDiceInsideUponRoll: 1
-  MaxDiceCap: 0
-  DiceInSlotList: []
-  NormalDicePrefab: {fileID: 0}
 --- !u!114 &1637908537 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1189792652630501683, guid: 7e1ad2d945a84ba48bf7e45afcd0964b, type: 3}
@@ -24662,7 +24640,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1622811973}
+    m_TransformParent: {fileID: 1501294864}
     m_Modifications:
     - target: {fileID: 1790202062393667267, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_Color.b
@@ -24690,7 +24668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3518407602199612843, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3518407602199612843, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_AnchorMin.x
@@ -24698,7 +24676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3518407602199612843, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3518407602199612843, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_SizeDelta.x
@@ -24750,11 +24728,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3518407602199612843, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -84
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3518407602199612843, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -364.99994
+      value: 67.00015
       objectReference: {fileID: 0}
     - target: {fileID: 3518407602199612843, guid: a8cbf018163500440854b236b582b3b8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -24819,6 +24797,14 @@ PrefabInstance:
     - target: {fileID: 761898730118944775, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_Name
       value: Dice_box Skill
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320087827100551033, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320087827100551033, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -70.393616
       objectReference: {fileID: 0}
     - target: {fileID: 1371644465576127283, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_fontColor.b
@@ -24886,7 +24872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7342610752540193248, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7342610752540193248, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_AnchorMin.x
@@ -24894,7 +24880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7342610752540193248, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7342610752540193248, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -24938,7 +24924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7342610752540193248, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -432.0001
+      value: -532.0001
       objectReference: {fileID: 0}
     - target: {fileID: 7342610752540193248, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -24974,7 +24960,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7342610752540193248, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 803711769}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
 --- !u!1001 &2584525052001864312

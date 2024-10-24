@@ -68,7 +68,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
             resizer.AdjustSlotSize();
         }
 
-       BoardManager.instance.skillSlotManager.allDicesOutcome();
+       //BoardManager.instance.skillSlotManager.allDicesOutcome();
     }
 
 
