@@ -24,8 +24,9 @@ public class DiceBox_Skill : AbstractSkillSlot
 
     protected override void OnDiceAdded(TheDiceScript dice)
     {
+        //adjusting slot size, of the parent (imapacting the play slot as well)
 
-        if(DiceInSlotList.Count >= 5)
+        if (DiceInSlotList.Count >= 5)
         {
             float newHeight = 100f;
 
@@ -59,6 +60,9 @@ public class DiceBox_Skill : AbstractSkillSlot
 
     protected override void OnDiceRemoved(TheDiceScript dice)
     {
+
+        //adjusting slot size, of the parent (imapacting the play slot as well)
+
         float newHeight = 100f;
 
         // Calculate the number of groups of 4 (rounding up to ensure we account for leftover items)
@@ -70,14 +74,12 @@ public class DiceBox_Skill : AbstractSkillSlot
             newHeight = 100f + (numberOfGroupsOfFour - 1) * 200f; // For each group of 4 beyond the first, add 200
         }
 
-        // Get the RectTransform of the parent
         RectTransform parentRectTransform = transform.parent.GetComponent<RectTransform>();
 
         if (parentRectTransform != null)
         {
-            // Set the new height while keeping the current width
             Vector2 newSize = parentRectTransform.sizeDelta;
-            newSize.y = newHeight; // Set the calculated height
+            newSize.y = newHeight; 
             parentRectTransform.sizeDelta = newSize;
         }
     }

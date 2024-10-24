@@ -90,9 +90,10 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         if(destroyDice == true)
         {
             Destroy(dice.gameObject);
+            BoardManager.instance.skillSlotManager.allDicesOutcome();
+
         }
 
-      // BoardManager.instance.skillSlotManager.allDicesOutcome();
 
     }
 
