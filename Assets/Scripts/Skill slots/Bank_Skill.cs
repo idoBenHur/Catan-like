@@ -4,19 +4,30 @@ using UnityEngine;
 
 public class Bank_Skill : AbstractSkillSlot
 {
-
+    [SerializeField] AbstractSkillSlot dicebox;
 
 
     private void Start()
     {
         MaxDiceCap = 1;
+        DestroyDiceInsideUponRoll = false;
 
     }
 
     public override bool CanAcceptDice(TheDiceScript dice)
     {
-                
-        return DiceInSlotList.Count < MaxDiceCap;
+            
+        if (DiceInSlotList.Count == MaxDiceCap)
+        {
+
+
+            dicebox.AddDiceToSlotList(DiceInSlotList[0]);
+            this.RemoveDiceFromDiceList(DiceInSlotList[0]);
+
+
+        }
+
+        return true; //DiceInSlotList.Count < MaxDiceCap;
     }
 
     protected override void OnDiceAdded(TheDiceScript dice)
@@ -40,8 +51,5 @@ public class Bank_Skill : AbstractSkillSlot
 
 
 
-    public override void DestroyAllDiceInSlot()
-    {
-        // does noting because this is the bank skill
-    }
+
 }

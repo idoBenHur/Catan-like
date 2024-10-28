@@ -501,7 +501,8 @@ public class BoardManager : MonoBehaviour
             }
             else
             {
-                corner.CanBeBuiltOn = false;
+                // corner.CanBeBuiltOn = false;
+                corner.CanBeBuiltOn = true;
             }
 
 

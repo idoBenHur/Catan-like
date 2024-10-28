@@ -1128,7 +1128,6 @@ public class UiManager : MonoBehaviour
 
         if (contains7 == false && SevenFlagRectTransform.anchoredPosition == sevenFlagOGPos) // no 7, og pos == do nothing
         {
-            Debug.Log("hi");
             return;
         }
 
@@ -1136,9 +1135,6 @@ public class UiManager : MonoBehaviour
         {
             SevenFlagRectTransform.DOKill();
             SevenFlagRectTransform.DOAnchorPosY(sevenFlagOGPos.y, 0.2f);
-            Debug.Log("hi2");
-            Debug.Log("is 7 "+ contains7);
-            Debug.Log("is not same pos" + (SevenFlagRectTransform.anchoredPosition != sevenFlagOGPos));
 
         }
 
@@ -1147,7 +1143,6 @@ public class UiManager : MonoBehaviour
 
             SevenFlagRectTransform.DOKill();
             SevenFlagRectTransform.DOAnchorPosY(65f, 0.2f);
-            Debug.Log("hi3");
         }
 
  

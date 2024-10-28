@@ -29,9 +29,11 @@ public class SkillSlotManager : MonoBehaviour
     {
 
         AbstractSkillSlot theDicebox = SkillSlotsDictionary[SkillName.DiceBox];
-        theDicebox.DestroyAllDiceInSlot();
 
-      //  DiceBox.DestroyAllDiceInSlot();
+
+
+
+
 
         foreach (var slot in Allslots)
         {
