@@ -13,6 +13,10 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 
+
+
+
+
 public class BoardManager : MonoBehaviour
 {
     //main big stuff/scripts
@@ -24,7 +28,10 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
-    
+
+
+
+
 
 
 
@@ -56,9 +63,6 @@ public class BoardManager : MonoBehaviour
     // "to be balanced" game parameters
     [HideInInspector] public int CurrentTurn;
     [SerializeField] public int MaxTurn = 40;
-    [SerializeField] private int UnluckyMeterMax = 5;
-    [SerializeField] bool PlayWithUnluckyMeter = true;
-    private int UnluckyMeterProgress = 0;
 
 
     // prefabs losts
@@ -77,7 +81,9 @@ public class BoardManager : MonoBehaviour
     public static event Action OnDicePlayed;
     public static event Action OnRoadBuilt;
     public static event Action OnTownBuilt;
-    public static event Action OnUnlcukyRoll;
+//    public static event Action OnUnlcukyRoll;
+
+
 
 
 
@@ -144,8 +150,14 @@ public class BoardManager : MonoBehaviour
         boonManager.InitializeBoonManager(player);
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
-        uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
-      //  winning_Condition.SetupWinningCondition(player);
+        //  winning_Condition.SetupWinningCondition(player);
+
+
+
+
+
+
+
 
         StartGame();
 
@@ -192,19 +204,7 @@ public class BoardManager : MonoBehaviour
     
 
 
-    private void AddOneToUnluckyMeter() // delete this
-    {
-        UnluckyMeterProgress++;
-        uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
-        OnUnlcukyRoll?.Invoke();
 
-        if (UnluckyMeterProgress == UnluckyMeterMax)
-        {
-            UnluckyMeterProgress = 0;
-           // uiManager.OpenUnluckyMeterRewardPannel();
-            uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
-        }
-    }
 
     public void TemoraraytNextSceneButton()
     {
@@ -225,7 +225,6 @@ public class BoardManager : MonoBehaviour
 
     private void DistributeResources(int DiceResult)
     {
-        bool EarnedResources = false;
 
         if (DiceResult == 7)
         {
@@ -254,7 +253,6 @@ public class BoardManager : MonoBehaviour
                     else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == false)
                     {
                         player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
-                        EarnedResources = true;
 
                         DOVirtual.DelayedCall(0f, () =>
                         {
@@ -267,7 +265,6 @@ public class BoardManager : MonoBehaviour
                     else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == true)
                     {
                         player.AddResource(tile.resourceType, 3, tile.TileWorldPostion);
-                        EarnedResources = true;
                         DOVirtual.DelayedCall(0.3f, () =>
                         {
                             Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
@@ -280,20 +277,7 @@ public class BoardManager : MonoBehaviour
 
         }
 
-        if (EarnedResources == false && PlayWithUnluckyMeter == true)
-        {
-            UnluckyMeterProgress++;
-            uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
-            OnUnlcukyRoll?.Invoke();          
 
-            if (UnluckyMeterProgress == UnluckyMeterMax)
-            {
-                UnluckyMeterProgress = 0;
-               // uiManager.OpenUnluckyMeterRewardPannel();
-                uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
-            }
-
-        }
 
     }
 
@@ -336,7 +320,7 @@ public class BoardManager : MonoBehaviour
        
 
         // Build a road
-        if(FirstTurnPlacedPeices == 1 || FirstTurnPlacedPeices == 3)
+        if(FirstTurnPlacedPeices == 50 || FirstTurnPlacedPeices == 3)
         {
             FirstTurnPlacedPeices++;
 
@@ -379,7 +363,7 @@ public class BoardManager : MonoBehaviour
 
 
 
-        if (FirstTurnPlacedPeices == 2)
+        if (FirstTurnPlacedPeices == 1)
         {
             FirstTurnPlacedPeices++;
             FirstTurnIsActive = false;
@@ -392,8 +376,11 @@ public class BoardManager : MonoBehaviour
 
 
 
+
+
     public void ShowCityUpgradeIndicators()
     {
+
         if (player.CanAffordToBuild(PricesClass.CityCost) == false)
         {
 
@@ -454,6 +441,7 @@ public class BoardManager : MonoBehaviour
 
     public void ShowBuildIndicatorsTowns()
     {
+
 
         if (player.CanAffordToBuild(PricesClass.TownCost) == false)
         {
@@ -683,31 +671,9 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void UpgradeUnluckyMeter()
-    {
-
-        if (player.CanAffordToBuild(PricesClass.MeterUpgrade) == true)
-        {
-            player.SubtractResources(PricesClass.MeterUpgrade);
-            UnluckyMeterMax--;
-            uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
-        }
 
 
-        if (UnluckyMeterProgress == UnluckyMeterMax)
-        {
-            UnluckyMeterProgress = 0;
-           // uiManager.OpenUnluckyMeterRewardPannel();
-            uiManager.UpdateUnluckyMeterProgress(UnluckyMeterProgress);
-        }
 
-    }
-
-    public void IncreaseUnluckyMeter(int IncreaseBy)
-    {
-        UnluckyMeterMax = UnluckyMeterMax + IncreaseBy;
-        uiManager.SetUnluckyMeterSize(UnluckyMeterMax);
-    }
 
 
     private void FlushResources()

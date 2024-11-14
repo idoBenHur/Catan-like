@@ -51,7 +51,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private GameObject VictoryScreen;
-    [SerializeField] private GameObject WelcomeScreen;
     [SerializeField] private GameObject PlacementPhaseScreen;
     [SerializeField] private GameObject Sevenflag;
     private Vector2 sevenFlagOGPos;
@@ -83,19 +82,15 @@ public class UiManager : MonoBehaviour
 
     // circular progress bar
 
-    [SerializeField] private Slider UnluckyMeterSilder;
-    [SerializeField] private GameObject TickInProgresBarPrefab;
-    [SerializeField] private Transform TicksParent;
-    private int MaxTickInBar;
-    private bool CanBeUpgraded = true;
+    
 
-    [SerializeField] GameObject UnluckyRewardPannel;
+
+    [SerializeField] GameObject SevenSkillPannel;
     [SerializeField] private Button WoodRewardButton;
     [SerializeField] private Button BrickRewardButton;
     [SerializeField] private Button SheepRewardButton;
     [SerializeField] private Button OreRewardButton;
     [SerializeField] private Button WheatRewardButton;
-    [SerializeField] private Button UpgradeUnluckyRewardButton;
 
 
 
@@ -118,21 +113,7 @@ public class UiManager : MonoBehaviour
 
 
 
-    // Winning condition buttons / icons
-    [SerializeField] private GameObject WoodIconWinningCondition;
-    [SerializeField] private GameObject BrickIconWinningCondition;
-    [SerializeField] private GameObject SheepIconWinningCondition;
-    [SerializeField] private GameObject OreIconWinningCondition;
-    [SerializeField] private GameObject WheatIconWinningCondition;
 
-    private Dictionary<ResourceType, GameObject> WinningConditionIconDic;
-
-
-    [SerializeField] private Button WoodCompleteButton;
-    [SerializeField] private Button BrickCompleteButton;
-    [SerializeField] private Button SheepCompleteButton;
-    [SerializeField] private Button OreCompleteButton;
-    [SerializeField] private Button WheatCompleteButton;
 
 
     // tiles effect
@@ -386,17 +367,7 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    public void UpgradeUnluckyMeterButton()
-    {
 
-        if (player.CanAffordToBuild(PricesClass.MeterUpgrade) == false && isUpdatingToggles == false)
-        {
-            
-           SpawnErrorText("Not enough resources!");
-        }
-
-        BoardManager.instance.UpgradeUnluckyMeter();
-    }
 
     private void ShowInteractableToggels()
     {
@@ -544,7 +515,6 @@ public class UiManager : MonoBehaviour
 
     public void EndGame(bool playerWon)
     {
-        Debug.Log("hi");
 
         if (playerWon == true)
 
@@ -598,28 +568,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void RollDiceButton() // OLD!
-    {
-        
 
-        //BoardManager.instance.DiceRoll();
-        if (BoardManager.instance.DiceStilRolling == false)
-        {
-            AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.clickSound);
-            Color newColor;
-            if (UnityEngine.ColorUtility.TryParseHtmlString("#464646", out newColor))
-            {
-                // Apply the color to the Image component
-                diceBackground.color = newColor;
-            }
-
-            
-           // StartCoroutine(BoardManager.instance.RollTheDice());
-        }
-      
-        CloseAllUi();
-
-    }
 
     public void NewRollDinceBUTTON()
     {
@@ -659,21 +608,14 @@ public class UiManager : MonoBehaviour
 
 
 
-        // gain unlucky meter reward
-        WoodRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Wood));
-        BrickRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Brick));
-        SheepRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Sheep));
-        OreRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Ore));
-        WheatRewardButton.onClick.AddListener(() => GiveUnluckyMeterReward(ResourceType.Wheat));
+        // gain seven skill reawards button
+        WoodRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Wood));
+        BrickRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Brick));
+        SheepRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Sheep));
+        OreRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Ore));
+        WheatRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Wheat));
 
 
-        // winning button
-       // WinButton.onClick.AddListener(() => EndGame(true));
-        //WoodCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wood));
-        //BrickCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Brick));
-        //SheepCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Sheep));
-        //OreCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Ore));
-        //WheatCompleteButton.onClick.AddListener(() => WinButtonsPayResources(ResourceType.Wheat));
 
 
 
@@ -984,62 +926,25 @@ public class UiManager : MonoBehaviour
 
     }
 
-    // ciruclar bar, unluckybar
-
-    public void UpdateUnluckyMeterProgress(int currentProgress)
-    {
-        UnluckyMeterSilder.value = currentProgress;
-    }
+   
 
 
-    public void SetUnluckyMeterSize(int? NewBarSize = null)
-    {
 
-        if (NewBarSize != null) 
-        { 
-            MaxTickInBar = NewBarSize.Value;
-            UnluckyMeterSilder.maxValue = NewBarSize.Value;
 
-            if (NewBarSize == 1) 
-            {
-                UpgradeUnluckyRewardButton.interactable = false;
-                CanBeUpgraded = false;
-            }
-        }
-
-        foreach (Transform child in TicksParent)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Create new ticks
-        for (int i = 0; i < MaxTickInBar; i++)
-        {
-            float angle = 360f / MaxTickInBar * i;
-            GameObject tick = Instantiate(TickInProgresBarPrefab, TicksParent);
-            tick.transform.localPosition = Vector3.zero;
-            tick.transform.localRotation = Quaternion.Euler(0, 0, -angle);
-        }
-
-        
-    }
+  
 
     public void OpenSevenSkillRewardPannel()
     {
-        UnluckyRewardPannel.SetActive(true);
-        UpgradeUnluckyRewardButton.interactable = false;
+        SevenSkillPannel.SetActive(true);
     }
 
-    private void GiveUnluckyMeterReward(ResourceType resourceType)
+    private void SevenSkillReward(ResourceType resourceType)
     {
 
-        player.AddResource(resourceType, 1, UnluckyRewardPannel.transform.position);
-        UnluckyRewardPannel.SetActive(false);
+        player.AddResource(resourceType, 1, SevenSkillPannel.transform.position);
+        SevenSkillPannel.SetActive(false);
         
-        if(CanBeUpgraded == true)
-        {
-            UpgradeUnluckyRewardButton.interactable = true;
-        }
+ 
     }
 
 
@@ -1062,10 +967,7 @@ public class UiManager : MonoBehaviour
 
     // playtest tutroial screen
 
-    public void WelcomeScreenButton()
-    {
-        WelcomeScreen.SetActive(false);
-    }
+ 
 
     public void ClosePlacmentScreen()
     {

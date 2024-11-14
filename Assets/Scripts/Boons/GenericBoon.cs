@@ -64,25 +64,25 @@ public class BoonEffect
 {
     public enum EffectType
     {
-        AddWood,
-        GainRandomResources,
-        TransformWoodTilesToStoneTiles,
-        GetRandomRoad,
-        TransformTownsNearDesertsToCities,
-        ChangeTradeRatioXToOne,
-        AddBrick,
-        AddSheep,
-        AddOre,
-        AddWheat,
-        TransformWheatTilesToDesertTiles,
-        TransformToSixAndTwo,
-        IncreaseUnluckyMeter,
-        TransformAllTilesToNumber,
-        SkipTurns,
-        AddTemporaryDice, // special dice effect
-        AddPermanentDice, // special dice effect
-        MultipleRandomTransforms,
-        TransformRandomTileToX
+        AddWood = 0,
+        GainRandomResources = 1,
+        TransformWoodTilesToStoneTiles = 2,
+        GetRandomRoad= 3,
+        TransformTownsNearDesertsToCities =4,
+        ChangeTradeRatioXToOne = 5,
+        AddBrick = 6 ,
+        AddSheep = 7,
+        AddOre = 8,
+        AddWheat = 9,
+        TransformWheatTilesToDesertTiles = 10,
+        TransformToSixAndTwo = 11,
+        TransformAllTilesToNumber = 13,
+        SkipTurns = 14,
+        AddTemporaryDice = 15, // special dice effect
+        AddPermanentDice = 16, // special dice effect
+        MultipleRandomTransforms = 17,
+        TransformRandomTileToX = 18,
+
 
 
 
@@ -601,10 +601,7 @@ public class GenericBoon : ScriptableObject
                     }
 
                 }
-                    break;
-            case BoonEffect.EffectType.IncreaseUnluckyMeter: // increase the max size of the unlucky meter by X
-                BoardManager.instance.IncreaseUnluckyMeter(effect.value1);              
-                break;
+                    break;            
             case BoonEffect.EffectType.TransformAllTilesToNumber: // transform all tiles numbers to a single number
                 foreach (var tile in BoardManager.instance.TilesDictionary)
                 {

@@ -27,10 +27,11 @@ public class DiceBox_Skill : AbstractSkillSlot
     {
         //adjusting slot size of the parent (imapacting the play slot as well)
         // for each 4 dice, incresing the size by 200f. if there are less then 4 dice, defualt to 100f
+        float newHeight = 100f;
 
         if (DiceInSlotList.Count >= 5)
         {
-            float newHeight = 100f;
+            
 
 
             int numberOfGroupsOfFour = Mathf.CeilToInt(DiceInSlotList.Count / 4f);

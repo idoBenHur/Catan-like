@@ -55,7 +55,7 @@ public class PlayDice_Skill : AbstractSkillSlot
 
         DestroyAllDiceInSlot();
 
-        Instantiate(particleEffect);
+        Instantiate(particleEffect, this.transform);
 
     }
 

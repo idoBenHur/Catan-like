@@ -19,13 +19,13 @@ public class Level_1 : MonoBehaviour
 
         startPos = GatherPeasantsOnject.anchoredPosition; // Save the starting position
         GatherPeasantsAnimation();
-        BoardManager.OnUnlcukyRoll += OpenUnluckyMeterToolTip;
+     //   BoardManager.OnUnlcukyRoll += OpenUnluckyMeterToolTip;
 
     }
 
     private void OnDestroy()
     {
-        BoardManager.OnUnlcukyRoll -= OpenUnluckyMeterToolTip;
+      //  BoardManager.OnUnlcukyRoll -= OpenUnluckyMeterToolTip;
 
     }
 
@@ -65,7 +65,7 @@ public class Level_1 : MonoBehaviour
         MeterTransperancy.DOFade(1, 0.3f);
         MeterScale.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
 
-        BoardManager.OnUnlcukyRoll -= OpenUnluckyMeterToolTip;
+        //BoardManager.OnUnlcukyRoll -= OpenUnluckyMeterToolTip;
 
     }
 
