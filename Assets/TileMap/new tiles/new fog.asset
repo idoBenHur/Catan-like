@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: new fog
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: f598389ff3cb83c498de3942b73dc72c, type: 3}
-  m_Color: {r: 0.3453631, g: 0.3679245, b: 0.36673707, a: 0.6901961}
+  m_Color: {r: 0.3453631, g: 0.3679245, b: 0.36673707, a: 1}
   m_Transform:
     e00: 1
     e01: 0

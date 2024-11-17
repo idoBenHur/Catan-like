@@ -226,56 +226,42 @@ public class BoardManager : MonoBehaviour
     private void DistributeResources(int DiceResult)
     {
 
-        if (DiceResult == 7)
-        {
-           // ChooseRobberTile();
-        }
 
-        else
+        foreach (var settelment in player.SettelmentsList)
         {
 
-            foreach (var settelment in player.SettelmentsList)
+            foreach (var tile in settelment.AdjacentTiles)
             {
 
-                foreach (var tile in settelment.AdjacentTiles)
+                if(tile.numberToken != DiceResult || tile.isBlocked == true || tile.underFog == true)
                 {
-
-                    if(tile.numberToken != DiceResult)
-                    {
-                        continue;
-
-                    }
-                    else if(tile.numberToken == DiceResult && tile.isBlocked == true)
-                    {
-                        continue;
-                    }
-
-                    else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == false)
-                    {
-                        player.AddResource(tile.resourceType, 2, tile.TileWorldPostion);
-
-                        DOVirtual.DelayedCall(0f, () =>
-                        {
-                            Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
-                        });
-                        
-
-
-                    }
-                    else if (tile.numberToken == DiceResult && tile.isBlocked == false && settelment.HasCityUpgade == true)
-                    {
-                        player.AddResource(tile.resourceType, 3, tile.TileWorldPostion);
-                        DOVirtual.DelayedCall(0.3f, () =>
-                        {
-                            Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
-                        });
-                    }
-
+                    continue;
                 }
+
+
+                int resourceAmount;
+
+                if (settelment.HasCityUpgade == false)
+                {
+                    resourceAmount = 2;
+                }
+                else { resourceAmount = 3; }
+
+
+                player.AddResource(tile.resourceType, resourceAmount, tile.TileWorldPostion);
+
+                DOVirtual.DelayedCall(0f, () =>
+                {
+                    Instantiate(ResourceGainPS, tile.TileWorldPostion, Quaternion.identity);
+                });
+
+
+
             }
-
-
         }
+
+
+        
 
 
 
@@ -288,7 +274,6 @@ public class BoardManager : MonoBehaviour
 
     public void StartGame()
     {
-
         FirstTurnPlacement();
 
     }
@@ -303,18 +288,25 @@ public class BoardManager : MonoBehaviour
         if (FirstTurnPlacedPeices == 0 || FirstTurnPlacedPeices == 50)
         {
             FirstTurnPlacedPeices++;
-            foreach (var corner in CornersDic.Values)
-            {
 
-                if (corner.CanBeBuiltOn == true)
-                {
-                    GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
-                    TownsIndicatorsPrefabList.Add(indicator);
-                    indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
-                }
-                
-            }
-            
+            ShowBuildIndicatorsTowns();
+
+
+
+            //logic that for game with roads:
+
+            //foreach (var corner in CornersDic.Values)
+            //{
+
+            //    if (corner.CanBeBuiltOn == true)
+            //    {
+            //        GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
+            //        TownsIndicatorsPrefabList.Add(indicator);
+            //        indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
+            //    }
+
+            //}
+
             return;
         }
        
@@ -460,6 +452,8 @@ public class BoardManager : MonoBehaviour
             bool ConnectedToRoad = false;
             bool NearATown = false;
 
+            
+
 
             // go through each adjusted sides of this corner, and chack if they have a road
             foreach (var adjustedSide in corner.AdjacentSides)
@@ -482,16 +476,37 @@ public class BoardManager : MonoBehaviour
 
 
 
-          
-            if (ConnectedToRoad == true && NearATown == false)
+
+            //all above and this logic is for playing with roads
+
+            //if (ConnectedToRoad == true && NearATown == false)
+            //{
+            //    corner.CanBeBuiltOn = true;
+            //}
+            //else
+            //{
+            //    corner.CanBeBuiltOn = false;
+            //    
+            //}
+
+
+            //this is the logic for the new fog
+
+
+            corner.CanBeBuiltOn = false;
+            foreach (var adjustedTiles in corner.AdjacentTiles)
             {
-                corner.CanBeBuiltOn = true;
+                if (adjustedTiles.underFog == false) // if one tile is not underfog, you can place a town there
+                {
+                    corner.CanBeBuiltOn = true;
+                    break;
+                }
             }
-            else
-            {
-                // corner.CanBeBuiltOn = false;
-                corner.CanBeBuiltOn = true;
-            }
+
+
+
+
+            
 
 
             if (corner.CanBeBuiltOn == true)
@@ -533,11 +548,13 @@ public class BoardManager : MonoBehaviour
             player.AddSettelment(corner);
             OnTownBuilt?.Invoke();
 
-            foreach (var adjustTile in corner.AdjacentTiles) // gain resources
+            foreach (var adjustTile in corner.AdjacentTiles) 
             {
-                // player.AddResource(adjustTile.resourceType, 1, adjustTile.TileWorldPostion);
-                adjustTile.underFog = false;
-                mapGenerator.PlaceAndRemoveFogTiles();
+                
+
+
+              //  adjustTile.underFog = false;
+               // mapGenerator.PlaceAndRemoveFogTiles();
             }
 
 

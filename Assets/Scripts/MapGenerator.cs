@@ -127,6 +127,7 @@ public class MapGenerator : MonoBehaviour
 
         foreach (var TilePosition in BaseTilemap.cellBounds.allPositionsWithin) 
         {
+
             if (BaseTilemap.HasTile(TilePosition))
             {
                 Vector3 centerPosition = BaseTilemap.CellToWorld(TilePosition);
@@ -140,20 +141,9 @@ public class MapGenerator : MonoBehaviour
                     TempNumbersList.RemoveAt(RandomNumberTokenIndex);
 
 
-
-                    //GameObject prefabInstance = Instantiate(NumberTokenPrefab, worldPosition, Quaternion.identity);
-                    //TextMeshPro textMesh = prefabInstance.transform.GetChild(0).GetComponent<TextMeshPro>();
-                    //textMesh.text = numberToken.ToString();
-
-                    //if (numberToken == 6 || numberToken == 8)
-                    //{
-                    //    textMesh.color = Color.red;
-                    //    textMesh.fontStyle = FontStyles.Bold;
-                    //}
-
-
+                    bool underfog = FogTileMap.HasTile(TilePosition);
                     
-                    var tile = new TileClass(resourceType, numberToken, TilePosition, worldPosition,false); 
+                    var tile = new TileClass(resourceType, numberToken, TilePosition, worldPosition,false, null, underfog); 
                     InitialTilesDictionary.Add(TilePosition, tile);
 
 
@@ -163,7 +153,8 @@ public class MapGenerator : MonoBehaviour
 
                 else
                 {
-                    var tile = new TileClass(resourceType, 0, TilePosition, worldPosition);
+                    bool underfog = FogTileMap.HasTile(TilePosition);
+                    var tile = new TileClass(resourceType, 0, TilePosition, worldPosition, false, null, underfog);
                     InitialTilesDictionary.Add(TilePosition, tile);
                 }
 
@@ -998,4 +989,9 @@ public class MapGenerator : MonoBehaviour
         }
     }
 
+
+    private void placefog2()
+    {
+
+    }
 }

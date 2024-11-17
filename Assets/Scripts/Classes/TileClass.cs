@@ -23,7 +23,7 @@ public class TileClass
 
 
     // Constructor to initialize the tile with specific properties
-    public TileClass(ResourceType resourceType, int numberToken, Vector3Int tileposition, Vector3 worldpostion, bool isBlocked = false, GameObject numberTokenPrefab = null, bool underFog = true)
+    public TileClass(ResourceType resourceType, int numberToken, Vector3Int tileposition, Vector3 worldpostion, bool isBlocked = false, GameObject numberTokenPrefab = null, bool underFog = false)
     {
         this.resourceType = resourceType;
         this.numberToken = numberToken;
