@@ -4,18 +4,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+public enum IndicatorType
+{
+    Town,
+    City,
+    FogRemover
+
+}
+
+
 public class TownBuildIndicatorPrefab : MonoBehaviour
 {
     private Vector3 cornerPosition;
     private Vector3 initialScale;
-
     private CornersClass ThisCorner;
+    public IndicatorType ThisIndicatorType;
 
-    public void Setup(CornersClass Corner)
+
+
+
+
+
+
+    public void Setup(CornersClass Corner, IndicatorType indicatorType )
     {
         cornerPosition = Corner.Position;
         ThisCorner = Corner;
-        // Optional: Add visual/audio feedback
+        ThisIndicatorType = indicatorType;
+
     }
 
 
@@ -45,15 +62,23 @@ public class TownBuildIndicatorPrefab : MonoBehaviour
 
         // Communicate back to build the settlement at `cornerPosition`
 
-        if (ThisCorner.HasSettlement == false)
+        switch (ThisIndicatorType)
         {
-            BoardManager.instance.BuildSettlementAt(cornerPosition);
+            case IndicatorType.Town:
+                BoardManager.instance.BuildSettlementAt(cornerPosition);
+                break;
+
+            case IndicatorType.City:
+                BoardManager.instance.UpgradeSettelmentToCity(ThisCorner);
+                break;
+            case IndicatorType.FogRemover:
+                break;
+
         }
-        else if(ThisCorner.HasSettlement == true && ThisCorner.HasCityUpgade == false)
-        {
-            BoardManager.instance.UpgradeSettelmentToCity(ThisCorner);
-        }
-        
+
+
+
+
 
 
     }
@@ -62,7 +87,7 @@ public class TownBuildIndicatorPrefab : MonoBehaviour
 
     private bool IsPointerOverUIObject()
     {
-        // Check if the current mouse position is over a UI element
+        // Check if the current mouse position is NOT over a UI element
         PointerEventData eventData = new PointerEventData(EventSystem.current);
         eventData.position = Input.mousePosition;
         List<RaycastResult> results = new List<RaycastResult>();

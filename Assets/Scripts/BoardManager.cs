@@ -201,10 +201,7 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    
-
-
-
+   
 
     public void TemoraraytNextSceneButton()
     {
@@ -386,7 +383,7 @@ public class BoardManager : MonoBehaviour
             {
                 GameObject indicator = Instantiate(CornerIndicatorPrefab, settelment.Position, Quaternion.identity);
                 CitiesIndicatorsPrefabList.Add(indicator);
-                indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(settelment);
+                indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(settelment, IndicatorType.City);
             }
         }
     }
@@ -415,7 +412,6 @@ public class BoardManager : MonoBehaviour
         CitiesIndicatorsPrefabList.Clear();
 
 
-        ShowCityUpgradeIndicators();
 
         
 
@@ -514,7 +510,7 @@ public class BoardManager : MonoBehaviour
                 
                 GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
                 TownsIndicatorsPrefabList.Add(indicator);
-                indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner);
+                indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner, IndicatorType.Town);
             }
         }
         
@@ -689,7 +685,30 @@ public class BoardManager : MonoBehaviour
     }
 
 
+    public void ShowRemoveFogIndicator()
+    {
+        foreach (var corner in CornersDic.Values)
+        {
+            foreach (var adjacentTie in corner.AdjacentTiles)
+            {
+                if (adjacentTie.underFog == true)
+                {
+                    GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
+                    indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner, IndicatorType.FogRemover);
+                }
 
+            }
+        }
+    }
+
+    public void RemoveFog(CornersClass middlePoint)
+    {
+        foreach (var tile in middlePoint.AdjacentTiles)
+        {
+            tile.underFog = false;
+        }
+        mapGenerator.PlaceAndRemoveFogTiles();
+    }
 
 
 
