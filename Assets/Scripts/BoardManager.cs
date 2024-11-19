@@ -66,9 +66,9 @@ public class BoardManager : MonoBehaviour
 
 
     // prefabs losts
-    [HideInInspector] public List<GameObject> CitiesIndicatorsPrefabList = new List<GameObject>();
-    [HideInInspector] public List<GameObject> TownsIndicatorsPrefabList = new List<GameObject>();
-    [HideInInspector] public List<GameObject> RoadsIndicatorsPrefabList = new List<GameObject>();
+    [HideInInspector] public List<GameObject> CornersIndicatorsPrefabList = new List<GameObject>();
+    [HideInInspector] public List<GameObject> SidesIndicatorsPrefabList = new List<GameObject>();
+
 
     // main dictionaries
     public Dictionary<Vector3Int, TileClass> TilesDictionary = new Dictionary<Vector3Int, TileClass>();
@@ -334,7 +334,7 @@ public class BoardManager : MonoBehaviour
                             SideNearTown.CanBeBuiltOn = true;
                             Quaternion rotation = Quaternion.Euler(0, 0, SideNearTown.RotationZ);
                             GameObject indicator = Instantiate(SideIndicatorPrefab, SideNearTown.Position, rotation);
-                            RoadsIndicatorsPrefabList.Add(indicator);
+                            SidesIndicatorsPrefabList.Add(indicator);
                             indicator.GetComponent<RoadBuildIndicatorPrefab>().Setup(SideNearTown.Position);
                         }
                     }
@@ -382,7 +382,7 @@ public class BoardManager : MonoBehaviour
             if (settelment.HasCityUpgade == false)
             {
                 GameObject indicator = Instantiate(CornerIndicatorPrefab, settelment.Position, Quaternion.identity);
-                CitiesIndicatorsPrefabList.Add(indicator);
+                CornersIndicatorsPrefabList.Add(indicator);
                 indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(settelment, IndicatorType.City);
             }
         }
@@ -405,15 +405,15 @@ public class BoardManager : MonoBehaviour
 
 
 
-        foreach (var indicator in CitiesIndicatorsPrefabList)
-        {
-            Destroy(indicator.gameObject);
-        }
-        CitiesIndicatorsPrefabList.Clear();
+        //foreach (var indicator in CitiesIndicatorsPrefabList)
+        //{
+        //    Destroy(indicator.gameObject);
+        //}
+        //CitiesIndicatorsPrefabList.Clear();
+
+        uiManager.CloseAllUi();
 
 
-
-        
 
 
 
@@ -509,7 +509,7 @@ public class BoardManager : MonoBehaviour
             {
                 
                 GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
-                TownsIndicatorsPrefabList.Add(indicator);
+                CornersIndicatorsPrefabList.Add(indicator);
                 indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner, IndicatorType.Town);
             }
         }
@@ -560,12 +560,12 @@ public class BoardManager : MonoBehaviour
             }
 
 
-
-            foreach (var indicator in TownsIndicatorsPrefabList)
-            {
-                Destroy(indicator.gameObject);
-            }
-            TownsIndicatorsPrefabList.Clear();
+            uiManager.CloseAllUi();
+            //foreach (var indicator in TownsIndicatorsPrefabList)
+            //{
+            //    Destroy(indicator.gameObject);
+            //}
+            //TownsIndicatorsPrefabList.Clear();
 
 
 
@@ -577,7 +577,7 @@ public class BoardManager : MonoBehaviour
 
 
             if (FirstTurnIsActive == true) { FirstTurnPlacement(); }
-            else { ShowBuildIndicatorsRoads(); }
+            
 
 
 
@@ -600,7 +600,7 @@ public class BoardManager : MonoBehaviour
             {
                 Quaternion rotation = Quaternion.Euler(0, 0, Side.RotationZ);
                 GameObject indicator = Instantiate(SideIndicatorPrefab, Side.Position, rotation);
-                RoadsIndicatorsPrefabList.Add(indicator);
+                SidesIndicatorsPrefabList.Add(indicator);
                 indicator.GetComponent<RoadBuildIndicatorPrefab>().Setup(Side.Position);
             }
         }
@@ -668,13 +668,14 @@ public class BoardManager : MonoBehaviour
                 NeighborsRoads.CanBeBuiltOn = true;
             }
 
-            foreach (var indicator in RoadsIndicatorsPrefabList)
-            {
-                Destroy(indicator.gameObject);
-            }
+            //foreach (var indicator in RoadsIndicatorsPrefabList)
+            //{
+            //    Destroy(indicator.gameObject);
+            //}
+
+            uiManager.CloseAllUi();
 
             if (FirstTurnIsActive == true) { FirstTurnPlacement(); }
-            else { ShowBuildIndicatorsRoads(); }
 
 
 
@@ -695,19 +696,36 @@ public class BoardManager : MonoBehaviour
                 {
                     GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
                     indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner, IndicatorType.FogRemover);
+                    CornersIndicatorsPrefabList.Add(indicator);
                 }
 
             }
         }
     }
 
-    public void RemoveFog(CornersClass middlePoint)
+    public void RemoveFog(CornersClass middlePoint, bool isFree = false)
     {
+        if (!CornersDic.TryGetValue(middlePoint.Position, out CornersClass corner))
+        {
+            Debug.Log("corrner was not found ion the dictionary ");
+            return;
+        }
+
+        if (isFree == false) { player.SubtractResources(PricesClass.RoadCost); }
+
+
+
+
         foreach (var tile in middlePoint.AdjacentTiles)
         {
             tile.underFog = false;
         }
         mapGenerator.PlaceAndRemoveFogTiles();
+
+
+        uiManager.CloseAllUi();
+
+
     }
 
 
@@ -729,6 +747,28 @@ public class BoardManager : MonoBehaviour
             }
             
         }
+    }
+
+
+
+    public void DestroyIndicators()
+    {
+        foreach (var indicator in CornersIndicatorsPrefabList)
+        {
+            Destroy(indicator.gameObject);
+        }
+        CornersIndicatorsPrefabList.Clear();
+
+
+        foreach (var indicator in SidesIndicatorsPrefabList)
+        {
+            Destroy(indicator.gameObject);
+        }
+        SidesIndicatorsPrefabList.Clear();
+
+
+
+
     }
 
 

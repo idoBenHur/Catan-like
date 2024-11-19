@@ -990,8 +990,5 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    private void placefog2()
-    {
 
-    }
 }

@@ -28,6 +28,10 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Toggle TownIndicatorsToggle;
     [SerializeField] private Toggle CityIndicatorsToggle;
     [SerializeField] private Toggle TradeToggle;
+    [SerializeField] private Toggle FogRemoveToggle;
+
+    private Toggle[] BuildToggles;
+
     private bool isUpdatingToggles = false;
 
     //  flying icons
@@ -185,7 +189,7 @@ public class UiManager : MonoBehaviour
 
 
 
-    public void CloseAllUi(Toggle CurrentToggle = null)
+    public void CloseAllUi(Toggle changedToggle = null)
     {
 
         if (isUpdatingToggles)
@@ -195,49 +199,44 @@ public class UiManager : MonoBehaviour
 
         isUpdatingToggles = true;
 
+        Debug.Log("hi");
 
-        // destroy indicators prefabs
-        if (BoardManager.instance.TownsIndicatorsPrefabList.Count > 0)
+        BoardManager.instance.DestroyIndicators();
+
+        // Turn off all toggles except the "changedToggle"
+        if (changedToggle != null && changedToggle.isOn == true)
         {
-            foreach (var prefab in BoardManager.instance.TownsIndicatorsPrefabList)
+            
+            foreach (var toggle in BuildToggles)
             {
-                Destroy(prefab.gameObject);
-            }
-            BoardManager.instance.TownsIndicatorsPrefabList.Clear();
+                if (toggle != changedToggle)
+                {
+                    toggle.isOn = false;
+                }
+                    
+            }   
         }
 
-        if (BoardManager.instance.RoadsIndicatorsPrefabList.Count > 0)
+        // If there is no exception for keeping a toggle on, turn off all toggles
+        else if (changedToggle == null)
         {
-            foreach (var prefab in BoardManager.instance.RoadsIndicatorsPrefabList)
-            {
-                Destroy(prefab.gameObject);
+            foreach (var toggle in BuildToggles)
+            {               
+                toggle.isOn = false;          
             }
-            BoardManager.instance.RoadsIndicatorsPrefabList.Clear();
-        }
-
-        if (BoardManager.instance.CitiesIndicatorsPrefabList.Count > 0)
-        {
-            foreach (var prefab in BoardManager.instance.CitiesIndicatorsPrefabList)
-            {
-                Destroy(prefab.gameObject);
-            }
-            BoardManager.instance.CitiesIndicatorsPrefabList.Clear();
         }
 
 
-        // close all toggles
-        bool wasOn = CurrentToggle != null && CurrentToggle.isOn;
+  
 
-        TownIndicatorsToggle.isOn = false;
-        RoadIndicatorsToggle.isOn = false;
-        CityIndicatorsToggle.isOn = false;
-        TradeToggle.isOn = false;
 
-        if (wasOn == true)
-        {
 
-            CurrentToggle.isOn = true;
-        }
+        //TownIndicatorsToggle.isOn = false;
+        //RoadIndicatorsToggle.isOn = false;
+        //CityIndicatorsToggle.isOn = false;
+        //TradeToggle.isOn = false;
+
+
 
         isUpdatingToggles = false;
 
@@ -250,12 +249,14 @@ public class UiManager : MonoBehaviour
 
     public void ShowTownBuildIndicatorsToggle()
     {
+        CloseAllUi(TownIndicatorsToggle); // close all other UI menues exsept this one
+
 
 
         // print not Enough Resources error
         if (player.CanAffordToBuild(PricesClass.TownCost) == false && isUpdatingToggles == false)
         {
-            TownIndicatorsToggle.isOn = false;
+            //TownIndicatorsToggle.isOn = false;
             SpawnErrorText("Not enough resources!");
 
         }
@@ -264,14 +265,14 @@ public class UiManager : MonoBehaviour
 
         if (TownIndicatorsToggle.isOn == true)
         {
-            CloseAllUi(TownIndicatorsToggle);
+           
             BoardManager.instance.ShowBuildIndicatorsTowns();
 
-            if(BoardManager.instance.TownsIndicatorsPrefabList.Count == 0)
-            {
-                TownIndicatorsToggle.isOn = false;
-                SpawnErrorText("no vaild place for a town");
-            }
+            //if(BoardManager.instance.TownsIndicatorsPrefabList.Count == 0)
+            //{
+            //  //  TownIndicatorsToggle.isOn = false;
+            //    SpawnErrorText("no vaild place for a town");
+            //}
 
         }
         else
@@ -286,6 +287,8 @@ public class UiManager : MonoBehaviour
     public void ShowRoadBuildIndicatorsToggle()
     {
 
+        CloseAllUi(RoadIndicatorsToggle);
+
 
         // print not Enough Resources error
         if (player.CanAffordToBuild(PricesClass.RoadCost) == false && isUpdatingToggles == false)
@@ -297,11 +300,10 @@ public class UiManager : MonoBehaviour
 
 
 
-
         if (RoadIndicatorsToggle.isOn == true)
         {
             BoardManager.instance.ShowBuildIndicatorsRoads();
-            CloseAllUi(RoadIndicatorsToggle);
+            
         }
         else
         {
@@ -315,11 +317,12 @@ public class UiManager : MonoBehaviour
 
     public void ShowCityBuildIndicatorToggle()
     {
+        CloseAllUi(CityIndicatorsToggle);
 
         // print not Enough Resources error
         if (player.CanAffordToBuild(PricesClass.CityCost) == false && isUpdatingToggles == false)
         {
-            CityIndicatorsToggle.isOn = false;
+           // CityIndicatorsToggle.isOn = false;
             SpawnErrorText("Not enough resources!");
 
         }
@@ -328,13 +331,25 @@ public class UiManager : MonoBehaviour
 
         if (CityIndicatorsToggle.isOn == true)
         {
-            CloseAllUi(CityIndicatorsToggle);
             BoardManager.instance.ShowCityUpgradeIndicators();
 
-            if (BoardManager.instance.CitiesIndicatorsPrefabList.Count == 0)
+            //checks if a city can be placed
+
+            bool hasAtLeast1Town = false;
+
+            foreach (var town in BoardManager.instance.player.SettelmentsList)
+            {               
+                if( town.HasCityUpgade == false)
+                {
+                    hasAtLeast1Town = true;
+                    break;
+                }
+
+            }
+            if (hasAtLeast1Town == false)
             {
-                CityIndicatorsToggle.isOn = false;
                 SpawnErrorText("no vaild place for a city");
+                CloseAllUi(); // turn off all toggles including this       
             }
 
 
@@ -350,9 +365,12 @@ public class UiManager : MonoBehaviour
 
     public void ShowTradePannelToggle()
     {
-        if(TradeToggle.isOn == true)
+
+        CloseAllUi(TradeToggle);
+
+
+        if (TradeToggle.isOn == true)
         {
-            CloseAllUi(TradeToggle);
             TradePannel.SetActive(true);
 
            //SetupButtonListeners();
@@ -377,6 +395,37 @@ public class UiManager : MonoBehaviour
 
 
     }
+
+
+    public void ShowFogRemoveIndicatorsToggle()
+    {
+        CloseAllUi(FogRemoveToggle);
+
+
+        // print not Enough Resources error
+        if (player.CanAffordToBuild(PricesClass.RoadCost) == false && isUpdatingToggles == false)
+        {
+            RoadIndicatorsToggle.isOn = false;
+            SpawnErrorText("Not enough resources!");
+
+        }
+
+
+
+
+        if (FogRemoveToggle.isOn == true)
+        {
+            BoardManager.instance.ShowRemoveFogIndicator();
+        }
+        else
+        {
+            CloseAllUi();
+        }
+
+
+
+    }
+
 
 
     //
@@ -617,6 +666,17 @@ public class UiManager : MonoBehaviour
 
 
 
+
+        // build toggles added to the build toggle list
+
+        BuildToggles = new Toggle[]
+        {
+            RoadIndicatorsToggle,
+            TownIndicatorsToggle,
+            CityIndicatorsToggle,
+            TradeToggle,
+            FogRemoveToggle
+        };
 
 
     }

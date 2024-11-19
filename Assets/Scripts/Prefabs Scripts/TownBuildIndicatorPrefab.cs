@@ -72,6 +72,8 @@ public class TownBuildIndicatorPrefab : MonoBehaviour
                 BoardManager.instance.UpgradeSettelmentToCity(ThisCorner);
                 break;
             case IndicatorType.FogRemover:
+                BoardManager.instance.RemoveFog(ThisCorner);
+
                 break;
 
         }
