@@ -277,7 +277,7 @@ public class BoardManager : MonoBehaviour
 
     }
 
-    private void FirstTurnPlacement() 
+    private void FirstTurnPlacement()
     {
 
 
@@ -433,7 +433,7 @@ public class BoardManager : MonoBehaviour
     {
 
 
-        if (player.CanAffordToBuild(PricesClass.TownCost) == false)
+        if (player.CanAffordToBuild(PricesClass.TownCost) == false && FirstTurnIsActive == false)
         {
 
             return;
