@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Burn the farms!
   m_EditorClassIdentifier: 
   boonName: Burn the farms!
-  description: 'Gain 10 <sprite name=wheat>
+  description: 'Gain 10 <sprite name=gunpowder>
 
 
     But
 
 
-    all Wheat tiles become
-    Deserts.'
+    all Gunpowder tiles
+    are turned into Deserts.'
   triggers:
   - type: 3
   conditions: []
@@ -31,6 +31,7 @@ MonoBehaviour:
   - type: 10
     value1: 10
     boolValue: 0
+  Or_And_Condition: 0
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
   boonColor: {r: 0.9245283, g: 0.5452262, b: 0.23549296, a: 1}
   isCounting: 0

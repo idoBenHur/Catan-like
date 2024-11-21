@@ -81,7 +81,9 @@ public class BoardManager : MonoBehaviour
     public static event Action OnDicePlayed;
     public static event Action OnRoadBuilt;
     public static event Action OnTownBuilt;
-//    public static event Action OnUnlcukyRoll;
+    public static event Action OnCityBuilt;
+
+    //    public static event Action OnUnlcukyRoll;
 
 
 
@@ -402,7 +404,7 @@ public class BoardManager : MonoBehaviour
         Settelment.BuildingPrefab = cityPrefav;
         AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
 
-
+        OnCityBuilt?.Invoke();
 
 
         //foreach (var indicator in CitiesIndicatorsPrefabList)
@@ -711,7 +713,7 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        if (isFree == false) { player.SubtractResources(PricesClass.RoadCost); }
+        if (isFree == false) { player.SubtractResources(PricesClass.RemoveFog); }
 
 
 

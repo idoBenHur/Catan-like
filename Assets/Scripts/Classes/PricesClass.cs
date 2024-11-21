@@ -21,7 +21,7 @@ public class PricesClass
 
     public static readonly Dictionary<ResourceType, int> CityCost = new Dictionary<ResourceType, int>
     {
-        { ResourceType.Ore, 3 },
+        { ResourceType.Ore, 2 },
         { ResourceType.Wheat, 2 }
     };
 
@@ -30,5 +30,11 @@ public class PricesClass
         { ResourceType.Ore, 1 },
         { ResourceType.Wheat, 1 },
         { ResourceType.Sheep, 1 }
+    };
+
+    public static readonly Dictionary<ResourceType, int> RemoveFog = new Dictionary<ResourceType, int>
+    {
+        { ResourceType.Wood, 1 },
+
     };
 }

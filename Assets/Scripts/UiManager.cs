@@ -199,7 +199,6 @@ public class UiManager : MonoBehaviour
 
         isUpdatingToggles = true;
 
-        Debug.Log("hi");
 
         BoardManager.instance.DestroyIndicators();
 

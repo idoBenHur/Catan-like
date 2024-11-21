@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
   m_Name: dice master
   m_EditorClassIdentifier: 
-  boonName: dice master
+  boonName: Dice Master
   description: 'Gain <sprite name=wood>, <sprite name=rum>, <sprite name=gold>, <sprite
     name=gem>, <sprite name=gunpowder>
 
-    Whenever you play 4 dices in the same
+    Whenever you play 6 dices in the same
     turn'
   triggers:
   - type: 7
   conditions:
   - type: 11
-    value1: 4
+    value1: 3
     value2: 0
     boolValue: 0
   effects:

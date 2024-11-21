@@ -152,7 +152,6 @@ public class DiceBox_Skill : AbstractSkillSlot
 
         if (bankSlot != null)
         {
-            Debug.Log(this.DiceInSlotList.Count);
             if (bankSlot.DiceInSlotList.Count == 0 && this.DiceInSlotList.Count > 0)
             {
 

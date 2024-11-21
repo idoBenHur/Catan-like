@@ -19,6 +19,21 @@ public class InitialSettlementData
 
 
 
+[System.Serializable]
+public class ResourceEntry
+{
+    public TileClass.ResourceType ResourceType;
+    public int Quantity;
+}
+
+[System.Serializable]
+public class NumberEntry
+{
+    public int Number;   // The number itself
+    public int Quantity; // How many times this number should appear
+}
+
+
 
 
 public class MapGenerator : MonoBehaviour
@@ -59,10 +74,12 @@ public class MapGenerator : MonoBehaviour
     //    TileClass.ResourceType.Desert
     //};
 
-    public List<TileClass.ResourceType> ResourcesOnTheMapList = new List<TileClass.ResourceType>();
+    public List<ResourceEntry> ResourcesOnTheMapList = new List<ResourceEntry>();
+
+    private List<TileClass.ResourceType> shuffledResources = new List<TileClass.ResourceType>();
 
     //private List<int> availableNumbers = new List<int> { 3, 4, 5, 6, 8, 9, 10, 11, 3, 4, 5, 6, 8, 9, 10, 11, 12, 2 };
-    public List<int> availableNumbers = new List<int> ();
+    public List<NumberEntry> availableNumbers = new List<NumberEntry> ();
 
 
     // 693px (the whole hex hieght ) - 590px (the surface area hex hieght) = 103 px. 103 % 693 (pixel per unit of the image) = 0.1486291
@@ -105,15 +122,39 @@ public class MapGenerator : MonoBehaviour
     // Shuffle the resources and number tokens to ensure random distribution on the map
     void InitialMapResourcesShuffle()
     {
-        int n = ResourcesOnTheMapList.Count;
+        foreach (var resourceEntry in ResourcesOnTheMapList)
+        {
+            for (int i = 0; i < resourceEntry.Quantity; i++)
+            {
+                shuffledResources.Add(resourceEntry.ResourceType);
+            }
+        }
+
+
+
+        int n = shuffledResources.Count;
         while (n > 1)
         {
             n--;
             int k = Random.Range(0, n + 1);
-            var value = ResourcesOnTheMapList[k];
-            ResourcesOnTheMapList[k] = ResourcesOnTheMapList[n];
-            ResourcesOnTheMapList[n] = value;
+            var value = shuffledResources[k];
+            shuffledResources[k] = shuffledResources[n];
+            shuffledResources[n] = value;
         }
+
+
+
+
+
+        //int n = ResourcesOnTheMapList.Sum(resourceEntry => resourceEntry.Quantity);
+        //while (n > 1)
+        //{
+        //    n--;
+        //    int k = Random.Range(0, n + 1);
+        //    var value = ResourcesOnTheMapList[k];
+        //    ResourcesOnTheMapList[k] = ResourcesOnTheMapList[n];
+        //    ResourcesOnTheMapList[n] = value;
+        //}
     }
 
 
@@ -121,7 +162,19 @@ public class MapGenerator : MonoBehaviour
 
     void InitializeTiles()
     {
-        List<int> TempNumbersList = new List<int> (availableNumbers);
+        List<int> TempNumbersList = new List<int> ();
+
+        foreach (var numberEntry in availableNumbers)
+        {
+            for (int i = 0; i < numberEntry.Quantity; i++)
+            {
+                TempNumbersList.Add(numberEntry.Number);
+            }
+        }
+
+
+
+
 
         int ResourceIndex = 0;
 
@@ -132,7 +185,7 @@ public class MapGenerator : MonoBehaviour
             {
                 Vector3 centerPosition = BaseTilemap.CellToWorld(TilePosition);
                 Vector3 worldPosition = new Vector3(centerPosition.x, centerPosition.y + HexagonCenterOffset, centerPosition.z);           //BaseTilemap.CellToWorld(TilePosition);
-                var resourceType = ResourcesOnTheMapList[ResourceIndex];  
+                var resourceType = shuffledResources[ResourceIndex];  
 
                 if (resourceType != TileClass.ResourceType.Desert)
                 {

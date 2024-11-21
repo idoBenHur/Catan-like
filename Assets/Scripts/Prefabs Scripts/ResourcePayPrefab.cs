@@ -17,14 +17,14 @@ public class ResourcePayPrefab : MonoBehaviour
 
     private Winning_Condition2 winningCondition2;
 
-    public void Initialize(Winning_Condition2 manager, int amount, bool isRevealed, bool giveBoon)
+    public void Initialize(Winning_Condition2 manager, int amount, bool isHidden, bool giveBoon)
     {
         winningCondition2 = manager;
         requiredAmount = amount;
         awardBoon = giveBoon;
         AmountText.text = requiredAmount.ToString(); // Update the amount display
 
-        ToggleReveal(isRevealed);
+        UpdateHiddenStatus(isHidden);
     }
 
     private void Start()
@@ -34,14 +34,27 @@ public class ResourcePayPrefab : MonoBehaviour
 
     private void OnPayButtonClicked()
     { 
-        winningCondition2.PayResource(resourceType, requiredAmount, awardBoon); // Pay the resource
+        winningCondition2.PayResource(resourceType, requiredAmount, awardBoon, this.gameObject); // Pay the resource
     }
 
 
-    public void ToggleReveal(bool isRevealed)
+    public void UpdateHiddenStatus(bool isHidden)
     {
-        QuestionMarkImage.SetActive(!isRevealed); // Hide the question mark if revealed
-        NumberCircle.SetActive(isRevealed); // Show the resource amount if revealed
-       // payButton.gameObject.SetActive(isRevealed); // Only show the button when revealed
+        if(isHidden == true) 
+        {
+            QuestionMarkImage.SetActive(true);
+            NumberCircle.SetActive(false);
+        }
+        else
+        {
+            QuestionMarkImage.SetActive(false); // Hide the question mark if revealed
+            NumberCircle.SetActive(true);
+        }
+
+
+
+       // QuestionMarkImage.SetActive(!isHidden); // Hide the question mark if revealed
+       // NumberCircle.SetActive(isHidden); // Show the resource amount if revealed
+       //// payButton.gameObject.SetActive(isRevealed); // Only show the button when revealed
     }
 }

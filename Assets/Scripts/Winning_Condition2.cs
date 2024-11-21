@@ -11,6 +11,7 @@ public class ResourceRequirement2
     public ResourceType resourceType;
     public int requiredAmount;
     public bool awardBoon;
+    public bool isHidden;
 }
 
 
@@ -69,8 +70,8 @@ public class Winning_Condition2 : MonoBehaviour
                 spawnedPrefabs.Add(spawnedPrefab);
 
                 ResourcePayPrefab paymentPrefabScript = spawnedPrefab.GetComponent<ResourcePayPrefab>();
-                bool isRevealed = i == 0; //Reveal only the first resource
-                paymentPrefabScript.Initialize(this, requirement.requiredAmount, isRevealed, requirement.awardBoon );
+                bool isHidden = requirement.isHidden; 
+                paymentPrefabScript.Initialize(this, requirement.requiredAmount, isHidden, requirement.awardBoon );
 
             }
 
@@ -87,7 +88,7 @@ public class Winning_Condition2 : MonoBehaviour
 
     }
 
-    public void PayResource(ResourceType resourceType, int requiredAmount, bool awardBoon)
+    public void PayResource(ResourceType resourceType, int requiredAmount, bool awardBoon, GameObject ThePrefab)
     {
         Dictionary<ResourceType, int> tempCost = new Dictionary<ResourceType, int>();
         tempCost.Add(resourceType, requiredAmount);
@@ -96,11 +97,11 @@ public class Winning_Condition2 : MonoBehaviour
         if (thePlayer.CanAffordToBuild(tempCost) == true)
         {
             thePlayer.SubtractResources(tempCost);
-            DestroyCurrentPrefab();
+            DestroyCurrentPrefab(ThePrefab);
 
-            if (awardBoon == true)
+            if (awardBoon == true && spawnedPrefabs.Count > 0)
             {
-               // BoardManager.instance.boonManager.GiveBoon();
+                BoardManager.instance.boonManager.GiveBoon();
 
             }
 
@@ -108,17 +109,18 @@ public class Winning_Condition2 : MonoBehaviour
 
     }
 
-    private void DestroyCurrentPrefab()
+    private void DestroyCurrentPrefab(GameObject clickedPrefab)
     {
         if (currentResourceIndex < spawnedPrefabs.Count)
         {
             // Destroy the current prefab
-            GameObject prefabToDestroy = spawnedPrefabs[currentResourceIndex];
+            GameObject prefabToDestroy = clickedPrefab; //spawnedPrefabs[currentResourceIndex];
             Destroy(prefabToDestroy);
+            spawnedPrefabs.Remove(prefabToDestroy);
 
             // Move to the next resource and reveal it
-            currentResourceIndex++;
-            if (currentResourceIndex < spawnedPrefabs.Count)
+           // currentResourceIndex++;
+            if (spawnedPrefabs.Count > 0)
             {
                 RevealNextResource();
             }
@@ -133,9 +135,12 @@ public class Winning_Condition2 : MonoBehaviour
     private void RevealNextResource()
     {
         // Reveal the next prefab in the list
-        GameObject nextPrefab = spawnedPrefabs[currentResourceIndex];
+        GameObject nextPrefab = spawnedPrefabs[0]; //spawnedPrefabs[currentResourceIndex];
         ResourcePayPrefab nextPaymentPrefab = nextPrefab.GetComponent<ResourcePayPrefab>();
-        nextPaymentPrefab.ToggleReveal(true); // Reveal the next resource
+
+        
+
+        nextPaymentPrefab.UpdateHiddenStatus(false); // Reveal the next resource
     }
 
 
