@@ -690,6 +690,13 @@ public class BoardManager : MonoBehaviour
 
     public void ShowRemoveFogIndicator()
     {
+        if (player.CanAffordToBuild(PricesClass.RemoveFog) == false)
+        {
+
+            return;
+        }
+
+
         foreach (var corner in CornersDic.Values)
         {
             foreach (var adjacentTie in corner.AdjacentTiles)
@@ -699,6 +706,7 @@ public class BoardManager : MonoBehaviour
                     GameObject indicator = Instantiate(CornerIndicatorPrefab, corner.Position, Quaternion.identity);
                     indicator.GetComponent<TownBuildIndicatorPrefab>().Setup(corner, IndicatorType.FogRemover);
                     CornersIndicatorsPrefabList.Add(indicator);
+                    break;
                 }
 
             }

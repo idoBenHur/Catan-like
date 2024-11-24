@@ -25,10 +25,10 @@ MonoBehaviour:
   - type: 3
   conditions: []
   effects:
-  - type: 11
+  - type: 10
     value1: 0
     boolValue: 0
-  - type: 10
+  - type: 9
     value1: 10
     boolValue: 0
   Or_And_Condition: 0
