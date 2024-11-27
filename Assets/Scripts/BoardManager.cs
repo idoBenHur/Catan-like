@@ -28,6 +28,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
+    [SerializeField] public Winning_condition3 Winning_condition3; //test
 
 
 
@@ -152,6 +153,9 @@ public class BoardManager : MonoBehaviour
         boonManager.InitializeBoonManager(player);
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
+        Winning_condition3.setup(TilesDictionary);
+
+
         //  winning_Condition.SetupWinningCondition(player);
 
 

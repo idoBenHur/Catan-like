@@ -3878,6 +3878,7 @@ MonoBehaviour:
   boonManager: {fileID: 240130135}
   challenges: {fileID: 240130136}
   skillSlotManager: {fileID: 240130140}
+  Winning_condition3: {fileID: 1524947435}
   FirstTurnIsActive: 1
   DiceStilRolling: 0
   TotalDice: 0
@@ -14057,7 +14058,7 @@ MonoBehaviour:
   header: Town
   text: 'Cost: <sprite name=wood> <sprite name=rum> <sprite name=gold> <sprite name=gunpowder>
 
-    
+
 
     Produces
     1 resource from adjacent tiles.
@@ -18395,6 +18396,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515661345}
   m_CullTransparentMesh: 1
+--- !u!1 &1524947434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524947436}
+  - component: {fileID: 1524947435}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1524947435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524947434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5c4796397fd4349beeb2dfd53752bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotalResourcesToWin: 20
+  SelectedResourceTypes: 000000000100000002000000
+--- !u!4 &1524947436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524947434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.17524712, y: 1.150162, z: -1.2028584}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1529353808
 GameObject:
   m_ObjectHideFlags: 0
@@ -24884,3 +24931,4 @@ SceneRoots:
   - {fileID: 766180711}
   - {fileID: 515550310}
   - {fileID: 261939611}
+  - {fileID: 1524947436}
