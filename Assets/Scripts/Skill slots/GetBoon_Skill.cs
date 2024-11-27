@@ -146,7 +146,7 @@ public class GetBoon_Skill : AbstractSkillSlot
         ShadowDiceDic.Clear();
         DiceBox_Skill diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
         diceBox.AddPermaDie();
-        diceBox.AddTempDie(1);
+        diceBox.SpawnDice(1);
 
 
 

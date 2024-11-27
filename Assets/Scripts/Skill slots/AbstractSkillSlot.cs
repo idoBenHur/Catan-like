@@ -59,12 +59,13 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         {
             DiceInSlotList.Add(dice);           
             dice.ChangeDieParent(transform);
+           // BoardManager.instance.skillSlotManager.allDicesOutcome();
             OnDiceAdded(dice);
         }
 
 
 
-       //BoardManager.instance.skillSlotManager.allDicesOutcome();
+       
     }
 
 
@@ -96,12 +97,12 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
       
         foreach (TheDiceScript dice in new List<TheDiceScript>(DiceInSlotList))
         {
-            RemoveDiceFromDiceList(dice);
-            Destroy(dice.gameObject);
+            RemoveDiceFromDiceList(dice, true);
+           // Destroy(dice.gameObject);
         }
 
         DiceInSlotList.Clear(); // Clear the list after destruction
-        BoardManager.instance.skillSlotManager.allDicesOutcome();
+      //  BoardManager.instance.skillSlotManager.allDicesOutcome();
     }
 
 

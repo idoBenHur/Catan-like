@@ -129,7 +129,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         transform.SetParent(canvas.transform, true); // change parent while moving the die for clean movment
       //  currentSlot.RemoveDiceFromDiceList(this);
-        BoardManager.instance.skillSlotManager.allDicesOutcome();
+       // BoardManager.instance.skillSlotManager.allDicesOutcome();
 
 
 
@@ -163,7 +163,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         }
 
-        BoardManager.instance.skillSlotManager.allDicesOutcome();
+      //  BoardManager.instance.skillSlotManager.allDicesOutcome();
 
         visualInstance.transform.rotation = Quaternion.identity;
 

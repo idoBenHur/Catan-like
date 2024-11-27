@@ -13,6 +13,7 @@ public class DiceBox_Skill : AbstractSkillSlot
     {
         MaxDiceCap = 200;
         DiceAmoutEachTurn = 2;
+        
 
     }
 
@@ -47,24 +48,29 @@ public class DiceBox_Skill : AbstractSkillSlot
     public override void ActivateSlotEffect() // spawns new dices up to its DiceAmoutEachTurn
     {
 
+        SpawnDice(DiceAmoutEachTurn);
 
 
 
-        for (int i = 0; i < DiceAmoutEachTurn; i++)
-        {
+
+
+
+
+        //for (int i = 0; i < DiceAmoutEachTurn; i++)
+        //{
             
-            // Instantiate the prefab
-            GameObject newObject = Instantiate(NormalDicePrefab, transform);
-            TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
-            // DiceInSlotList.Add(diceComp);
-           AddDiceToSlotList(diceComp);
-        }
-        BoardManager.instance.skillSlotManager.allDicesOutcome();
+        //    // Instantiate the prefab
+        //    GameObject newObject = Instantiate(NormalDicePrefab, transform);
+        //    TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
+        //    // DiceInSlotList.Add(diceComp);
+        //   AddDiceToSlotList(diceComp);
+        //}
+       // BoardManager.instance.skillSlotManager.allDicesOutcome();
 
     }
 
 
-    public void AddTempDie(int amount)
+    public void SpawnDice(int amount)
     {
 
         for(int i = 0; i < amount; i++) 
@@ -75,7 +81,8 @@ public class DiceBox_Skill : AbstractSkillSlot
                 GameObject newObject = Instantiate(NormalDicePrefab, transform);
                 TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
                 AddDiceToSlotList(diceComp);
-                //DiceInSlotList.Add(diceComp);
+                BoardManager.instance.skillSlotManager.allDicesOutcome();
+
             }
             else
             {
@@ -83,7 +90,7 @@ public class DiceBox_Skill : AbstractSkillSlot
             }
 
         }
-        BoardManager.instance.skillSlotManager.allDicesOutcome();
+       
 
     }
 
@@ -105,7 +112,11 @@ public class DiceBox_Skill : AbstractSkillSlot
     }
 
 
-    public override void DestroyAllDiceInSlot() // check for space in bank before destroying all
+
+
+    // check for space in bank before destroying all
+
+    public override void DestroyAllDiceInSlot() 
     {
 
         if (bankSlot != null)
@@ -126,12 +137,12 @@ public class DiceBox_Skill : AbstractSkillSlot
 
         foreach (TheDiceScript dice in new List<TheDiceScript>(DiceInSlotList))
         {
-            RemoveDiceFromDiceList(dice);
-            Destroy(dice.gameObject);
+            RemoveDiceFromDiceList(dice, true);
+           // Destroy(dice.gameObject);
         }
 
         DiceInSlotList.Clear(); // Clear the list after destruction
-        BoardManager.instance.skillSlotManager.allDicesOutcome();
+       // BoardManager.instance.skillSlotManager.allDicesOutcome();
 
 
 

@@ -20,10 +20,17 @@ public class SkillSlotManager : MonoBehaviour
             SkillSlotsDictionary[skillSlot.SkillName] = skillSlot;
         }
 
-
+        BoardManager.OnTownBuilt += allDicesOutcome;
 
 
     }
+
+    private void OnDestroy()
+    {
+        BoardManager.OnTownBuilt -= allDicesOutcome;
+    }
+
+
 
     public void RollNewDice()
     {
@@ -57,9 +64,10 @@ public class SkillSlotManager : MonoBehaviour
         SkillSlotsDictionary[skillName].MaxDiceCap =+ 1;
     }
 
-
+    //called whenever a town is build, a die is destroyed or a die is spawned.
     public void allDicesOutcome()
     {
+        Debug.Log("HI");
         List<int> dicesList = new List<int>();
         List<int> sumOfPairs = new List<int>();
 
