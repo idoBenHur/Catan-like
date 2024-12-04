@@ -12,7 +12,8 @@ public enum SkillName
     SevenAbility,
     PlayDice,
     Bank,
-    Boons
+    Boons,
+    SplitDie
     // Add more skill types as needed
 }
 
@@ -98,7 +99,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         foreach (TheDiceScript dice in new List<TheDiceScript>(DiceInSlotList))
         {
             RemoveDiceFromDiceList(dice, true);
-           // Destroy(dice.gameObject);
+           
         }
 
         DiceInSlotList.Clear(); // Clear the list after destruction

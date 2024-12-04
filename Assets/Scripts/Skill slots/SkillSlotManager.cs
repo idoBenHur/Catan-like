@@ -67,7 +67,6 @@ public class SkillSlotManager : MonoBehaviour
     //called whenever a town is build, a die is destroyed or a die is spawned.
     public void allDicesOutcome()
     {
-        Debug.Log("HI");
         List<int> dicesList = new List<int>();
         List<int> sumOfPairs = new List<int>();
 

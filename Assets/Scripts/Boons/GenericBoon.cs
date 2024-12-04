@@ -623,10 +623,11 @@ public class GenericBoon : ScriptableObject
             case BoonEffect.EffectType.AddTemporaryDice: // adds a dice this turn, (will not add to the amount of dice player roll each turn)
 
                 DiceBox_Skill diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
-                diceBox.SpawnDice(effect.value1);
 
-
-
+                for (int i = 0; i < effect.value1; i++)
+                {
+                    diceBox.SpawnADie();
+                }
 
                 break;
             case BoonEffect.EffectType.AddPermanentDice:
@@ -634,7 +635,7 @@ public class GenericBoon : ScriptableObject
 
                 diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
                 diceBox.AddPermaDie();
-                diceBox.SpawnDice(1);
+                diceBox.SpawnADie();
 
 
                 break;

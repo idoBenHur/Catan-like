@@ -34,6 +34,30 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void Awake()
     {
+        //DraggableActive = true;
+
+        //rectTransform = GetComponent<RectTransform>();
+        //canvasGroup = GetComponent<CanvasGroup>();
+        //canvas = GetComponentInParent<Canvas>();
+        //DiceImage = GetComponent<Image>();
+
+
+        //ChangeDieParent(transform.parent); //inital paraen set
+
+
+        //diceVisualsParent = GameObject.FindWithTag("DiceVisuals");
+        //visualInstance = Instantiate(DiceImageChild, diceVisualsParent.transform);
+        //visualInstanceOGScale = visualInstance.transform.localScale;
+        //DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
+
+
+        //PickNumber();
+
+    }
+
+
+    public void initializeDie(int? ForcedResult = null, bool AnimateDie = true)
+    {
         DraggableActive = true;
 
         rectTransform = GetComponent<RectTransform>();
@@ -51,9 +75,18 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
 
 
-        PickNumber();
+
+        PickNumber(ForcedResult);
+        DiceRollAnimation.NewAnimation(DieResult);
+
+        //  if (AnimateDie == true) { StartCoroutine(DiceRollAnimation.RollDiceAnimation2(DieResult)); }
+
+
 
     }
+
+
+
 
 
     void Update()
@@ -81,16 +114,27 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Destroy(visualInstance);
     }
 
-    private void PickNumber()
+    private void PickNumber(int? ForcedResult = null)
     {
-        DieResult = UnityEngine.Random.Range(1, 7);
-        StartCoroutine(DiceRollAnimation.RollDiceAnimation2(DieResult));
+
+        if (ForcedResult != null)
+        {
+            DieResult = ForcedResult.Value;
+
+        }
+        else
+        {
+            DieResult = UnityEngine.Random.Range(1, 7);
+        }
+
+        
+       // StartCoroutine(DiceRollAnimation.RollDiceAnimation2(DieResult));
         // StartCoroutine(RollDiceAnimation());
     }
 
 
 
-    public IEnumerator RollDiceAnimation()
+    public IEnumerator RollDiceAnimation() // OLD!
     {
 
         int Dice1RandomSide = 0;

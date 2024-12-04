@@ -47,52 +47,55 @@ public class DiceBox_Skill : AbstractSkillSlot
 
     public override void ActivateSlotEffect() // spawns new dices up to its DiceAmoutEachTurn
     {
-
-        SpawnDice(DiceAmoutEachTurn);
-
-
-
+        for (int i = 0; i < DiceAmoutEachTurn; i++)
+        {
+            SpawnADie();
 
 
 
+
+
+        }
 
         //for (int i = 0; i < DiceAmoutEachTurn; i++)
         //{
-            
+
         //    // Instantiate the prefab
         //    GameObject newObject = Instantiate(NormalDicePrefab, transform);
         //    TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
         //    // DiceInSlotList.Add(diceComp);
         //   AddDiceToSlotList(diceComp);
         //}
-       // BoardManager.instance.skillSlotManager.allDicesOutcome();
+        // BoardManager.instance.skillSlotManager.allDicesOutcome();
 
     }
 
 
-    public void SpawnDice(int amount)
+    public void SpawnADie(int? OptionalResult = null, bool WithAnimation = true)
     {
 
-        for(int i = 0; i < amount; i++) 
-        {
+ 
+        GameObject newObject = Instantiate(NormalDicePrefab, transform);
+        TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
 
-            if (DiceInSlotList.Count < MaxDiceCap)
-            {
-                GameObject newObject = Instantiate(NormalDicePrefab, transform);
-                TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
-                AddDiceToSlotList(diceComp);
-                BoardManager.instance.skillSlotManager.allDicesOutcome();
+        diceComp.initializeDie(OptionalResult, WithAnimation);
 
-            }
-            else
-            {
-                return;
-            }
 
-        }
+
+
+
+
+        AddDiceToSlotList(diceComp);
+        BoardManager.instance.skillSlotManager.allDicesOutcome();
+
+        
+
+
+        
        
 
     }
+
 
     public void AddPermaDie()
     {

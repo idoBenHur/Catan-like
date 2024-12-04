@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,29 @@ public class DiceRollAnimation : MonoBehaviour
     public Sprite[] DiceSides;
     private Image DiceImage;
 
+    private RectTransform diceRectTransform;
+    private Vector3 OGscale;
+    private Vector3 MinScale;
+
+    public float animationDuration = 0.7f;
 
 
-    public IEnumerator RollDiceAnimation2(int DieResult)
+
+
+    private void Awake()
+    {
+        DiceImage = GetComponent<Image>();
+        diceRectTransform = GetComponent<RectTransform>();
+        OGscale = diceRectTransform.localScale;
+        MinScale = OGscale / 3;
+    }
+
+
+
+
+
+
+    public IEnumerator RollDiceAnimation2(int DieResult) // old!
     {
 
         DiceImage = GetComponent<Image>();
@@ -36,4 +57,29 @@ public class DiceRollAnimation : MonoBehaviour
 
 
     }
+
+
+    public void NewAnimation(int DieResult)
+    {
+        DiceImage.sprite = DiceSides[DieResult - 1];
+
+        Sequence diceSequence = DOTween.Sequence();
+
+        // Set rotation parameters
+        float finalSpinAngle = 360; // Number of spins        
+        
+
+        diceRectTransform.localScale = MinScale;
+
+        // Scale up and rotate clockwise
+        diceSequence.Append(
+            diceRectTransform.DOScale(OGscale, animationDuration).SetEase(Ease.OutBack) // Scale up
+        );
+        diceSequence.Join(
+            diceRectTransform.DORotate(new Vector3(0, 0, finalSpinAngle), animationDuration, RotateMode.FastBeyond360).SetEase(Ease.OutBack) // Clockwise spin
+        );
+    }
+
+
+
 }

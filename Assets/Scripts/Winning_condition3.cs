@@ -24,7 +24,7 @@ public class Winning_condition3 : MonoBehaviour
         AllTiles = dic.Values.ToList();//BoardManager.instance.mapGenerator.InitialTilesDictionary.Values.ToList();
         InitializeDiceProbabilities();
         SetWinningConditions();
-        PrintWinningConditions();
+      //  PrintWinningConditions();
     }
 
     // Step 1: Initialize dice roll probabilities (2-12)
