@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 
@@ -24,11 +25,41 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public SkillName SkillName;
     public bool DestroyDiceInsideUponRoll = true;
     [HideInInspector] public int MaxDiceCap;
-    
+
+    protected int MaxUsesPerTurn = -1;
+    private int remainingUsesThisTurn;
+    private Image slotImage;
+    private Color originalColor;
+    private Color disabledColor = new Color(0.52f, 0.52f, 0.5f);
 
     public List<TheDiceScript> DiceInSlotList = new List<TheDiceScript>();
 
 
+
+
+    protected virtual void Awake()
+    {
+        slotImage = GetComponent<Image>();
+        if (slotImage != null)
+        {
+            originalColor = slotImage.color;
+        }
+        else
+        {
+            Debug.LogWarning($"No Image component found on {gameObject.name}. Slot won't visually indicate usage limits.");
+        }
+
+
+
+        ResetUsesPerTurn();
+        BoardManager.OnDiceRolled += ResetUsesPerTurn;
+
+    }
+
+    private void OnDestroy()
+    {
+        BoardManager.OnDiceRolled -= ResetUsesPerTurn; // Unsubscribe on destroy
+    }
 
 
 
@@ -105,6 +136,66 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         DiceInSlotList.Clear(); // Clear the list after destruction
       //  BoardManager.instance.skillSlotManager.allDicesOutcome();
     }
+
+
+
+    public void ResetUsesPerTurn()
+    {
+        if(MaxUsesPerTurn == -1)
+        {
+            remainingUsesThisTurn = int.MaxValue;
+        }
+        else
+        {
+            remainingUsesThisTurn = MaxUsesPerTurn;
+        }
+        
+        UpdateSlotVisual();
+    }
+
+
+    public void UseSlot()
+    {
+        if (MaxUsesPerTurn != -1)
+        {
+            remainingUsesThisTurn--;
+        }
+                      
+        UpdateSlotVisual();
+    }
+
+
+
+
+    public bool HaveEnoughUsages()
+    {
+        return remainingUsesThisTurn > 0;
+    }
+
+
+
+    private void UpdateSlotVisual()
+    {
+        if (slotImage == null) return;
+
+        // Change the color based on remaining uses
+        if (remainingUsesThisTurn == 0)
+        {
+            slotImage.color = disabledColor; 
+        }
+        else
+        {
+            slotImage.color = originalColor; 
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 

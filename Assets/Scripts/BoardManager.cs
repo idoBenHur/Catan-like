@@ -108,8 +108,10 @@ public class BoardManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
+     //   OnDiceRolled = null;
 
     }
 
@@ -159,7 +161,7 @@ public class BoardManager : MonoBehaviour
         //  winning_Condition.SetupWinningCondition(player);
 
 
-
+        
 
 
 
@@ -194,6 +196,7 @@ public class BoardManager : MonoBehaviour
         CurrentTurn++;
         PlayedAmountInTurn = 0;
         OnDiceRolled?.Invoke();
+
 
        // DOVirtual.DelayedCall(1.3f, () => OnDiceRolled?.Invoke()); // waits for the dice animation to finish
         //  FlushResources();

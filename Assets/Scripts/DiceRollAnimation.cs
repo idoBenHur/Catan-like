@@ -13,6 +13,7 @@ public class DiceRollAnimation : MonoBehaviour
     private RectTransform diceRectTransform;
     private Vector3 OGscale;
     private Vector3 MinScale;
+    private Sequence TheAnimationSequence;
 
     public float animationDuration = 0.7f;
 
@@ -63,7 +64,7 @@ public class DiceRollAnimation : MonoBehaviour
     {
         DiceImage.sprite = DiceSides[DieResult - 1];
 
-        Sequence diceSequence = DOTween.Sequence();
+        TheAnimationSequence = DOTween.Sequence();
 
         // Set rotation parameters
         float finalSpinAngle = 360; // Number of spins        
@@ -72,14 +73,18 @@ public class DiceRollAnimation : MonoBehaviour
         diceRectTransform.localScale = MinScale;
 
         // Scale up and rotate clockwise
-        diceSequence.Append(
+        TheAnimationSequence.Append(
             diceRectTransform.DOScale(OGscale, animationDuration).SetEase(Ease.OutBack) // Scale up
         );
-        diceSequence.Join(
+        TheAnimationSequence.Join(
             diceRectTransform.DORotate(new Vector3(0, 0, finalSpinAngle), animationDuration, RotateMode.FastBeyond360).SetEase(Ease.OutBack) // Clockwise spin
         );
     }
 
+    private void OnDestroy()
+    {
+        DOTween.Kill(TheAnimationSequence);
+    }
 
 
 }

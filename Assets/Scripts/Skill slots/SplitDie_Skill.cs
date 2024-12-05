@@ -11,27 +11,25 @@ public class SplitDie_Skill : AbstractSkillSlot
     private void Start()
     {
         MaxDiceCap = 1;
-        
+        MaxUsesPerTurn = 1;
+
+
 
 
     }
 
     public override bool CanAcceptDice(TheDiceScript dice)
     {
-        return DiceInSlotList.Count < MaxDiceCap;
+        return DiceInSlotList.Count < MaxDiceCap && HaveEnoughUsages();
     }
 
     protected override void OnDiceAdded(TheDiceScript dice)
     {
         OGDieResult = dice.DieResult;
 
-
-
         DestroyAllDiceInSlot();
-
-
-
         ActivateSlotEffect();
+        UseSlot();
     }
 
 
