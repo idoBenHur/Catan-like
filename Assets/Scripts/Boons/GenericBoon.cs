@@ -85,7 +85,7 @@ public class BoonEffect
 
 
 
-
+        //
     }
 
     public EffectType type;
