@@ -29,61 +29,67 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     [HideInInspector] public bool DraggableActive = true;
 
-    [HideInInspector] public AbstractSkillSlot currentSlot; 
+    [HideInInspector] public AbstractSkillSlot currentSlot;
+
+
+    public GenericBoon specialDie;
 
 
     private void Awake()
     {
-        //DraggableActive = true;
-
-        //rectTransform = GetComponent<RectTransform>();
-        //canvasGroup = GetComponent<CanvasGroup>();
-        //canvas = GetComponentInParent<Canvas>();
-        //DiceImage = GetComponent<Image>();
-
-
-        //ChangeDieParent(transform.parent); //inital paraen set
-
-
-        //diceVisualsParent = GameObject.FindWithTag("DiceVisuals");
-        //visualInstance = Instantiate(DiceImageChild, diceVisualsParent.transform);
-        //visualInstanceOGScale = visualInstance.transform.localScale;
-        //DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
-
-
-        //PickNumber();
-
-    }
-
-
-    public void initializeDie(int? ForcedResult = null, bool AnimateDie = true)
-    {
-        DraggableActive = true;
-
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
         DiceImage = GetComponent<Image>();
 
+    }
 
+
+    public void initializeDie(GenericBoon diceEffect = null, int? ForcedResult = null)
+    {
+        DraggableActive = true;
         ChangeDieParent(transform.parent); //inital paraen set
 
+        specialDie = diceEffect;
 
+        PickNumber(ForcedResult);
+
+        if (specialDie != null)
+        {
+            // DiceImage.sprite = specialDie.boonImage; // Will work nice with new assets!
+            DiceImage.color = specialDie.boonColor;
+        }
+
+
+
+        SetupDieVisuals();
+
+    }
+
+
+    private void SetupDieVisuals() 
+    {
         diceVisualsParent = GameObject.FindWithTag("DiceVisuals");
         visualInstance = Instantiate(DiceImageChild, diceVisualsParent.transform);
         visualInstanceOGScale = visualInstance.transform.localScale;
+
         DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
-
-
-
-        PickNumber(ForcedResult);
         DiceRollAnimation.NewAnimation(DieResult);
 
-        //  if (AnimateDie == true) { StartCoroutine(DiceRollAnimation.RollDiceAnimation2(DieResult)); }
-
-
-
     }
+
+
+
+
+    public void PlayDice()
+    {
+        // 
+        if (specialDie != null)
+        {
+            specialDie.Activate2();
+        }
+    }
+
 
 
 
@@ -93,11 +99,11 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (visualInstance != null && visualInstance.transform.position != this.transform.position)
         {
-            Vector3 targetPosition = this.transform.position; // Target the dice position
-            visualInstance.transform.position = Vector3.Lerp(visualInstance.transform.position, targetPosition, Time.deltaTime * 15f);
-            //visualInstance.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+            visualInstance.transform.position = Vector3.Lerp(visualInstance.transform.position, this.transform.position, Time.deltaTime * 15f);
         }
     }
+
+
 
 
     private void Start()
@@ -134,29 +140,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
 
-    public IEnumerator RollDiceAnimation() // OLD!
-    {
 
-        int Dice1RandomSide = 0;
-        
-
-        for (int i = 0; i <= 3; i++)
-        {
-
-            Dice1RandomSide = UnityEngine.Random.Range(1, 7);
-
-            // Set sprite to upper face of dice from array according to random value
-            DiceImage.sprite = DiceSides[Dice1RandomSide -1 ];
-
-
-            // Pause before next itteration
-            yield return new WaitForSeconds(0.08f);
-        }
-
-        DiceImage.sprite = DiceSides[DieResult - 1];
-        
-
-    }
 
 
 
@@ -207,7 +191,8 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         }
 
-      //  BoardManager.instance.skillSlotManager.allDicesOutcome();
+        //  BoardManager.instance.skillSlotManager.allDicesOutcome();
+
 
         visualInstance.transform.rotation = Quaternion.identity;
 

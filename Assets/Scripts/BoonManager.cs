@@ -142,7 +142,7 @@ public class BoonManager : MonoBehaviour
         {
             activeBoons.Add(boon);
             uiManager.AddAndRemoveActiveBoonsDisplay(boon, true);
-            boon.Activate();
+            boon.Activate2();
             boon.StoreValues();
             
             if(boon.isCounting == true) { uiManager.UpdateBoonCounter(boon, 0); }
@@ -156,7 +156,7 @@ public class BoonManager : MonoBehaviour
     {
         if (activeBoons.Contains(boon))
         {
-            boon.Deactivate();
+          //  boon.Deactivate();
             activeBoons.Remove(boon);
             boon.ResetToDefaults();
             Debug.Log($"Deactivated boon: {boon.boonName}");

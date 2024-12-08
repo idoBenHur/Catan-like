@@ -78,7 +78,7 @@ public class DiceBox_Skill : AbstractSkillSlot
         GameObject newObject = Instantiate(NormalDicePrefab, transform);
         TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
 
-        diceComp.initializeDie(OptionalResult, WithAnimation);
+        diceComp.initializeDie(null ,OptionalResult);
 
 
 
