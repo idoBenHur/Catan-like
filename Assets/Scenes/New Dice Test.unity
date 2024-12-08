@@ -24635,7 +24635,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bank
+  m_text: Split
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d8817b9d0238e5d4da44731e4ca37556, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 980c809b042a65e4eb3b252cc15e7bc5, type: 2}
