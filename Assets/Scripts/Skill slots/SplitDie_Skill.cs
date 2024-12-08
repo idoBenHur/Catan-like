@@ -72,8 +72,8 @@ public class SplitDie_Skill : AbstractSkillSlot
         }
 
 
-        TheDiceBox.SpawnADie(half1, false);
-        TheDiceBox.SpawnADie(half2, false);
+        TheDiceBox.SpawnADie(null, half1);
+        TheDiceBox.SpawnADie(null, half2);
 
 
 

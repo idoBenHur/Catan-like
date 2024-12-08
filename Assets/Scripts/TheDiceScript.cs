@@ -18,7 +18,6 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     public Sprite[] DiceSides;
-    private UnityEngine.UI.Image DiceImage;
 
     private GameObject diceVisualsParent;
     private GameObject visualInstance;
@@ -40,7 +39,6 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
-        DiceImage = GetComponent<Image>();
 
     }
 
@@ -54,11 +52,6 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         PickNumber(ForcedResult);
 
-        if (specialDie != null)
-        {
-            // DiceImage.sprite = specialDie.boonImage; // Will work nice with new assets!
-            DiceImage.color = specialDie.boonColor;
-        }
 
 
 
@@ -69,12 +62,25 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void SetupDieVisuals() 
     {
+
+
+
+
         diceVisualsParent = GameObject.FindWithTag("DiceVisuals");
         visualInstance = Instantiate(DiceImageChild, diceVisualsParent.transform);
         visualInstanceOGScale = visualInstance.transform.localScale;
 
         DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
         DiceRollAnimation.NewAnimation(DieResult);
+
+
+        if (specialDie != null)
+        {
+            // DiceImage.sprite = specialDie.boonImage; // Will work nice with new assets!
+            visualInstance.GetComponent<Image>().color = specialDie.boonColor;
+        }
+
+
 
     }
 
@@ -113,10 +119,12 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         
     }
 
+ 
+
 
     private void OnDestroy()
     {
-        DOTween.Kill(visualInstance.transform);
+        DOTween.Kill(visualInstance);
         Destroy(visualInstance);
     }
 

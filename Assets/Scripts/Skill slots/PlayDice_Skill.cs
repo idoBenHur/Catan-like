@@ -21,7 +21,7 @@ public class PlayDice_Skill : AbstractSkillSlot
     protected override void OnDiceAdded(TheDiceScript dice)
     {
 
-        if (DiceInSlotList.Count == 2)
+        if (DiceInSlotList.Count == MaxDiceCap)
         {
             ActivateSlotEffect();
         }
@@ -51,11 +51,21 @@ public class PlayDice_Skill : AbstractSkillSlot
 
         }
 
-        
+
+        foreach (var die in DiceInSlotList)
+        {
+            die.PlayDice();
+        }
+
+
+        if(particleEffect != null)
+        {
+            Instantiate(particleEffect, this.transform);
+
+        }
+
 
         DestroyAllDiceInSlot();
-
-        Instantiate(particleEffect, this.transform);
 
     }
 

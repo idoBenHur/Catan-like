@@ -83,7 +83,9 @@ public class DiceRollAnimation : MonoBehaviour
 
     private void OnDestroy()
     {
-        DOTween.Kill(TheAnimationSequence);
+        TheAnimationSequence.Kill();
+
+
     }
 
 

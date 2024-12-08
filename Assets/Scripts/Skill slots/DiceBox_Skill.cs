@@ -1,29 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DiceBox_Skill : AbstractSkillSlot
 {
-    [SerializeField] private GameObject NormalDicePrefab;
+    [SerializeField] private GameObject DicePrefab;
     private int DiceAmoutEachTurn;
     [SerializeField ] private AbstractSkillSlot bankSlot;
+    private List<GenericBoon> SpecialDicePool = new List<GenericBoon>();
+    private GenericBoon NormalDie;
 
 
     private void Start()
     {
         MaxDiceCap = 200;
         DiceAmoutEachTurn = 2;
-        
+
+
+        // Add an empty "normal die" to the pool as a default
+        var normalDiceBoon = ScriptableObject.CreateInstance<GenericBoon>();
+        normalDiceBoon.boonName = "Normal Dice";
+        normalDiceBoon.effects = new List<BoonEffect>();
+        normalDiceBoon.conditions = new List<BoonCondition>();
+        NormalDie = normalDiceBoon;
+
+       // dicePool.Add(normalDiceBoon); // Add the default normal die to the pool
+
+
 
     }
 
 
-
-
-    private void Update()
-    {
-        
-    }
 
     public override bool CanAcceptDice(TheDiceScript dice)
     {
@@ -47,51 +55,45 @@ public class DiceBox_Skill : AbstractSkillSlot
 
     public override void ActivateSlotEffect() // spawns new dices up to its DiceAmoutEachTurn
     {
-        for (int i = 0; i < DiceAmoutEachTurn; i++)
+        int diceLeftToSpawn = DiceAmoutEachTurn;
+
+
+
+        for (int i = 0; i < SpecialDicePool.Count && diceLeftToSpawn > 0; i++)
         {
-            SpawnADie();
-
-
-
-
-
+            SpawnADie(SpecialDicePool[i]);
+            diceLeftToSpawn--;
         }
 
-        //for (int i = 0; i < DiceAmoutEachTurn; i++)
-        //{
+        for (int i = 0; i < diceLeftToSpawn; i++)
+        {
+            SpawnADie(NormalDie);
+        }
 
-        //    // Instantiate the prefab
-        //    GameObject newObject = Instantiate(NormalDicePrefab, transform);
-        //    TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
-        //    // DiceInSlotList.Add(diceComp);
-        //   AddDiceToSlotList(diceComp);
-        //}
-        // BoardManager.instance.skillSlotManager.allDicesOutcome();
+  
 
     }
 
-
-    public void SpawnADie(int? OptionalResult = null, bool WithAnimation = true)
+    
+    public void SpawnADie(GenericBoon diceEffect = null, int? OptionalResult = null)
     {
 
  
-        GameObject newObject = Instantiate(NormalDicePrefab, transform);
-        TheDiceScript diceComp = newObject.GetComponent<TheDiceScript>();
+        GameObject newObject = Instantiate(DicePrefab, transform);
+        TheDiceScript diceScript = newObject.GetComponent<TheDiceScript>();
 
-        diceComp.initializeDie(null ,OptionalResult);
+        // if a Special die wasnt mention, spawn normal die
+        if (diceEffect == null)
+        {
+            diceEffect = NormalDie;
+        }
 
 
 
+        diceScript.initializeDie(diceEffect, OptionalResult);
 
-
-
-        AddDiceToSlotList(diceComp);
+        AddDiceToSlotList(diceScript);
         BoardManager.instance.skillSlotManager.allDicesOutcome();
-
-        
-
-
-        
        
 
     }
@@ -105,7 +107,38 @@ public class DiceBox_Skill : AbstractSkillSlot
 
         }
     }
+
+
     
+    public void AddSpecialDiceToPool(GenericBoon specialDice)
+    {
+        if (SpecialDicePool.Contains(specialDice) == false)
+        {
+            SpecialDicePool.Add(specialDice);
+        }
+    }
+
+    public void RemoveSpecialDiceFromPool(GenericBoon specialDice)
+    {
+        if (SpecialDicePool.Contains(specialDice))
+        {
+            SpecialDicePool.Remove(specialDice);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void MoveDiceToBank() 
     {
 

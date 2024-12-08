@@ -120,7 +120,7 @@ MonoBehaviour:
   DestroyDiceInsideUponRoll: 1
   MaxDiceCap: 0
   DiceInSlotList: []
-  NormalDicePrefab: {fileID: 2422953580468282202, guid: 1357d8d1a8a3f5940b6de959832ef9a1, type: 3}
+  DicePrefab: {fileID: 2422953580468282202, guid: 1357d8d1a8a3f5940b6de959832ef9a1, type: 3}
   bankSlot: {fileID: 0}
 --- !u!114 &8940550359321259674
 MonoBehaviour:

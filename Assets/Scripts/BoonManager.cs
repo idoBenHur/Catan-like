@@ -11,6 +11,7 @@ public class BoonManager : MonoBehaviour
     //scripts
     private PlayerClass player;
     public UiManager uiManager;
+    private BoardManager boardManager;
 
 
     // lists
@@ -22,12 +23,9 @@ public class BoonManager : MonoBehaviour
     private GenericBoon[] OfferedBoons = new GenericBoon[3];
 
 
-
-
-
-
     // other
 
+    private DiceBox_Skill dicebox;
 
 
 
@@ -37,8 +35,9 @@ public class BoonManager : MonoBehaviour
     private void Start()
     {
         //
-        
 
+        
+        
 
     }
 
@@ -46,9 +45,10 @@ public class BoonManager : MonoBehaviour
 
     public void InitializeBoonManager(PlayerClass playerInstance) //  HAPPENS BEFORE THIS SCRIPT'S "START" FUNCTION
     {
+        boardManager = GetComponent<BoardManager>();
         AvailableBoons = new List<GenericBoon>(allBoons);
         player = playerInstance;
-
+        
 
     }
 
@@ -76,16 +76,16 @@ public class BoonManager : MonoBehaviour
 
     public void SetBoonsButtonWithRandomBoons()
     {
-        List<GenericBoon> availableBoons = new List<GenericBoon>(AvailableBoons);
+        List<GenericBoon> CurrentAvailableBoons = new List<GenericBoon>(AvailableBoons);
         
 
         for (int i = 0; i < boonButtonsList.Length; i++)
         {
             
-            if (availableBoons.Count != 0)
+            if (CurrentAvailableBoons.Count != 0)
             {
-                int randomIndex = Random.Range(0, availableBoons.Count);
-                OfferedBoons[i] = availableBoons[randomIndex];
+                int randomIndex = Random.Range(0, CurrentAvailableBoons.Count);
+                OfferedBoons[i] = CurrentAvailableBoons[randomIndex];
             }
 
 
@@ -96,7 +96,7 @@ public class BoonManager : MonoBehaviour
             boonImage.sprite = OfferedBoons[i].boonImage;
             boonImage.color = OfferedBoons[i].boonColor;
 
-            availableBoons.Remove(OfferedBoons[i]);
+            CurrentAvailableBoons.Remove(OfferedBoons[i]);
 
             
 
@@ -115,17 +115,30 @@ public class BoonManager : MonoBehaviour
     private void ChooseBoon(int index)
     {
         GenericBoon selectedBoon = OfferedBoons[index];
-        uiManager.OpenAndCloseBoonSelectionScreenAnimations(false);
 
-        ActivateBoon(selectedBoon);
+
+        if (dicebox == null)
+        {
+            dicebox = boardManager.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+        }
+
+
+
+
+        dicebox.AddSpecialDiceToPool(selectedBoon);
         AvailableBoons.Remove(selectedBoon);
 
-        
+        uiManager.OpenAndCloseBoonSelectionScreenAnimations(false);
+
+
+        //  ActivateBoon(selectedBoon);
+
+
+
         //CheckBoonMilestones(); // re-call the CheckBoonMilestones to cover "VP overflow" case
 
-       // Invoke("CheckBoonMilestones", 1.0f);
+        // Invoke("CheckBoonMilestones", 1.0f);
 
-        Debug.Log($"Chosen boon: {selectedBoon.boonName}");
 
 
 
