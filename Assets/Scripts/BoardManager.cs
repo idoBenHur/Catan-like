@@ -152,7 +152,7 @@ public class BoardManager : MonoBehaviour
 
         CurrentTurn = 0;
 
-        boonManager.InitializeBoonManager(player);
+        
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
         Winning_condition3.setup(TilesDictionary);

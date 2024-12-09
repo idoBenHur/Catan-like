@@ -62,6 +62,7 @@ public class DiceRollAnimation : MonoBehaviour
 
     public void NewAnimation(int DieResult)
     {
+        
         DiceImage.sprite = DiceSides[DieResult - 1];
 
         TheAnimationSequence = DOTween.Sequence();

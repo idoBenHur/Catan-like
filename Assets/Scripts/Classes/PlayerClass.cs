@@ -18,6 +18,7 @@ public class PlayerClass
     public List<TileClass> TilesSurrondedByRoadsList = new List<TileClass>(); // used for an old boon, will modifiy the boon and will remove this value when i have the power to do it...
     public List<HarborClass> OwnedHarbors = new List<HarborClass>();
     public List<CornersClass> SettelmentsList { get; private set; } = new List<CornersClass>();
+    public List<TileClass> OwnedTiles = new List<TileClass>();
     public List<SidesClass> RoadsList { get; set; } = new List<SidesClass>();
 
 
@@ -153,15 +154,38 @@ public class PlayerClass
     public void AddSettelment(CornersClass corner)
     {
         SettelmentsList.Add(corner);
+        AddOwnedTiles(corner);
 
-        if(corner.Harbor != null)
+        if (corner.Harbor != null)
         {
             OwnedHarbors.Add(corner.Harbor);
             OnHarborsGained?.Invoke();
         }
     }
 
+    private void AddOwnedTiles(CornersClass corner)
+    {
+        foreach(var tile in corner.AdjacentTiles)
+        {
+            if (OwnedTiles.Contains(tile) == false)
+            {
+                OwnedTiles.Add(tile);
+            }
+        }
+    }
 
+    public bool OwnANumber(int number)
+    {
+        foreach (var tile in OwnedTiles)
+        {
+            if(tile.numberToken == number)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
 

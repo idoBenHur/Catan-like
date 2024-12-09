@@ -4014,15 +4014,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f173a8c1259b01c4d9d970f0654bdb4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 240130137}
   allBoons:
   - {fileID: 11400000, guid: 4dd23c0be9e9f064893df400637fb7bf, type: 2}
-  - {fileID: 11400000, guid: 4dd23c0be9e9f064893df400637fb7bf, type: 2}
-  - {fileID: 11400000, guid: 4dd23c0be9e9f064893df400637fb7bf, type: 2}
+  - {fileID: 11400000, guid: 3273465391898844ca8fa9b46e6f3c07, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
   - {fileID: 675627773}
+  ResourceBundleImage: {fileID: 21300000, guid: 292f8647c6fd2b5469b546d2972f5113, type: 3}
 --- !u!114 &240130136
 MonoBehaviour:
   m_ObjectHideFlags: 0

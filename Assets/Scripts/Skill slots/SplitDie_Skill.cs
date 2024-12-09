@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SplitDie_Skill : AbstractSkillSlot
 {
-    private int OGDieResult;
+    
+    private TheDiceScript DieToSplit;
     private DiceBox_Skill TheDiceBox;
 
 
@@ -25,7 +26,8 @@ public class SplitDie_Skill : AbstractSkillSlot
 
     protected override void OnDiceAdded(TheDiceScript dice)
     {
-        OGDieResult = dice.DieResult;
+        
+        DieToSplit = dice;
 
         DestroyAllDiceInSlot();
         ActivateSlotEffect();
@@ -44,19 +46,20 @@ public class SplitDie_Skill : AbstractSkillSlot
     public override void ActivateSlotEffect()
     {
 
+        int ogDieResult = DieToSplit.DieResult;
         int half1;
         int half2;
 
 
-        if(OGDieResult == 1) // spliting a die with a 1, will result in 2 dice of 1s
+        if(ogDieResult == 1) // spliting a die with a 1, will result in 2 dice of 1s
         {
             half1 = 1;
             half2 = 1;
         }
         else
         {
-            half1 = OGDieResult / 2;
-            half2 = OGDieResult - half1;
+            half1 = ogDieResult / 2;
+            half2 = ogDieResult - half1;
         }
 
 
@@ -72,8 +75,8 @@ public class SplitDie_Skill : AbstractSkillSlot
         }
 
 
-        TheDiceBox.SpawnADie(null, half1);
-        TheDiceBox.SpawnADie(null, half2);
+        TheDiceBox.SpawnADie(DieToSplit.specialDie, half1);
+        TheDiceBox.SpawnADie(DieToSplit.specialDie, half2);
 
 
 

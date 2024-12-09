@@ -112,26 +112,7 @@ public class BoonEffect
 }
 
 
-[System.Serializable]
-public class BoonTrigger
-{
-    public enum TriggerType
-    {
-        OnDiceRoll,
-        OnTrade,
-        OnHarborGained,
-        OnBoonActivate,
-        OnRoadBuilt,
-        OnTownBuilt,
-        OnResourceChange,
-        OnDicePlayed,
-        OnCityBuilt
 
-        // Add other trigger types as needed
-    }
-
-    public TriggerType type;
-}
 
 
 [System.Serializable]
@@ -166,88 +147,7 @@ public class GenericBoon : ScriptableObject
 
 
 
-    //public void Activate()
-    //{
-    //    PlayerClass player = BoardManager.instance.player;
-    //    //triggers:
-
-    //    foreach (var trigger in triggers)
-    //    {
-    //        switch (trigger.type)
-    //        {
-    //            case BoonTrigger.TriggerType.OnDiceRoll: // dice roll trigger
-    //                BoardManager.OnDiceRolled += GoThroughConditionsList; 
-    //                break;
-    //            case BoonTrigger.TriggerType.OnTrade:
-    //                player.OnTrade += GoThroughConditionsList;                    
-    //                break;
-    //            case BoonTrigger.TriggerType.OnHarborGained:                   
-    //                player.OnHarborsGained += GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnBoonActivate:
-    //                GoThroughConditionsList();
-    //                break;
-    //            case BoonTrigger.TriggerType.OnRoadBuilt:
-    //                BoardManager.OnRoadBuilt += GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnTownBuilt:
-    //                BoardManager.OnTownBuilt += GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnResourceChange:
-    //                player.OnResourcesChanged += GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnDicePlayed:
-    //                 BoardManager.OnDicePlayed += GoThroughConditionsList;                   
-    //                 break;
-    //            case BoonTrigger.TriggerType.OnCityBuilt:
-    //                BoardManager.OnCityBuilt += GoThroughConditionsList;
-    //                break;
-
-
-    //                // Add other cases as needed
-    //        }
-    //    }
-    //}
-
-    //public void Deactivate()
-    //{
-    //    foreach (var trigger in triggers)
-    //    {
-    //        switch (trigger.type)
-    //        {
-    //            case BoonTrigger.TriggerType.OnDiceRoll:
-    //                BoardManager.OnDiceRolled -= GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnTrade:
-    //                PlayerClass player = BoardManager.instance.player;
-    //                player.OnTrade -= GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnHarborGained:
-    //                player = BoardManager.instance.player;
-    //                player.OnHarborsGained -= GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnRoadBuilt:
-    //                BoardManager.OnRoadBuilt -= GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnTownBuilt:
-    //                BoardManager.OnTownBuilt -= GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnResourceChange:
-    //                BoardManager.instance.player.OnResourcesChanged -= GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnDicePlayed:
-    //                BoardManager.OnDicePlayed -= GoThroughConditionsList;
-    //                break;
-    //            case BoonTrigger.TriggerType.OnCityBuilt:
-    //                BoardManager.OnCityBuilt -= GoThroughConditionsList;
-    //                break;
-
-    //                // Add other cases as needed
-    //        }
-    //    }
-
-
-    //}
+   
 
 
 
@@ -288,59 +188,7 @@ public class GenericBoon : ScriptableObject
 
 
 
-    public void GoThroughConditionsList()
-    {
 
-        bool conditions_met = false;
-
-        if(Or_And_Condition == Or_And_Condition_type.AndCondition)
-        {
-            conditions_met = true; 
-
-            foreach (var condition in conditions) //condition_met is true until found otherwise
-            {
-                if (IsConditionMet(condition) == false)
-                {
-                    conditions_met = false; break;
-                }
-                
-            }
-         
-        }
-
-
-        else if(Or_And_Condition == Or_And_Condition_type.OrCondition)
-        {
-            conditions_met = false; 
-
-            foreach (var condition in conditions) //condition_met is false until found otherwise
-            {
-                if (IsConditionMet(condition) == true)
-                {
-                    conditions_met = true;
-                    break;
-                }
-
-               
-            }
-            
-
-        }
-
-
-        if(conditions_met == true)
-        {
-            foreach (var effect in effects)
-            {
-                ApplyEffect(effect);
-                //  Debug.Log("apply effect");
-
-            }
-
-        }
-
-
-    } // OLD (!?)
     private bool IsConditionMet(BoonCondition condition)
     {
 

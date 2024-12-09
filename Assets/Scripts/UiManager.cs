@@ -120,8 +120,6 @@ public class UiManager : MonoBehaviour
 
 
 
-    // tiles effect
-    private List<TileClass> PreviouslyAffectedTiles = new List<TileClass>();
 
     // roll button
     [SerializeField] private GameObject rollButton;
@@ -1054,38 +1052,43 @@ public class UiManager : MonoBehaviour
         Vector3 increaseScale = new Vector3(originalScale.x * 1.5f, originalScale.y * 1.5f, originalScale.z);
 
 
-        foreach (var Settelment in BoardManager.instance.player.SettelmentsList)
+
+
+
+
+
+
+
+
+
+
+        foreach (var tile in BoardManager.instance.player.OwnedTiles)
         {
-            foreach (var tile in Settelment.AdjacentTiles) 
+            
+            if (tile.MyNumberPrefab == null) { continue; }
+
+            SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
+
+
+            if (listsOfSums.Contains(tile.numberToken) == true && tile.underFog == false)
             {
-                if (tile.MyNumberPrefab == null) { continue; }
+                tile.MyNumberPrefab.transform.DOScale(new Vector3(increaseScale.x, increaseScale.y, increaseScale.z), 0.5f);//.SetDelay(1.3f);
+                spriteRenderer.DOColor(new Color32(0xCD, 0xF8, 0xCF, 0xFF), 0.5f);//.SetDelay(1.3f);
 
-                SpriteRenderer spriteRenderer = tile.MyNumberPrefab.GetComponent<SpriteRenderer>();
+            }
 
-                if (listsOfSums.Contains(tile.numberToken) == true && tile.underFog == false)
+            else
+            {
+                if (tile.MyNumberPrefab.transform.localScale != originalScale)
                 {
-                    tile.MyNumberPrefab.transform.DOScale(new Vector3(increaseScale.x, increaseScale.y, increaseScale.z), 0.5f);//.SetDelay(1.3f);
-                    spriteRenderer.DOColor(new Color32(0xCD, 0xF8, 0xCF, 0xFF), 0.5f);//.SetDelay(1.3f);
-                    PreviouslyAffectedTiles.Add(tile);
-
+                    tile.MyNumberPrefab.transform.DOScale(new Vector3(originalScale.x, originalScale.y, originalScale.z), 0.5f);
+                    spriteRenderer.DOColor(new Color32(0xFA, 0xFA, 0xFA, 0xFF), 0.5f);
                 }
-
-                else
-                {
-                    if (tile.MyNumberPrefab.transform.localScale != originalScale)
-                    {
-                        tile.MyNumberPrefab.transform.DOScale(new Vector3(originalScale.x, originalScale.y, originalScale.z), 0.5f);
-                        spriteRenderer.DOColor(new Color32(0xFA, 0xFA, 0xFA, 0xFF), 0.5f);
-                        PreviouslyAffectedTiles.Add(tile);
-                    }
-
-                }
-
 
             }
 
 
-
+           
 
 
         }

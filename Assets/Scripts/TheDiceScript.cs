@@ -124,7 +124,8 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void OnDestroy()
     {
-        DOTween.Kill(visualInstance);
+       
+        DOTween.Kill(visualInstance.transform);
         Destroy(visualInstance);
     }
 
