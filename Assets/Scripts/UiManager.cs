@@ -56,8 +56,12 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private GameObject VictoryScreen;
     [SerializeField] private GameObject PlacementPhaseScreen;
+
     [SerializeField] private GameObject Sevenflag;
     private Vector2 sevenFlagOGPos;
+
+    [SerializeField] private GameObject NumbersFlag;
+    private Vector3 NumbersFlagScaleOG;
 
 
 
@@ -84,7 +88,7 @@ public class UiManager : MonoBehaviour
     private ResourceType? requestType = null;
 
 
-    // circular progress bar
+    // 7 reward pannel
 
     
 
@@ -95,6 +99,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private Button SheepRewardButton;
     [SerializeField] private Button OreRewardButton;
     [SerializeField] private Button WheatRewardButton;
+    [HideInInspector] public int AmountToReward = 1;
 
 
 
@@ -155,6 +160,7 @@ public class UiManager : MonoBehaviour
         SetupButtonListeners();
 
         sevenFlagOGPos = Sevenflag.GetComponent<RectTransform>().anchoredPosition;
+        NumbersFlagScaleOG = NumbersFlag.transform.localScale;
 
     }
 
@@ -999,10 +1005,13 @@ public class UiManager : MonoBehaviour
     private void SevenSkillReward(ResourceType resourceType)
     {
 
-        player.AddResource(resourceType, 1, SevenSkillPannel.transform.position);
+        player.AddResource(resourceType, AmountToReward, SevenSkillPannel.transform.position);
         SevenSkillPannel.SetActive(false);
-        
- 
+
+        AmountToReward = 1; // return to default 
+
+
+
     }
 
 
@@ -1048,18 +1057,8 @@ public class UiManager : MonoBehaviour
     public void IncreaseNumbersTokenSize(List<int> listsOfSums)
     {
 
-        Vector3 originalScale = new Vector3(0.25f, 0.25f, 0.25f);
+        Vector3 originalScale = NumbersFlagScaleOG;
         Vector3 increaseScale = new Vector3(originalScale.x * 1.5f, originalScale.y * 1.5f, originalScale.z);
-
-
-
-
-
-
-
-
-
-
 
 
         foreach (var tile in BoardManager.instance.player.OwnedTiles)
@@ -1097,27 +1096,51 @@ public class UiManager : MonoBehaviour
 
 
         bool contains7 = listsOfSums.Contains(7);
+        float targetPosition;
 
-        RectTransform SevenFlagRectTransform = Sevenflag.GetComponent<RectTransform>();
+        RectTransform CurrentSevenFlagPos = Sevenflag.GetComponent<RectTransform>();
 
-        if (contains7 == false && SevenFlagRectTransform.anchoredPosition == sevenFlagOGPos) // no 7, og pos == do nothing
+
+
+        if(contains7 == true)
         {
-            return;
+            targetPosition = sevenFlagOGPos.y + 55;
+        }
+        else
+        {
+            targetPosition = sevenFlagOGPos.y;
         }
 
-        else if (contains7 == false && SevenFlagRectTransform.anchoredPosition != sevenFlagOGPos) // no 7, diffrent pos == back to og pos
-        {
-            SevenFlagRectTransform.DOKill();
-            SevenFlagRectTransform.DOAnchorPosY(sevenFlagOGPos.y, 0.2f);
 
+        if (!Mathf.Approximately(CurrentSevenFlagPos.anchoredPosition.y, targetPosition))
+        {
+            CurrentSevenFlagPos.DOKill(); // Kill any existing animation
+            CurrentSevenFlagPos.DOAnchorPosY(targetPosition, 0.2f);
         }
 
-        else if (contains7 == true && SevenFlagRectTransform.anchoredPosition == sevenFlagOGPos) // has 7, og pos == move up
-        {
 
-            SevenFlagRectTransform.DOKill();
-            SevenFlagRectTransform.DOAnchorPosY(65f, 0.2f);
-        }
+
+
+
+
+        //if (contains7 == false && CurrentSevenFlagPos.anchoredPosition == sevenFlagOGPos) // no 7, og pos == do nothing
+        //{
+        //    return;
+        //}
+
+        //else if (contains7 == false && CurrentSevenFlagPos.anchoredPosition != sevenFlagOGPos) // no 7, diffrent pos == back to og pos
+        //{
+        //    CurrentSevenFlagPos.DOKill();
+        //    CurrentSevenFlagPos.DOAnchorPosY(sevenFlagOGPos.y, 0.2f);
+
+        //}
+
+        //else if (contains7 == true && CurrentSevenFlagPos.anchoredPosition == sevenFlagOGPos) // has 7, og pos == move up
+        //{
+
+        //    CurrentSevenFlagPos.DOKill();
+        //    CurrentSevenFlagPos.DOAnchorPosY(65f, 0.2f);
+        //}
 
  
 
@@ -1131,9 +1154,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-
-
-
+  
 
 
 

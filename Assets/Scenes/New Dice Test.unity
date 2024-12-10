@@ -4015,8 +4015,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allBoons:
-  - {fileID: 11400000, guid: 4dd23c0be9e9f064893df400637fb7bf, type: 2}
-  - {fileID: 11400000, guid: 3273465391898844ca8fa9b46e6f3c07, type: 2}
+  - {fileID: 11400000, guid: 3c0e6fca64819524cb0253db78620ad5, type: 2}
+  - {fileID: 11400000, guid: 9be3ca2497a1e3847b4a12601f88ce23, type: 2}
+  - {fileID: 11400000, guid: c92b1f2b80696764d8b91acb3bfd6932, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
@@ -4075,6 +4076,7 @@ MonoBehaviour:
   VictoryScreen: {fileID: 1252701407}
   PlacementPhaseScreen: {fileID: 1299899788}
   Sevenflag: {fileID: 1459976858}
+  NumbersFlag: {fileID: 9066862628740351056, guid: cb2bb741f39064b45925b49c7cb2d2de, type: 3}
   TurnSlider: {fileID: 1354938850}
   ChallengeSliderIndicator: {fileID: 532952789}
   TurnLeftUntilChallengeText: {fileID: 1021848166}
@@ -4091,6 +4093,7 @@ MonoBehaviour:
   SheepRewardButton: {fileID: 1280385368}
   OreRewardButton: {fileID: 636824439}
   WheatRewardButton: {fileID: 2133225963}
+  AmountToReward: 1
   tradeButton: {fileID: 1124521377}
   offerWoodToggle: {fileID: 1139900331}
   offerBrickToggle: {fileID: 1758327800}
@@ -4150,53 +4153,53 @@ MonoBehaviour:
   - resourceRequirementsList:
     - resourceType: 0
       requiredAmount: 6
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 2
       requiredAmount: 6
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 1
       requiredAmount: 4
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 4
       requiredAmount: 10
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
   - resourceRequirementsList:
     - resourceType: 3
       requiredAmount: 6
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 4
       requiredAmount: 4
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 0
       requiredAmount: 8
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 4
       requiredAmount: 10
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
   - resourceRequirementsList:
     - resourceType: 1
       requiredAmount: 6
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 3
       requiredAmount: 6
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 4
       requiredAmount: 8
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
     - resourceType: 0
       requiredAmount: 10
-      awardBoon: 1
+      awardBoon: 0
       isHidden: 0
   paymentArea: {fileID: 1104093336}
   woodPrefab: {fileID: 5935309381275047704, guid: a717899812a89524bb453425019c905c, type: 3}
@@ -24130,6 +24133,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1622811973}
     m_Modifications:
+    - target: {fileID: 341436746599130426, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 761898730118944775, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_Name
       value: Dice_box Skill
@@ -24145,6 +24152,26 @@ PrefabInstance:
     - target: {fileID: 1320087827100551033, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155798334427879492, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 101.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155798334427879492, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 41.398
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155798334427879492, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00000095367
+      objectReference: {fileID: 0}
+    - target: {fileID: 4155798334427879492, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0003804
+      objectReference: {fileID: 0}
+    - target: {fileID: 4584038105957666067, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 26.4
       objectReference: {fileID: 0}
     - target: {fileID: 5422625336687344530, guid: 6b07df8d7832bd24cafeeebfb661fd2d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

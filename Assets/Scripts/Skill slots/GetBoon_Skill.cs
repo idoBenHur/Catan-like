@@ -34,7 +34,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 
     private void Start()
     {
-        MaxDiceCap = 2;
+        MaxDiceCap = 3;
         DestroyDiceInsideUponRoll = false;
         slotRectTransform = GetComponent<RectTransform>();
         slotRectTransform.sizeDelta = new Vector2(slotRectTransform.sizeDelta.x, MaxDiceCap * 100f);
@@ -144,14 +144,15 @@ public class GetBoon_Skill : AbstractSkillSlot
         }
 
         ShadowDiceDic.Clear();
-        DiceBox_Skill diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
-        diceBox.AddPermaDie();
-        diceBox.SpawnADie();
 
+        //DiceBox_Skill diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+        //diceBox.AddPermaDie();
+        //diceBox.SpawnADie();
+
+        BoardManager.instance.boonManager.GiveBoon();
 
 
         // BoardManager.instance.uiManager.OpenSevenSkillRewardPannel();
-        //BoardManager.instance.boonManager.GiveBoon();
 
 
 

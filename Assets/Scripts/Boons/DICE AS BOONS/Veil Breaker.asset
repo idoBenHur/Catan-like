@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 702b2f6575901fd49a62a46fb3c582c2, type: 3}
-  m_Name: TEST
+  m_Name: Veil Breaker
   m_EditorClassIdentifier: 
-  boonName: 111
-  description: 111
+  boonName: Veil Breaker
+  description: When played as odd, reveal the fog from 1 random tile
   boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
-  boonColor: {r: 0.8679245, g: 0.11053756, b: 0.11053756, a: 1}
-  conditions: []
+  boonColor: {r: 0.2924528, g: 0.26348343, b: 0.26348343, a: 1}
+  conditions:
+  - type: 13
+    value1: 0
+    value2: 0
+    boolValue: 0
   effects:
-  - type: 0
-    value1: 1
+  - type: 20
+    value1: 0
     boolValue: 0
   Or_And_Condition: 0
   isCounting: 0

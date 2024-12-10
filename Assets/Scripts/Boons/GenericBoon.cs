@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UIElements;
 
 
 [System.Serializable]
@@ -82,6 +83,9 @@ public class BoonEffect
         AddPermanentDice = 16, // special dice effect
         MultipleRandomTransforms = 17,
         TransformRandomTileToX = 18,
+        Increase7RewardAmount = 19,
+        RemoveRandomFog = 20,
+        TransformRandomTownToCity
 
 
 
@@ -571,7 +575,44 @@ public class GenericBoon : ScriptableObject
                     }
                 }
 
-                break;      
+                break; 
+            
+            case BoonEffect.EffectType.Increase7RewardAmount:
+                int currentAmount =  BoardManager.instance.uiManager.AmountToReward;
+                BoardManager.instance.uiManager.AmountToReward = currentAmount * 2;
+
+                break;
+            case BoonEffect.EffectType.RemoveRandomFog:
+
+                List<TileClass> tempTileList = new List<TileClass>(BoardManager.instance.TilesDictionary.Values);
+                List<TileClass> validTiles = tempTileList.FindAll(tile => tile.underFog == true);
+
+                if(validTiles.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, validTiles.Count);
+                    TileClass selectedTile = validTiles[randomIndex];                 
+                    selectedTile.underFog = false;
+                    BoardManager.instance.mapGenerator.PlaceAndRemoveFogTiles();
+                }
+
+                break;
+            case BoonEffect.EffectType.TransformRandomTownToCity:
+                List<CornersClass> TempBuildingList = new List<CornersClass>(BoardManager.instance.player.SettelmentsList);
+                List<CornersClass> OnlySettelmentsList = TempBuildingList.FindAll(Settelments => Settelments.HasCityUpgade == false);
+
+                if (OnlySettelmentsList.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, OnlySettelmentsList.Count);
+                    CornersClass selectedSettelment = OnlySettelmentsList[randomIndex];
+                    BoardManager.instance.UpgradeSettelmentToCity(selectedSettelment, true);
+
+                }
+
+
+
+
+                break;
+
 
         }
 
