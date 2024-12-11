@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - DiceVisuals
+  - Number
   layers:
   - Default
   - TransparentFX
