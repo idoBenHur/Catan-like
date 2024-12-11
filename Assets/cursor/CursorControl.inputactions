@@ -1,0 +1,65 @@
+{
+    "name": "CursorControl",
+    "maps": [
+        {
+            "name": "Mouse",
+            "id": "d1078f4e-0a46-4c1b-b80a-45b6f3f03bd0",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "f6ed5b32-4ba9-47fe-aeea-474a060b0ea2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Hold",
+                    "type": "Button",
+                    "id": "4288e314-d6a7-4109-bb63-089b34e8e425",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3b00c466-84dc-4d31-8d97-1695f41dd049",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d839c3c4-d246-4a8a-b454-f17901a0f3cd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "76fd6726-7951-4d03-a235-e0007635be5f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

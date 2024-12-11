@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boonName: Industrial Boom
   description: When played as a double, a random town is transformed into a city
-  boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
+  boonImage: {fileID: 21300000, guid: 5c228d05f6b6fff4fb56555b87486ed9, type: 3}
   boonColor: {r: 0.7399471, g: 0.49261305, b: 0.8490566, a: 1}
   conditions:
   - type: 7

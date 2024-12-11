@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boonName: Focused Fortune
   description: When playing a 7 with this die, gain double the chosen resource reward
-  boonImage: {fileID: 21300000, guid: 731140251d5a77041b5453dd14762ba6, type: 3}
+  boonImage: {fileID: 21300000, guid: 5c228d05f6b6fff4fb56555b87486ed9, type: 3}
   boonColor: {r: 0.27612138, g: 0.34248015, b: 0.6886792, a: 1}
   conditions:
   - type: 0

@@ -880,16 +880,23 @@ public class UiManager : MonoBehaviour
         //BoonSelectionScreen.SetActive(!BoonSelectionScreen.activeSelf);
 
         Color BlackColor = BoonsSelectionScreenBackground.color;
+        RectTransform BoonsButtonsParentRectTransform = BoonsSelectionButtonsParent.GetComponent<RectTransform>();
+        var ogPOS = BoonsButtonsParentRectTransform.anchoredPosition;
+
 
         if (Open == true) //enter
         {
             BoonSelectionScreen.SetActive(true);
 
-            spriteCursor.ChangeCursorHand();
+          //  spriteCursor.ChangeCursorHand();
+          //
+
+            BoonsButtonsParentRectTransform.anchoredPosition = new Vector2(ogPOS.x, -1200F);
+            BoonsButtonsParentRectTransform.DOAnchorPosY(ogPOS.y, 0.5f).SetEase(Ease.OutBack);
 
 
-            BoonsSelectionButtonsParent.transform.localPosition = new Vector3(0F, -1200F, 0F);
-            BoonsSelectionButtonsParent.DOAnchorPosY(0f, 0.8f, false).SetEase(Ease.OutBack);
+            //BoonsSelectionButtonsParent.transform.localPosition = new Vector3(0F, -1200F, 0F);
+            //BoonsSelectionButtonsParent.DOAnchorPosY(ogPOS).SetEase(Ease.OutBack);
 
 
 
@@ -909,11 +916,12 @@ public class UiManager : MonoBehaviour
 
             exitAnimation.OnComplete(() =>
             {
-                spriteCursor.ChangeCursorHand();
-                UIDrawer.ClearDrawing(0);
-                UIDrawer.ClearDrawing(1);
-                UIDrawer.ClearDrawing(2);
+                //spriteCursor.ChangeCursorHand();
+                //UIDrawer.ClearDrawing(0);
+                //UIDrawer.ClearDrawing(1);
+                //UIDrawer.ClearDrawing(2);
                 BoonSelectionScreen.SetActive(false);
+                BoonsButtonsParentRectTransform.anchoredPosition = new Vector2(ogPOS.x, ogPOS.y);
 
 
 

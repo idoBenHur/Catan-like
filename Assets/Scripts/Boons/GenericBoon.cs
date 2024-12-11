@@ -613,7 +613,7 @@ public class GenericBoon : ScriptableObject
 
                 break;
 
-
+                
         }
 
 

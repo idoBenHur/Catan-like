@@ -100,6 +100,7 @@ MonoBehaviour:
   DiceImageChild: {fileID: 1382784795085520507, guid: d10cc5f97a9f3e040a721b5b5af284df, type: 3}
   DraggableActive: 1
   currentSlot: {fileID: 0}
+  specialDie: {fileID: 0}
 --- !u!225 &2494603252202961157
 CanvasGroup:
   m_ObjectHideFlags: 0

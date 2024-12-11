@@ -124,7 +124,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void OnDestroy()
     {
-       
+        CursorManager.Instance.UpdateDragging(false);
         DOTween.Kill(visualInstance.transform);
         Destroy(visualInstance);
     }
@@ -165,10 +165,12 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup.blocksRaycasts = false;
 
         transform.SetParent(canvas.transform, true); // change parent while moving the die for clean movment
-      //  currentSlot.RemoveDiceFromDiceList(this);
-       // BoardManager.instance.skillSlotManager.allDicesOutcome();
+                                                     //  currentSlot.RemoveDiceFromDiceList(this);
+                                                     // BoardManager.instance.skillSlotManager.allDicesOutcome();
 
-
+        CursorManager.Instance.UpdateDragging(true);
+        CursorManager.Instance.SetCursor(CursorManager.CursorType.CloseHand);
+       
 
     }
 
@@ -183,6 +185,8 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         // Apply the tilt (adjust Z-axis rotation based on drag direction)
         visualInstance.transform.eulerAngles = new Vector3(0, 0, tilt);
+
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -205,7 +209,9 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         visualInstance.transform.rotation = Quaternion.identity;
 
-
+        CursorManager.Instance.UpdateDragging(false);
+      //  CursorManager.Instance.SetCursor(CursorManager.CursorType.OpenHand);
+       
     }
 
 
@@ -213,6 +219,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
 
         visualInstance.transform.DOScale(visualInstanceOGScale * 1.2f, 0.3f);
+        CursorManager.Instance.SetCursor(CursorManager.CursorType.OpenHand);
 
     }
 
@@ -221,8 +228,9 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
         visualInstance.transform.DOScale(visualInstanceOGScale, 0.3f);
+        CursorManager.Instance.SetCursor(CursorManager.CursorType.Pointing);
 
-    }
+    }                                            
 
 
 
