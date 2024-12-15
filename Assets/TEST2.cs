@@ -66,44 +66,44 @@ public class TEST2 : MonoBehaviour
 
 
 
-            return;
+            
 
-        // Get grid cell size and tilemap scale automatically
-        Vector3 gridCellSize = grid.cellSize; // Cell size from the grid component
-        Vector3 tilemapScale = hexTilemap.transform.localScale; // Scale of the tilemap
+        //// Get grid cell size and tilemap scale automatically
+        //Vector3 gridCellSize = grid.cellSize; // Cell size from the grid component
+        //Vector3 tilemapScale = hexTilemap.transform.localScale; // Scale of the tilemap
 
-        // Define the relative positions of the corners for a point-down hexagon
-        hexCorners = new Vector3[6];
+        //// Define the relative positions of the corners for a point-down hexagon
+        //hexCorners = new Vector3[6];
 
-        // Adjust based on proportions of a point-down hexagon
-        float width = gridCellSize.x * tilemapScale.x;
-        float height = gridCellSize.y * tilemapScale.y;
+        //// Adjust based on proportions of a point-down hexagon
+        //float width = gridCellSize.x * tilemapScale.x;
+        //float height = gridCellSize.y * tilemapScale.y;
 
-        // Adjust hex corners with custom Y offsets for tall hexagons
-        hexCorners[0] = new Vector3(0, height * 0.5f + topYIncrease, 0); // Top
-        hexCorners[1] = new Vector3(width * 0.5f, height * 0.25f + topYIncrease, 0); // Top-right
-        hexCorners[5] = new Vector3(-width * 0.5f, height * 0.25f + topYIncrease, 0); // Top-left
+        //// Adjust hex corners with custom Y offsets for tall hexagons
+        //hexCorners[0] = new Vector3(0, height * 0.5f + topYIncrease, 0); // Top
+        //hexCorners[1] = new Vector3(width * 0.5f, height * 0.25f + topYIncrease, 0); // Top-right
+        //hexCorners[5] = new Vector3(-width * 0.5f, height * 0.25f + topYIncrease, 0); // Top-left
 
-        hexCorners[2] = new Vector3(width * 0.5f, -height * 0.25f - bottomYDecrease, 0); // Bottom-right
-        hexCorners[4] = new Vector3(-width * 0.5f, -height * 0.25f - bottomYDecrease, 0); // Bottom-left
-        hexCorners[3] = new Vector3(0, -height * 0.5f - bottomYDecrease, 0); // Bottom
+        //hexCorners[2] = new Vector3(width * 0.5f, -height * 0.25f - bottomYDecrease, 0); // Bottom-right
+        //hexCorners[4] = new Vector3(-width * 0.5f, -height * 0.25f - bottomYDecrease, 0); // Bottom-left
+        //hexCorners[3] = new Vector3(0, -height * 0.5f - bottomYDecrease, 0); // Bottom
 
-        // Iterate through each tile position in the tilemap
-        foreach (Vector3Int position in hexTilemap.cellBounds.allPositionsWithin)
-        {
-            if (hexTilemap.HasTile(position))
-            {
-                // Get the world position of the current tile, factoring in the tileAnchor for Y offset
-                Vector3 worldPosition = hexTilemap.CellToWorld(position); //+ hexTilemap.tileAnchor;
+        //// Iterate through each tile position in the tilemap
+        //foreach (Vector3Int position in hexTilemap.cellBounds.allPositionsWithin)
+        //{
+        //    if (hexTilemap.HasTile(position))
+        //    {
+        //        // Get the world position of the current tile, factoring in the tileAnchor for Y offset
+        //        Vector3 worldPosition = hexTilemap.CellToWorld(position); //+ hexTilemap.tileAnchor;
 
-                // Spawn prefab at each corner of the hexagon
-                foreach (Vector3 cornerOffset in hexCorners)
-                {
-                    Vector3 cornerPosition = worldPosition + cornerOffset;
-                    Instantiate(cornerPrefab, cornerPosition, Quaternion.identity);
-                }
-            }
-        }
+        //        // Spawn prefab at each corner of the hexagon
+        //        foreach (Vector3 cornerOffset in hexCorners)
+        //        {
+        //            Vector3 cornerPosition = worldPosition + cornerOffset;
+        //            Instantiate(cornerPrefab, cornerPosition, Quaternion.identity);
+        //        }
+        //    }
+        //}
     }
 
 
@@ -112,8 +112,8 @@ public class TEST2 : MonoBehaviour
         Vector3 gridCellSize = grid.cellSize; // Cell size from the grid component
         Vector3 tilemapScale = hexTilemap.transform.localScale;
 
-        float topIncrease = 0.150583f;
-        float bottomIncrease = -0.150583f;
+        //float topIncrease = 0.150583f;
+        //float bottomIncrease = -0.150583f;
 
 
         List<Vector3> hexCorners = new List<Vector3>();

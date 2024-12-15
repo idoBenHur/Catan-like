@@ -35,6 +35,7 @@ public class SpriteCursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
        // Cursor.SetCursor(null, hotspot, CursorMode.Auto);
         Vector2 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

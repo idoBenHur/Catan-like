@@ -85,7 +85,7 @@ public class BoonEffect
         TransformRandomTileToX = 18,
         Increase7RewardAmount = 19,
         RemoveRandomFog = 20,
-        TransformRandomTownToCity
+        TransformRandomTownToCity = 21,
 
 
 
@@ -590,9 +590,9 @@ public class GenericBoon : ScriptableObject
                 if(validTiles.Count > 0)
                 {
                     int randomIndex = Random.Range(0, validTiles.Count);
-                    TileClass selectedTile = validTiles[randomIndex];                 
-                    selectedTile.underFog = false;
-                    BoardManager.instance.mapGenerator.PlaceAndRemoveFogTiles();
+                    TileClass selectedTile = validTiles[randomIndex];
+                    BoardManager.instance.RemoveFogFromTile(selectedTile);
+
                 }
 
                 break;

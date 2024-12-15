@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3179539
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3853,6 +3853,7 @@ GameObject:
   - component: {fileID: 240130138}
   - component: {fileID: 240130140}
   - component: {fileID: 240130141}
+  - component: {fileID: 240130142}
   m_Layer: 0
   m_Name: Gameplay Manager
   m_TagString: Untagged
@@ -4017,6 +4018,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c0e6fca64819524cb0253db78620ad5, type: 2}
   - {fileID: 11400000, guid: 9be3ca2497a1e3847b4a12601f88ce23, type: 2}
   - {fileID: 11400000, guid: c92b1f2b80696764d8b91acb3bfd6932, type: 2}
+  - {fileID: 11400000, guid: 49f5b32f2b4951247af8eff2c1979ecb, type: 2}
+  - {fileID: 11400000, guid: c3f8e37c9ee31e44ebb34908d74e7274, type: 2}
   boonButtonsList:
   - {fileID: 865626171}
   - {fileID: 1085971350}
@@ -4206,6 +4209,19 @@ MonoBehaviour:
   SheepPrefab: {fileID: 2287846272986250705, guid: cfb9dd1fbdf45054f9071b443a1076cf, type: 3}
   OrePrefab: {fileID: 7355028616082136787, guid: 1bf0209f040a9ec41832ab7bebce35ee, type: 3}
   WheatPrefab: {fileID: 523423723714771870, guid: f4d11692a7a6091479d0f98c02c24ae6, type: 3}
+--- !u!114 &240130142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240130131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043842f2fbadd584ab17d747e637ec2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theFlag: {fileID: 306489573957664636, guid: e85558934cf0a604183a8599116b2d09, type: 3}
 --- !u!1 &242206267
 GameObject:
   m_ObjectHideFlags: 0
@@ -15198,7 +15214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1170126003
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17660,7 +17676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1450386955
 RectTransform:
   m_ObjectHideFlags: 0

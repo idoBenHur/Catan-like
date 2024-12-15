@@ -34,7 +34,7 @@ public class GetBoon_Skill : AbstractSkillSlot
 
     private void Start()
     {
-        MaxDiceCap = 3;
+        MaxDiceCap = 4;
         DestroyDiceInsideUponRoll = false;
         slotRectTransform = GetComponent<RectTransform>();
         slotRectTransform.sizeDelta = new Vector2(slotRectTransform.sizeDelta.x, MaxDiceCap * 100f);

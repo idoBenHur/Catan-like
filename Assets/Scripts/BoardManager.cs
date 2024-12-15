@@ -28,7 +28,9 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public BoonManager boonManager;
     [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
-//    [SerializeField] public Winning_condition3 Winning_condition3; //test
+    //    [SerializeField] public Winning_condition3 Winning_condition3; //test
+    private Winning_Condition4 winningCondition_4;
+
 
 
 
@@ -155,13 +157,14 @@ public class BoardManager : MonoBehaviour
         
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
-      //  Winning_condition3.setup(TilesDictionary);
+
+        winningCondition_4 = GetComponent<Winning_Condition4>();
+        winningCondition_4.initializeFlags(CornersDic.Values.ToList());
 
 
-        //  winning_Condition.SetupWinningCondition(player);
 
 
-        
+
 
 
 
@@ -720,7 +723,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void RemoveFog(CornersClass middlePoint, bool isFree = false)
+    public void RemoveFogAroundAcorner(CornersClass middlePoint, bool isFree = false)
     {
         if (!CornersDic.TryGetValue(middlePoint.Position, out CornersClass corner))
         {
@@ -735,15 +738,31 @@ public class BoardManager : MonoBehaviour
 
         foreach (var tile in middlePoint.AdjacentTiles)
         {
-            tile.underFog = false;
+            RemoveFogFromTile(tile);
         }
-        mapGenerator.PlaceAndRemoveFogTiles();
 
 
         uiManager.CloseAllUi();
 
 
     }
+
+
+    public void RemoveFogFromTile(TileClass theTile)
+    {
+        theTile.underFog = false;
+        mapGenerator.PlaceAndRemoveFogTiles();
+
+        foreach(var corner in theTile.AdjacentCorners)
+        {
+            if(corner.HaveAFlag == true)
+            {
+                winningCondition_4.spawnFlagVisual(corner); 
+            }
+        }
+
+    }
+
 
 
 
