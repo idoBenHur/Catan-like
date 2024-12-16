@@ -15,7 +15,7 @@ public class CornersClass
 
     public GameObject BuildingPrefab;
 
-    public bool HaveAFlag = false;
+    public bool HaveAFlag = false; // // Xmark winning condition (old)
 
 
     // public HashSet<Vector3Int> AdjacentTiles { get; set; } = new HashSet<Vector3Int>();

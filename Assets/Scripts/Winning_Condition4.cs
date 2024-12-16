@@ -17,14 +17,15 @@ public class Winning_Condition4 : MonoBehaviour
 
     void Start()
     {
-        
-        BoardManager.OnTownBuilt += BuiltOnFlag;
+        // Xmark winning condition (old)
+        //BoardManager.OnTownBuilt += BuiltOnFlag;
     }
 
 
     private void OnDestroy()
     {
-        BoardManager.OnTownBuilt -= BuiltOnFlag;
+        // Xmark winning condition (old)
+        //  BoardManager.OnTownBuilt -= BuiltOnFlag;
     }
 
 

@@ -8,10 +8,10 @@ public class Winning_condition3 : MonoBehaviour
 {
     private List<TileClass> AllTiles; // List of all tiles on the map
     public int TotalResourcesToWin = 20; // Total resources player must collect
-    public List<ResourceType> SelectedResourceTypes; // The 3 resource types to include
+    public List<ResourceType> TheWinningResourceTypesList; // The 3 resource types to include
 
-    private Dictionary<int, float> diceProbabilities; // Probabilities for dice rolls
-    private Dictionary<ResourceType, int> winningGoals; // Goals for each resource
+    private Dictionary<int, float> DICEprobabilities; // Probabilities for dice rolls
+    private Dictionary<ResourceType, int> FinalWinningGoals; // Goals for each resource
 
     private void Start()
     {
@@ -23,14 +23,14 @@ public class Winning_condition3 : MonoBehaviour
     {
         AllTiles = dic.Values.ToList();//BoardManager.instance.mapGenerator.InitialTilesDictionary.Values.ToList();
         InitializeDiceProbabilities();
-        SetWinningConditions();
-      //  PrintWinningConditions();
+        DetermineWinningGoals();
+        PrintWinningConditions();
     }
 
-    // Step 1: Initialize dice roll probabilities (2-12)
+    //Initialize reguular dice roll probabilities (2-12)
     private void InitializeDiceProbabilities()
     {
-        diceProbabilities = new Dictionary<int, float>
+        DICEprobabilities = new Dictionary<int, float>
         {
             { 2, 1f / 36f },
             { 3, 2f / 36f },
@@ -46,50 +46,56 @@ public class Winning_condition3 : MonoBehaviour
         };
     }
 
-    // Step 2: Calculate absolute probabilities and set winning conditions
-    private void SetWinningConditions()
+    // Calculates and assigns the resource collection goals needed to win the game.
+    // based on the selected resource types and their probabilities on the map.
+    private void DetermineWinningGoals()
     {
-        // Calculate absolute probabilities
-        Dictionary<ResourceType, float> resourceProbabilities = new Dictionary<ResourceType, float>();
+        // Holds the probability of each resource type base on all tiles on the map.
+        Dictionary<ResourceType, float> AllResourcesProb = new Dictionary<ResourceType, float>();
 
         foreach (var tile in AllTiles)
         {
             if (tile.resourceType == ResourceType.Desert) continue;
 
-            if (!resourceProbabilities.ContainsKey(tile.resourceType))
-                resourceProbabilities[tile.resourceType] = 0f;
+            if (AllResourcesProb.ContainsKey(tile.resourceType) == false)
+            {
+                AllResourcesProb[tile.resourceType] = 0f;
+            }
+                
 
-            resourceProbabilities[tile.resourceType] += diceProbabilities[tile.numberToken];
+            AllResourcesProb[tile.resourceType] += DICEprobabilities[tile.numberToken];
         }
 
+
+
+
         // Filter for selected resource types
-        var selectedProbabilities = new Dictionary<ResourceType, float>();
-        foreach (var resource in SelectedResourceTypes)
+        var GoalResourcesProb = new Dictionary<ResourceType, float>();
+        foreach (var resource in TheWinningResourceTypesList)
         {
-            if (resourceProbabilities.ContainsKey(resource))
+            if (AllResourcesProb.ContainsKey(resource))
             {
-                selectedProbabilities[resource] = resourceProbabilities[resource];
+                GoalResourcesProb[resource] = AllResourcesProb[resource];
             }
         }
 
         // Calculate total weight of selected resources
-        float totalWeight = selectedProbabilities.Values.Sum();
+        float totalWeight = GoalResourcesProb.Values.Sum();
 
         // Distribute total resources proportionally
-        winningGoals = new Dictionary<ResourceType, int>();
-        foreach (var resource in selectedProbabilities)
+        FinalWinningGoals = new Dictionary<ResourceType, int>();
+        foreach (var resource in GoalResourcesProb)
         {
-            winningGoals[resource.Key] = Mathf.RoundToInt((resource.Value / totalWeight) * TotalResourcesToWin);
+            FinalWinningGoals[resource.Key] = Mathf.RoundToInt((resource.Value / totalWeight) * TotalResourcesToWin);
         }
     }
 
     private void PrintWinningConditions()
     {
         Debug.Log("Winning Conditions:");
-        Debug.Log(winningGoals.Count); 
-        foreach (var goal in winningGoals)
+        Debug.Log(FinalWinningGoals.Count); 
+        foreach (var goal in FinalWinningGoals)
         {
-            Debug.Log("hi");
             Debug.Log($"- Collect {goal.Value} of {goal.Key}");
         }
     }
