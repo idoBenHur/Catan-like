@@ -145,19 +145,23 @@ public class GetBoon_Skill : AbstractSkillSlot
 
         ShadowDiceDic.Clear();
 
-        //DiceBox_Skill diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+        DiceBox_Skill diceBox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+
+        for (int i = 0; i < MaxDiceCap; i++)
+        {
+            diceBox.SpawnADie();
+        }
+
+
         //diceBox.AddPermaDie();
-        //diceBox.SpawnADie();
-
-        BoardManager.instance.boonManager.GiveBoon();
-
-
+        //
+        // BoardManager.instance.boonManager.GiveBoon();
         // BoardManager.instance.uiManager.OpenSevenSkillRewardPannel();
 
 
 
 
-        IncreaseCap();
+     //   IncreaseCap();
         shuffleNumbers();
     }
 

@@ -1647,7 +1647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &56847519
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4135,10 +4135,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Allslots:
   - {fileID: 416424959}
-  - {fileID: 66345571}
   - {fileID: 439090090}
   - {fileID: 1922531759}
   - {fileID: 1887304880}
+  - {fileID: 66345571}
 --- !u!114 &240130141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14114,7 +14114,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -612.69995, y: 13}
-  m_SizeDelta: {x: 0, y: 120.1}
+  m_SizeDelta: {x: 120, y: 120.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1104093337
 MonoBehaviour:
@@ -24895,7 +24895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 670, y: -358}
+  m_AnchoredPosition: {x: 670, y: -343}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &7782622093544355552
@@ -25015,6 +25015,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bank_Skill
       objectReference: {fileID: 0}
+    - target: {fileID: 345545293381250564, guid: 59f4b951f15b11847b0cc5613dbdb1ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5165708006722425604, guid: 59f4b951f15b11847b0cc5613dbdb1ff, type: 3}
       propertyPath: dicebox
       value: 
@@ -25085,7 +25089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6017680985169178376, guid: 59f4b951f15b11847b0cc5613dbdb1ff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -503
+      value: -499
       objectReference: {fileID: 0}
     - target: {fileID: 6017680985169178376, guid: 59f4b951f15b11847b0cc5613dbdb1ff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

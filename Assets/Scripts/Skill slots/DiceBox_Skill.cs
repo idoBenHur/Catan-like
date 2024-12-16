@@ -15,7 +15,7 @@ public class DiceBox_Skill : AbstractSkillSlot
     private void Start()
     {
         MaxDiceCap = 200;
-        DiceAmoutEachTurn = 2;
+        DiceAmoutEachTurn = 4;
 
 
         // Add an empty "normal die" to the pool as a default
