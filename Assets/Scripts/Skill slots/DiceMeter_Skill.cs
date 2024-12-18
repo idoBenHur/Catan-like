@@ -19,7 +19,7 @@ public class ShadowDiceData
     }
 }
 
-public class GetBoon_Skill : AbstractSkillSlot
+public class DiceMeter_Skill : AbstractSkillSlot
 {
     private RectTransform slotRectTransform;
     [SerializeField] private Sprite[] DiceSides;

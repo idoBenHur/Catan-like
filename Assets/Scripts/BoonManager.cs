@@ -37,16 +37,15 @@ public class BoonManager : MonoBehaviour
 
 
 
-    private void Start()
+
+
+
+    public void setup()
     {
-        
         boardManager = GetComponent<BoardManager>();
         uiManager = GetComponent<UiManager>();
         AvailableBoons = new List<GenericBoon>(allBoons);
-
-
     }
-
 
 
 

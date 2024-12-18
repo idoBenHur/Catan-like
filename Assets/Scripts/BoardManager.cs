@@ -29,7 +29,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
     private Winning_condition3 WinningCondition_3; //test
-   // private Winning_Condition4 winningCondition_4;
+                                                   // private Winning_Condition4 winningCondition_4;
+    private Winning_Condition2 winning_condition2;
 
 
 
@@ -158,24 +159,21 @@ public class BoardManager : MonoBehaviour
         challenges.SetUpPlayerChallenges(player);
         uiManager.SetUpUIManager(player);
 
-
-        //X mark winning condition (old):
-        //  winningCondition_4 = GetComponent<Winning_Condition4>();
-        //   winningCondition_4.initializeFlags(CornersDic.Values.ToList());
-
-        WinningCondition_3 = GetComponent<Winning_condition3>();
-        WinningCondition_3.setup(TilesDictionary);
+        boonManager.setup();
 
 
 
 
-
+        winning_condition2 = GetComponent<Winning_Condition2>();
+        winning_condition2.setup(TilesDictionary);
 
 
         StartGame();
 
 
-
+        //X mark winning condition (old):
+        //  winningCondition_4 = GetComponent<Winning_Condition4>();
+        //   winningCondition_4.initializeFlags(CornersDic.Values.ToList());
 
 
     }
@@ -285,6 +283,7 @@ public class BoardManager : MonoBehaviour
 
     public void StartGame()
     {
+        boonManager.GiveBoon();
         FirstTurnPlacement();
 
     }
