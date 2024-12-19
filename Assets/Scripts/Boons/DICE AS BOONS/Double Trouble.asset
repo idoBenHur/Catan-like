@@ -23,7 +23,7 @@ MonoBehaviour:
     boolValue: 0
   effects:
   - type: 15
-    value1: 0
+    value1: 1
     boolValue: 0
   Or_And_Condition: 0
   isCounting: 0

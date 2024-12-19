@@ -119,14 +119,24 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         
     }
 
- 
+
 
 
     private void OnDestroy()
     {
         CursorManager.Instance.UpdateDragging(false);
-        DOTween.Kill(visualInstance.transform);
-        Destroy(visualInstance);
+
+        if (visualInstance != null)
+        {
+            DOTween.Kill(visualInstance.transform);
+            Destroy(visualInstance);
+        }
+        else
+        {
+            Debug.Log("die visualInstance wasnt set properly");
+        }
+
+
     }
 
     private void PickNumber(int? ForcedResult = null)

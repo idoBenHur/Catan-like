@@ -34,6 +34,33 @@ public class ResourceSelection
         if (Sheep) selectedResourceTypes.Add(ResourceType.Sheep);
         if (Ore) selectedResourceTypes.Add(ResourceType.Ore);
         if (Wheat) selectedResourceTypes.Add(ResourceType.Wheat);
+
+
+        // If no resources are selected, the method will randomly pick resources.
+        // Duplicate resources are not added, so the number of different resources selected will vary each time (up to 5) (becuase they are pick randomly).
+        if (selectedResourceTypes.Count == 0)
+        {
+            ResourceType[] allResources = { ResourceType.Wood, ResourceType.Brick, ResourceType.Sheep, ResourceType.Ore, ResourceType.Wheat };
+            System.Random rng = new System.Random();
+
+            
+            for (int i = 1; i <= 5; i++)
+            {
+                ResourceType randomResource = allResources[rng.Next(allResources.Length)];
+
+                if(selectedResourceTypes.Contains(randomResource) == false)
+                {
+                    selectedResourceTypes.Add(randomResource);
+                }
+
+                
+            }
+        }
+
+
+
+
+
         return selectedResourceTypes;
     }
 }

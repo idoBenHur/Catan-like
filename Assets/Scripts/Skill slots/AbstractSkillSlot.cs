@@ -78,8 +78,10 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
         {
             if (dice.currentSlot != null)
             {
+                
                 dice.currentSlot.RemoveDiceFromDiceList(dice);
             }
+
             
             AddDiceToSlotList(dice);
         }
@@ -89,6 +91,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     {
         if (CanAcceptDice(dice))
         {
+
             DiceInSlotList.Add(dice);           
             dice.ChangeDieParent(transform);
            // BoardManager.instance.skillSlotManager.allDicesOutcome();

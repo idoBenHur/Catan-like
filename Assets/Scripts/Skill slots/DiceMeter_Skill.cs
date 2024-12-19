@@ -39,7 +39,7 @@ public class DiceMeter_Skill : AbstractSkillSlot
         slotRectTransform = GetComponent<RectTransform>();
         slotRectTransform.sizeDelta = new Vector2(slotRectTransform.sizeDelta.x, MaxDiceCap * 100f);
 
-        shuffleNumbers();
+       // shuffleNumbers();
     }
 
     private void shuffleNumbers()
