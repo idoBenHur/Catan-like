@@ -21,6 +21,8 @@ public class TileClass
     public List<TileClass> AdjacentTiles { get; set; } = new List<TileClass>();
 
     public GameObject MyNumberPrefab;
+    public GameObject FogPrefab;
+
 
 
     // Constructor to initialize the tile with specific properties

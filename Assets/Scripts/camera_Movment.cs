@@ -103,6 +103,15 @@ public class camera_Movment : MonoBehaviour
         {
             Vector3 difference = DragOrigin - MainCamera.ScreenToWorldPoint(Input.mousePosition);
             MainCamera.transform.position += difference;
+
+            MainCamera.transform.position = new Vector3(
+                Mathf.Clamp(MainCamera.transform.position.x, minX, maxX),
+                Mathf.Clamp(MainCamera.transform.position.y, minY, maxY),
+                MainCamera.transform.position.z);
+
+
+
+
         }
 
         if (Input.GetMouseButtonUp(0))
