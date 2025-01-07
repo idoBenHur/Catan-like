@@ -59,6 +59,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject TownPrefab;
     [SerializeField] private GameObject CityPrefab;
     [SerializeField] private GameObject ResourceGainPS;
+    [SerializeField] private GameObject DustPS;
     [SerializeField] private UnityEngine.UI.Image Dice1Image;
     [SerializeField] private UnityEngine.UI.Image Dice2Image;
     [SerializeField] private Sprite[] DiceSides;
@@ -166,9 +167,15 @@ public class BoardManager : MonoBehaviour
 
         winning_condition2 = GetComponent<Winning_Condition2>();
         winning_condition2.setup(TilesDictionary);
+        mapGenerator.UpdateOwnedTilesVisuals();
 
 
-        StartGame();
+
+        // game start after the startin zoom animation is finished
+        Camera mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        mainCamera.GetComponent<camera_Movment>().startingzoom();
+
+       // StartGame();
 
 
         //X mark winning condition (old):
@@ -283,6 +290,8 @@ public class BoardManager : MonoBehaviour
 
     public void StartGame()
     {
+
+
         boonManager.GiveBoon();
         FirstTurnPlacement();
 
@@ -548,7 +557,26 @@ public class BoardManager : MonoBehaviour
             corner.CanBeBuiltOn = false;
             corner.HasSettlement = true;
 
-            var settelmentPrefab = Instantiate(TownPrefab, corner.Position, Quaternion.identity);
+            Vector3 intialPosition = corner.Position + new Vector3(0, 2f, 0); // a little bit higher for the animation
+            Quaternion rotation = Quaternion.Euler(-90, 0, 0);
+
+
+
+
+
+
+
+            var settelmentPrefab = Instantiate(TownPrefab, intialPosition, Quaternion.identity);
+
+            settelmentPrefab.transform.DOMove(corner.Position, 0.5f).SetEase(Ease.OutBounce);
+
+            // Schedule the particle system to spawn with a small delay during the movement
+         //   DOVirtual.DelayedCall(0.13f, () => Instantiate(DustPS, corner.Position, rotation));
+
+
+
+
+
             corner.BuildingPrefab = settelmentPrefab;
 
             AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.Build);
@@ -562,8 +590,8 @@ public class BoardManager : MonoBehaviour
                 
 
 
-              //  adjustTile.underFog = false;
-               // mapGenerator.PlaceAndRemoveFogTiles();
+               adjustTile.isOwned = true;
+                mapGenerator.UpdateOwnedTilesVisuals();
             }
 
 

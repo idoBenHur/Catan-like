@@ -43,9 +43,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private Tilemap FogTileMap;
     [SerializeField] private Tilemap TopObjectsTileMap;
     [SerializeField] private Tilemap BottomObjectsTileMap;
+    [SerializeField] private Tilemap UnownedTileMap;
 
     public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile, fogTile, goldTileObject, gemsTileObject, woodTileObject,gunPowderTileObject,
-        woodTop,woodBottom,gemsTop,gemsBottom,goldTop,goldBottom,gunpowderTop,gunpowderBottom, rumBottom ; // Assign these in the inspector
+        woodTop,woodBottom,gemsTop,gemsBottom,goldTop,goldBottom,gunpowderTop,gunpowderBottom, rumBottom, UnowendTile; // Assign these in the inspector
     public GameObject NumberTokenPrefab;
     public GameObject RoadPrefab;
     public GameObject TownPrefab;
@@ -1003,6 +1004,29 @@ public class MapGenerator : MonoBehaviour
 
 
     }
+
+
+    public void UpdateOwnedTilesVisuals()
+    {
+        var dic = BoardManager.instance.TilesDictionary;
+
+        foreach(var tile in dic.Values)
+        {
+            if (tile.isOwned == false)
+            {
+                UnownedTileMap.SetTile(tile.TilePostion, UnowendTile);
+            }
+            else
+            {
+                UnownedTileMap.SetTile(tile.TilePostion, null);
+            }
+        }
+    }
+
+
+
+
+
 
 
     private void PlaceResourceObjects()

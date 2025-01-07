@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-public class camera_test : MonoBehaviour
+
+public class camera_Movment : MonoBehaviour
 {
     public float moveSpeed = 5f; // Speed of the camera movement
     public float screenEdgeThickness = 10f; // The thickness of the screen edge to detect the mouse
@@ -16,10 +18,39 @@ public class camera_test : MonoBehaviour
     [SerializeField] private Camera MainCamera;
     private bool isDragging = false;
 
+
+    private float StratzoomInSize = 2f; // Target size for zoom-in
+    private float normalSize = 5f; // Default size to zoom out to
+    private float duration = 1.5f; // Duration of the animation
+
     private void Start()
     {
-        
+
+
+
     }
+
+
+    public void startingzoom()
+    {
+        MainCamera.orthographicSize = normalSize;
+
+        // Animate the camera to zoom in and then zoom out with a bounce effect
+        MainCamera.DOOrthoSize(StratzoomInSize, 0.4f) // Zoom in
+            .OnComplete(() => // Once zoomed in
+            {
+                MainCamera.DOOrthoSize(normalSize, 0.3f) // Zoom out with bounce
+                    .SetEase(Ease.OutBounce)
+                    .OnComplete(() => // Once zoomed out
+                    {
+                        DOVirtual.DelayedCall(0.4f, () =>
+                        {
+                            BoardManager.instance.StartGame(); // Call StartGame method
+                        });
+                    });
+            });
+    }
+
 
     void Update()
     {

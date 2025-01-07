@@ -902,7 +902,7 @@ public class UiManager : MonoBehaviour
 
             BlackColor.a = 0f;
             BoonsSelectionScreenBackground.color = BlackColor;
-            BoonsSelectionScreenBackground.DOFade(0.99f, 0.5f);
+            BoonsSelectionScreenBackground.DOFade(0.99f, 1f);
             AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.BoonScreenOpen);
 
         }
