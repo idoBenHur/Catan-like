@@ -729,11 +729,13 @@ public class BoardManager : MonoBehaviour
 
     public void ShowRemoveFogIndicator()
     {
-        if (player.CanAffordToBuild(PricesClass.RemoveFog) == false)
-        {
 
-            return;
-        }
+        //NOT needed when use with skill slot. IS NEEDED otherwise
+        //if (player.CanAffordToBuild(PricesClass.RemoveFog) == false)
+        //{
+
+        //    return;
+        //}
 
 
         foreach (var corner in CornersDic.Values)

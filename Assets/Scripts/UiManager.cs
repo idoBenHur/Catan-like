@@ -401,7 +401,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void ShowFogRemoveIndicatorsToggle()
+    public void ShowFogRemoveIndicatorsToggle() // toggle way to remove fog, not the skill slot way
     {
         CloseAllUi(FogRemoveToggle);
 
