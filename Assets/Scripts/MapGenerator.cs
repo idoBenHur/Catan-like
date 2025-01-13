@@ -55,7 +55,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] bool withHarbors;
     [SerializeField] bool RandomHarborsPosition;
     [SerializeField] bool RandomHarborsTypes;
-
+    [SerializeField] private LevelConfig levelConfig;
 
 
     private List<(CornersClass, CornersClass)> HarborCornersPairs;
@@ -64,6 +64,9 @@ public class MapGenerator : MonoBehaviour
     public Dictionary<Vector3, SidesClass> InitialSidesDic = new Dictionary<Vector3, SidesClass>();
     public List<InitialSettlementData> initialSettlements = new List<InitialSettlementData>();
     public List<Vector3> initialRoads = new List<Vector3>();
+
+
+
 
     //private List<TileClass.ResourceType> ResourcesOnTheMapList = new List<TileClass.ResourceType>
     //{
@@ -75,7 +78,7 @@ public class MapGenerator : MonoBehaviour
     //    TileClass.ResourceType.Desert
     //};
 
-    public List<ResourceEntry> ResourcesOnTheMapList = new List<ResourceEntry>();
+    private List<ResourceEntry> ResourcesOnTheMapList = new List<ResourceEntry>();
 
     private List<TileClass.ResourceType> shuffledResources = new List<TileClass.ResourceType>();
 
@@ -93,6 +96,17 @@ public class MapGenerator : MonoBehaviour
     // Main function to initiate the map generation process (called from board manager)
     public void InitialBuildMap()
     {
+
+        if (levelConfig == null)
+        {
+            Debug.LogError("LevelConfig is not assigned!");
+            return;
+        }
+
+        ResourcesOnTheMapList.AddRange(levelConfig.resources);
+
+
+
         InitialMapResourcesShuffle();
         InitializeTiles();
         UpdateTileTypeVisual(InitialTilesDictionary);

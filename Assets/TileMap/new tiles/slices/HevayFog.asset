@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HevayFog
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 96992edef55f544468e04ae160713cf5, type: 3}
-  m_Color: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
+  m_Color: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
   m_Transform:
     e00: 1
     e01: 0

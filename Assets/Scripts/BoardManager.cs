@@ -68,6 +68,7 @@ public class BoardManager : MonoBehaviour
     // "to be balanced" game parameters
     [HideInInspector] public int CurrentTurn;
     [SerializeField] public int MaxTurn = 40;
+    [SerializeField] private LevelConfig levelConfig; 
 
 
     // prefabs losts
@@ -129,6 +130,15 @@ public class BoardManager : MonoBehaviour
         if (GameManager.Instance.GameState.SeasonNumber == 0)
         {
             player = new PlayerClass();
+
+            if(levelConfig != null)
+            {
+                MaxTurn = levelConfig.turns;
+            }
+
+
+
+
             mapGenerator.InitialBuildMap();
 
 
