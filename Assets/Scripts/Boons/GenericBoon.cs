@@ -310,7 +310,7 @@ public class GenericBoon : ScriptableObject
 
             case BoonCondition.ConditionType.PlayedXDices: // count the amount of times the dice were played
 
-                int DicesPlayedInThisTurn = BoardManager.instance.PlayedAmountInTurn;
+                int DicesPlayedInThisTurn = BoardManager.instance.DicePlayedAmountInTurn;
                 conditionMet = false;
                 condition.value2 = DicesPlayedInThisTurn;
                 BoardManager.instance.uiManager.UpdateBoonCounter(this, condition.value2);
@@ -502,7 +502,7 @@ public class GenericBoon : ScriptableObject
                 break;
             case BoonEffect.EffectType.SkipTurns:
                 BoardManager.instance.CurrentTurn += effect.value1;
-                BoardManager.instance.uiManager.UpdateTurnSliderDisplay();
+                BoardManager.instance.uiManager.UpdateTurnSDisplay();
                 
                 break;
             case BoonEffect.EffectType.AddTemporaryDice: // adds a dice this turn, (will not add to the amount of dice player roll each turn)

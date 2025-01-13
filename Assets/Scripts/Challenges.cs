@@ -21,12 +21,12 @@ public class Challenges : MonoBehaviour
 
     private void OnDestroy()
     {
-        BoardManager.OnDiceRolled -= TsunamiChallenge;
+        
     }
 
     public void SetUpPlayerChallenges(PlayerClass player)
     {
-        BoardManager.OnDiceRolled += TsunamiChallenge;
+        
     }
 
     public void TsunamiChallenge()

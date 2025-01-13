@@ -66,7 +66,7 @@ public class ResourceSelection
 }
 
 
-public class Winning_Condition2 : MonoBehaviour
+public class Dynamic_WinningCondition : MonoBehaviour
 {
 
     [SerializeField] private ResourceSelection resourceSelection;

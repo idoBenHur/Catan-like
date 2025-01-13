@@ -10165,7 +10165,6 @@ GameObject:
   - component: {fileID: 240130132}
   - component: {fileID: 240130134}
   - component: {fileID: 240130135}
-  - component: {fileID: 240130136}
   - component: {fileID: 240130137}
   - component: {fileID: 240130138}
   - component: {fileID: 240130140}
@@ -10193,14 +10192,11 @@ MonoBehaviour:
   uiManager: {fileID: 240130137}
   mapGenerator: {fileID: 240130134}
   boonManager: {fileID: 240130135}
-  challenges: {fileID: 240130136}
   skillSlotManager: {fileID: 240130140}
-  FirstTurnIsActive: 1
-  DiceStilRolling: 0
   TotalDice: 0
   Dice1FinalSide: 0
   Dice2FinalSide: 0
-  PlayedAmountInTurn: 0
+  DicePlayedAmountInTurn: 0
   WoodIcon: {fileID: 2275722739733830845, guid: 23be56af81a526c48bbb40ac874841f3, type: 3}
   CornerIndicatorPrefab: {fileID: 3579992415153703632, guid: ca10fc29f9d7a3647b1e00b49eb125c4, type: 3}
   SideIndicatorPrefab: {fileID: 3694540549687393739, guid: 0e6fbceb24717e74d836fd1c284e150f, type: 3}
@@ -10210,15 +10206,6 @@ MonoBehaviour:
   CityPrefab: {fileID: 796762834009809852, guid: 3726c7edfdb72e04f866b9d813a70a02, type: 3}
   ResourceGainPS: {fileID: 8566326398363421716, guid: 6df5ae7c06e54954b9c15f5b8124ac70, type: 3}
   DustPS: {fileID: 1687827067501573550, guid: 5e15cba7a5010da4dbe070a7bc0c58ee, type: 3}
-  Dice1Image: {fileID: 0}
-  Dice2Image: {fileID: 0}
-  DiceSides:
-  - {fileID: 21300000, guid: 0b28baf50baea3e4683382902c4f14fe, type: 3}
-  - {fileID: 21300000, guid: bc05e14dae996824e9fa2bf544ada84a, type: 3}
-  - {fileID: 21300000, guid: 35a020326965a1d49944525a5b0034aa, type: 3}
-  - {fileID: 21300000, guid: 91053ed8503fb2f49a289b104d3491bf, type: 3}
-  - {fileID: 21300000, guid: 40da3396537bb2b4db3426627da6b6b6, type: 3}
-  - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   CurrentTurn: 0
   MaxTurn: 15
   levelConfig: {fileID: 11400000, guid: 2a7509385e8939242817e4f82738eeb9, type: 2}
@@ -10334,20 +10321,6 @@ MonoBehaviour:
   - {fileID: 1085971350}
   - {fileID: 675627773}
   ResourceBundleImage: {fileID: 21300000, guid: 292f8647c6fd2b5469b546d2972f5113, type: 3}
---- !u!114 &240130136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240130131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a52309fb91a25b4e8d49f6856c1bcc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  testprefab: {fileID: 6535064077697926397, guid: 597594eb23e57f94d8686d49a4e54ce2, type: 3}
-  TsunamiChallengeTurn: 100
 --- !u!114 &240130137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10360,7 +10333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efb2d20616b07c439ce6ad26186de83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  challenges: {fileID: 240130136}
   boonManager: {fileID: 240130135}
   MainCanvas: {fileID: 1928236261}
   UIDrawer: {fileID: 1681451719}

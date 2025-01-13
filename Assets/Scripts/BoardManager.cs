@@ -22,15 +22,13 @@ public class BoardManager : MonoBehaviour
     //main big stuff/scripts
 
     [SerializeField] private Tilemap tilemap;
-    //public TileBase woodTile, brickTile, wheatTile, oreTile, sheepTile, desertTile; // Assign these in the inspector
     [SerializeField] public UiManager uiManager;
     [SerializeField] public MapGenerator mapGenerator;
     [SerializeField] public BoonManager boonManager;
-    [SerializeField] private Challenges challenges;
     [SerializeField] public SkillSlotManager skillSlotManager;
     private Winning_condition3 WinningCondition_3; //test
                                                    // private Winning_Condition4 winningCondition_4;
-    private Winning_Condition2 winning_condition2;
+    private Dynamic_WinningCondition winning_condition2;
 
 
 
@@ -39,13 +37,12 @@ public class BoardManager : MonoBehaviour
 
 
 
-    public bool FirstTurnIsActive;
-    [HideInInspector] public bool DiceStilRolling = false;
+    private bool FirstTurnIsActive = true;
     private int FirstTurnPlacedPeices = 0;
     [HideInInspector] public int TotalDice;
     [HideInInspector] public int Dice1FinalSide;
     [HideInInspector] public int Dice2FinalSide;
-     public int PlayedAmountInTurn = 0;
+    [HideInInspector] public int DicePlayedAmountInTurn = 0;
 
 
     public PlayerClass player;
@@ -60,9 +57,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject CityPrefab;
     [SerializeField] private GameObject ResourceGainPS;
     [SerializeField] private GameObject DustPS;
-    [SerializeField] private UnityEngine.UI.Image Dice1Image;
-    [SerializeField] private UnityEngine.UI.Image Dice2Image;
-    [SerializeField] private Sprite[] DiceSides;
+
 
 
     // "to be balanced" game parameters
@@ -71,7 +66,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private LevelConfig levelConfig; 
 
 
-    // prefabs losts
+    // prefabs lists
     [HideInInspector] public List<GameObject> CornersIndicatorsPrefabList = new List<GameObject>();
     [HideInInspector] public List<GameObject> SidesIndicatorsPrefabList = new List<GameObject>();
 
@@ -167,7 +162,7 @@ public class BoardManager : MonoBehaviour
         CurrentTurn = 0;
 
         
-        challenges.SetUpPlayerChallenges(player);
+        
         uiManager.SetUpUIManager(player);
 
         boonManager.setup();
@@ -175,7 +170,7 @@ public class BoardManager : MonoBehaviour
 
 
 
-        winning_condition2 = GetComponent<Winning_Condition2>();
+        winning_condition2 = GetComponent<Dynamic_WinningCondition>();
         winning_condition2.setup(TilesDictionary);
         mapGenerator.UpdateOwnedTilesVisuals();
 
@@ -202,7 +197,7 @@ public class BoardManager : MonoBehaviour
         Dice1FinalSide = Dice1;
         Dice2FinalSide = dice2;
         TotalDice = Dice1 + dice2;
-        PlayedAmountInTurn++;
+        DicePlayedAmountInTurn++;
 
         OnDicePlayed?.Invoke();
 
@@ -214,7 +209,7 @@ public class BoardManager : MonoBehaviour
     {
        // skillSlotManager.RollNewDice();
         CurrentTurn++;
-        PlayedAmountInTurn = 0;
+        DicePlayedAmountInTurn = 0;
         OnDiceRolled?.Invoke();
 
 

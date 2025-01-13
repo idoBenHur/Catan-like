@@ -13,7 +13,6 @@ public class UiManager : MonoBehaviour
 {
 
     //scripts 
-    public Challenges challenges;
     [SerializeField] BoonManager boonManager;
     [SerializeField] private Canvas MainCanvas;
     [SerializeField] private UIDrawer UIDrawer;
@@ -51,7 +50,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI oreText;
     [SerializeField] private TextMeshProUGUI wheatText;
     [SerializeField] private GameObject FloatingErrorTextPrefab;
-    [SerializeField] public Image diceBackground;
     [SerializeField] public GameObject TradePannel; //also used as a spawn points for flying icons when trading
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private GameObject VictoryScreen;
@@ -66,11 +64,7 @@ public class UiManager : MonoBehaviour
 
 
 
-    // challenge slider
 
-    [SerializeField] public Slider TurnSlider;
-    public RectTransform ChallengeSliderIndicator;
-    [SerializeField] private TextMeshProUGUI TurnLeftUntilChallengeText;
     [SerializeField] private TextMeshProUGUI TurnLeftUntilDeathText;
 
 
@@ -167,12 +161,12 @@ public class UiManager : MonoBehaviour
     public void SetUpUIManager(PlayerClass playerInstance)
     {
         player = playerInstance;
-        BoardManager.OnDiceRolled += UpdateTurnSliderDisplay;
+        BoardManager.OnDiceRolled += UpdateTurnSDisplay;
         player.OnResourcesChanged += ShowInteractableToggels;
 
         ShowInteractableToggels();
         UpdateResourceDisplay();  // Initial display update
-        UpdateTurnSliderDisplay(); // inital slider postioning
+        UpdateTurnSDisplay(); // inital slider postioning
 
         //inital update for total VP and next boon milestone
        // boonManager.CheckBoonMilestones(); 
@@ -187,7 +181,7 @@ public class UiManager : MonoBehaviour
         //{
         //    BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
         //}
-        BoardManager.OnDiceRolled -= UpdateTurnSliderDisplay;
+        BoardManager.OnDiceRolled -= UpdateTurnSDisplay;
         player.OnResourcesChanged -= ShowInteractableToggels;
     }
 
@@ -248,7 +242,9 @@ public class UiManager : MonoBehaviour
     }
 
 
-    // build roads/towns toggles
+
+    //////////////////
+    //build roads/towns toggles. THEY ARE REFRENCED FROM THE TOGGLE ITSELF
 
     public void ShowTownBuildIndicatorsToggle()
     {
@@ -431,8 +427,7 @@ public class UiManager : MonoBehaviour
     }
 
 
-
-    //
+    /////////////////////////////
 
 
 
@@ -526,41 +521,12 @@ public class UiManager : MonoBehaviour
 
 
 
-    public void UpdateTurnSliderDisplay()
+    public void UpdateTurnSDisplay()
     {
 
         int CurrentTurn= BoardManager.instance.CurrentTurn;
         int maxTurns = BoardManager.instance.MaxTurn;
-
-
-        TurnSlider.maxValue = maxTurns;
-        TurnSlider.value = CurrentTurn;
-
-        TurnLeftUntilDeathText.text = (maxTurns - CurrentTurn) + " Turns left";
-
-
-
-
-        // update challenge indicator text 
-
-        if((challenges.TsunamiChallengeTurn - CurrentTurn) <= 0)
-        {
-            TurnLeftUntilChallengeText.text = "Active!";
-        }
-        else { TurnLeftUntilChallengeText.text = (challenges.TsunamiChallengeTurn - CurrentTurn) + " Turns left"; }
-
-
-        // inital challenge icon placment
-        if (CurrentTurn == 0)
-        {
-            int challengeTurn = challenges.TsunamiChallengeTurn;
-            float reletivePostion = (float)challenges.TsunamiChallengeTurn / maxTurns;
-
-            ChallengeSliderIndicator.anchorMin = new Vector2(reletivePostion, ChallengeSliderIndicator.anchorMin.y);
-            ChallengeSliderIndicator.anchorMax = new Vector2(reletivePostion, ChallengeSliderIndicator.anchorMax.y);
-            ChallengeSliderIndicator.anchoredPosition = new Vector2(0, ChallengeSliderIndicator.anchoredPosition.y);
-        }
-
+        TurnLeftUntilDeathText.text = (maxTurns - CurrentTurn) + " Turns left!";
 
 
 
@@ -1049,7 +1015,7 @@ public class UiManager : MonoBehaviour
         PlacementPhaseScreen.SetActive(false);
     }
 
-    // win conditions
+ 
 
 
 

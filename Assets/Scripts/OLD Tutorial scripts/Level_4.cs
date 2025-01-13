@@ -56,25 +56,25 @@ public class Level_4 : MonoBehaviour
         if(currentTurn == 4)
         {
 
-            RectTransform ChallengeIndicator = BoardManager.instance.uiManager.ChallengeSliderIndicator;
+            //RectTransform ChallengeIndicator = BoardManager.instance.uiManager.ChallengeSliderIndicator;
 
-            CanvasGroup TooltipTransperancy = ChallengeToolTip.GetComponent<CanvasGroup>();
-            RectTransform TooltipScale = ChallengeToolTip.GetComponent<RectTransform>();
-            TooltipTransperancy.alpha = 0;
-            TooltipScale.localScale = Vector3.zero;
+            //CanvasGroup TooltipTransperancy = ChallengeToolTip.GetComponent<CanvasGroup>();
+            //RectTransform TooltipScale = ChallengeToolTip.GetComponent<RectTransform>();
+            //TooltipTransperancy.alpha = 0;
+            //TooltipScale.localScale = Vector3.zero;
 
-            TooltipScale.position = new Vector3(ChallengeIndicator.position.x, ChallengeIndicator.position.y -0.7f, ChallengeIndicator.position.z);
-            ChallengeToolTip.gameObject.SetActive(true);
+            //TooltipScale.position = new Vector3(ChallengeIndicator.position.x, ChallengeIndicator.position.y -0.7f, ChallengeIndicator.position.z);
+            //ChallengeToolTip.gameObject.SetActive(true);
 
 
-            DOVirtual.DelayedCall(0.5f, () =>
-            {
-                TooltipTransperancy.DOFade(1, 0.3f);
-                TooltipScale.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
-            });
+            //DOVirtual.DelayedCall(0.5f, () =>
+            //{
+            //    TooltipTransperancy.DOFade(1, 0.3f);
+            //    TooltipScale.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+            //});
 
-            BoardManager.OnDiceRolled -= ShowChallengeToolTip;
-            return;
+            //BoardManager.OnDiceRolled -= ShowChallengeToolTip;
+            //return;
 
 
 

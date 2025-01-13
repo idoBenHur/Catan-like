@@ -15,9 +15,9 @@ public class ResourcePayPrefab : MonoBehaviour
     private bool awardBoon = false;
     [HideInInspector] public int requiredAmount; // Set this dynamically when spawning the prefab
 
-    private Winning_Condition2 winningCondition2;
+    private Dynamic_WinningCondition winningCondition2;
 
-    public void Initialize(Winning_Condition2 manager, int amount, bool isHidden, bool giveBoon)
+    public void Initialize(Dynamic_WinningCondition manager, int amount, bool isHidden, bool giveBoon)
     {
         winningCondition2 = manager;
         requiredAmount = amount;
