@@ -454,49 +454,49 @@ public class UiManager : MonoBehaviour
                     });
                     break;
 
-                case ResourceType.Brick:
+                case ResourceType.Rum:
                     var brickicon = Instantiate(BrickFlyingIcon, spawnPosition, Quaternion.identity);
                     var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                     //var tweenBrick = brickicon.transform.DOMove(brickText.transform.position, 1).SetEase(Ease.InBack);
                     tweenBrick.OnComplete(() =>
                     {
-                        brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
+                        brickText.text = player.PlayerResources[ResourceType.Rum].ToString();
                         // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(brickicon);
                     });
                     break;
 
-                case ResourceType.Sheep:
+                case ResourceType.Gold:
                     var Sheepicon = Instantiate(SheepFlyingIcon, spawnPosition, Quaternion.identity);
                     var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                     //var tweenSheep = Sheepicon.transform.DOMove(sheepText.transform.position, 1).SetEase(Ease.InBack);
                     tweenSheep.OnComplete(() =>
                     {
-                        sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
+                        sheepText.text = player.PlayerResources[ResourceType.Gold].ToString();
                         // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Sheepicon);
                     });
                     break;
 
-                case ResourceType.Ore:
+                case ResourceType.Gem:
                     var Oreicon = Instantiate(OreFlyingIcon, spawnPosition, Quaternion.identity);
                     var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                     //var tweenOre = Oreicon.transform.DOMove(oreText.transform.position, 1).SetEase(Ease.InBack);
                     tweenOre.OnComplete(() =>
                     {
-                        oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
+                        oreText.text = player.PlayerResources[ResourceType.Gem].ToString();
                         // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Oreicon);
                     });
                     break;
 
-                case ResourceType.Wheat:
+                case ResourceType.Gunpowder:
                     var Wheaticon = Instantiate(WheatFlyingIcon, spawnPosition, Quaternion.identity);
                     var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 70).SetSpeedBased(true).SetEase(Ease.InQuint);
                     //var tweenWheat = Wheaticon.transform.DOMove(wheatText.transform.position, 1).SetEase(Ease.InBack);
                     tweenWheat.OnComplete(() =>
                     {
-                        wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
+                        wheatText.text = player.PlayerResources[ResourceType.Gunpowder].ToString();
                         // AudioManagerScript.instance.PlaySFX(AudioManagerScript.instance.ResourceGain);
                         Destroy(Wheaticon);
                     });
@@ -511,10 +511,10 @@ public class UiManager : MonoBehaviour
     public void UpdateResourceDisplay()
     {
         woodText.text = player.PlayerResources[ResourceType.Wood].ToString();
-        brickText.text = player.PlayerResources[ResourceType.Brick].ToString();
-        sheepText.text = player.PlayerResources[ResourceType.Sheep].ToString();
-        oreText.text = player.PlayerResources[ResourceType.Ore].ToString();
-        wheatText.text = player.PlayerResources[ResourceType.Wheat].ToString();
+        brickText.text = player.PlayerResources[ResourceType.Rum].ToString();
+        sheepText.text = player.PlayerResources[ResourceType.Gold].ToString();
+        oreText.text = player.PlayerResources[ResourceType.Gem].ToString();
+        wheatText.text = player.PlayerResources[ResourceType.Gunpowder].ToString();
 
     }
 
@@ -539,10 +539,8 @@ public class UiManager : MonoBehaviour
 
         {
             VictoryScreen.SetActive(true);
-
-            GameManager.Instance.FinishedLevel(SceneManager.GetActiveScene().buildIndex);
-
-
+            NEWGameManager.Instance.levelsCompleted++;
+          
         }
         else if (playerWon == false)
         {
@@ -555,28 +553,31 @@ public class UiManager : MonoBehaviour
     {
         DOTween.KillAll();
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        GameManager.Instance.RestartCurrentScene();
+        NEWGameManager.Instance.RestartCurrentScene();
     }
 
     public void NextSceneBUTTON()
     {
         DOTween.KillAll();
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
-        GameManager.Instance.NextScene();
+        
+        NEWGameManager.Instance.NextScene();
     }
 
     public void BackToMainMenuBUTTON()
     {
         DOTween.KillAll();
         //SceneManager.LoadScene(0);
-        GameManager.Instance.BackToMainMenu();
+        NEWGameManager.Instance.BackToMainMenu();
+
     }
 
     public void BackTLevelSelectionBUTTON()
     {
         DOTween.KillAll();
         // SceneManager.LoadScene(1);
-        GameManager.Instance.BackTLevelSelection();
+        NEWGameManager.Instance.BackTLevelSelection();
+
     }
 
     public void DiscordBUTTON()
@@ -613,26 +614,26 @@ public class UiManager : MonoBehaviour
         // trade with bank toggels:
 
         offerWoodToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wood, offerWoodToggle, true));
-        offerBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Brick, offerBrickToggle, true));
-        offerSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Sheep, offerSheepToggle, true));
-        offerOreToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Ore, offerOreToggle, true));
-        offerWheatToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wheat, offerWheatToggle, true));
+        offerBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Rum, offerBrickToggle, true));
+        offerSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Gold, offerSheepToggle, true));
+        offerOreToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Gem, offerOreToggle, true));
+        offerWheatToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Gunpowder, offerWheatToggle, true));
 
         requestWoodToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wood, requestWoodToggle,false));
-        requestBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Brick, requestBrickToggle, false));
-        requestSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Sheep, requestSheepToggle, false));
-        requestOreToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Ore, requestOreToggle, false));
-        requestWheatToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Wheat, requestWheatToggle, false));
+        requestBrickToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Rum, requestBrickToggle, false));
+        requestSheepToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Gold, requestSheepToggle, false));
+        requestOreToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Gem, requestOreToggle, false));
+        requestWheatToggle.onValueChanged.AddListener((isSelected) => SetTradeSelection(isSelected, ResourceType.Gunpowder, requestWheatToggle, false));
 
 
 
 
         // gain seven skill reawards button
         WoodRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Wood));
-        BrickRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Brick));
-        SheepRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Sheep));
-        OreRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Ore));
-        WheatRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Wheat));
+        BrickRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Rum));
+        SheepRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Gold));
+        OreRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Gem));
+        WheatRewardButton.onClick.AddListener(() => SevenSkillReward(ResourceType.Gunpowder));
 
 
 
@@ -722,10 +723,10 @@ public class UiManager : MonoBehaviour
 
 
         offerWoodToggle.interactable = CanOfferResource(ResourceType.Wood);
-        offerBrickToggle.interactable = CanOfferResource(ResourceType.Brick);
-        offerSheepToggle.interactable = CanOfferResource(ResourceType.Sheep);
-        offerOreToggle.interactable = CanOfferResource(ResourceType.Ore);
-        offerWheatToggle.interactable = CanOfferResource(ResourceType.Wheat);
+        offerBrickToggle.interactable = CanOfferResource(ResourceType.Rum);
+        offerSheepToggle.interactable = CanOfferResource(ResourceType.Gold);
+        offerOreToggle.interactable = CanOfferResource(ResourceType.Gem);
+        offerWheatToggle.interactable = CanOfferResource(ResourceType.Gunpowder);
 
 
 

@@ -37,9 +37,9 @@ public class LevelUnlockCheck : MonoBehaviour
 
     private void UnlockNewLevels()
     {
-        if(GameManager.Instance.GameState.CompletedLevelsBySceneNumber == null) { Debug.Log("empty"); return; }
+        if(OLDGameManager.Instance.GameState.CompletedLevelsBySceneNumber == null) { Debug.Log("empty"); return; }
 
-        foreach (var SceneIndex in GameManager.Instance.GameState.CompletedLevelsBySceneNumber)
+        foreach (var SceneIndex in OLDGameManager.Instance.GameState.CompletedLevelsBySceneNumber)
         {
             switch (SceneIndex)
             {

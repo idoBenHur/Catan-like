@@ -313,9 +313,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 490221796}
-  - component: {fileID: 490221797}
   m_Layer: 5
-  m_Name: Island 2 ui
+  m_Name: UI 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -341,21 +340,6 @@ RectTransform:
   m_AnchoredPosition: {x: 534, y: -220}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &490221797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 490221795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d061c39c01941542831af6c119b7f86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  islandNameTxt: {fileID: 48399325}
-  turnsTxt: {fileID: 1395710934}
-  resouurcesTxt: {fileID: 1857761980}
 --- !u!1 &620369327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,9 +1320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d061c39c01941542831af6c119b7f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandNameTxt: {fileID: 0}
-  turnsTxt: {fileID: 0}
-  resouurcesTxt: {fileID: 0}
+  islandNameTxt: {fileID: 48399325}
+  turnsTxt: {fileID: 1395710934}
+  resouurcesTxt: {fileID: 1857761980}
 --- !u!65 &1146621983
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1494,6 +1478,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208202987}
   m_CullTransparentMesh: 1
+--- !u!1 &1389941645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1389941647}
+  - component: {fileID: 1389941646}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1389941646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389941645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb3721219017a24bb5979847c566f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelsCompleted: 0
+--- !u!4 &1389941647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389941645}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.13294971, y: -0.85370934, z: -0.07964504}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1395710932
 GameObject:
   m_ObjectHideFlags: 0
@@ -46911,9 +46940,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1923103371}
-  - component: {fileID: 1923103372}
   m_Layer: 5
-  m_Name: Island 1 ui
+  m_Name: UI 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46939,21 +46967,6 @@ RectTransform:
   m_AnchoredPosition: {x: -550, y: -220}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1923103372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923103370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d061c39c01941542831af6c119b7f86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  islandNameTxt: {fileID: 2074279130}
-  turnsTxt: {fileID: 1592334445}
-  resouurcesTxt: {fileID: 1208202989}
 --- !u!1 &1970445555
 GameObject:
   m_ObjectHideFlags: 0
@@ -47000,9 +47013,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d061c39c01941542831af6c119b7f86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  islandNameTxt: {fileID: 0}
-  turnsTxt: {fileID: 0}
-  resouurcesTxt: {fileID: 0}
+  islandNameTxt: {fileID: 2074279130}
+  turnsTxt: {fileID: 1592334445}
+  resouurcesTxt: {fileID: 1208202989}
 --- !u!65 &1970445558
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47053,13 +47066,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f0ebbcf07328644a05f583139e1564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels:
+  Low_DifficultyLevels:
+  - {fileID: 11400000, guid: 4a3e8a08c90cabd479c58a3e26383e1a, type: 2}
   - {fileID: 11400000, guid: 5e86528d0004d224e8784ec30dae3765, type: 2}
   - {fileID: 11400000, guid: 2a7509385e8939242817e4f82738eeb9, type: 2}
-  - {fileID: 11400000, guid: dcad1c83d7a62be42bde16f6a8e0ad84, type: 2}
-  levelObjects:
-  - {fileID: 1923103372}
-  - {fileID: 490221797}
+  Mid_DifficultyLevels: []
+  High_DifficultyLevels: []
+  IslandPressingScripts:
+  - {fileID: 1970445557}
+  - {fileID: 1146621982}
 --- !u!4 &2033867260
 Transform:
   m_ObjectHideFlags: 0
@@ -47218,3 +47233,4 @@ SceneRoots:
   - {fileID: 1687969528}
   - {fileID: 782293373}
   - {fileID: 2033867260}
+  - {fileID: 1389941647}

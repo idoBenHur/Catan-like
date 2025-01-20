@@ -96,7 +96,7 @@ public class Winning_Condition4 : MonoBehaviour
 
         if (flagsFound == AmountOfFlagsToWin) 
         {
-            BoardManager.instance.uiManager.EndGame(true);
+           // BoardManager.instance.uiManager.EndGame(true);
         }
         
     }

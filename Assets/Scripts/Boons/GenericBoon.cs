@@ -391,7 +391,7 @@ public class GenericBoon : ScriptableObject
 
                 for (int i = 0; i < effect.value1; i++)
                 {
-                    var resources = new TileClass.ResourceType[] { TileClass.ResourceType.Wood, TileClass.ResourceType.Brick, TileClass.ResourceType.Sheep, TileClass.ResourceType.Ore, TileClass.ResourceType.Wheat };
+                    var resources = new TileClass.ResourceType[] { TileClass.ResourceType.Wood, TileClass.ResourceType.Rum, TileClass.ResourceType.Gold, TileClass.ResourceType.Gem, TileClass.ResourceType.Gunpowder };
                     int randomIndex = UnityEngine.Random.Range(1, 5);
                     var randomResource = resources[randomIndex];
                     sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
@@ -405,7 +405,7 @@ public class GenericBoon : ScriptableObject
                 {
                     if(tile.Value.resourceType == TileClass.ResourceType.Wood)
                     {
-                        tile.Value.resourceType = TileClass.ResourceType.Ore;
+                        tile.Value.resourceType = TileClass.ResourceType.Gem;
                         TempTileDic.Add(tile.Key,tile.Value);
                     }
                 }
@@ -454,24 +454,24 @@ public class GenericBoon : ScriptableObject
 
             case BoonEffect.EffectType.AddBrick: // gain Brick
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
-                BoardManager.instance.player.AddResource(TileClass.ResourceType.Brick, effect.value1, sourcePosition);
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Rum, effect.value1, sourcePosition);
                 break;
             case BoonEffect.EffectType.AddSheep: // gain Sheep
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
-                BoardManager.instance.player.AddResource(TileClass.ResourceType.Sheep, effect.value1, sourcePosition);
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Gold, effect.value1, sourcePosition);
                 break;
             case BoonEffect.EffectType.AddOre: // gain ore
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
-                BoardManager.instance.player.AddResource(TileClass.ResourceType.Ore, effect.value1, sourcePosition);
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Gem, effect.value1, sourcePosition);
                 break;
             case BoonEffect.EffectType.AddWheat: // gain wheat
                 sourcePosition = BoardManager.instance.uiManager.BoonIconsDisplayDic[this].transform.position;
-                BoardManager.instance.player.AddResource(TileClass.ResourceType.Wheat, effect.value1, sourcePosition);
+                BoardManager.instance.player.AddResource(TileClass.ResourceType.Gunpowder, effect.value1, sourcePosition);
                 break;
             case BoonEffect.EffectType.TransformWheatTilesToDesertTiles: // transform wheat tile to desert tiles
                 foreach(var tile in BoardManager.instance.TilesDictionary)
                 {
-                   if(tile.Value.resourceType == TileClass.ResourceType.Wheat)
+                   if(tile.Value.resourceType == TileClass.ResourceType.Gunpowder)
                     {
                         tile.Value.resourceType = TileClass.ResourceType.Desert;
                         tile.Value.numberToken = 7;
@@ -483,11 +483,11 @@ public class GenericBoon : ScriptableObject
             case BoonEffect.EffectType.TransformToSixAndTwo: // transform brick and wood to 2, and ore and wheat to 6
                 foreach (var tile in BoardManager.instance.TilesDictionary)
                 {
-                    if (tile.Value.resourceType == TileClass.ResourceType.Wheat || tile.Value.resourceType == TileClass.ResourceType.Ore)
+                    if (tile.Value.resourceType == TileClass.ResourceType.Gunpowder || tile.Value.resourceType == TileClass.ResourceType.Gem)
                     {
                         tile.Value.ChangeTileNumber(6);
                     }
-                    else if(tile.Value.resourceType == TileClass.ResourceType.Wood || tile.Value.resourceType == TileClass.ResourceType.Brick)
+                    else if(tile.Value.resourceType == TileClass.ResourceType.Wood || tile.Value.resourceType == TileClass.ResourceType.Rum)
                     {
                         tile.Value.ChangeTileNumber(2);
                     }

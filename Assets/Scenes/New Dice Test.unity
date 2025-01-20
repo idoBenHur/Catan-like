@@ -10208,7 +10208,7 @@ MonoBehaviour:
   DustPS: {fileID: 1687827067501573550, guid: 5e15cba7a5010da4dbe070a7bc0c58ee, type: 3}
   CurrentTurn: 0
   MaxTurn: 15
-  levelConfig: {fileID: 11400000, guid: 2a7509385e8939242817e4f82738eeb9, type: 2}
+  levelConfig: {fileID: 11400000, guid: dcad1c83d7a62be42bde16f6a8e0ad84, type: 2}
   CornersIndicatorsPrefabList: []
   SidesIndicatorsPrefabList: []
 --- !u!4 &240130133
@@ -10273,7 +10273,6 @@ MonoBehaviour:
   withHarbors: 0
   RandomHarborsPosition: 0
   RandomHarborsTypes: 0
-  levelConfig: {fileID: 11400000, guid: 2a7509385e8939242817e4f82738eeb9, type: 2}
   initialSettlements: []
   initialRoads: []
   availableNumbers:
@@ -10355,7 +10354,7 @@ MonoBehaviour:
   FloatingErrorTextPrefab: {fileID: 1954634889196204036, guid: 8f5c807f68a74694f8502e0c1219bf05, type: 3}
   TradePannel: {fileID: 751060042}
   GameOverScreen: {fileID: 1142476020}
-  VictoryScreen: {fileID: 1252701407}
+  VictoryScreen: {fileID: 1708407559}
   PlacementPhaseScreen: {fileID: 1299899788}
   Sevenflag: {fileID: 1459976858}
   NumbersFlag: {fileID: 9066862628740351056, guid: cb2bb741f39064b45925b49c7cb2d2de, type: 3}
@@ -16737,7 +16736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 810349294}
-  - component: {fileID: 810349293}
+  - component: {fileID: 810349295}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -16745,18 +16744,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &810349293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 810349292}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb3b814fe87fe3f4490367a07c6e278a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &810349294
 Transform:
   m_ObjectHideFlags: 0
@@ -16772,6 +16759,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &810349295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810349292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb3721219017a24bb5979847c566f1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelsCompleted: 0
 --- !u!114 &817895407 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8169650411757296615, guid: 78106f650cc95e44992792d301720c1b, type: 3}

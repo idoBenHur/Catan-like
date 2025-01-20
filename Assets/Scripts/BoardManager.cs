@@ -120,55 +120,51 @@ public class BoardManager : MonoBehaviour
 
     void Start()
     {
+        
 
-
-        if (GameManager.Instance.GameState.SeasonNumber == 0)
+        // getting the level config from the newgamemanager
+        if(NEWGameManager.Instance.NextLevelConfig != null)
         {
-            player = new PlayerClass();
-
-            if(levelConfig != null)
-            {
-                MaxTurn = levelConfig.turns;
-            }
-
-
-
-
-            mapGenerator.InitialBuildMap();
-
-
-            TilesDictionary = mapGenerator.InitialTilesDictionary;
-            CornersDic = mapGenerator.InitialCornersDic;
-            SidesDic = mapGenerator.InitialSidesDic;
-
-            mapGenerator.PlaceInitalSettelments();
-            mapGenerator.PlaceInitalRoads();
-            
-         //   if(FirstTurnIsActive == true) { FirstTurnPlacement(); }
-            
-
+            levelConfig = NEWGameManager.Instance.NextLevelConfig;
+            Debug.Log("chosen level config applied");
         }
         else
         {
-            player = GameManager.Instance.GameState.player;
-            TilesDictionary = GameManager.Instance.GameState.tilesDic;
-            CornersDic = GameManager.Instance.GameState.cornersDic;
-            SidesDic = GameManager.Instance.GameState.sidesDic;
-            mapGenerator.LoadMapVisuals(TilesDictionary);
-            FirstTurnIsActive = false;
+            Debug.Log("using defult level config");
+        }
+
+       if(levelConfig == null)
+        {
+            Debug.Log("defualt and chosene level config are missing");
+            return;
 
         }
 
-        CurrentTurn = 0;
+        player = new PlayerClass();
+        MaxTurn = levelConfig.turns;       
+        mapGenerator.InitialLevelConfigMap(levelConfig);
+
+
+
+
+
+
+        TilesDictionary = mapGenerator.InitialTilesDictionary;
+        CornersDic = mapGenerator.InitialCornersDic;
+        SidesDic = mapGenerator.InitialSidesDic;
+
+        mapGenerator.PlaceInitalSettelments();
+        mapGenerator.PlaceInitalRoads();
+            
+        //   if(FirstTurnIsActive == true) { FirstTurnPlacement(); }
+            
 
         
+        CurrentTurn = 0;     
         
         uiManager.SetUpUIManager(player);
 
         boonManager.setup();
-
-
-
 
         winning_condition2 = GetComponent<Dynamic_WinningCondition>();
         winning_condition2.setup(TilesDictionary);
@@ -227,18 +223,7 @@ public class BoardManager : MonoBehaviour
 
    
 
-    public void TemoraraytNextSceneButton()
-    {
-        GameManager.Instance.UpdatePlayer(player);
-        GameManager.Instance.UpdateTile(TilesDictionary);
-        GameManager.Instance.UpdateCorner(CornersDic);
-        GameManager.Instance.UpdateSide(SidesDic);
-        GameManager.Instance.NextSeason();
 
-        SceneManager.LoadScene(1);
-        
-
-    }
 
 
 

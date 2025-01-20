@@ -55,7 +55,6 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] bool withHarbors;
     [SerializeField] bool RandomHarborsPosition;
     [SerializeField] bool RandomHarborsTypes;
-    [SerializeField] private LevelConfig levelConfig;
 
 
     private List<(CornersClass, CornersClass)> HarborCornersPairs;
@@ -94,16 +93,12 @@ public class MapGenerator : MonoBehaviour
 
 
     // Main function to initiate the map generation process (called from board manager)
-    public void InitialBuildMap()
+    public void InitialLevelConfigMap(LevelConfig levelconfig)
     {
 
-        if (levelConfig == null)
-        {
-            Debug.LogError("LevelConfig is not assigned!");
-            return;
-        }
 
-        ResourcesOnTheMapList.AddRange(levelConfig.resources);
+
+        ResourcesOnTheMapList.AddRange(levelconfig.resources);
 
 
 
@@ -251,16 +246,16 @@ public class MapGenerator : MonoBehaviour
                 case TileClass.ResourceType.Wood:
                     BaseTilemap.SetTile(position, woodTile);
                     break;
-                case TileClass.ResourceType.Brick:
+                case TileClass.ResourceType.Rum:
                     BaseTilemap.SetTile(position, brickTile);
                     break;
-                case TileClass.ResourceType.Wheat:
+                case TileClass.ResourceType.Gunpowder:
                     BaseTilemap.SetTile(position, wheatTile);
                     break;
-                case TileClass.ResourceType.Ore:
+                case TileClass.ResourceType.Gem:
                     BaseTilemap.SetTile(position, oreTile);
                     break;
-                case TileClass.ResourceType.Sheep:
+                case TileClass.ResourceType.Gold:
                     BaseTilemap.SetTile(position, sheepTile);
                     break;
                 case TileClass.ResourceType.Desert:
@@ -1056,19 +1051,19 @@ public class MapGenerator : MonoBehaviour
 
 
                     break;
-                case ResourceType.Brick:
+                case ResourceType.Rum:
                     BottomObjectsTileMap.SetTile(tile.TilePostion, rumBottom);
                     break;
-                case ResourceType.Sheep:
+                case ResourceType.Gold:
                     TopObjectsTileMap.SetTile(tile.TilePostion, goldTop);
                     BottomObjectsTileMap.SetTile(tile.TilePostion, goldBottom);
                     break;
-                case ResourceType.Wheat:
+                case ResourceType.Gunpowder:
                     TopObjectsTileMap.SetTile(tile.TilePostion, gunpowderTop);
                     BottomObjectsTileMap.SetTile(tile.TilePostion, gunpowderBottom);
 
                     break;
-                case ResourceType.Ore:
+                case ResourceType.Gem:
                     TopObjectsTileMap.SetTile(tile.TilePostion, gemsTop);
                     BottomObjectsTileMap.SetTile(tile.TilePostion, gemsBottom);
 

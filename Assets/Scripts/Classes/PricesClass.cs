@@ -8,28 +8,28 @@ public class PricesClass
     public static readonly Dictionary<ResourceType, int> RoadCost = new Dictionary<ResourceType, int>
     {
         { ResourceType.Wood, 1 },
-        { ResourceType.Brick, 1 }
+        { ResourceType.Rum, 1 }
     };
 
     public static readonly Dictionary<ResourceType, int> TownCost = new Dictionary<ResourceType, int>
     {
         { ResourceType.Wood, 1 },
-        { ResourceType.Brick, 1 },
-        { ResourceType.Sheep, 1 },
-        { ResourceType.Wheat, 1 }
+        { ResourceType.Rum, 1 },
+        { ResourceType.Gold, 1 },
+        { ResourceType.Gunpowder, 1 }
     };
 
     public static readonly Dictionary<ResourceType, int> CityCost = new Dictionary<ResourceType, int>
     {
-        { ResourceType.Ore, 2 },
-        { ResourceType.Wheat, 2 }
+        { ResourceType.Gem, 2 },
+        { ResourceType.Gunpowder, 2 }
     };
 
     public static readonly Dictionary<ResourceType, int> MeterUpgrade = new Dictionary<ResourceType, int>
     {
-        { ResourceType.Ore, 1 },
-        { ResourceType.Wheat, 1 },
-        { ResourceType.Sheep, 1 }
+        { ResourceType.Gem, 1 },
+        { ResourceType.Gunpowder, 1 },
+        { ResourceType.Gold, 1 }
     };
 
     public static readonly Dictionary<ResourceType, int> RemoveFog = new Dictionary<ResourceType, int>

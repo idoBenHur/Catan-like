@@ -82,12 +82,12 @@ public class PauseMenuScript : MonoBehaviour
 
     public void RestartCurrentSceneBUTTON()
     {
-        GameManager.Instance.RestartCurrentScene();
+        NEWGameManager.Instance.RestartCurrentScene();
     }
 
     public void BackToMainMenuBUTTON()
     {
-        GameManager.Instance.BackToMainMenu();
+        NEWGameManager.Instance.BackToMainMenu();
 
     }
 
@@ -103,7 +103,7 @@ public class PauseMenuScript : MonoBehaviour
 
         foreach (int number in AllLevelsScenesIndexesList)
         {
-            GameManager.Instance.GameState.CompletedLevelsBySceneNumber.Add(number);
+            OLDGameManager.Instance.GameState.CompletedLevelsBySceneNumber.Add(number);
         }
 
 

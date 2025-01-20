@@ -6,7 +6,7 @@ using UnityEngine;
 public class TileClass
 {
     // Enum for resource types available in the game
-    public enum ResourceType { Wood, Brick, Sheep, Ore, Wheat, Desert}
+    public enum ResourceType { Wood, Rum, Gold, Gem, Gunpowder, Desert}
 
     // Public properties
     public ResourceType resourceType { get; set; } // The type of resource this tile produces

@@ -16,37 +16,38 @@ public class LevelSelectButtons : MonoBehaviour
 
 
 
-
     private Transform TileMapParent;
     private Vector3 startingScale;
-    private LevelConfig levelConfig;
+    private LevelConfig ChosenlevelConfig;
 
 
     void Start()
     {
         TileMapParent = GetComponent<Transform>();
         startingScale = TileMapParent.localScale;
+
     }
 
     public void AssignLevelConfig(LevelConfig config)
     {
-        levelConfig = config; // Assign the levelConfig dynamically
+       
 
-        turnsTxt.text = $"Turns: {levelConfig.turns}";
+        ChosenlevelConfig = config; // Assign the levelConfig dynamically
+
+        turnsTxt.text = $"Turns: {ChosenlevelConfig.turns}";
 
 
         string result = "Resources: ";
-
-        foreach (var resourcePair in levelConfig.resources)
+        foreach (var resourcePair in ChosenlevelConfig.resources)
         {
 
             string spriteTag = resourcePair.ResourceType switch
             {
                 TileClass.ResourceType.Wood => "<sprite name=wood>",
-                TileClass.ResourceType.Brick => "<sprite name=rum>",
-                TileClass.ResourceType.Wheat => "<sprite name=gunpowder>",
-                TileClass.ResourceType.Ore => "<sprite name=gem>",
-                TileClass.ResourceType.Sheep => "<sprite name=gold>",
+                TileClass.ResourceType.Rum => "<sprite name=rum>",
+                TileClass.ResourceType.Gunpowder => "<sprite name=gunpowder>",
+                TileClass.ResourceType.Gem => "<sprite name=gem>",
+                TileClass.ResourceType.Gold => "<sprite name=gold>",
                 _ => ""
             };
 
@@ -59,7 +60,6 @@ public class LevelSelectButtons : MonoBehaviour
 
 
     }
-
 
 
 
@@ -80,12 +80,23 @@ public class LevelSelectButtons : MonoBehaviour
     {
         TileMapParent.DOScale(startingScale, 0.2f);
 
+
     }
 
     void OnMouseDown()
     {
 
-        Debug.Log("click");
+        if (ChosenlevelConfig != null)
+        {
+            
+            NEWGameManager.Instance.SavePickedLevel(ChosenlevelConfig); // Store the selected level in the GameManager
+            
+        }
+        else
+        {
+            Debug.LogError("No LevelConfig assigned to this object!");
+        }
+
 
     }
 }

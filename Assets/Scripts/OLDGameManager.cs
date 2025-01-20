@@ -23,9 +23,9 @@ public class GameState
 
 }
 
-public class GameManager : MonoBehaviour
+public class OLDGameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static OLDGameManager Instance;
 
     private GameState gameState;
 

@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2408ba593e53ba4ebfc1614edbad659, type: 3}
-  m_Name: 1
+  m_Name: Skewed Balance
   m_EditorClassIdentifier: 
-  turns: 1
+  turns: 17
   resources:
   - ResourceType: 0
-    Quantity: 8
+    Quantity: 10
   - ResourceType: 1
-    Quantity: 8
+    Quantity: 9
   - ResourceType: 2
-    Quantity: 7
+    Quantity: 8
   - ResourceType: 4
-    Quantity: 8
+    Quantity: 7
   - ResourceType: 3
-    Quantity: 8
+    Quantity: 5

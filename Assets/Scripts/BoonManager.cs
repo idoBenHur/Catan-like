@@ -194,10 +194,10 @@ public class BoonManager : MonoBehaviour
 
         TileClass.ResourceType[] resourceTypes = {
         TileClass.ResourceType.Wood,
-        TileClass.ResourceType.Brick,
-        TileClass.ResourceType.Sheep,
-        TileClass.ResourceType.Ore,
-        TileClass.ResourceType.Wheat
+        TileClass.ResourceType.Rum,
+        TileClass.ResourceType.Gold,
+        TileClass.ResourceType.Gem,
+        TileClass.ResourceType.Gunpowder
     };
 
         // Dictionary to group resources by type
@@ -223,10 +223,10 @@ public class BoonManager : MonoBehaviour
                 type = randomType switch
                 {
                     TileClass.ResourceType.Wood => BoonEffect.EffectType.AddWood,
-                    TileClass.ResourceType.Brick => BoonEffect.EffectType.AddBrick,
-                    TileClass.ResourceType.Sheep => BoonEffect.EffectType.AddSheep,
-                    TileClass.ResourceType.Ore => BoonEffect.EffectType.AddOre,
-                    TileClass.ResourceType.Wheat => BoonEffect.EffectType.AddWheat,
+                    TileClass.ResourceType.Rum => BoonEffect.EffectType.AddBrick,
+                    TileClass.ResourceType.Gold => BoonEffect.EffectType.AddSheep,
+                    TileClass.ResourceType.Gem => BoonEffect.EffectType.AddOre,
+                    TileClass.ResourceType.Gunpowder => BoonEffect.EffectType.AddWheat,
                     _ => BoonEffect.EffectType.AddWood
                 },
                 value1 = randomAmount
@@ -244,10 +244,10 @@ public class BoonManager : MonoBehaviour
                 string icon = kvp.Key switch
                 {
                     TileClass.ResourceType.Wood => "<sprite name=wood>",
-                    TileClass.ResourceType.Brick => "<sprite name=rum>",
-                    TileClass.ResourceType.Sheep => "<sprite name=gold>",
-                    TileClass.ResourceType.Ore => "<sprite name=gem>",
-                    TileClass.ResourceType.Wheat => "<sprite name=gunpowder>",
+                    TileClass.ResourceType.Rum => "<sprite name=rum>",
+                    TileClass.ResourceType.Gold => "<sprite name=gold>",
+                    TileClass.ResourceType.Gem => "<sprite name=gem>",
+                    TileClass.ResourceType.Gunpowder => "<sprite name=gunpowder>",
                     _ => "?"
                 };
 
@@ -271,16 +271,16 @@ public class BoonManager : MonoBehaviour
                 boardManager.player.AddResource(TileClass.ResourceType.Wood, effect.value1, Vector3.zero);
                 break;
             case BoonEffect.EffectType.AddBrick:
-                boardManager.player.AddResource(TileClass.ResourceType.Brick, effect.value1, Vector3.zero);
+                boardManager.player.AddResource(TileClass.ResourceType.Rum, effect.value1, Vector3.zero);
                 break;
             case BoonEffect.EffectType.AddSheep:
-                boardManager.player.AddResource(TileClass.ResourceType.Sheep, effect.value1, Vector3.zero);
+                boardManager.player.AddResource(TileClass.ResourceType.Gold, effect.value1, Vector3.zero);
                 break;
             case BoonEffect.EffectType.AddOre:
-                boardManager.player.AddResource(TileClass.ResourceType.Ore, effect.value1, Vector3.zero);
+                boardManager.player.AddResource(TileClass.ResourceType.Gem, effect.value1, Vector3.zero);
                 break;
             case BoonEffect.EffectType.AddWheat:
-                boardManager.player.AddResource(TileClass.ResourceType.Wheat, effect.value1, Vector3.zero);
+                boardManager.player.AddResource(TileClass.ResourceType.Gunpowder, effect.value1, Vector3.zero);
                 break;
         }
     }

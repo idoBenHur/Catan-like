@@ -30,17 +30,17 @@ public class ResourceSelection
     {
         List<ResourceType> selectedResourceTypes = new List<ResourceType>();
         if (Wood) selectedResourceTypes.Add(ResourceType.Wood);
-        if (Brick) selectedResourceTypes.Add(ResourceType.Brick);
-        if (Sheep) selectedResourceTypes.Add(ResourceType.Sheep);
-        if (Ore) selectedResourceTypes.Add(ResourceType.Ore);
-        if (Wheat) selectedResourceTypes.Add(ResourceType.Wheat);
+        if (Brick) selectedResourceTypes.Add(ResourceType.Rum);
+        if (Sheep) selectedResourceTypes.Add(ResourceType.Gold);
+        if (Ore) selectedResourceTypes.Add(ResourceType.Gem);
+        if (Wheat) selectedResourceTypes.Add(ResourceType.Gunpowder);
 
 
         // If no resources are selected, the method will randomly pick resources.
         // Duplicate resources are not added, so the number of different resources selected will vary each time (up to 5) (becuase they are pick randomly).
         if (selectedResourceTypes.Count == 0)
         {
-            ResourceType[] allResources = { ResourceType.Wood, ResourceType.Brick, ResourceType.Sheep, ResourceType.Ore, ResourceType.Wheat };
+            ResourceType[] allResources = { ResourceType.Wood, ResourceType.Rum, ResourceType.Gold, ResourceType.Gem, ResourceType.Gunpowder };
             System.Random rng = new System.Random();
 
             
@@ -108,10 +108,10 @@ public class Dynamic_WinningCondition : MonoBehaviour
     public void setup(Dictionary<Vector3Int, TileClass> dic)
     {
         resourcePrefabDictionary.Add(ResourceType.Wood, woodPrefab);
-        resourcePrefabDictionary.Add(ResourceType.Brick, BrickPrefab);
-        resourcePrefabDictionary.Add(ResourceType.Sheep, SheepPrefab);
-        resourcePrefabDictionary.Add(ResourceType.Ore, OrePrefab);
-        resourcePrefabDictionary.Add(ResourceType.Wheat, WheatPrefab);
+        resourcePrefabDictionary.Add(ResourceType.Rum, BrickPrefab);
+        resourcePrefabDictionary.Add(ResourceType.Gold, SheepPrefab);
+        resourcePrefabDictionary.Add(ResourceType.Gem, OrePrefab);
+        resourcePrefabDictionary.Add(ResourceType.Gunpowder, WheatPrefab);
 
 
 
