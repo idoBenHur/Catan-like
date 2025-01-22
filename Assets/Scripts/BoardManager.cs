@@ -28,7 +28,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] public SkillSlotManager skillSlotManager;
     private Winning_condition3 WinningCondition_3; //test
                                                    // private Winning_Condition4 winningCondition_4;
-    private Dynamic_WinningCondition winning_condition2;
+    private Dynamic_WinningCondition Dynamic_WinCondition;
 
 
 
@@ -163,11 +163,10 @@ public class BoardManager : MonoBehaviour
         CurrentTurn = 0;     
         
         uiManager.SetUpUIManager(player);
-
         boonManager.setup();
 
-        winning_condition2 = GetComponent<Dynamic_WinningCondition>();
-        winning_condition2.setup(TilesDictionary);
+        Dynamic_WinCondition = GetComponent<Dynamic_WinningCondition>();
+        Dynamic_WinCondition.setup(TilesDictionary);
         mapGenerator.UpdateOwnedTilesVisuals();
 
 

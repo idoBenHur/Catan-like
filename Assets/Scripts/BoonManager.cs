@@ -58,6 +58,49 @@ public class BoonManager : MonoBehaviour
 
 
 
+    public void LoadOwnedBoons()
+    {
+        var ownedboons = new List<GenericBoon>(NEWGameManager.Instance.OwnedBoons);
+
+        if (dicebox == null)
+        {
+            dicebox = boardManager.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox] as DiceBox_Skill;
+        }
+
+
+
+        foreach (var boon in ownedboons) 
+        {
+            AvailableBoons.Remove(boon);
+            dicebox.AddSpecialDiceToPool(boon);
+            activeBoons.Add(boon);
+            boon.StoreValues();
+
+            if (boon.isCounting == true) { uiManager.UpdateBoonCounter(boon, 0); }
+            uiManager.AddAndRemoveActiveBoonsDisplay(boon, true);
+
+        }
+
+        
+
+
+    }
+
+
+    public void SaveBoonsForNextLevel()
+    {
+        foreach (var boon in activeBoons)
+        {
+            if(NEWGameManager.Instance.OwnedBoons.Contains(boon) == false)
+            {
+                NEWGameManager.Instance.OwnedBoons.Add(boon);
+            }
+        }
+    }
+
+
+
+
 
     // Prepares and displays boon choices for the player.
     public void GiveBoon()

@@ -538,8 +538,13 @@ public class UiManager : MonoBehaviour
         if (playerWon == true)
 
         {
-            VictoryScreen.SetActive(true);
             NEWGameManager.Instance.levelsCompleted++;
+            BoardManager.instance.boonManager.SaveBoonsForNextLevel();
+            VictoryScreen.SetActive(true);
+
+
+            VictoryScreen.GetComponentInChildren<TextMeshProUGUI>().text = $"Island completed:{NEWGameManager.Instance.levelsCompleted}";
+
           
         }
         else if (playerWon == false)

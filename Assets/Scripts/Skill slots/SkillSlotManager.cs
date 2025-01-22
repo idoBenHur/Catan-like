@@ -22,6 +22,7 @@ public class SkillSlotManager : MonoBehaviour
 
         BoardManager.OnTownBuilt += allDicesOutcome;
 
+        BoardManager.instance.boonManager.LoadOwnedBoons(); // need to happen after the dicebox is in the skill slot dic
 
     }
 

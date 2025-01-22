@@ -12,6 +12,8 @@ public class NEWGameManager : MonoBehaviour
 
     [HideInInspector] public int levelsCompleted;
 
+    [HideInInspector] public List<GenericBoon> OwnedBoons;
+
 
     void Awake()
     {
