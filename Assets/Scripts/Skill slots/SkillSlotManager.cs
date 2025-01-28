@@ -6,8 +6,35 @@ using UnityEngine.UI;
 
 public class SkillSlotManager : MonoBehaviour
 {
-    public AbstractSkillSlot[] Allslots; // Reference to all slots in the scene
+
+    public CharacterConfig CharacterConfig;
+    [SerializeField]private AbstractSkillSlot[] CommonSlots;
+    [SerializeField] private Transform SlotsParent;
+
+    //public AbstractSkillSlot[] Allslots; // Reference to all slots in the scene
     [HideInInspector] public Dictionary<SkillName, AbstractSkillSlot> SkillSlotsDictionary = new Dictionary<SkillName, AbstractSkillSlot>();
+
+
+
+
+
+
+
+
+
+    public void SpawnCharacterSlots()
+    {
+
+        var slotInstance = Instantiate(CharacterConfig.UniqueSlot, SlotsParent);
+        SkillSlotsDictionary[CharacterConfig.UniqueSlot.SkillName] = slotInstance;
+    }
+
+
+
+
+
+
+
 
 
 
@@ -15,12 +42,21 @@ public class SkillSlotManager : MonoBehaviour
     private void Start()
     {
 
-        foreach (var skillSlot in Allslots)
+        foreach (var skillSlot in CommonSlots)
         {
             SkillSlotsDictionary[skillSlot.SkillName] = skillSlot;
         }
 
-        BoardManager.OnTownBuilt += allDicesOutcome;
+        SpawnCharacterSlots();
+
+
+
+        //foreach (var skillSlot in Allslots)
+        //{
+        //    SkillSlotsDictionary[skillSlot.SkillName] = skillSlot;
+        //}
+
+        BoardManager.OnTownBuilt += allDicesOutcome; // dont remember why. should check it
 
         BoardManager.instance.boonManager.LoadOwnedBoons(); // need to happen after the dicebox is in the skill slot dic
 
@@ -43,7 +79,7 @@ public class SkillSlotManager : MonoBehaviour
 
 
 
-        foreach (var slot in Allslots)
+        foreach (var slot in SkillSlotsDictionary.Values)
         {
             if(slot.DestroyDiceInsideUponRoll == true)
             {

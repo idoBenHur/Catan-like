@@ -10409,6 +10409,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22b9437a8f988d4daa85dc39d4f2466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterConfig: {fileID: 0}
+  CommonSlots:
+  - {fileID: 439090090}
+  - {fileID: 416424959}
+  - {fileID: 1887304890}
+  SlotsParent: {fileID: 0}
   Allslots:
   - {fileID: 416424959}
   - {fileID: 439090090}
@@ -30423,10 +30429,6 @@ PrefabInstance:
     - target: {fileID: 345545293381250564, guid: 59f4b951f15b11847b0cc5613dbdb1ff, type: 3}
       propertyPath: m_Name
       value: Bank_Skill
-      objectReference: {fileID: 0}
-    - target: {fileID: 345545293381250564, guid: 59f4b951f15b11847b0cc5613dbdb1ff, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5165708006722425604, guid: 59f4b951f15b11847b0cc5613dbdb1ff, type: 3}
       propertyPath: dicebox

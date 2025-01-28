@@ -7,7 +7,7 @@ public class DiceBox_Skill : AbstractSkillSlot
 {
     [SerializeField] private GameObject DicePrefab;
     private int DiceAmoutEachTurn;
-    [SerializeField ] private AbstractSkillSlot bankSlot;
+    private AbstractSkillSlot bankSlot;
     private List<GenericBoon> SpecialDicePool = new List<GenericBoon>();
     private GenericBoon NormalDie;
 
@@ -129,16 +129,6 @@ public class DiceBox_Skill : AbstractSkillSlot
 
 
 
-
-
-
-
-
-
-
-
-
-
     public void MoveDiceToBank() 
     {
 
@@ -155,12 +145,22 @@ public class DiceBox_Skill : AbstractSkillSlot
     public override void DestroyAllDiceInSlot() 
     {
 
+
+        if (BoardManager.instance.skillSlotManager.SkillSlotsDictionary.TryGetValue(SkillName.Bank, out var foundBankSlot))
+        {
+            bankSlot = foundBankSlot; // Assign the value if the key exists
+            Debug.Log($"its max {bankSlot.MaxDiceCap}");
+        }
+
+    
+
         if (bankSlot != null)
         {
             if (bankSlot.DiceInSlotList.Count == 0 && this.DiceInSlotList.Count > 0)
             {
-
+                
                 MoveDiceToBank();
+                Debug.Log("end?");
             }
         }
         else

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Bank_Skill : AbstractSkillSlot
 {
-    [SerializeField] AbstractSkillSlot dicebox;
+    private AbstractSkillSlot dicebox;
 
 
+    
     private void Start()
     {
         MaxDiceCap = 1;
         DestroyDiceInsideUponRoll = false;
 
+        dicebox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox];
     }
 
     public override bool CanAcceptDice(TheDiceScript dice)
     {
-            
         if (DiceInSlotList.Count == MaxDiceCap)
         {
-
 
             dicebox.AddDiceToSlotList(DiceInSlotList[0]);
             this.RemoveDiceFromDiceList(DiceInSlotList[0]);
