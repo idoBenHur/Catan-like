@@ -10,9 +10,11 @@ public class NEWGameManager : MonoBehaviour
 
     [HideInInspector] public LevelConfig NextLevelConfig { get; private set; }
 
+    [HideInInspector] public CharacterConfig Pirate { get; private set;}
+
     [HideInInspector] public int levelsCompleted;
 
-    [HideInInspector] public List<GenericBoon> OwnedBoons;
+    [HideInInspector] public List<GenericBoon> OwnedBoons { get; private set; }
 
 
     void Awake()
@@ -37,7 +39,10 @@ public class NEWGameManager : MonoBehaviour
 
 
 
-
+    public void AddBoonToOwnedBoons(GenericBoon BoonToAdd)
+    {
+        OwnedBoons.Add(BoonToAdd);
+    }
 
     public void SavePickedLevel(LevelConfig levelConfig) // savve the level copnfig of the chosen level.
     {
@@ -46,6 +51,24 @@ public class NEWGameManager : MonoBehaviour
     }
 
 
+    public void SavePickedPirate(CharacterConfig chosenPirate)
+    {
+        Pirate = chosenPirate;
+
+        if(Pirate.UniqueDice != null)
+        {
+            foreach (var uniqeDie in Pirate.UniqueDice)
+            {
+                AddBoonToOwnedBoons(uniqeDie);
+            }
+
+        }
+        //
+
+        DOTween.KillAll();
+        GoToLevelSelection();
+    }
+
 
     private void GoToGameplayScene()
     {
@@ -53,7 +76,7 @@ public class NEWGameManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
-    public void BackTLevelSelection()
+    public void GoToLevelSelection()
     {
         Time.timeScale = 1f;
         DOTween.KillAll();

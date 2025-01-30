@@ -12,8 +12,11 @@ public class Bank_Skill : AbstractSkillSlot
     {
         MaxDiceCap = 1;
         DestroyDiceInsideUponRoll = false;
+        if(BoardManager.instance != null)
+        {
+            dicebox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox];
 
-        dicebox = BoardManager.instance.skillSlotManager.SkillSlotsDictionary[SkillName.DiceBox];
+        }
     }
 
     public override bool CanAcceptDice(TheDiceScript dice)

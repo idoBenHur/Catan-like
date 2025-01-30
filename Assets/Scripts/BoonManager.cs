@@ -93,7 +93,7 @@ public class BoonManager : MonoBehaviour
         {
             if(NEWGameManager.Instance.OwnedBoons.Contains(boon) == false)
             {
-                NEWGameManager.Instance.OwnedBoons.Add(boon);
+                NEWGameManager.Instance.AddBoonToOwnedBoons(boon);
             }
         }
     }

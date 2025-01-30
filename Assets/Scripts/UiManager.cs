@@ -581,7 +581,7 @@ public class UiManager : MonoBehaviour
     {
         DOTween.KillAll();
         // SceneManager.LoadScene(1);
-        NEWGameManager.Instance.BackTLevelSelection();
+        NEWGameManager.Instance.GoToLevelSelection();
 
     }
 

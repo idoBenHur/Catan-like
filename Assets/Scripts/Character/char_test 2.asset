@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 137b6d16af766c54f9eb662156b67ed0, type: 3}
-  m_Name: char_test
+  m_Name: char_test 2
   m_EditorClassIdentifier: 
-  PirateName: First test
-  pirateImage: {fileID: 21300000, guid: a4912693f47371c4b8d6c02f10607a80, type: 3}
-  description: i like banana
+  PirateName: second test
+  pirateImage: {fileID: 21300000, guid: 21ad236bb412d2647b4d764de239373e, type: 3}
+  description: i REALLY like banana
   NormalDiceCount: 3
-  UniqueSlot: {fileID: 4395981155249998767, guid: 03ca3636e14f8204cb497b766a142bcf, type: 3}
+  UniqueSlot: {fileID: 681408411491309480, guid: c36bbfb1bdf8cc0429905ab90386ca97, type: 3}
   UniqueDice:
-  - {fileID: 11400000, guid: c92b1f2b80696764d8b91acb3bfd6932, type: 2}
+  - {fileID: 11400000, guid: 49f5b32f2b4951247af8eff2c1979ecb, type: 2}

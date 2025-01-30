@@ -7,33 +7,12 @@ using UnityEngine.UI;
 public class SkillSlotManager : MonoBehaviour
 {
 
-    public CharacterConfig CharacterConfig;
+    public CharacterConfig DefultCharacterConfig;
     [SerializeField]private AbstractSkillSlot[] CommonSlots;
     [SerializeField] private Transform SlotsParent;
 
     //public AbstractSkillSlot[] Allslots; // Reference to all slots in the scene
     [HideInInspector] public Dictionary<SkillName, AbstractSkillSlot> SkillSlotsDictionary = new Dictionary<SkillName, AbstractSkillSlot>();
-
-
-
-
-
-
-
-
-
-    public void SpawnCharacterSlots()
-    {
-
-        var slotInstance = Instantiate(CharacterConfig.UniqueSlot, SlotsParent);
-        SkillSlotsDictionary[CharacterConfig.UniqueSlot.SkillName] = slotInstance;
-    }
-
-
-
-
-
-
 
 
 
@@ -58,9 +37,38 @@ public class SkillSlotManager : MonoBehaviour
 
         BoardManager.OnTownBuilt += allDicesOutcome; // dont remember why. should check it
 
-        BoardManager.instance.boonManager.LoadOwnedBoons(); // need to happen after the dicebox is in the skill slot dic
+        BoardManager.instance.boonManager.LoadOwnedBoons(); // need to happen after the dicebox is in the skill slot dic. so it can add the dice to the player
 
     }
+
+
+    public void SpawnCharacterSlots()
+    {
+        AbstractSkillSlot slotInstance;
+
+        if (NEWGameManager.Instance.Pirate != null)
+        {
+            Debug.Log("picked slot worked");
+            slotInstance = Instantiate(NEWGameManager.Instance.Pirate.UniqueSlot, SlotsParent);
+            SkillSlotsDictionary[NEWGameManager.Instance.Pirate.UniqueSlot.SkillName] = slotInstance;
+        }
+        else
+        {
+            //defult for testing
+            slotInstance = Instantiate(DefultCharacterConfig.UniqueSlot, SlotsParent);
+            SkillSlotsDictionary[DefultCharacterConfig.UniqueSlot.SkillName] = slotInstance;
+        }
+
+
+
+
+        
+
+    }
+
+
+
+
 
     private void OnDestroy()
     {

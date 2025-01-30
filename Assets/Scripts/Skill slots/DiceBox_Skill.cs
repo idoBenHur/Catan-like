@@ -149,7 +149,6 @@ public class DiceBox_Skill : AbstractSkillSlot
         if (BoardManager.instance.skillSlotManager.SkillSlotsDictionary.TryGetValue(SkillName.Bank, out var foundBankSlot))
         {
             bankSlot = foundBankSlot; // Assign the value if the key exists
-            Debug.Log($"its max {bankSlot.MaxDiceCap}");
         }
 
     
@@ -160,12 +159,10 @@ public class DiceBox_Skill : AbstractSkillSlot
             {
                 
                 MoveDiceToBank();
-                Debug.Log("end?");
             }
         }
         else
         {
-            Debug.Log("bank slot is null");
         }
 
 
