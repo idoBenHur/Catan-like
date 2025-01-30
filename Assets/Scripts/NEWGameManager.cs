@@ -23,7 +23,7 @@ public class NEWGameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
+            OwnedBoons = new List<GenericBoon>(); // Initialize here
 
             //
         }
@@ -54,9 +54,13 @@ public class NEWGameManager : MonoBehaviour
     public void SavePickedPirate(CharacterConfig chosenPirate)
     {
         Pirate = chosenPirate;
+        
+
+       
 
         if(Pirate.UniqueDice != null)
         {
+
             foreach (var uniqeDie in Pirate.UniqueDice)
             {
                 AddBoonToOwnedBoons(uniqeDie);
