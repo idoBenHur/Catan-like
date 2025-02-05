@@ -29,6 +29,17 @@ public class SkillSlotManager : MonoBehaviour
         SpawnCharacterSlots();
 
 
+        //if (SkillSlotsDictionary.TryGetValue(SkillName.DiceBox, out AbstractSkillSlot slot))
+        //{
+        //    if (slot is DiceBox_Skill dicebox)
+        //    {
+        //        Debug.Log("Before change: " + dicebox.DiceAmoutEachTurn);
+        //        dicebox.DiceAmoutEachTurn = NEWGameManager.Instance.Pirate.NormalDiceCount + NEWGameManager.Instance.Pirate.UniqueDice.Count;
+        //        Debug.Log("After change: " + dicebox.DiceAmoutEachTurn);
+        //    }
+        //}
+
+
 
         //foreach (var skillSlot in Allslots)
         //{

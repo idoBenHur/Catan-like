@@ -12,7 +12,7 @@ public class NEWGameManager : MonoBehaviour
 
     [HideInInspector] public CharacterConfig Pirate { get; private set;}
 
-    [HideInInspector] public int levelsCompleted;
+    [HideInInspector] public int levelsCompleted = 0; 
 
     [HideInInspector] public List<GenericBoon> OwnedBoons { get; private set; }
 
@@ -38,6 +38,10 @@ public class NEWGameManager : MonoBehaviour
 
 
 
+    public void CompletedALevel()
+    {
+        levelsCompleted++;
+    }
 
     public void AddBoonToOwnedBoons(GenericBoon BoonToAdd)
     {

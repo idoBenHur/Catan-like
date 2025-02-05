@@ -280,8 +280,11 @@ public class BoardManager : MonoBehaviour
     public void StartGame()
     {
 
+        if(NEWGameManager.Instance.levelsCompleted > 0)
+        {
+            boonManager.GiveBoon();
 
-        boonManager.GiveBoon();
+        }
         FirstTurnPlacement();
 
     }

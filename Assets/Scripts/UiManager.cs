@@ -538,7 +538,7 @@ public class UiManager : MonoBehaviour
         if (playerWon == true)
 
         {
-            NEWGameManager.Instance.levelsCompleted++;
+            NEWGameManager.Instance.CompletedALevel();
             BoardManager.instance.boonManager.SaveBoonsForNextLevel();
             VictoryScreen.SetActive(true);
 

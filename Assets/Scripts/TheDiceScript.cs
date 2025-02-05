@@ -31,7 +31,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [HideInInspector] public AbstractSkillSlot currentSlot;
 
 
-    public GenericBoon specialDie;
+    public GenericBoon DieEffecttType;
 
 
     private void Awake()
@@ -48,7 +48,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         DraggableActive = true;
         ChangeDieParent(transform.parent); //inital paraen set
 
-        specialDie = diceEffect;
+        DieEffecttType = diceEffect;
 
         PickNumber(ForcedResult);
 
@@ -74,10 +74,10 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         DiceRollAnimation.NewAnimation(DieResult);
 
 
-        if (specialDie != null)
+        if (DieEffecttType != null)
         {
             // DiceImage.sprite = specialDie.boonImage; // Will work nice with new assets!
-            visualInstance.GetComponent<Image>().color = specialDie.boonColor;
+            visualInstance.GetComponent<Image>().color = DieEffecttType.boonColor;
         }
 
 
@@ -90,9 +90,9 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void PlayDice()
     {
         // 
-        if (specialDie != null)
+        if (DieEffecttType != null)
         {
-            specialDie.Activate2();
+            DieEffecttType.Activate2();
         }
     }
 

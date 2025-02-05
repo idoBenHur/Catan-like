@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 137b6d16af766c54f9eb662156b67ed0, type: 3}
-  m_Name: Captain Vanilla
+  m_Name: C_Vanilla
   m_EditorClassIdentifier: 
+  description: 'Captain Vanilla plays it safe and stacks the odds in his favor.
+
+    He
+    prefers careful planning over reckless gambles, ensuring he always has the right
+    roll when it matters most.'
+  AbilitiesTXT: "<b>Bank slot</b>  -  Can save one die to use in the next turn.\n\n<b>Bonus
+    resource die</b> \u2013 His special die grants a random resource when played."
   PirateName: Captain Vanilla
   pirateImage: {fileID: 21300000, guid: a4912693f47371c4b8d6c02f10607a80, type: 3}
-  description: 'Captain Vanilla plays it safe, favoring careful planning over reckless
-    gambles. While other captains throw caution to the wind, he stacks the odds in
-    his favor, patiently setting up for the perfect roll. '
   NormalDiceCount: 3
   UniqueSlot: {fileID: 4395981155249998767, guid: 03ca3636e14f8204cb497b766a142bcf, type: 3}
   UniqueDice:

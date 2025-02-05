@@ -195,7 +195,7 @@ public class BoonManager : MonoBehaviour
 
 
 
-
+            dicebox.DiceAmoutEachTurn++;
             dicebox.AddSpecialDiceToPool(selectedBoon);
             AvailableBoons.Remove(selectedBoon);
             activeBoons.Add(selectedBoon);

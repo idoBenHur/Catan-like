@@ -14,7 +14,8 @@ public enum SkillName
     PlayDice,
     Bank,
     Boons,
-    SplitDie
+    SplitDie,
+    DieCash
     // Add more skill types as needed
 }
 
@@ -26,7 +27,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     public bool DestroyDiceInsideUponRoll = true;
     [HideInInspector] public int MaxDiceCap;
 
-    protected int MaxUsesPerTurn = -1;
+    protected int MaxUsesPerTurn = -1; //if this remin at its defult -1, it will have unlimited uses
     private int remainingUsesThisTurn;
     private Image slotImage;
     private Color originalColor;
@@ -157,7 +158,7 @@ public abstract class AbstractSkillSlot : MonoBehaviour, IDropHandler
     }
 
 
-    public void UseSlot()
+    public void UseSlot() // reduse useges in slot
     {
         if (MaxUsesPerTurn != -1)
         {

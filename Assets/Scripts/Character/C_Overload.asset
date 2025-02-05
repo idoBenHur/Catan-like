@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 137b6d16af766c54f9eb662156b67ed0, type: 3}
+  m_Name: C_Overload
+  m_EditorClassIdentifier: 
+  description: "For Captain Overload, quantity beats quality. He starts with just
+    two dice, but his ability to break down big rolls into many small ones lets him
+    flood the board. Play him right, and he\u2019ll turn a single turn into a rolling
+    frenzy."
+  AbilitiesTXT: "<b>Dice Cash-out</b> \u2013 Converts a die into multiple dice of
+    1s\n\n<b>Rolling Spree</b> - His special die grants an extra die when played."
+  PirateName: Captain Overload
+  pirateImage: {fileID: 21300000, guid: a4912693f47371c4b8d6c02f10607a80, type: 3}
+  NormalDiceCount: 1
+  UniqueSlot: {fileID: 276071410334487500, guid: a381ad245b8e30a4bbf815a8e2869d55, type: 3}
+  UniqueDice:
+  - {fileID: 11400000, guid: 6d34b8a45593d9e4090dd4f9e613316d, type: 2}

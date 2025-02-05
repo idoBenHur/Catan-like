@@ -11,6 +11,8 @@ public class CharacterSelect : MonoBehaviour
     [SerializeField] private Image pirateImage;
     [SerializeField] private TextMeshProUGUI pirateNameText;
     [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private TextMeshProUGUI AbilitiesText;
+
     [SerializeField] private Transform diceParent;
     [SerializeField] private Transform slotParent;
     [SerializeField] private Sprite[] diceSprites;
@@ -79,6 +81,7 @@ public class CharacterSelect : MonoBehaviour
         pirateNameText.text = currentPirate.PirateName;
         descriptionText.text = currentPirate.description;
         pirateImage.sprite = currentPirate.pirateImage;
+        AbilitiesText.text = currentPirate.AbilitiesTXT;
 
         // slotIcon.sprite = currentPirate.slotIcon;
 

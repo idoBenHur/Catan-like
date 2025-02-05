@@ -75,8 +75,8 @@ public class SplitDie_Skill : AbstractSkillSlot
         }
 
 
-        TheDiceBox.SpawnADie(DieToSplit.specialDie, half1);
-        TheDiceBox.SpawnADie(DieToSplit.specialDie, half2);
+        TheDiceBox.SpawnADie(DieToSplit.DieEffecttType, half1);
+        TheDiceBox.SpawnADie(DieToSplit.DieEffecttType, half2);
 
 
 

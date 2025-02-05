@@ -6,7 +6,7 @@ using UnityEngine;
 public class DiceBox_Skill : AbstractSkillSlot
 {
     [SerializeField] private GameObject DicePrefab;
-    private int DiceAmoutEachTurn;
+    public int DiceAmoutEachTurn;
     private AbstractSkillSlot bankSlot;
     private List<GenericBoon> SpecialDicePool = new List<GenericBoon>();
     private GenericBoon NormalDie;
@@ -15,7 +15,7 @@ public class DiceBox_Skill : AbstractSkillSlot
     private void Start()
     {
         MaxDiceCap = 200;
-        DiceAmoutEachTurn = 4;
+        DiceAmoutEachTurn = NEWGameManager.Instance.Pirate.NormalDiceCount + NEWGameManager.Instance.Pirate.UniqueDice.Count;
 
 
         // Add an empty "normal die" to the pool as a default

@@ -8,9 +8,16 @@ public class CharacterConfig : ScriptableObject
 
     [Header("Character Properties")]
 
+    [TextArea(5, 10)]
+    public string description;
+
+    [TextArea(3, 10)]
+    public string AbilitiesTXT;
+
+
     public string PirateName;
     public Sprite pirateImage;
-    public string description;
+    
     public int NormalDiceCount;
 
 
