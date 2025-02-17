@@ -17,7 +17,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private Canvas canvas;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
-    public Sprite[] DiceSides;
+    public Sprite[] DiceSides; // old?
 
     private GameObject diceVisualsParent;
     private GameObject visualInstance;

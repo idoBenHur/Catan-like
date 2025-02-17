@@ -17,6 +17,7 @@ public class CharacterConfig : ScriptableObject
 
     public string PirateName;
     public Sprite pirateImage;
+    public Color pirateColor = new Color(1f, 1f, 1f, 1f);
     
     public int NormalDiceCount;
 

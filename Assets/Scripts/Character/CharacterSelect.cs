@@ -81,6 +81,7 @@ public class CharacterSelect : MonoBehaviour
         pirateNameText.text = currentPirate.PirateName;
         descriptionText.text = currentPirate.description;
         pirateImage.sprite = currentPirate.pirateImage;
+        pirateImage.color = currentPirate.pirateColor;
         AbilitiesText.text = currentPirate.AbilitiesTXT;
 
         // slotIcon.sprite = currentPirate.slotIcon;

@@ -21,6 +21,6 @@ MonoBehaviour:
   PirateName: Captain Overload
   pirateImage: {fileID: 21300000, guid: a4912693f47371c4b8d6c02f10607a80, type: 3}
   NormalDiceCount: 1
-  UniqueSlot: {fileID: 276071410334487500, guid: a381ad245b8e30a4bbf815a8e2869d55, type: 3}
+  UniqueSlot: {fileID: 8234591046649701195, guid: a381ad245b8e30a4bbf815a8e2869d55, type: 3}
   UniqueDice:
   - {fileID: 11400000, guid: 6d34b8a45593d9e4090dd4f9e613316d, type: 2}
