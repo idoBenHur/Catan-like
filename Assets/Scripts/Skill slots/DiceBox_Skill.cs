@@ -61,7 +61,7 @@ public class DiceBox_Skill : AbstractSkillSlot
 
         for (int i = 0; i < SpecialDicePool.Count && diceLeftToSpawn > 0; i++)
         {
-            SpawnADie(SpecialDicePool[i]);
+            SpawnADie(SpecialDicePool[i], SpecialDicePool[i].PermanentNumberOrNull); // if the boon has a "Permanent number" difned, it will spawns with this number. otherwise "PermanentNumberOrNull" is defulted to be null
             diceLeftToSpawn--;
         }
 

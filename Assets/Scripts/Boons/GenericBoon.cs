@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 
 [System.Serializable]
@@ -137,6 +138,8 @@ public class GenericBoon : ScriptableObject
     [TextArea(3, 10)] public string description;
     public Sprite boonImage;
     public Color boonColor = Color.white;  // Default color is white
+    [SerializeField] private int PermanentNumber = -1; // Default is -1, which means "null"
+    public int? PermanentNumberOrNull => PermanentNumber == -1 ? null : PermanentNumber; // Returns null if -1, otherwise returns the number
 
 
 

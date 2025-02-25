@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137b6d16af766c54f9eb662156b67ed0, type: 3}
   m_Name: char_test 2
   m_EditorClassIdentifier: 
+  description: i REALLY like banana
+  AbilitiesTXT: 
   PirateName: second test
   pirateImage: {fileID: 21300000, guid: 21ad236bb412d2647b4d764de239373e, type: 3}
-  description: i REALLY like banana
+  pirateColor: {r: 1, g: 1, b: 1, a: 1}
   NormalDiceCount: 3
   UniqueSlot: {fileID: 681408411491309480, guid: c36bbfb1bdf8cc0429905ab90386ca97, type: 3}
   UniqueDice:
