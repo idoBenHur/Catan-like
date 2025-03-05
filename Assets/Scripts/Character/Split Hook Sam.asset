@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137b6d16af766c54f9eb662156b67ed0, type: 3}
   m_Name: Split Hook Sam
   m_EditorClassIdentifier: 
-  description: 
+  description: always roll 0
   AbilitiesTXT: 
   PirateName: Split-Hook Sam
-  pirateImage: {fileID: 0}
-  pirateColor: {r: 1, g: 1, b: 1, a: 1}
+  pirateImage: {fileID: 21300000, guid: a4912693f47371c4b8d6c02f10607a80, type: 3}
+  pirateColor: {r: 0.9245283, g: 0.9067177, b: 0.42301533, a: 1}
   NormalDiceCount: 2
   UniqueSlot: {fileID: 681408411491309480, guid: c36bbfb1bdf8cc0429905ab90386ca97, type: 3}
   UniqueDice:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 25115ae9620699e40a6c2d1df7de97b1, type: 2}

@@ -98,6 +98,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 40da3396537bb2b4db3426627da6b6b6, type: 3}
   - {fileID: 21300000, guid: d5eefb674beb30a478fa5782f1ffd541, type: 3}
   DiceImageChild: {fileID: 1382784795085520507, guid: d10cc5f97a9f3e040a721b5b5af284df, type: 3}
+  DieWithNumbersPrefab: {fileID: 5135542235034905542, guid: 7bef796d26e9cf042a0d7f01b08f6497, type: 3}
   DraggableActive: 1
   currentSlot: {fileID: 0}
   DieEffecttType: {fileID: 0}

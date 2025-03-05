@@ -1924,10 +1924,9 @@ MonoBehaviour:
   rightArrow: {fileID: 1074769157}
   pickButton: {fileID: 706055490}
   pirates:
-  - {fileID: 11400000, guid: 4d74b03e3df33f940b3a9d1f2d2d3876, type: 2}
-  - {fileID: 11400000, guid: 75380c2385d62de418b6d806657658e6, type: 2}
   - {fileID: 11400000, guid: 2f02b633bc56d474e9dc4898e4d75808, type: 2}
   - {fileID: 11400000, guid: a0bf4e34f3590d744a939689bd8f8518, type: 2}
+  - {fileID: 11400000, guid: d698dce04a442e44b9e4aae73412a812, type: 2}
 --- !u!4 &1753501809
 Transform:
   m_ObjectHideFlags: 0

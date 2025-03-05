@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ public class DiceRollAnimation : MonoBehaviour
 
 
 
-
+    
     private void Awake()
     {
         DiceImage = GetComponent<Image>();
@@ -60,10 +61,21 @@ public class DiceRollAnimation : MonoBehaviour
     }
 
 
-    public void NewAnimation(int DieResult)
+    public void NewAnimation(int DieResult, bool dieWithNumbers)
     {
+
+
+        if(dieWithNumbers == false)
+        {
+            DiceImage.sprite = DiceSides[DieResult - 1];
+        }
+        else
+        {
+            TextMeshProUGUI text = GetComponentInChildren<TextMeshProUGUI>();
+            text.text = DieResult.ToString();
+        }
         
-        DiceImage.sprite = DiceSides[DieResult - 1];
+        
 
         TheAnimationSequence = DOTween.Sequence();
 

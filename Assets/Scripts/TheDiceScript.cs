@@ -23,6 +23,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private GameObject visualInstance;
     private Vector3 visualInstanceOGScale;
     [SerializeField] private GameObject DiceImageChild;
+    [SerializeField] private GameObject DieWithNumbersPrefab;
     private DiceRollAnimation DiceRollAnimation;
 
 
@@ -32,6 +33,7 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
     public GenericBoon DieEffecttType;
+
 
 
     private void Awake()
@@ -50,6 +52,8 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         DieEffecttType = diceEffect;
 
+
+
         PickNumber(ForcedResult);
 
 
@@ -67,11 +71,32 @@ public class TheDiceScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 
         diceVisualsParent = GameObject.FindWithTag("DiceVisuals");
-        visualInstance = Instantiate(DiceImageChild, diceVisualsParent.transform);
-        visualInstanceOGScale = visualInstance.transform.localScale;
 
-        DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
-        DiceRollAnimation.NewAnimation(DieResult);
+        if(DieEffecttType.DieWithPermanentNumber == false ) // check if the boon has a preselected number
+        {
+            visualInstance = Instantiate(DiceImageChild, diceVisualsParent.transform);
+            visualInstanceOGScale = visualInstance.transform.localScale;
+            DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
+
+            DiceRollAnimation.NewAnimation(DieResult, false);
+
+        }
+
+        else
+        {
+
+            visualInstance = Instantiate(DieWithNumbersPrefab, diceVisualsParent.transform);
+            visualInstanceOGScale = visualInstance.transform.localScale;
+            DiceRollAnimation = visualInstance.GetComponent<DiceRollAnimation>();
+            DiceRollAnimation.NewAnimation(DieResult, true);
+
+        }
+
+
+
+
+
+
 
 
         if (DieEffecttType != null)
